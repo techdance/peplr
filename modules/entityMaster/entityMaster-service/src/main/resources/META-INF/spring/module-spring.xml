@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="com.collaborated.entity.service.impl.communicationPreferencesLocalServiceImpl" id="com.collaborated.entity.service.communicationPreferencesLocalService" />
+	<bean class="com.collaborated.entity.service.impl.communicationPreferencesServiceImpl" id="com.collaborated.entity.service.communicationPreferencesService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.communicationPreferencesPersistenceImpl" id="com.collaborated.entity.service.persistence.communicationPreferencesPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.languagePreferencesLocalServiceImpl" id="com.collaborated.entity.service.languagePreferencesLocalService" />
+	<bean class="com.collaborated.entity.service.impl.languagePreferencesServiceImpl" id="com.collaborated.entity.service.languagePreferencesService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.languagePreferencesPersistenceImpl" id="com.collaborated.entity.service.persistence.languagePreferencesPersistence" parent="basePersistence" />
+</beans>
