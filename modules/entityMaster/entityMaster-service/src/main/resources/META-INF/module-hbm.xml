@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.collaborated.entity.model.communicationPreferences" />
+	<import class="com.collaborated.entity.model.languagePreferences" />
+	<class name="com.collaborated.entity.model.impl.communicationPreferencesImpl" table="collaborated_communicationPreferences">
+		<id name="PK_communicationPreferences" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="primaryLanguageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="primaryLanguageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="secondaryLanguageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="secondaryLanguageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="tertiaryLanguageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="tertiaryLanguageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="phoneNumber" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="website" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.languagePreferencesImpl" table="collaborated_languagePreferences">
+		<id name="PK_languagePreferences" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="languageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

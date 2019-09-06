@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.collaborated.entity">
+	<namespace>collaborated</namespace>
+	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+	<entity local-service="true" name="languagePreferences" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_languagePreferences" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="languageName" type="String" />
+		
+	</entity>
+	
+	<entity local-service="true" name="communicationPreferences" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_communicationPreferences" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="primaryLanguageId" type="long" />
+		<column name="primaryLanguageName" type="String" />
+		<column name="secondaryLanguageId" type="long" />
+		<column name="secondaryLanguageName" type="String" />
+		<column name="tertiaryLanguageId" type="long" />
+		<column name="tertiaryLanguageName" type="String" />
+		<column name="emailAddress" type="String" />
+		<column name="phoneNumber" type="long" />
+		<column name="website" type="String" />
+
+	</entity>
+</service-builder>

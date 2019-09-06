@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.collaborated.entity.model.communicationPreferences">
+		<field name="PK_communicationPreferences" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="primaryLanguageId" type="long" />
+		<field name="primaryLanguageName" type="String" />
+		<field name="secondaryLanguageId" type="long" />
+		<field name="secondaryLanguageName" type="String" />
+		<field name="tertiaryLanguageId" type="long" />
+		<field name="tertiaryLanguageName" type="String" />
+		<field name="emailAddress" type="String" />
+		<field name="phoneNumber" type="long" />
+		<field name="website" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.languagePreferences">
+		<field name="PK_languagePreferences" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="languageName" type="String" />
+	</model>
+</model-hints>

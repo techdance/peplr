@@ -1,0 +1,9 @@
+Bundle-Name: entityMaster-api
+Bundle-SymbolicName: entitymaster.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	entitymaster.exception,\
+	entitymaster.model,\
+	entitymaster.service,\
+	entitymaster.service.persistence
+-includeresource: META-INF/service.xml=../entityMaster-service/service.xml
