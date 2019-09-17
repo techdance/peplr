@@ -14,7 +14,8 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.display-name=Registration_jsphook Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.resource-bundle=content.Language",
+		"javax.portlet.init-param.add-process-action-success-action=false",
+		"javax.portlet.resource-bundle=content.Language",		
 		"javax.portlet.security-role-ref=power-user,user"
 	},
 	service = Portlet.class

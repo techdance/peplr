@@ -44,6 +44,7 @@ if(comList.size()>0){
 
 <portlet:resourceURL var="savecommunicationForm" id="savecommunicationForm"></portlet:resourceURL>
 
+<div class="credentials box box-border-radius box-shadow bg-white">
 <div class="inner-wrap">
 	<div class="box-top position-relative">
 	    <h2 class="box-subhead mw-100"><i class="fas fa-user"></i>Communication Preferences</h2>
@@ -115,7 +116,7 @@ if(comList.size()>0){
 		</aui:button-row>
 	</aui:form>
 </div>
-
+</div>
 <script>
 var A= AUI();
 

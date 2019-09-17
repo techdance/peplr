@@ -93,7 +93,8 @@
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:message arguments="<%= HtmlUtil.escape(userPassword) %>" key="thank-you-for-creating-an-account.-your-password-is-x" translateArguments="<%= false %>" />
+									<liferay-ui:message arguments="<%= HtmlUtil.escape(userPassword) %>" key="thank-you-for-creating-an-account" translateArguments="<%= false %>" />
+									<%-- <liferay-ui:message arguments="<%= HtmlUtil.escape(userPassword) %>" key="thank-you-for-creating-an-account." translateArguments="<%= false %>" /> --%>
 								</c:otherwise>
 							</c:choose>
 
@@ -215,3 +216,12 @@
 		</aui:script>
 	</c:otherwise>
 </c:choose>
+
+
+<script>
+$(window).on('load', function() {
+	$(".taglib-text").text(function () {
+	    return $(this).text().replace("Create Account", "Sign Up"); 
+	});
+});
+</script>

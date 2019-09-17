@@ -161,8 +161,8 @@ birthdayCalendar.set(Calendar.YEAR, 1970);
 				<aui:option class="" value="Dr"> Dr </aui:option>
 				<aui:option class="" value="Miss"> Miss </aui:option>
 				<aui:option class="" value="Mr"> Mr </aui:option>
-				<aui:option class="" value="Ms"> Ms </aui:option> 
 				<aui:option class="" value="Mrs"> Mrs </aui:option>
+				<aui:option class="" value="Ms"> Ms </aui:option> 				
 				<aui:option class="" value="Mx"> Mx </aui:option>
 		     </aui:select>
 			</div>
@@ -237,6 +237,18 @@ return result;
 		<div class="wrap-input-icon icon-lock">
 		<aui:input label="" placeholder="password" name="password1" type="password" value="" cssClass="wrap-input">
 			<aui:validator name="required" />
+			<aui:validator  name="custom"  errorMessage="Password should contain atleast one (Uppercase Letter,lowercase Letter,Numeric digit and Symbol)" >                                                       
+          	function(val, fieldNode, ruleValue) {
+              var passwordPattern = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$^&*!~])");
+                           var result = passwordPattern.test(val);
+                                    if(result){
+                                             return result;
+                                        }else{
+                                               return result;
+                                            }
+                                    }
+           </aui:validator>
+           <aui:validator name="minLength">8</aui:validator>
 		</aui:input>
 		</div>
 		<div class="wrap-input-icon icon-lock">
@@ -299,5 +311,13 @@ $(window).on('load', function() {
 	$(".lfr-input-text ").addClass("field");
 	$(".lfr-input-text ").addClass("form-control");
 	$(".lfr-input-text ").addClass("lfr-input-text");
+});
+
+$( document ).ready(function() {
+	
+	$('.institute-name .lfr-input-text').on('focus blur', function (e) {
+		   $(this).parents('.lfr-ddm-field-group').toggleClass('show-label', (e.type === 'focus' || this.value.length > 0));
+		   //$('.form-validator-stack').parent(".control-group").addClass('error');
+		  }).trigger('blur');
 });
 </script>
