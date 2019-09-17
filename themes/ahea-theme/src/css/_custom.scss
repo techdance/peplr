@@ -7,8 +7,8 @@ body{
 	font-family: 'Merriweather Sans', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
-	line-height: 30px;
-	overflow-x: hidden;
+    line-height: 30px;
+    overflow-x: hidden;
 }
 a{
 	color:#0099ff;
@@ -19,6 +19,16 @@ a:hover{
 h1,h2,h3,h4,h5,h6{
 	margin:0px;
 	padding:0px;
+}
+.portlet-dropzone {
+    height: 100%;
+    .portlet-boundary, .portlet, .portlet-content-editable, .portlet-content-container, .portlet-body, .box {
+        height: 100%;
+    }
+    .portlet-content-editable {
+        padding: 0;
+        background: transparent;
+    }
 }
 div p:last-child{
 	margin-bottom:0px;
@@ -45,10 +55,10 @@ div p:last-child{
     margin-right: -11px;
     margin-left: -11px;
 }
-/* .row{
-	width:100%;
-} */
-.row .col, .row .col-1, .row .col-10, .row .col-11, .row .col-12, .row .col-2, .row .col-3, .row .col-4, .row .col-5, .row .col-6, .row .col-7, .row .col-8, .row .col-9, .row .col-auto, .row .col-lg, .row .col-lg-1, .row .col-lg-10, .row .col-lg-11, .row .col-lg-12, .row .col-lg-2, .row .col-lg-3, .row .col-lg-4, .row .col-lg-5, .row .col-lg-6, .row .col-lg-7, .row .col-lg-8, .row .col-lg-9, .row .col-lg-auto, .row .col-md, .row .col-md-1, .row .col-md-10, .row .col-md-11, .row .col-md-12, .row .col-md-2, .row .col-md-3, .row .col-md-4, .row .col-md-5, .row .col-md-6, .row .col-md-7, .row .col-md-8, .row .col-md-9, .row .col-md-auto, .row .col-sm, .row .col-sm-1, .row .col-sm-10, .row .col-sm-11, .row .col-sm-12, .row .col-sm-2, .row .col-sm-3, .row .col-sm-4, .row .col-sm-5, .row .col-sm-6, .row .col-sm-7, .row .col-sm-8, .row .col-sm-9, .row .col-sm-auto, .row .col-xl, .row .col-xl-1, .row .col-xl-10, .row .col-xl-11, .row .col-xl-12, .row .col-xl-2, .row .col-xl-3, .row .col-xl-4, .row .col-xl-5, .row .col-xl-6, .row .col-xl-7, .row .col-xl-8, .row .col-xl-9, .row .col-xl-auto {
+// .row{
+// 	width:100%;
+// }
+.row-custom .col, .row-custom .col-1, .row-custom .col-10, .row-custom .col-11, .row-custom .col-12, .row-custom .col-2, .row-custom .col-3, .row-custom .col-4, .row-custom .col-5, .row-custom .col-6, .row-custom .col-7, .row-custom .col-8, .row-custom .col-9, .row-custom .col-auto, .row-custom .col-lg, .row-custom .col-lg-1, .row-custom .col-lg-10, .row-custom .col-lg-11, .row-custom .col-lg-12, .row-custom .col-lg-2, .row-custom .col-lg-3, .row-custom .col-lg-4, .row-custom .col-lg-5, .row-custom .col-lg-6, .row-custom .col-lg-7, .row-custom .col-lg-8, .row-custom .col-lg-9, .row-custom .col-lg-auto, .row-custom .col-md, .row-custom .col-md-1, .row-custom .col-md-10, .row-custom .col-md-11, .row-custom .col-md-12, .row-custom .col-md-2, .row-custom .col-md-3, .row-custom .col-md-4, .row-custom .col-md-5, .row-custom .col-md-6, .row-custom .col-md-7, .row-custom .col-md-8, .row-custom .col-md-9, .row-custom .col-md-auto, .row-custom .col-sm, .row-custom .col-sm-1, .row-custom .col-sm-10, .row-custom .col-sm-11, .row-custom .col-sm-12, .row-custom .col-sm-2, .row-custom .col-sm-3, .row-custom .col-sm-4, .row-custom .col-sm-5, .row-custom .col-sm-6, .row-custom .col-sm-7, .row-custom .col-sm-8, .row-custom .col-sm-9, .row-custom .col-sm-auto, .row-custom .col-xl, .row-custom .col-xl-1, .row-custom .col-xl-10, .row-custom .col-xl-11, .row-custom .col-xl-12, .row-custom .col-xl-2, .row-custom .col-xl-3, .row-custom .col-xl-4, .row-custom .col-xl-5, .row-custom .col-xl-6, .row-custom .col-xl-7, .row-custom .col-xl-8, .row-custom .col-xl-9, .row-custom .col-xl-auto {
     padding-right: 11px;
     padding-left: 11px;
 }
@@ -405,18 +415,30 @@ div.item span{
 	font-weight: bold;
 	line-height: 12px;
 	max-width: 100px;
-	padding:12px 15px;
+	padding:12px 14px;
 	width: 100%;
 	border-radius: 7px;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	-ms-border-radius: 7px;
-	-o-border-radius: 7px;
+    -o-border-radius: 7px;
+    &:hover{
+        color:white;
+        opacity: .7;
+    }
+    &.btn-lg{
+        max-width:138px;
+    }
+    &.btn-w-100{
+        max-width:inherit;
+        width: inherit;
+    }
+    &.btn2{
+        font-size: 16px !important;
+        font-weight: normal !important;
+    }
 }
-.btn:hover{
-	color:white;
-	opacity: .7;
-}
+
 .btn-blue{
 	background:#299eff;
 }
@@ -1262,6 +1284,8 @@ section.wrap-profile .content-icon{
     bottom:0px;
     left: 0px;
     right: 0px;
+    width: 130px;
+    height: 130px;
 }
 .profile-info{
     color:black;
@@ -1416,9 +1440,6 @@ div.collaboration .content-icon.video{
         margin-bottom:10px;
     }
 }
-.portlet-column-content.empty {
-    padding: 0px;
-}
 .portlet-decorate .portlet-content .portlet-title-text {
     display: none;
 }
@@ -1434,18 +1455,31 @@ label .reference-mark {
 div#layout-column_column-4 {
     height: 100%;
 }
-.form-group label {
+
+.form-group label,
+.lfr-ddm-field-group .control-label {
     color: #000000;
     font-size: 16px;
     font-weight: 400;
     line-height: 18px;
 }
-.box-middle .form-group .form-control {
+.box-middle .form-group .form-control,
+.lfr-ddm-field-group .lfr-input-text {
     background-color: #ececec !important;
     border: 1px solid #d4d4d4;
     padding: 6px;
     line-height: 18px;
     border-radius: 0px;
+    color: #999999;
+    display: block;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    width: 100%;
+}
+.profile-status .lfr-ddm-field-group .lfr-input-text {
+    min-height: 74px;
+    padding: 12px 6px;
 }
 #wrap-logo-bottom a {
     height: auto;
@@ -1456,4 +1490,77 @@ div#layout-column_column-4 {
 }
 .background_transparent .portlet-content {
     background: transparent !important;
+}
+
+.wrap-range-label {
+    ul,  li {
+        display: inline-block;
+        list-style: none;
+        margin:0px;
+        padding:0px;
+    }
+    ul{
+        width:100%;
+    }
+    li{
+        text-align: center;
+        width:32%;
+    }
+}
+.wrap-range {
+    input{
+        width: 100%;
+    }
+}
+
+
+// Upload image
+.fileinput, .fileinput-preview {
+    width: 170px;
+    height: 170px;
+    background: #ccc;
+    border-radius: 50%;
+    position: relative;
+}
+.fileinput a.fileinput-exists {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    color: #000;
+    background: #fff;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 2px 1px #454545;
+}
+.fileinput-preview {
+    overflow: hidden;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .upload-file {
+        position: absolute;
+        z-index: 1;
+        input {
+            width: 170px;
+            height: 170px;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 1;
+        }
+    }
+    .upload-text {
+        color: #fff;
+        font-size: 20px;
+        z-index: 0;
+        opacity: .75;
+        i {
+            font-size: 65px;
+            margin-bottom: 5px;
+        }
+    }
 }

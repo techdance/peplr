@@ -63,10 +63,9 @@
 	</div>
 	
 </div>
-
+<script src="/o/ahea-theme/js/custom.js"></script>
 <script src="/o/ahea-theme/js/jquery.sortable.js"></script>
 <script src="/o/ahea-theme/js/perfect-scrollbar.js"></script>
-<script src="/o/ahea-theme/js/custom.js"></script>
 <@liferay_util["include"] page=body_bottom_include />
 
 <@liferay_util["include"] page=bottom_include />
