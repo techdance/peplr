@@ -76,3 +76,65 @@ jQuery(function() {
 		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
 	});
 });
+
+jQuery(function() {
+	jQuery(document).click(function () {
+        jQuery('.any-toltip').slideUp();
+	});
+	
+	jQuery("#btn-badges, .toltip-close a").click(function(e){
+		e.stopPropagation();
+		jQuery("#badges-toltip").slideToggle();
+		jQuery("#btn-badges .note").slideToggle();
+	});
+
+	jQuery("#btn-notification").click(function(e){
+		e.stopPropagation();
+		jQuery("#notification-toltip").slideToggle();
+		jQuery("#btn-notification .note").slideToggle();
+	});
+
+	jQuery(".toltip-close-details a.close-this").click(function(){
+		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
+	});
+
+	jQuery("#btn-email").click(function(e){
+		e.stopPropagation();
+		jQuery("#email-toltip").slideToggle();
+		jQuery("#btn-email .note").slideToggle();
+	});
+
+	jQuery("#btn-user").click(function(e){
+		e.stopPropagation();
+		jQuery("#user-toltip").slideToggle();
+	});
+
+	jQuery(".toltip-header-right a.icon-close").click(function(){
+		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
+	});
+	
+	jQuery(".box-top").click(function(e){
+		e.stopPropagation();
+		jQuery(this).find(".toltip2").slideToggle();
+	});
+
+	jQuery("a.btn-remove").click(function(e){
+		e.stopPropagation();
+		jQuery(this).closest(".col-lg-3").toggle("slide",{ direction: "left" }, 1000);
+	});
+
+	jQuery(".partner-img").click(function(e){
+		e.stopPropagation();
+		jQuery(this).find(".toltip3").slideToggle();
+	});
+
+	jQuery("#partner-search, .btn-close").click(function(e){
+		e.stopPropagation();
+		jQuery("#search-toltip").slideToggle();
+	});
+	jQuery('.datepicker').datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: 'dd-mm-yy'
+	});
+});
