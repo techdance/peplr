@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE layout-templates PUBLIC "-//Liferay//DTD Layout Templates 7.1.0//EN" "http://www.liferay.com/dtd/liferay-layout-templates_7_1_0.dtd">
+
+<layout-templates>
+	<custom>
+		<layout-template id="ahea-dashboard" name="AHEA_Dashboard">
+			<template-path>/ahea_dashboard.ftl</template-path>
+			<thumbnail-path>/ahea_dashboard.png</thumbnail-path>
+		</layout-template>
+	</custom>
+</layout-templates>
