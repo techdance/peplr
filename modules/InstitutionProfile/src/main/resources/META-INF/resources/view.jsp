@@ -5,6 +5,7 @@
 		<div class="inner-wrap position-relative">
 			<div class="box-top position-relative">
 				<h2 class="box-subhead"><i class="fas fa-comments"></i>Institution Profile</h2>
+				<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog" aria-hidden="true"></i></a>
 			</div>	
 			<div id="profile-map">
 				<div id="map"></div>

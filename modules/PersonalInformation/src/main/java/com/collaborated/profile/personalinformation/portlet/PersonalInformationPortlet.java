@@ -55,6 +55,7 @@ public class PersonalInformationPortlet extends MVCPortlet {
 		try{
 			out = resourceResponse.getWriter();
 			profileStatus = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("status");
+			String[] onlineStatus = (String[]) themeDisplay.getUser().getExpandoBridge().getAttribute("onlineStatus");
 			user = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
 			if(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId()!=0){
 				ListType listType = ListTypeServiceUtil.getListType(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId());
@@ -66,6 +67,7 @@ public class PersonalInformationPortlet extends MVCPortlet {
 			jsonObject.put("jobTitle", user.getJobTitle());
 			jsonObject.put("profileImage", themeDisplay.getUser().getPortraitURL(themeDisplay));
 			jsonObject.put("profileStatus", profileStatus);
+			jsonObject.put("onlineStatus",onlineStatus);
 			out.print(jsonObject);
 		}catch(Exception e){
 			

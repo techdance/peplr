@@ -32,6 +32,12 @@
             <p id="profileStatus"></p>
         </div>
     </div>
+    <a href="#" class="btn btn-blue position-absolute btn-edit-profile">
+	    <span class="position-relative">
+	        Edit Profile
+	        <span class="link-toltip">Profile 85% Complete</span>
+	    </span>
+	</a>
 </div>
 
 <script>

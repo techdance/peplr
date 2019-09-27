@@ -4,6 +4,7 @@
                                         <div class="inner-wrap">
                                             <div class="box-top position-relative">
                                                 <h2 class="box-subhead"><i class="fas fa-user"></i>Professional Bio</h2>
+                                                <a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog" aria-hidden="true"></i></a>
                                             </div>
                                             <div class="box-middle">
                                                 <div class="content-icon position-relative">

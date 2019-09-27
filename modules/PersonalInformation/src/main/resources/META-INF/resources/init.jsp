@@ -38,6 +38,11 @@ function loadUserInfo(){
          	                $("#user-profile").attr("src",data.profileImage);
          	               // $("#<portlet:namespace/>ExpandoAttribute--profileStatus--").val(data.profileStatus);
          	                $("#profileStatus").text(data.profileStatus);
+         	                console.log(data.onlineStatus);
+         	                if(data.onlineStatus){
+         	                	
+         	                	
+         	                }
                  	   }
                     },error: function(){	             
                     }

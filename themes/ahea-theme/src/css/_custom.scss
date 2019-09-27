@@ -334,14 +334,13 @@ div.item span{
 }
 
 .table th{
-	font-size:12px;
-	font-weight:800;
-	text-align:center;
-	text-transform: uppercase;
+	font-size: 16px;
+    font-weight: inherit;
+    text-align: left;
+    text-transform: inherit;
 }
 .table tbody td{
-	font-size:12px;
-	font-weight:bold;
+	font-size:16px;
 	line-height: 18px;
 	vertical-align: middle;
 }
@@ -515,7 +514,6 @@ span.note .outer{
 .top-button .btn{width: 100px;}
 
 span.user-active{
-	background: #f09444;
 	border: 2px solid #fff;
 	border-radius: 50%;
 	-moz-border-radius: 50%;
@@ -1399,8 +1397,8 @@ div.collaboration .content-icon.video{
 }
 #profile-map{
     position: absolute;
-    top:10px;
-    right: 0px;
+    top:4px;
+    right: 35px;
     width: 200px;
     height:150px;
 }
@@ -2205,10 +2203,16 @@ a.button-lead{
 div#my-calendar-container .ui-datepicker {
     width: 100%;
 }
-
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    border: none !important;
+    background: transparent !important;
+    font-weight: inherit !important;
+}
 div#my-calendar-container {
 	.ui-widget.ui-widget-content {
 	    border: none;
+        padding: 0px !important;
+        width: 100%;
 	    .ui-datepicker-header {
 		    background-color: transparent;
 		    border: none;
@@ -2218,6 +2222,9 @@ div#my-calendar-container {
 			    font-weight: 500;
 		        margin: 0 1.3em;
     			line-height: 1.3em;
+    			.ui-datepicker-year {
+				    display: block;
+				}
 			}
 		}
 		.ui-datepicker-calendar{
@@ -2227,13 +2234,14 @@ div#my-calendar-container {
 				 	   color: #597a96 !important;
 					    font-weight: normal !important;
 					    font-size: 15px;
+					        padding: .7em 0em !important;
 					}
 				}
 			}
 			tbody{
 				tr{
 					td{
-					    padding: 5px 1px;
+					    padding: 5px 0px;
 						a.ui-state-default {							
 					        border: none !important;
 						    background: transparent;
@@ -2243,9 +2251,9 @@ div#my-calendar-container {
 						    font-size: 15px;
 						    text-align: center !important;
 						    padding: 0px 0px;
-						    width: 26px;
-						    line-height: 26px;
-						    height: 26px;
+						    width: 32px;
+						    line-height: 32px;
+						    height: 32px;
 						}
 						a.ui-state-active{
 							    border: 1px solid #ff6624 !important;
@@ -2289,4 +2297,34 @@ div#my-calendar-container {
 }
 .ui-datepicker .ui-datepicker-next span{
 	display:none !important;
+}
+.ui-widget {
+    font-family: 'Merriweather Sans',sans-serif !important;
+}
+.link-toltip {
+    background: #f3983e;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    display: none;
+    left: -182px;
+    padding: 13px 15px;
+    position: absolute;
+    top: -11px;
+}
+.btn:hover .link-toltip {
+    display: block;
+}
+.btn:hover {
+    background: black;
+    color: white;
+    opacity: 1;
+}
+.Offline-status .user-active {
+    background: #ff993e;
+}
+.Online-status .user-active {
+    background: #339900;
 }

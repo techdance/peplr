@@ -31,8 +31,8 @@
 					 	</div>
 					</div>
 					<div class="col-md-6">
-						<aui:select name="prefixValue" label="" placeholder="" required="true" cssClass="wrap-input">
-							<aui:option class="" value="">Prefix</aui:option> 
+						<aui:select name="prefixValue" label="Prefix" placeholder="" required="true" cssClass="wrap-input">
+							<aui:option class="" value=""></aui:option> 
 							<aui:option class="" value="dr"> Dr </aui:option>
 							<aui:option class="" value="miss"> Miss </aui:option>
 							<aui:option class="" value="mr"> Mr </aui:option>
@@ -41,7 +41,7 @@
 							<aui:option class="" value="mx"> Mx </aui:option>
 						</aui:select>
 						
-						<aui:input type="text" name="firstName" id="firstName" label="" placeholder="First Name (50 character maximum)" cssClass="wrap-input">
+						<aui:input type="text" name="firstName" id="firstName" label="First Name" placeholder="" cssClass="wrap-input">
 							<aui:validator name="required" />
 							<aui:validator errorMessage="Please enter valid first name" name="custom" >
 							function(val, fieldNode, ruleValue) {                         
@@ -60,7 +60,7 @@
 							</aui:validator> 
 						</aui:input>
 						
-						<aui:input name="lastName" id="lastName" label="" placeholder="Last Name" cssClass="wrap-input">
+						<aui:input name="lastName" id="lastName" label="Last Name" placeholder="" cssClass="wrap-input">
 							<aui:validator name="required" />
 						    <aui:validator errorMessage="Please enter valid last name" name="custom">
 						   	function(val, fieldNode, ruleValue) {                         
@@ -79,7 +79,7 @@
 						    </aui:validator>
 						</aui:input>
 						
-						<aui:input name="jobTitle" id="jobTitle" label="" placeholder="Title" cssClass="wrap-input">
+						<aui:input name="jobTitle" id="jobTitle" label="Title" placeholder="" cssClass="wrap-input">
 							<aui:validator name="required" />
 						</aui:input>
 					</div>
@@ -92,6 +92,16 @@
 			        editable="<%= true %>"
 			        label="<%= true %>"
 			        name="status"
+			    />
+			</div>	
+			
+			<div class="wrap-input-icon wrap-input online-status">
+				<liferay-ui:custom-attribute
+			        className="<%= User.class.getName() %>"
+			        classPK="<%= 0 %>"
+			        editable="<%= true %>"
+			        label="<%= true %>"
+			        name="onlineStatus"
 			    />
 			</div>		
 			
@@ -148,6 +158,7 @@ $(document).ready(function(){
 $(window).on('load', function() {
 	$(".profile-status").find("textarea").css({"width":"100%","height":"0px"});
 	$(".profile-status").find("span.control-label").text("Status");
+	$(".online-status").find("span.control-label").text("Availability Status");
 });
 
 function readURL(input) {
