@@ -2,9 +2,11 @@ AUI().ready(
 	'liferay-hudcrumbs', 'liferay-navigation-interaction', 'liferay-sign-in-modal',
 	function(A) {
 	
-		$(".form-control").val("");
-		
-		
+		$(".wrap-input-icon .form-control").val("");
+		$('.wrap-input-icon .form-control').attr('autocomplete','off');
+		$('.wrap-input-icon .form-control').click(function() {
+		    $('.form-control').attr('value', '');  
+		});
 	}
 );
 
@@ -18,7 +20,11 @@ Liferay.Portlet.ready(
 		*/
 
 		function(portletId, node) {
-			$(".form-control").val("");
+			$(".wrap-input-icon .form-control").val("");
+			$('.wrap-input-icon .form-control').attr('autocomplete','off');
+			$('.wrap-input-icon .form-control').click(function() {
+			    $('.form-control').attr('value', '');  
+			});
 		}
 	);
 
@@ -31,6 +37,10 @@ Liferay.on(
 	*/
 	
 	function() {
-		$(".form-control").val("");
+		$(".wrap-input-icon .form-control").val("");
+		$('.wrap-input-icon .form-control').attr('autocomplete','off');
+		$('.wrap-input-icon .form-control').click(function() {
+		    $('.form-control').attr('value', '');  
+		});
 	}
 );

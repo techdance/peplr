@@ -320,4 +320,47 @@ $( document ).ready(function() {
 		   //$('.form-validator-stack').parent(".control-group").addClass('error');
 		  }).trigger('blur');
 });
+
+
+$(function(){
+	$(".institute-name .lfr-ddm-field-group.field-wrapper").append("<div class='form-validator-stack help-block' id='pqai___instituteNameHelperClass'><div role='alert' class='required' style='color: #dc3545;'>This field is required.</div></div>");
+	$("#pqai___instituteNameHelperClass").css("display","none");
+	function createAccount(event) {
+    	var instituteName = $('#pqai___instituteName').val();
+    	if(instituteName==""){
+    		$("#pqai___instituteNameHelperClass").css("display","block");
+    		return false;
+    	}        
+    }
+    $('.wrap-input-submit button').click(createAccount);
+    $("#pqai___instituteName").keydown(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").keypress(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").keyup(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    	        $("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").blur(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+});
+
 </script>
+
+
+
+

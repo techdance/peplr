@@ -179,12 +179,13 @@ function updateProfileInformation(){
             		   //$("#wait").show();
             	   },
             	   complete: function(data){
-            		   debugger;            	
-            		   if(data.details[1].responseText=="update"){
+            		   debugger;   
+            		   showMsg("Updated successfully");
+            		   /* if(data.details[1].responseText=="update"){
             			   showMsg("Updated successfully");
             		   }else{
             			   showMsg("Not saved");
-            		   }
+            		   } */
             		   loadUserInfo();
                    },
                    failure:function(data){
