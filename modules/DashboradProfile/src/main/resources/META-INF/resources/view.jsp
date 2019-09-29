@@ -39,10 +39,10 @@ for (String s: onlineStatus) {
 <script>
 $(window).on('load', function() {
 	debugger;
-	if("<%=status %>"=='Offline' && "<%=status %>"!=''){
+	if("<%=status %>"=='Private' && "<%=status %>"!=''){
 		$(".profile-image").addClass("Offline-status");
 	}
-	if("<%=status %>"=='Online' && "<%=status %>"!=''){
+	if("<%=status %>"=='Public' && "<%=status %>"!=''){
 		$(".profile-image").addClass("Online-status");
 	}
 });

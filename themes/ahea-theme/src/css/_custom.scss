@@ -119,7 +119,7 @@ div p:last-child{
 }
 .top .hello,
 .top .hello a{
-	color:#ff993e !important;
+	color:#ff993e;
 	font-size:10px;
 	font-weight: bold;
 	line-height: 10px;
@@ -2327,4 +2327,58 @@ div#my-calendar-container {
 }
 .Online-status .user-active {
     background: #339900;
+}
+#signOutModal .modal-content {
+	border:1px solid #2a9eff;
+    background: rgba(0, 0, 0, 0.8);
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    overflow: hidden;
+    text-align: center;
+}
+#signOutModal .modal-dialog {
+    max-width: 360px;
+    margin: 1.75rem auto;
+    position: initial !important;
+}
+#signOutModal h2{
+	font-family: 'Merriweather Sans', sans-serif;
+	font-size: 36px;
+	font-weight: bold;
+	margin-bottom: 14px;
+}
+#signOutModal .modal-footer{
+	background: #fff;
+	border:0px;
+	display: flex;
+	justify-content: space-around;
+	margin-top: 12px;
+	padding: 0px
+}
+#signOutModal .modal-footer .btn-footer{
+	background: #2a9eff;
+	border:0px;
+	color:white;
+	font-size: 18px;
+	padding:4px;
+	width: 49.6%;
+    font-weight: 400;
+}
+#signOutModal .modal-footer button:hover{
+	cursor:pointer;
+}
+#signOutModal .modal-footer > :not(:last-child) {
+    margin-right: 0;
+}
+#signOutModal .modal-footer > :not(:first-child) {
+    margin-left: 0.15rem;
+}
+
+#signOutModal .sign-out-logo{
+	margin-top:6px;
+	margin-bottom:13px;
+}
+.modal{
+	display:none;
 }

@@ -84,7 +84,8 @@ function loadUserInfo(){
          	               // $("#<portlet:namespace/>ExpandoAttribute--profileStatus--").val(data.profileStatus);
          	                //$("input[id*='profileStatus']").val(data.profileStatus);
          	                $(".profile-status").find("textarea").val(data.profileStatus);
-         	                $("input[name=_com_collaborated_editprofile_personalinformation_portlet_ProfilePersonalInformationPortlet_INSTANCE_kxHcNsPF06bZ_ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
+         	                $("input[name=_com_collaborated_editprofile_personalinformation_portlet_ProfilePersonalInformationPortlet_INSTANCE_iQDtPDL7loWf_ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
+         	              // $("input[name=<portlet:namespace/>ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
                  	   }
                     },error: function(){	             
                     }

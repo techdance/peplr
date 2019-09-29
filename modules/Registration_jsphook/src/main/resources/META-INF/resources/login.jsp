@@ -161,7 +161,7 @@
 					%>
 					
 					<div class="wrap-input-icon icon-envelope">
-						<aui:input autoFocus="<%= windowState.equals(LiferayWindowState.EXCLUSIVE) || windowState.equals(WindowState.MAXIMIZED) %>" cssClass="clearable" label="<%= loginLabel %>" name="login" showRequiredLabel="<%= false %>" type="text" value="<%= login %>" placeholder="Email Address">
+						<aui:input autoFocus="<%= windowState.equals(LiferayWindowState.EXCLUSIVE) || windowState.equals(WindowState.MAXIMIZED) %>" cssClass="clearable" label="<%= loginLabel %>" name="login" showRequiredLabel="<%= false %>" type="text" value="" placeholder="Email Address">
 							<aui:validator name="required" />
 						</aui:input>
 					</div>

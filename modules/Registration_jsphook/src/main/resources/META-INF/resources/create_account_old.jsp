@@ -327,7 +327,7 @@ $( document ).ready(function() {
 });
 
 
-$(function(){
+/* $(function(){
 	$(".institute-name .lfr-ddm-field-group.field-wrapper").append("<div class='form-validator-stack help-block' id='pqai___instituteNameHelperClass'><div role='alert' class='required' style='color: #dc3545;'>This field is required.</div></div>");
 	$("#pqai___instituteNameHelperClass").css("display","none");
 	function createAccount(event) {
@@ -362,7 +362,7 @@ $(function(){
     		$("#pqai___instituteNameHelperClass").css("display","none");
     	}
     });
-});
+}); */
 
 </script>
 

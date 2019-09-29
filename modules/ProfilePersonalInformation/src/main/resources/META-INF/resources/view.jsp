@@ -158,7 +158,7 @@ $(document).ready(function(){
 $(window).on('load', function() {
 	$(".profile-status").find("textarea").css({"width":"100%","height":"0px"});
 	$(".profile-status").find("span.control-label").text("Status");
-	$(".online-status").find("span.control-label").text("Availability Status");
+	$(".online-status").find("span.control-label").text("Online Status");
 });
 
 function readURL(input) {

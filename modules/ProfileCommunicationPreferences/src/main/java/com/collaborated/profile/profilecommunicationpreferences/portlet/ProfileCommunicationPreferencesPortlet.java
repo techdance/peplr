@@ -2,6 +2,7 @@ package com.collaborated.profile.profilecommunicationpreferences.portlet;
 
 import com.collaborated.entity.model.communicationPreferences;
 import com.collaborated.entity.service.communicationPreferencesLocalServiceUtil;
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
@@ -19,6 +20,9 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.portlet.Portlet;
@@ -62,8 +66,8 @@ public class ProfileCommunicationPreferencesPortlet extends MVCPortlet {
 			List<communicationPreferences> communicationPreferences = communicationPreferencesLocalServiceUtil.dynamicQuery(dynamicQuery);
 			if(communicationPreferences.size()>0){
 				jsonObject = JSONFactoryUtil.createJSONObject();
-				jsonObject.put("primaryLanguage_Communication", communicationPreferences.get(0).getPrimaryLanguageName());
-				jsonObject.put("secondaryLanguage_Communication", communicationPreferences.get(0).getSecondaryLanguageName());
+				jsonObject.put("primaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getPrimaryLanguageId()));
+				jsonObject.put("secondaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getSecondaryLanguageId()));
 				jsonObject.put("emailId_Communication", communicationPreferences.get(0).getEmailAddress());
 				jsonObject.put("phoneNumber_Communication", communicationPreferences.get(0).getPhoneNumber());
 				jsonObject.put("website_Communication", communicationPreferences.get(0).getWebsite());
@@ -76,5 +80,40 @@ public class ProfileCommunicationPreferencesPortlet extends MVCPortlet {
 				out.close();
 			}
 		}
+	}
+	
+	public String getLanguageName(long languageId) {
+		String languageName = "";		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try{
+			String query = "SELECT languageName FROM `collaborated_languagePreferences` WHERE `PK_languagePreferences`="+languageId;
+			conn = DataAccess.getConnection();
+			st = conn.prepareStatement(query);
+			rs = st.executeQuery(query);
+			if (rs != null) {
+				while (rs.next()) {
+					languageName = rs.getString("languageName");
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if(rs!=null){
+		    		rs.close();
+		    	}
+				if(st!=null){
+					st.close();
+		    	}
+				if(conn!=null){
+					conn.close();
+		    	}
+			}catch(Exception e){
+			}
+		}
+		
+		return languageName;
 	}
 }

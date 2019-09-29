@@ -110,10 +110,17 @@
 						</a>
 					</div>
 					<div class="top-icon hello">
-						<a href="#">
+						<a href="#"  id="btn-user" class="btn-menu">
 							<img class="img-circle img-border-blue" src="/o/ahea-theme/images/home-woman.jpg" alt="">
 							Hello, <%=themeDisplay.getUser().getFirstName() %>
 						</a>
+						<div id="user-toltip" class="toltip menu-toltip toltip-overlay any-toltip">
+							<ul>
+								<li><a href="#">My Profile</a></li>
+								<li><a href="#">Settings & Privacy</a></li>
+								<li><a href="javascript:void(0);" data-toggle="modal" data-target="#signOutModal">Sign Out</a></li>
+							</ul>
+						</div>
 					</div>
 					<div class="top-icon top-button">
 						<a href="#" class="btn btn-blue">Tour <i class="fas fa-forward"></i></a>
