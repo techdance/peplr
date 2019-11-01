@@ -34,6 +34,10 @@
 				<div id="wrap-logo">
 					<a href="#" #logo=""><img src="/o/ahea-theme/images/logo-a.png"><img class="group-hide" src="/o/ahea-theme/images/logo-b.png"></a>
 				</div>
+				<#--  <div class="wrap-menu-button px-3"><a href="#" id="menu-button-hide-show"><i class="fas fa-arrow-circle-left" aria-hidden="true"></i></a></div>   -->
+				<div class="top-icon icon-1">
+					<button id="menu-button-hide-show" class="visible-lg"><i class="fas fa-arrow-circle-left"></i></button>
+				</div>
 				<div id="sidebar-content" class="aux">
 					<#include "${full_templates_path}/navigation.ftl" />
 				</div>

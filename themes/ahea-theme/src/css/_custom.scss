@@ -51,13 +51,13 @@ div p:last-child{
 	padding-bottom: 0px;
 	width:100%;
 }
-.row {
+.row-custom {
     margin-right: -11px;
     margin-left: -11px;
 }
-// .row{
-// 	width:100%;
-// }
+/*.row{
+	width:100%;
+ }*/
 .row-custom .col, .row-custom .col-1, .row-custom .col-10, .row-custom .col-11, .row-custom .col-12, .row-custom .col-2, .row-custom .col-3, .row-custom .col-4, .row-custom .col-5, .row-custom .col-6, .row-custom .col-7, .row-custom .col-8, .row-custom .col-9, .row-custom .col-auto, .row-custom .col-lg, .row-custom .col-lg-1, .row-custom .col-lg-10, .row-custom .col-lg-11, .row-custom .col-lg-12, .row-custom .col-lg-2, .row-custom .col-lg-3, .row-custom .col-lg-4, .row-custom .col-lg-5, .row-custom .col-lg-6, .row-custom .col-lg-7, .row-custom .col-lg-8, .row-custom .col-lg-9, .row-custom .col-lg-auto, .row-custom .col-md, .row-custom .col-md-1, .row-custom .col-md-10, .row-custom .col-md-11, .row-custom .col-md-12, .row-custom .col-md-2, .row-custom .col-md-3, .row-custom .col-md-4, .row-custom .col-md-5, .row-custom .col-md-6, .row-custom .col-md-7, .row-custom .col-md-8, .row-custom .col-md-9, .row-custom .col-md-auto, .row-custom .col-sm, .row-custom .col-sm-1, .row-custom .col-sm-10, .row-custom .col-sm-11, .row-custom .col-sm-12, .row-custom .col-sm-2, .row-custom .col-sm-3, .row-custom .col-sm-4, .row-custom .col-sm-5, .row-custom .col-sm-6, .row-custom .col-sm-7, .row-custom .col-sm-8, .row-custom .col-sm-9, .row-custom .col-sm-auto, .row-custom .col-xl, .row-custom .col-xl-1, .row-custom .col-xl-10, .row-custom .col-xl-11, .row-custom .col-xl-12, .row-custom .col-xl-2, .row-custom .col-xl-3, .row-custom .col-xl-4, .row-custom .col-xl-5, .row-custom .col-xl-6, .row-custom .col-xl-7, .row-custom .col-xl-8, .row-custom .col-xl-9, .row-custom .col-xl-auto {
     padding-right: 11px;
     padding-left: 11px;
@@ -1458,12 +1458,14 @@ label .reference-mark {
 div#layout-column_column-4 {
     height: 100%;
 }
-
+.form-group {
+    margin-bottom: 10px;
+}
 .form-group label,
 .lfr-ddm-field-group .control-label {
     color: #000000;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 18px;
 }
 .box-middle .form-group .form-control,
@@ -2381,4 +2383,10 @@ div#my-calendar-container {
 }
 .modal{
 	display:none;
+}
+.ahea-profile-new .portlet-dropzone .portlet-boundary {
+    margin-bottom: 24px;
+}
+.ahea-profile-new .portlet-column {
+    margin-bottom: 24px;
 }
