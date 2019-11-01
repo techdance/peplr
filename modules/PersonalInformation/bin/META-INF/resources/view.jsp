@@ -19,11 +19,11 @@
             <div class="content-right">
                 <div class="profile-info profile-name">
                     <div class="title"><i class="fas fa-user"></i> Name</div>
-                    <div class="text color-black"><span id="prefixValue"></span> <span id="fullName"></span></div>
+                    <div class="text"><span id="prefixValue"></span> <span id="fullName"></span></div>
                 </div>
                 <div class="profile-info profile-title">
                     <div class="title"><i class="fa fa-users"></i> Title</div>
-                    <div class="text color-black" id="jobTitle"></div>
+                    <div class="text" id="jobTitle"></div>
                 </div>
             </div>
         </div>
@@ -32,6 +32,12 @@
             <p id="profileStatus"></p>
         </div>
     </div>
+    <a href="#" class="btn btn-blue position-absolute btn-edit-profile">
+	    <span class="position-relative">
+	        Edit Profile
+	        <span class="link-toltip">Profile 85% Complete</span>
+	    </span>
+	</a>
 </div>
 
 <script>

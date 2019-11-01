@@ -10,7 +10,7 @@
 	                                                <div class="col-md-6">
 	                                                	<h4 class="mb-3">Professional Memberships</h4>
 	                                                	<aui:input type="text" name="membership1" label="Membership &ndash; 1" value="American Assoc. of University Professors" cssClass="input" />
-	                                                	<aui:input type="text" name="membership2" label="Membership &ndash; 2" value="Spaish" cssClass="input" />
+	                                                	<aui:input type="text" name="membership2" label="Membership &ndash; 2" value="spanish" cssClass="input" />
 	                                                	<aui:input type="text" name="membership3" label="Membership &ndash; 3" value="" cssClass="input" />
 	                                                	<aui:input type="text" name="membership4" label="Membership &ndash; 4" value="PhD" cssClass="input" />
 	                                                </div>

@@ -1,9 +1,9 @@
 <%@ include file="/init.jsp" %>
 
 <section class="top">
-					<div class="top-icon icon-1">
-						<button id="menu-button-hide-show" class="visible-lg"><i class="fas fa-bars"></i></button>
-					</div>
+					<!--<div class="top-icon icon-1">
+						<button id="menu-button-hide-show" class="visible-lg"><i class="fas fa-arrow-circle-left"></i></button>
+					</div>-->
 					<div class="top-icon icon-1">
 						<a  id="btn-badges">
 							<img src="/o/ahea-theme/images/svg/Badges-Icon-1.svg" width="50" alt="">

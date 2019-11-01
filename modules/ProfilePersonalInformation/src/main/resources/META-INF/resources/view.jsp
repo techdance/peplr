@@ -79,7 +79,7 @@
 						    </aui:validator>
 						</aui:input>
 						
-						<aui:input name="jobTitle" id="jobTitle" label="Title" placeholder="" cssClass="wrap-input">
+						<aui:input name="jobTitle" id="jobTitle" label="Position" placeholder="" cssClass="wrap-input">
 							<aui:validator name="required" />
 						</aui:input>
 					</div>

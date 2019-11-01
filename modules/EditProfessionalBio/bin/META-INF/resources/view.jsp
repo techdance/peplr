@@ -10,7 +10,7 @@
 	                                                <div class="col-md-6">
 	                                                	<h4 class="mb-3">Areas Of Expertise</h4>
 	                                                	<aui:input type="text" name="areas-of-expertise1" label="Areas of Expertise &ndash; 1" value="American Assoc. of University Professors" cssClass="input" />
-	                                                	<aui:input type="text" name="areas-of-expertise2" label="Areas of Expertise &ndash; 2" value="Spaish" cssClass="input" />
+	                                                	<aui:input type="text" name="areas-of-expertise2" label="Areas of Expertise &ndash; 2" value="spanish" cssClass="input" />
 	                                                	<aui:input type="text" name="areas-of-expertise3" label="Areas of Expertise &ndash; 3" value="" cssClass="input" />
 	                                                    
 	                                                    <div class="form-group">

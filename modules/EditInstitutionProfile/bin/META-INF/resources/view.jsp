@@ -5,6 +5,9 @@
 											<div class="box-top position-relative">
                                                 <h2 class="box-subhead"><i class="fas fa-user"></i>Institution Profile</h2>
 											</div>
+											<div id="profile-map">
+												<div id="map"></div>
+											</div>
 											<div class="box-middle">
 												<div class="row row-custom">
 	                                                <div class="col-md-6">
@@ -20,3 +23,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTB30uKJgKRGvIVHavUEPKACPZkqkkifg&sensor=false"></script>
+<script>
+$( document ).ready(function() {
+	initMap();
+});
+$( window ).load(function() {
+	initMap();
+});
+initMap();
+function initMap() {
+  var culver = {lat: 34.021122, lng: -118.396469};
+  var map = new google.maps.Map(
+  document.getElementById('map'), {zoom: 14, center: culver});
+  var marker = new google.maps.Marker({position: culver, map: map});
+}
+</script>

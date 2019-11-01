@@ -1,5 +1,7 @@
 <%@ include file="/init.jsp" %>
+<%
 
+%>
 <div class="recommended box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
@@ -7,60 +9,10 @@
 			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 		</div>
 
-		<div class="box-middle">
-			<div class="item">
-				<div class="item-img partner-img position-relative">
-					<a href="javascript:void(0);"><img src="/o/ahea-theme/images/recom-img-1.jpg" alt=""></a>
-					<div class="toltip3 any-toltip">
-						<div class="d-flex">
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-1.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-2.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-3.png" width="50"></a>
-						</div>
-					</div>
-				</div>
-				<div class="item-text">
-					<span class="partner partner-name">Nicole Hodott, Ph.D.</span>
-					<span class="partner partner-title">Biomedical Engineer</span>
-					<span class="partner partner-university">University of Guelph</span>
-					<span class="partner partner-address">Guelph, Ontario, CA</span>
-				</div>
-			</div>
-			<div class="item">
-				<div class="item-img partner-img position-relative">
-					<a href="javascript:void(0);"><img src="/o/ahea-theme/images/recom-img-2.jpg" alt=""></a>
-					<div class="toltip3 any-toltip">
-						<div class="d-flex">
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-1.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-2.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-3.png" width="50"></a>
-						</div>
-					</div>
-				</div>
-				<div class="item-text">
-					<span class="partner partner-name">Alan Wang, M.D.</span>
-					<span class="partner partner-title">Medical Regulatory Chief</span>
-					<span class="partner partner-university">University of Texas at Austin</span>
-					<span class="partner partner-address">Austin, TX, USA</span>
-				</div>
-			</div>
-			<div class="item">
-				<div class="item-img partner-img position-relative">
-					<a href="javascript:void(0);"><img src="/o/ahea-theme/images/recom-img-3.jpg" alt=""></a>
-					<div class="toltip3 any-toltip">
-						<div class="d-flex">
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-1.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-2.png" width="50"></a>
-							<a href="#"><img src="/o/ahea-theme/images/contact-partner-3.png" width="50"></a>
-						</div>
-					</div>
-				</div>
-				<div class="item-text">
-					<span class="partner partner-name">Serjio Swalbach, Ph.D.</span>
-					<span class="partner partner-title">Professor of Bioethics </span>
-					<span class="partner partner-university">Humboldt University</span>
-					<span class="partner partner-address">Berlin, DE</span>
-				</div>
+		<div class="box-middle dashboardnews"> 
+			
+			<div id="showErrorMessage">
+			<p><a href="<%=themeDisplay.getURLPortal() %>/edit-profile">To view Recommended Partners, complete your Collaboration Interests on the Edit Profile screen.</a></p>
 			</div>
 		</div>
 

@@ -10,7 +10,7 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<parent>
-		<groupId>entitymaster</groupId>
+		<groupId>com.collaborated.entity</groupId>
 		<artifactId>entityMaster</artifactId>
 		<version>1.0.0</version>
 	</parent>

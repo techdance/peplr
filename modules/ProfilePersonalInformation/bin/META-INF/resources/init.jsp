@@ -72,6 +72,7 @@ function loadUserInfo(){
                     success:function()
                     {			                    	
                     	var value=this.get('responseData');	
+                    	debugger;
                     	if(value!=null && value!="undefined" && value!=undefined){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>firstName").val(data.firstName);
@@ -83,6 +84,8 @@ function loadUserInfo(){
          	               // $("#<portlet:namespace/>ExpandoAttribute--profileStatus--").val(data.profileStatus);
          	                //$("input[id*='profileStatus']").val(data.profileStatus);
          	                $(".profile-status").find("textarea").val(data.profileStatus);
+         	                $("input[name=_com_collaborated_editprofile_personalinformation_portlet_ProfilePersonalInformationPortlet_INSTANCE_iQDtPDL7loWf_ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
+         	              // $("input[name=<portlet:namespace/>ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
                  	   }
                     },error: function(){	             
                     }

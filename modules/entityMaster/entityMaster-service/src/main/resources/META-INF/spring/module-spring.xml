@@ -7,4 +7,7 @@
 	<bean class="com.collaborated.entity.service.impl.languagePreferencesLocalServiceImpl" id="com.collaborated.entity.service.languagePreferencesLocalService" />
 	<bean class="com.collaborated.entity.service.impl.languagePreferencesServiceImpl" id="com.collaborated.entity.service.languagePreferencesService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.languagePreferencesPersistenceImpl" id="com.collaborated.entity.service.persistence.languagePreferencesPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.profileAreaofinterestLocalServiceImpl" id="com.collaborated.entity.service.profileAreaofinterestLocalService" />
+	<bean class="com.collaborated.entity.service.impl.profileAreaofinterestServiceImpl" id="com.collaborated.entity.service.profileAreaofinterestService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.profileAreaofinterestPersistenceImpl" id="com.collaborated.entity.service.persistence.profileAreaofinterestPersistence" parent="basePersistence" />
 </beans>

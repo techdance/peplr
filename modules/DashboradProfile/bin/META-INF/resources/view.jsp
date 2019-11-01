@@ -1,5 +1,12 @@
 <%@ include file="/init.jsp" %>
-
+<%
+String[] onlineStatus = (String[]) themeDisplay.getUser().getExpandoBridge().getAttribute("onlineStatus");
+String status = "";
+for (String s: onlineStatus) {           
+    //Do your stuff here 
+    status = s;
+}
+%>
 <div class="box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
@@ -28,3 +35,15 @@
 		</div>
 	</div>
 </div>
+
+<script>
+$(window).on('load', function() {
+	debugger;
+	if("<%=status %>"=='Private' && "<%=status %>"!=''){
+		$(".profile-image").addClass("Offline-status");
+	}
+	if("<%=status %>"=='Public' && "<%=status %>"!=''){
+		$(".profile-image").addClass("Online-status");
+	}
+});
+</script>

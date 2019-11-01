@@ -46,6 +46,36 @@
 		<column name="emailAddress" type="String" />
 		<column name="phoneNumber" type="long" />
 		<column name="website" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="profileAreaofinterest" remote-service="true" json-enabled="true">
 
+		<!-- PK fields -->
+
+		<column name="PK_areaofinterest" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="projectType" type="String" />
+		<column name="description" type="String" />
+		<column name="discipline" type="String" />
+		<column name="language" type="String" />
+		<column name="location" type="String" />
+		<column name="campus" type="String" />
+		
+		<column name="programLevel" type="String" />
+		<column name="programLength" type="String" />
+		<column name="deliveryMethod" type="String" />
+		<column name="credits" type="String" />
 	</entity>
 </service-builder>

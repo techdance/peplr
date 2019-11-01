@@ -18,6 +18,7 @@ import com.collaborated.entity.model.languagePreferences;
 import com.collaborated.entity.service.languagePreferencesService;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
 import com.collaborated.entity.service.persistence.languagePreferencesPersistence;
+import com.collaborated.entity.service.persistence.profileAreaofinterestPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -166,6 +167,63 @@ public abstract class languagePreferencesServiceBaseImpl extends BaseServiceImpl
 	public void setlanguagePreferencesPersistence(
 		languagePreferencesPersistence languagePreferencesPersistence) {
 		this.languagePreferencesPersistence = languagePreferencesPersistence;
+	}
+
+	/**
+	 * Returns the profile areaofinterest local service.
+	 *
+	 * @return the profile areaofinterest local service
+	 */
+	public com.collaborated.entity.service.profileAreaofinterestLocalService getprofileAreaofinterestLocalService() {
+		return profileAreaofinterestLocalService;
+	}
+
+	/**
+	 * Sets the profile areaofinterest local service.
+	 *
+	 * @param profileAreaofinterestLocalService the profile areaofinterest local service
+	 */
+	public void setprofileAreaofinterestLocalService(
+		com.collaborated.entity.service.profileAreaofinterestLocalService profileAreaofinterestLocalService) {
+		this.profileAreaofinterestLocalService = profileAreaofinterestLocalService;
+	}
+
+	/**
+	 * Returns the profile areaofinterest remote service.
+	 *
+	 * @return the profile areaofinterest remote service
+	 */
+	public com.collaborated.entity.service.profileAreaofinterestService getprofileAreaofinterestService() {
+		return profileAreaofinterestService;
+	}
+
+	/**
+	 * Sets the profile areaofinterest remote service.
+	 *
+	 * @param profileAreaofinterestService the profile areaofinterest remote service
+	 */
+	public void setprofileAreaofinterestService(
+		com.collaborated.entity.service.profileAreaofinterestService profileAreaofinterestService) {
+		this.profileAreaofinterestService = profileAreaofinterestService;
+	}
+
+	/**
+	 * Returns the profile areaofinterest persistence.
+	 *
+	 * @return the profile areaofinterest persistence
+	 */
+	public profileAreaofinterestPersistence getprofileAreaofinterestPersistence() {
+		return profileAreaofinterestPersistence;
+	}
+
+	/**
+	 * Sets the profile areaofinterest persistence.
+	 *
+	 * @param profileAreaofinterestPersistence the profile areaofinterest persistence
+	 */
+	public void setprofileAreaofinterestPersistence(
+		profileAreaofinterestPersistence profileAreaofinterestPersistence) {
+		this.profileAreaofinterestPersistence = profileAreaofinterestPersistence;
 	}
 
 	/**
@@ -379,6 +437,12 @@ public abstract class languagePreferencesServiceBaseImpl extends BaseServiceImpl
 	protected languagePreferencesService languagePreferencesService;
 	@BeanReference(type = languagePreferencesPersistence.class)
 	protected languagePreferencesPersistence languagePreferencesPersistence;
+	@BeanReference(type = com.collaborated.entity.service.profileAreaofinterestLocalService.class)
+	protected com.collaborated.entity.service.profileAreaofinterestLocalService profileAreaofinterestLocalService;
+	@BeanReference(type = com.collaborated.entity.service.profileAreaofinterestService.class)
+	protected com.collaborated.entity.service.profileAreaofinterestService profileAreaofinterestService;
+	@BeanReference(type = profileAreaofinterestPersistence.class)
+	protected profileAreaofinterestPersistence profileAreaofinterestPersistence;
 	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)

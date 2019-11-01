@@ -18,16 +18,16 @@
                                   <i class="fas fa-map"></i><a href="#">Google Maps</a>
                           </div>
                           <div class="content-icon">
-                              <i class="far fa-building"></i> 4-year Institution
+                              <i class="far fa-building"></i><a href="#">4-year Institution</a>
                           </div>
                           <div class="content-icon">
                                   <i class="fas fa-globe"></i><a href="#">Boca Raton, FL USA</a>
                           </div>
                           <div class="content-icon">
-                              <i class="far fa-calendar-check"></i>Trimester
+                              <i class="far fa-calendar-check"></i><a href="#">Trimester</a>
                           </div>
                           <div class="content-icon">
-                                  <i class="fas fa-address-card"></i>Department of American Sign Language and Deaf Studies
+                                  <i class="fas fa-address-card"></i><a href="#">Department of American Sign Language and Deaf Studies</a>
                           </div>
                           <div class="content-icon with-title">
                               <h4>Research Papers</h4>

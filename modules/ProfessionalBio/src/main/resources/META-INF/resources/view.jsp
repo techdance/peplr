@@ -14,7 +14,7 @@
                                                     	<a href="#">Disabilities</a><br>
                                                     	<a href="#">Clinical Practices</a>
 													</p>
-													<a href="#" class="btn btn-blue" id="view-cv">View CV</a>
+													
                                                 </div>
                                                 <div class="content-icon">
                                                     <div>
@@ -30,6 +30,7 @@
                                                     <p><i class="fas fa-plane rotate320deg"></i><a href="#">1 - 2 Years of International Experience</a></p>
 
                                                 </div>
+                                                <a href="#" class="btn btn-blue" style="margin-top:30px;">View CV</a>
                                             </div>
                                         </div>
                                     </div>

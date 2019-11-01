@@ -4,6 +4,7 @@
 <hibernate-mapping auto-import="false" default-lazy="false">
 	<import class="com.collaborated.entity.model.communicationPreferences" />
 	<import class="com.collaborated.entity.model.languagePreferences" />
+	<import class="com.collaborated.entity.model.profileAreaofinterest" />
 	<class name="com.collaborated.entity.model.impl.communicationPreferencesImpl" table="collaborated_communicationPreferences">
 		<id name="PK_communicationPreferences" type="long">
 			<generator class="assigned" />
@@ -30,5 +31,24 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="languageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.profileAreaofinterestImpl" table="collaborated_profileAreaofinterest">
+		<id name="PK_areaofinterest" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="projectType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="discipline" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="language" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="location" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="campus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="programLevel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="programLength" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="deliveryMethod" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="credits" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

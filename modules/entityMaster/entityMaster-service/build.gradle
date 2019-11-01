@@ -10,4 +10,4 @@ buildService {
 	apiDir = "../entityMaster-api/src/main/java"
 }
 
-group = "entitymaster"
+group = "com.collaborated.entity"
