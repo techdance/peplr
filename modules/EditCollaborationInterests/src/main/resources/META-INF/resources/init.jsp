@@ -16,7 +16,7 @@
 .interest-modal{
 	background: white;
 	border: 1px solid rgb(232, 232, 232);
-	bottom:35px;
+	bottom:auto;
 	display: none;
 	font-size: 14px;
 	left: -10px;
@@ -24,6 +24,7 @@
 	padding:15px;
 	position: absolute;
 	z-index: 1;
+    margin-top: 68px;
 }
 
 .interest-modal{
@@ -92,18 +93,6 @@
 		}
 		.interest-modal {
 		    width: 465px;
-		}
-		.interest-modal {
-		    background: white;
-		    border: 1px solid rgb(232, 232, 232);
-		    bottom: 35px;
-		    display: none;
-		    font-size: 14px;
-		    left: -10px;
-		    line-height: 1.5;
-		    padding: 15px;
-		    position: absolute;
-		    z-index: 1;
 		}
 		.interest-modal .toltip-close2 {
 		    font-weight: bold;
@@ -352,4 +341,9 @@ function goToMatching(id){
 	         });
 		});
 }
+
+$(window).click(function(e) {
+    relativeY = (e.pageY - $('.editcollaboratedarea').offset().top);
+        $('#view-more-interest-modal').css('top',relativeY +"px");
+});
 </script>

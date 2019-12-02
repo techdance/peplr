@@ -10,3 +10,40 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<script>
+function loadUserCredential(){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='getCredentialData'/>"
+			,{
+               method: 'get',
+               data:{ 		            	   
+               },
+               sync : true, 
+               on:{
+            	   complete:function()
+             		{		            		   
+             		},
+                    success:function()
+                    {			                    	
+                    	var value=this.get('responseData');	
+                    	debugger;
+                    	if(value!=null && value!="undefined" && value!=undefined){
+                    		var data = JSON.parse(value);
+         	        		$("#<portlet:namespace/>membership1").val(data.membership1);
+         	                $("#<portlet:namespace/>membership2").val(data.membership2);
+         	                $("#<portlet:namespace/>membership3").val(data.membership3);
+         	                $("#<portlet:namespace/>membership4").val(data.membership4);         	            
+         	               	$("#<portlet:namespace/>certificate1").val(data.certificate1);
+         	              	$("#<portlet:namespace/>certificate2").val(data.certificate2);
+         	             	$("#<portlet:namespace/>certificate3").val(data.certificate3);
+                 	   }
+                    },error: function(){	             
+                    }
+				},
+
+	         });
+		});
+}
+
+</script>

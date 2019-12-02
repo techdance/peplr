@@ -12,7 +12,7 @@
 		<div class="box-middle">
 			<div class="row row-custom">
 				<div class="col-md-6">
-					<h4 class="mb-3">Areas of interest</h4>
+					<h4 class="mb-3">Areas of Interest</h4>
 					<div id="area-of-interest-block-profile"></div>
 					
 					<div id="view-more-interest-modal"	class="box-border-radius box-shadow interest-modal">

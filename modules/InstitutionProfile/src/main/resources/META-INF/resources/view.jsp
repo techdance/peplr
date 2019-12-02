@@ -10,29 +10,31 @@
 			<div id="profile-map">
 				<div id="map"></div>
 			</div>
-		 	<div class="box-middle">
-                          <div class="content-icon">
-                              <i class="fas fa-shield-alt"></i><a href="#">AHEA Institution</a>
-                          </div>
-                          <div class="content-icon">
-                                  <i class="fas fa-map"></i><a href="#">Google Maps</a>
-                          </div>
-                          <div class="content-icon">
-                              <i class="far fa-building"></i><a href="#">4-year Institution</a>
-                          </div>
-                          <div class="content-icon">
-                                  <i class="fas fa-globe"></i><a href="#">Boca Raton, FL USA</a>
-                          </div>
-                          <div class="content-icon">
-                              <i class="far fa-calendar-check"></i><a href="#">Trimester</a>
-                          </div>
-                          <div class="content-icon">
-                                  <i class="fas fa-address-card"></i><a href="#">Department of American Sign Language and Deaf Studies</a>
-                          </div>
-                          <div class="content-icon with-title">
-                              <h4>Research Papers</h4>
-                              <i class="far fa-file-pdf"></i><a href="#">Foundation of Empathy in Establishing Clinical Best Practices</a>
-                          </div>
+			<div id="institutionProfileData">
+			 	<div class="box-middle">
+	                <div class="content-icon">
+	                    <i class="fas fa-shield-alt"></i><a href="#">AHEA Institution</a>
+	                </div>
+	                <div class="content-icon">
+	                        <i class="fas fa-map"></i><a href="#">Google Maps</a>
+	                </div>
+	                <div class="content-icon">
+	                    <i class="far fa-building"></i><a href="#">4-year Institution</a>
+	                </div>
+	                <div class="content-icon">
+	                        <i class="fas fa-globe"></i><a href="#">Boca Raton, FL USA</a>
+	                </div>
+	                <div class="content-icon">
+	                    <i class="far fa-calendar-check"></i><a href="#">Trimester</a>
+	                </div>
+	                <div class="content-icon">
+	                        <i class="fas fa-address-card"></i><a href="#">Department of American Sign Language and Deaf Studies</a>
+	                </div>
+	                <div class="content-icon with-title">
+	                    <h4>Research Papers</h4>
+	                    <i class="far fa-file-pdf"></i><a href="#">Foundation of Empathy in Establishing Clinical Best Practices</a>
+	                </div>
+				</div> 
 			</div>
 		</div>
 	</div>

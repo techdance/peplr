@@ -10,3 +10,39 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+
+<script>
+
+jQuery(function() {
+	loadProfessionalBio();
+});
+
+function loadProfessionalBio(){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='getProfessionalBio'/>"
+			,{
+               method: 'get',
+               data:{ 		            	   
+               },
+               sync : true, 
+               on:{
+            	   complete:function()
+             		{		            		   
+             		},
+                    success:function()
+                    {			                    	
+                    	var value=this.get('responseData');	
+                    	debugger;
+                    	$("#professionalBioData").html("");
+                    	if(value!=null && value!="undefined" && value!=undefined){
+                    		$("#professionalBioData").html(value);
+                 	   }
+                    },error: function(){	             
+                    }
+				},
+
+	         });
+		});
+}
+</script>
