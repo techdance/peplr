@@ -22,7 +22,7 @@ for (String s: onlineStatus) {
 		<div class="box-middle">
 			<div class="profile-image position-relative">
 				<img src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" alt="">
-				<span class="user-active"></span>
+				<!-- <span class="user-active"></span> -->
 			</div>
 			<div class="profile-text w-50">
 				<h3 class="profile-name text-truncate"><%=themeDisplay.getUser().getFullName() %></h3>

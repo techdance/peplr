@@ -366,7 +366,12 @@ long institutionProfileId=0;
                                   	<aui:input type="text" name="areasofexpertise3" label="Areas of Expertise &ndash; 3" value="<%=areasofexpertise3 %>" cssClass="input" />
                                       
                                       <div class="form-group">
-										<label>International Experience</label>
+										<label class="position-relative">
+											International Experience
+											<i class="fa fa-info-circle icon-info" aria-hidden="true">
+													<span class="info-toltip">Please select the range that most accurately matches your international skills, experience, and studies.</span>
+												</i>
+										</label>
 										<div class="wrap-range-label">
 											<ul>
 												<li>1 &ndash; 2 Years</li>
@@ -387,7 +392,7 @@ long institutionProfileId=0;
                               </div>
                               <div class="row row-custom">
                               	<div class="col-md-12">
-                              		<aui:input type="textarea" name="bioDescription" label="Bio"  cssClass="input" style="min-height: 100px;" 
+                              		<aui:input type="textarea" name="bioDescription" label="Bio"  cssClass="input" style="min-height: 100px; height: auto;" 
                   		value="<%=bioDescription %>"  />
                   	</div>
                   </div>
