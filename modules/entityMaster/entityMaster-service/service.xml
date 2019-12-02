@@ -78,4 +78,103 @@
 		<column name="deliveryMethod" type="String" />
 		<column name="credits" type="String" />
 	</entity>
+	
+	<entity local-service="true" name="userCredential" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_userCredential" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="membership1" type="String" />
+		<column name="membership2" type="String" />
+		<column name="membership3" type="String" />
+		<column name="membership4" type="String" />
+		<column name="certificate1" type="String" />
+		<column name="certificate2" type="String" />
+		<column name="certificate3" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="userProfessionalBio" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_userProfessionalBio" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="areaofexpertise1" type="String" />
+		<column name="areaofexpertise2" type="String" />
+		<column name="areaofexpertise3" type="String" />
+		<column name="experienceyears" type="String" />
+		<column name="cvlink" type="String" />
+		<column name="biodescription" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="userInstitutionProfileDetails" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_userInstition" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="institutionName" type="String" />
+		<column name="acadeCalendar" type="String" />
+		<column name="departmentdescription" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="userInstitutionProfileSubDetails" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_userInstitionSub" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="fileId" type="long" />
+		<column name="PK_userInstition" type="long" />
+	</entity>
+	
 </service-builder>

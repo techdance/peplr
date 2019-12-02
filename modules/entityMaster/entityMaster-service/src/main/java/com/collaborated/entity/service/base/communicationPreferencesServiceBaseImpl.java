@@ -19,6 +19,10 @@ import com.collaborated.entity.service.communicationPreferencesService;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
 import com.collaborated.entity.service.persistence.languagePreferencesPersistence;
 import com.collaborated.entity.service.persistence.profileAreaofinterestPersistence;
+import com.collaborated.entity.service.persistence.userCredentialPersistence;
+import com.collaborated.entity.service.persistence.userInstitutionProfileDetailsPersistence;
+import com.collaborated.entity.service.persistence.userInstitutionProfileSubDetailsPersistence;
+import com.collaborated.entity.service.persistence.userProfessionalBioPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -225,6 +229,234 @@ public abstract class communicationPreferencesServiceBaseImpl
 	public void setprofileAreaofinterestPersistence(
 		profileAreaofinterestPersistence profileAreaofinterestPersistence) {
 		this.profileAreaofinterestPersistence = profileAreaofinterestPersistence;
+	}
+
+	/**
+	 * Returns the user credential local service.
+	 *
+	 * @return the user credential local service
+	 */
+	public com.collaborated.entity.service.userCredentialLocalService getuserCredentialLocalService() {
+		return userCredentialLocalService;
+	}
+
+	/**
+	 * Sets the user credential local service.
+	 *
+	 * @param userCredentialLocalService the user credential local service
+	 */
+	public void setuserCredentialLocalService(
+		com.collaborated.entity.service.userCredentialLocalService userCredentialLocalService) {
+		this.userCredentialLocalService = userCredentialLocalService;
+	}
+
+	/**
+	 * Returns the user credential remote service.
+	 *
+	 * @return the user credential remote service
+	 */
+	public com.collaborated.entity.service.userCredentialService getuserCredentialService() {
+		return userCredentialService;
+	}
+
+	/**
+	 * Sets the user credential remote service.
+	 *
+	 * @param userCredentialService the user credential remote service
+	 */
+	public void setuserCredentialService(
+		com.collaborated.entity.service.userCredentialService userCredentialService) {
+		this.userCredentialService = userCredentialService;
+	}
+
+	/**
+	 * Returns the user credential persistence.
+	 *
+	 * @return the user credential persistence
+	 */
+	public userCredentialPersistence getuserCredentialPersistence() {
+		return userCredentialPersistence;
+	}
+
+	/**
+	 * Sets the user credential persistence.
+	 *
+	 * @param userCredentialPersistence the user credential persistence
+	 */
+	public void setuserCredentialPersistence(
+		userCredentialPersistence userCredentialPersistence) {
+		this.userCredentialPersistence = userCredentialPersistence;
+	}
+
+	/**
+	 * Returns the user institution profile details local service.
+	 *
+	 * @return the user institution profile details local service
+	 */
+	public com.collaborated.entity.service.userInstitutionProfileDetailsLocalService getuserInstitutionProfileDetailsLocalService() {
+		return userInstitutionProfileDetailsLocalService;
+	}
+
+	/**
+	 * Sets the user institution profile details local service.
+	 *
+	 * @param userInstitutionProfileDetailsLocalService the user institution profile details local service
+	 */
+	public void setuserInstitutionProfileDetailsLocalService(
+		com.collaborated.entity.service.userInstitutionProfileDetailsLocalService userInstitutionProfileDetailsLocalService) {
+		this.userInstitutionProfileDetailsLocalService = userInstitutionProfileDetailsLocalService;
+	}
+
+	/**
+	 * Returns the user institution profile details remote service.
+	 *
+	 * @return the user institution profile details remote service
+	 */
+	public com.collaborated.entity.service.userInstitutionProfileDetailsService getuserInstitutionProfileDetailsService() {
+		return userInstitutionProfileDetailsService;
+	}
+
+	/**
+	 * Sets the user institution profile details remote service.
+	 *
+	 * @param userInstitutionProfileDetailsService the user institution profile details remote service
+	 */
+	public void setuserInstitutionProfileDetailsService(
+		com.collaborated.entity.service.userInstitutionProfileDetailsService userInstitutionProfileDetailsService) {
+		this.userInstitutionProfileDetailsService = userInstitutionProfileDetailsService;
+	}
+
+	/**
+	 * Returns the user institution profile details persistence.
+	 *
+	 * @return the user institution profile details persistence
+	 */
+	public userInstitutionProfileDetailsPersistence getuserInstitutionProfileDetailsPersistence() {
+		return userInstitutionProfileDetailsPersistence;
+	}
+
+	/**
+	 * Sets the user institution profile details persistence.
+	 *
+	 * @param userInstitutionProfileDetailsPersistence the user institution profile details persistence
+	 */
+	public void setuserInstitutionProfileDetailsPersistence(
+		userInstitutionProfileDetailsPersistence userInstitutionProfileDetailsPersistence) {
+		this.userInstitutionProfileDetailsPersistence = userInstitutionProfileDetailsPersistence;
+	}
+
+	/**
+	 * Returns the user institution profile sub details local service.
+	 *
+	 * @return the user institution profile sub details local service
+	 */
+	public com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalService getuserInstitutionProfileSubDetailsLocalService() {
+		return userInstitutionProfileSubDetailsLocalService;
+	}
+
+	/**
+	 * Sets the user institution profile sub details local service.
+	 *
+	 * @param userInstitutionProfileSubDetailsLocalService the user institution profile sub details local service
+	 */
+	public void setuserInstitutionProfileSubDetailsLocalService(
+		com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalService userInstitutionProfileSubDetailsLocalService) {
+		this.userInstitutionProfileSubDetailsLocalService = userInstitutionProfileSubDetailsLocalService;
+	}
+
+	/**
+	 * Returns the user institution profile sub details remote service.
+	 *
+	 * @return the user institution profile sub details remote service
+	 */
+	public com.collaborated.entity.service.userInstitutionProfileSubDetailsService getuserInstitutionProfileSubDetailsService() {
+		return userInstitutionProfileSubDetailsService;
+	}
+
+	/**
+	 * Sets the user institution profile sub details remote service.
+	 *
+	 * @param userInstitutionProfileSubDetailsService the user institution profile sub details remote service
+	 */
+	public void setuserInstitutionProfileSubDetailsService(
+		com.collaborated.entity.service.userInstitutionProfileSubDetailsService userInstitutionProfileSubDetailsService) {
+		this.userInstitutionProfileSubDetailsService = userInstitutionProfileSubDetailsService;
+	}
+
+	/**
+	 * Returns the user institution profile sub details persistence.
+	 *
+	 * @return the user institution profile sub details persistence
+	 */
+	public userInstitutionProfileSubDetailsPersistence getuserInstitutionProfileSubDetailsPersistence() {
+		return userInstitutionProfileSubDetailsPersistence;
+	}
+
+	/**
+	 * Sets the user institution profile sub details persistence.
+	 *
+	 * @param userInstitutionProfileSubDetailsPersistence the user institution profile sub details persistence
+	 */
+	public void setuserInstitutionProfileSubDetailsPersistence(
+		userInstitutionProfileSubDetailsPersistence userInstitutionProfileSubDetailsPersistence) {
+		this.userInstitutionProfileSubDetailsPersistence = userInstitutionProfileSubDetailsPersistence;
+	}
+
+	/**
+	 * Returns the user professional bio local service.
+	 *
+	 * @return the user professional bio local service
+	 */
+	public com.collaborated.entity.service.userProfessionalBioLocalService getuserProfessionalBioLocalService() {
+		return userProfessionalBioLocalService;
+	}
+
+	/**
+	 * Sets the user professional bio local service.
+	 *
+	 * @param userProfessionalBioLocalService the user professional bio local service
+	 */
+	public void setuserProfessionalBioLocalService(
+		com.collaborated.entity.service.userProfessionalBioLocalService userProfessionalBioLocalService) {
+		this.userProfessionalBioLocalService = userProfessionalBioLocalService;
+	}
+
+	/**
+	 * Returns the user professional bio remote service.
+	 *
+	 * @return the user professional bio remote service
+	 */
+	public com.collaborated.entity.service.userProfessionalBioService getuserProfessionalBioService() {
+		return userProfessionalBioService;
+	}
+
+	/**
+	 * Sets the user professional bio remote service.
+	 *
+	 * @param userProfessionalBioService the user professional bio remote service
+	 */
+	public void setuserProfessionalBioService(
+		com.collaborated.entity.service.userProfessionalBioService userProfessionalBioService) {
+		this.userProfessionalBioService = userProfessionalBioService;
+	}
+
+	/**
+	 * Returns the user professional bio persistence.
+	 *
+	 * @return the user professional bio persistence
+	 */
+	public userProfessionalBioPersistence getuserProfessionalBioPersistence() {
+		return userProfessionalBioPersistence;
+	}
+
+	/**
+	 * Sets the user professional bio persistence.
+	 *
+	 * @param userProfessionalBioPersistence the user professional bio persistence
+	 */
+	public void setuserProfessionalBioPersistence(
+		userProfessionalBioPersistence userProfessionalBioPersistence) {
+		this.userProfessionalBioPersistence = userProfessionalBioPersistence;
 	}
 
 	/**
@@ -444,6 +676,30 @@ public abstract class communicationPreferencesServiceBaseImpl
 	protected com.collaborated.entity.service.profileAreaofinterestService profileAreaofinterestService;
 	@BeanReference(type = profileAreaofinterestPersistence.class)
 	protected profileAreaofinterestPersistence profileAreaofinterestPersistence;
+	@BeanReference(type = com.collaborated.entity.service.userCredentialLocalService.class)
+	protected com.collaborated.entity.service.userCredentialLocalService userCredentialLocalService;
+	@BeanReference(type = com.collaborated.entity.service.userCredentialService.class)
+	protected com.collaborated.entity.service.userCredentialService userCredentialService;
+	@BeanReference(type = userCredentialPersistence.class)
+	protected userCredentialPersistence userCredentialPersistence;
+	@BeanReference(type = com.collaborated.entity.service.userInstitutionProfileDetailsLocalService.class)
+	protected com.collaborated.entity.service.userInstitutionProfileDetailsLocalService userInstitutionProfileDetailsLocalService;
+	@BeanReference(type = com.collaborated.entity.service.userInstitutionProfileDetailsService.class)
+	protected com.collaborated.entity.service.userInstitutionProfileDetailsService userInstitutionProfileDetailsService;
+	@BeanReference(type = userInstitutionProfileDetailsPersistence.class)
+	protected userInstitutionProfileDetailsPersistence userInstitutionProfileDetailsPersistence;
+	@BeanReference(type = com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalService.class)
+	protected com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalService userInstitutionProfileSubDetailsLocalService;
+	@BeanReference(type = com.collaborated.entity.service.userInstitutionProfileSubDetailsService.class)
+	protected com.collaborated.entity.service.userInstitutionProfileSubDetailsService userInstitutionProfileSubDetailsService;
+	@BeanReference(type = userInstitutionProfileSubDetailsPersistence.class)
+	protected userInstitutionProfileSubDetailsPersistence userInstitutionProfileSubDetailsPersistence;
+	@BeanReference(type = com.collaborated.entity.service.userProfessionalBioLocalService.class)
+	protected com.collaborated.entity.service.userProfessionalBioLocalService userProfessionalBioLocalService;
+	@BeanReference(type = com.collaborated.entity.service.userProfessionalBioService.class)
+	protected com.collaborated.entity.service.userProfessionalBioService userProfessionalBioService;
+	@BeanReference(type = userProfessionalBioPersistence.class)
+	protected userProfessionalBioPersistence userProfessionalBioPersistence;
 	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)

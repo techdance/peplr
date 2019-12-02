@@ -13,7 +13,7 @@
 	                                                <div class="col-md-6">
 	                                               		<aui:input type="text" name="institution" label="Institution" value="AHEA Institution" cssClass="input" />
 	                                               		<aui:input type="text" name="academic-calendar" label="Academic Calendar" value="Trimester" cssClass="input" />
-	                                               		<aui:input type="textarea" name="departament" label="Departament" value="Department of American Sign Language and Deaf Studies" cssClass="input" style="min-height: 120px;" />
+	                                               		<aui:input type="textarea" name="departament" label="Department" value="Department of American Sign Language and Deaf Studies" cssClass="input" style="min-height: 120px;" />
 	                                                </div>
 	                                            </div>
 											</div>

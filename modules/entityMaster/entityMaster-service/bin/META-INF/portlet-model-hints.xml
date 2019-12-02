@@ -41,4 +41,50 @@
 		<field name="deliveryMethod" type="String" />
 		<field name="credits" type="String" />
 	</model>
+	<model name="com.collaborated.entity.model.userCredential">
+		<field name="PK_userCredential" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="membership1" type="String" />
+		<field name="membership2" type="String" />
+		<field name="membership3" type="String" />
+		<field name="membership4" type="String" />
+		<field name="certificate1" type="String" />
+		<field name="certificate2" type="String" />
+		<field name="certificate3" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.userInstitutionProfileDetails">
+		<field name="PK_userInstition" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="institutionName" type="String" />
+		<field name="acadeCalendar" type="String" />
+		<field name="departmentdescription" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.userInstitutionProfileSubDetails">
+		<field name="PK_userInstitionSub" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="fileId" type="long" />
+		<field name="PK_userInstition" type="long" />
+	</model>
+	<model name="com.collaborated.entity.model.userProfessionalBio">
+		<field name="PK_userProfessionalBio" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="areaofexpertise1" type="String" />
+		<field name="areaofexpertise2" type="String" />
+		<field name="areaofexpertise3" type="String" />
+		<field name="experienceyears" type="String" />
+		<field name="cvlink" type="String" />
+		<field name="biodescription" type="String" />
+	</model>
 </model-hints>

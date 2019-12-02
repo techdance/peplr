@@ -5,6 +5,10 @@
 	<import class="com.collaborated.entity.model.communicationPreferences" />
 	<import class="com.collaborated.entity.model.languagePreferences" />
 	<import class="com.collaborated.entity.model.profileAreaofinterest" />
+	<import class="com.collaborated.entity.model.userCredential" />
+	<import class="com.collaborated.entity.model.userInstitutionProfileDetails" />
+	<import class="com.collaborated.entity.model.userInstitutionProfileSubDetails" />
+	<import class="com.collaborated.entity.model.userProfessionalBio" />
 	<class name="com.collaborated.entity.model.impl.communicationPreferencesImpl" table="collaborated_communicationPreferences">
 		<id name="PK_communicationPreferences" type="long">
 			<generator class="assigned" />
@@ -50,5 +54,59 @@
 		<property name="programLength" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="deliveryMethod" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="credits" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.userCredentialImpl" table="collaborated_userCredential">
+		<id name="PK_userCredential" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="membership1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="membership2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="membership3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="membership4" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="certificate1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="certificate2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="certificate3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.userInstitutionProfileDetailsImpl" table="collaborated_userInstitutionProfileDetails">
+		<id name="PK_userInstition" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="institutionName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="acadeCalendar" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="departmentdescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.userInstitutionProfileSubDetailsImpl" table="collaborated_userInstitutionProfileSubDetails">
+		<id name="PK_userInstitionSub" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="fileId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_userInstition" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.userProfessionalBioImpl" table="collaborated_userProfessionalBio">
+		<id name="PK_userProfessionalBio" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="areaofexpertise1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="areaofexpertise2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="areaofexpertise3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="experienceyears" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="cvlink" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="biodescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

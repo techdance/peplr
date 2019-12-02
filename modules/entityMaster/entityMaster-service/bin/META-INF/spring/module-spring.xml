@@ -10,4 +10,16 @@
 	<bean class="com.collaborated.entity.service.impl.profileAreaofinterestLocalServiceImpl" id="com.collaborated.entity.service.profileAreaofinterestLocalService" />
 	<bean class="com.collaborated.entity.service.impl.profileAreaofinterestServiceImpl" id="com.collaborated.entity.service.profileAreaofinterestService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.profileAreaofinterestPersistenceImpl" id="com.collaborated.entity.service.persistence.profileAreaofinterestPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.userCredentialLocalServiceImpl" id="com.collaborated.entity.service.userCredentialLocalService" />
+	<bean class="com.collaborated.entity.service.impl.userCredentialServiceImpl" id="com.collaborated.entity.service.userCredentialService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.userCredentialPersistenceImpl" id="com.collaborated.entity.service.persistence.userCredentialPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.userInstitutionProfileDetailsLocalServiceImpl" id="com.collaborated.entity.service.userInstitutionProfileDetailsLocalService" />
+	<bean class="com.collaborated.entity.service.impl.userInstitutionProfileDetailsServiceImpl" id="com.collaborated.entity.service.userInstitutionProfileDetailsService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.userInstitutionProfileDetailsPersistenceImpl" id="com.collaborated.entity.service.persistence.userInstitutionProfileDetailsPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.userInstitutionProfileSubDetailsLocalServiceImpl" id="com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalService" />
+	<bean class="com.collaborated.entity.service.impl.userInstitutionProfileSubDetailsServiceImpl" id="com.collaborated.entity.service.userInstitutionProfileSubDetailsService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.userInstitutionProfileSubDetailsPersistenceImpl" id="com.collaborated.entity.service.persistence.userInstitutionProfileSubDetailsPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.userProfessionalBioLocalServiceImpl" id="com.collaborated.entity.service.userProfessionalBioLocalService" />
+	<bean class="com.collaborated.entity.service.impl.userProfessionalBioServiceImpl" id="com.collaborated.entity.service.userProfessionalBioService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.userProfessionalBioPersistenceImpl" id="com.collaborated.entity.service.persistence.userProfessionalBioPersistence" parent="basePersistence" />
 </beans>
