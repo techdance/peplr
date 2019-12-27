@@ -36,12 +36,33 @@
 	z-index: 1;
 	margin-top:15px;
 }
+.viewmoredetail{
+	max-width:465px !important;
+	position:relative;
+	
+}
+#view-more-interest-modal{
+	display:none;
+}
 
+.modal.show .viewmoredetail{
+	display:block;
+}
+.viewmoredetail .modal-content{
+	padding:15px;
+    line-height: 1.5;
+        height: 490px;
+    overflow: auto;
+}
 .interest-modal{
 	width: 100%;
 	max-width: 465px;
 	left: auto;
     /* transform: translateX(-50%); */
+}
+.top-label-range {
+    display: flex;
+    justify-content: space-between;
 }
 
 .view-more-interest {
@@ -50,7 +71,22 @@
 .interest-modal{
 	width: 465px;
 }
-
+.viewmoredetail .toltip-close2 a{
+	color:black;
+	font-size: 20px;
+	line-height: 20px;
+	    cursor: pointer;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.viewmoredetail .toltip-close2{
+	font-weight: bold;
+	position:absolute;
+    top: 15px;
+    right: 15px;
+	z-index: 100;
+} 
 .interest-modal .toltip-close2 a{
 	color:black;
 	font-size: 20px;
@@ -170,6 +206,8 @@ span.left-corner {
     padding-right: 0px;
     border: 0px;
 }
+
+
 </style>
 
 <script>
@@ -372,17 +410,21 @@ jQuery(function() {
     loadInstituteProfile();
 	jQuery("#add-interest").click(function(e){
 		e.stopPropagation();
-		jQuery("#add-interest-modal").slideToggle();
+		jQuery("#add-interest-modal").modal('show');
 	});
-	jQuery("#add-interest-modal .toltip-close2 a").click(function(e){
+	/* jQuery("#add-interest-modal .toltip-close2 a").click(function(e){
 		e.stopPropagation();
-		jQuery("#add-interest-modal").slideToggle();
-	});
+		//jQuery("#add-interest-modal").slideToggle();
+		jQuery("#add-interest-modal").hide();
+		jQuery(".modal-backdrop").hide();
+	}); */
 
-	jQuery("#view-more-interest-modal .toltip-close2 a").click(function(e){
+	/* jQuery("#view-more-interest-modal .toltip-close2 a").click(function(e){
 		e.stopPropagation();
-		jQuery("#view-more-interest-modal").slideToggle();
-	});
+		jQuery(".modal").hide();
+		jQuery(".modal-backdrop").hide();
+		//jQuery(".popupmodal").hide();
+	}); */
 	$('#<portlet:namespace />uploadedDocument').change(function() {
         if ($(this).val()) {
             error = false;
@@ -432,18 +474,18 @@ function loadProjectDetails(){
                     			
                     			for(var i=0;i<data.length;i++){
                     				if(data[i].deliveryMethod==""){
-	                    				$("#area-of-interest-block").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
+	                    				$("#area-of-interest-block").append("<div class='col-md-12 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
 	                    					+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline+" </p> <p> <strong>Region</strong><br> "+data[i].region+" </p> </div></div> "
-	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
+	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative cursor-pointer'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"' class='modal fade'></div></div></div><div class='col-md-6 text-right cursor-pointer'><a href='#' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
 	                    					/* + " <a href='#' class='btn btn-blue col-sm-6 p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
 	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a>  </div>" */
    	                    					
 	                    				);
                     				}
                     				else{
-                    					$("#area-of-interest-block").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
+                    					$("#area-of-interest-block").append("<div class='col-md-12 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
    	                    					+ " <p> <strong>Delivery Method</strong><br> "+data[i].deliveryMethod+" </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline+" </p> <p> <strong>Region</strong><br> "+data[i].region+" </p> </div></div> "
-   	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
+   	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative cursor-pointer'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"' class='modal fade'></div></div></div><div class='col-md-6 text-right cursor-pointer'><a href='#' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
    	                    					/* + " <a href='#' class='btn btn-blue col-sm-6  p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
    	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a> </div>" */
    	                    					
@@ -476,7 +518,10 @@ function getViewMoreData(id){
              		},
                     success:function()
                     {			
+                    	debugger;
+                    	
                     	$("#view-more-interest-modal").appendTo('#popup-'+id);
+                    	
                     	var value=this.get('responseData');	
                     	if(value!=null && value!="undefined" && value!=undefined){
                     		var data = JSON.parse(value);
@@ -492,7 +537,9 @@ function getViewMoreData(id){
                     		$(".view-location").text(data.region);
                     		$(".view-find-matches").html("");
                     		$(".view-find-matches").append('<a href="#" class="btn btn-blue btn-w-100 m-auto" onclick="goToMatching('+data.PK_areaofinterest+')">Find Matches</a>');
-                    		$("#view-more-interest-modal").slideToggle();
+                    		//$("#view-more-interest-modal").modal();
+                    		$('#popup-'+id).modal('show');
+                    		$('#view-more-interest-modal').show();
                  	   	}
                     },error: function(){	             
                     }

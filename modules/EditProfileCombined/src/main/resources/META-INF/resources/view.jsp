@@ -417,10 +417,10 @@ long institutionProfileId=0;
 					<div class="clearfix">
 					<div id="area-of-interest-block" class="row row-custom "></div>
 					
-					<div id="view-more-interest-modal"	class="box-border-radius box-shadow interest-modal">
-						<div class="view-more-interest-modal-inner position-relative">
+					<div id="view-more-interest-modal"	class="box-border-radius box-shadow modal-dialog viewmoredetail">
+						<div class=" position-relative modal-content">
 							<div class="toltip-close2">
-								<a href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>
+								<a href="javascript:void(0);"  data-dismiss="modal"><i class="fa fa-times-circle"></i></a>
 							</div>
 							<div class="view-more-interest-modal-inner-content text-left">
 								<div class="row mb-2">
@@ -461,29 +461,61 @@ long institutionProfileId=0;
 										<strong>Preferred Location</strong><br><span class="view-location"></span>
 									</div>
 								</div>
+								<div class="row mb-2">
+									<div class="col-md-12">
+										<strong>Project Date Range</strong>
+										<div class="top-label-range">
+											<div class="year-init-range">Today 2020</div>
+											<div class="year-last-range">2021</div>
+										</div>
+										<div class="wrap-range">
+											<input type="range">
+										</div>
+										<div class="wrap-range-label width-inherit">
+											<ul class="d-flex">
+												<li>Jan</li>
+												<li>Feb</li>
+												<li>Mar</li>
+												<li>May</li>
+												<li>Jun</li>
+												<li>Jul</li>
+												<li>Aug</li>
+												<li>Sep</li>
+												<li>Oct</li>
+												<li>Nov</li>
+												<li>Dec</li>
+												<li>Jan</li>
+												<li>Feb</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-md-12 ac mt-3 text-center">
+										<strong>Create: 12-20-2019 11:34 PM</strong>
+									</div>
+								</div>
 								<div class="row text-center pt-2 view-find-matches">
 									
 								</div>
 							</div>
 						</div>
 					</div>
-					</div>
+				</div>
 					
 					
 					
 					
 					<div class="mb-2">
-						<a href="javascript:void(0);" class="btn btn-blue btn-w-100"
+						<a href="javascript:void(0);" class="btn btn-blue btn-w-100 cursor-pointer"
 							id="add-interest">Add An Interest</a>
 					</div>
-					<div id="add-interest-modal" class="box-border-radius box-shadow color-black font14 interest-modal">
+					<div id="add-interest-modal" class="color-black font14 modal fade">
 						<aui:input  name="addInterestId" value="0" type="hidden"></aui:input>
 						<aui:input  name="addInterestButton" value="" type="hidden"></aui:input>
-						<div class="view-more-interest-modal-inner position-relative">
-							<div class="toltip-close2">
-								<a href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>
-							</div>
-							<div class="view-more-interest-modal-inner-content w-100">
+						<div class=" modal-dialog viewmoredetail  view-more-interest-modal-inner position-relative ">
+							<div class="modal-content">
+								<div class="toltip-close2">
+									<a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a>
+								</div>
 								<div class="row mb-2">
 									<div class="col-md-12">
 										<aui:select name="projectType" label="What type of project you are interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
@@ -646,6 +678,7 @@ long institutionProfileId=0;
 	</div>
 	
 </div>
+
 
 </aui:form>
 
