@@ -101,13 +101,13 @@
 
 <script>
 $(document).ready(function(){
+	debugger;
+	loadRecommenedPartners();
 	var url_string = '<%=themeDisplay.getURLPortal()+themeDisplay.getURLCurrent() %>';
 	var url = new URL(url_string);
 	var param = url.searchParams.get("randamId");
 	if(param!="" && param!=null && param!="null"){
 		getAllDetails(param);
-	}else{
-		loadRecommenedPartners();	
 	}
 });
 </script>

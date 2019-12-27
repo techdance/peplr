@@ -10,3 +10,47 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<style>
+body .toltip-overlay {
+	background: rgba(136,145,152,0.95);
+}
+.menu-toltip.toltip-overlay a:hover {
+    background: #929292;
+}
+.top-icon {
+    vertical-align: middle;
+}
+.toltip-item {
+    padding: 15px 0px;
+}
+div p:last-child {
+    font-family: 'Merriweather Sans',sans-serif;
+}
+</style>
+
+<script>
+function goToMyProfile(userId){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='loadMyProfileDetails'/>"
+		,{
+              method: 'post',
+              data:{
+              	  '<portlet:namespace/>key':userId
+              },
+              sync : true, 
+              on:{
+           	   complete:function()
+            		{		            		   
+            		},
+                   success:function()
+                   {	
+                	   location.href="<%=themeDisplay.getURLPortal() %>"+"/profile";
+                   },error: function(){	             
+                   }
+			},
+
+         });
+	});
+}
+</script>

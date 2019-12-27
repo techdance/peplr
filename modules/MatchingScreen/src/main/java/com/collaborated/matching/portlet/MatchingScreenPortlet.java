@@ -35,6 +35,7 @@ import java.util.List;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -64,6 +65,8 @@ public class MatchingScreenPortlet extends MVCPortlet {
 			getAllDetails(resourceRequest,resourceResponse);
 		}else if (resourceID != null && resourceID.equals("loadRecommenedPartners")) {
 			loadRecommenedPartners(resourceRequest,resourceResponse);
+		}else if(resourceID != null && resourceID.equals("loadProfileDetails")) {
+			loadProfileDetails(resourceRequest,resourceResponse);
 		}
 	}
 	public void getAllDetails(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
@@ -96,6 +99,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
 					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
 					 long portraitId = user.getPortraitId();
+					 jsonObjectFinal.put("userId", user.getUserId());
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);
@@ -145,6 +149,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					 
 					 long portraitId = user.getPortraitId();
 				     
+					 jsonObjectFinal.put("userId", user.getUserId());
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);
@@ -162,6 +167,21 @@ public class MatchingScreenPortlet extends MVCPortlet {
 			if (out != null) {
 				out.close();
 			}
+		}
+	}
+	
+	public void loadProfileDetails(ResourceRequest request, ResourceResponse response){
+		String key = ParamUtil.getString(request, "key");
+		try{
+			PortletSession ps = request.getPortletSession();
+			Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
+
+			if (obj == null) {
+				ps.setAttribute("LIFERAY_SHARED_MATCHING_KEY", key, PortletSession.APPLICATION_SCOPE);
+			}
+		}catch(Exception e){}
+		finally{
+			
 		}
 	}
 	

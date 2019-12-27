@@ -54,8 +54,8 @@ function loadInstituteProfile(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	$("#institutionProfileData").html("");
                     	if(value!=null && value!="undefined" && value!=undefined){
+                    		$("#institutionProfileData").html("");
                     		$("#institutionProfileData").html(value);
                  	   }
                     },error: function(){	             

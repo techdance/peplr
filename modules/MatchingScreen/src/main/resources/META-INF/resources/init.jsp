@@ -112,7 +112,7 @@ function getAllDetails(id){
                    			for(var i=0;i<data.length;i++){
                    				$("#card-section").append("<div class='col-lg-6 mb-4'><div class='box box-border-radius box-shadow bg-white'><div class='inner-wrap inner-wrap-flex asset'> "
                    					+ "<div class='content-left'> <a href=''><img src='"+data[i].imageURL+"' alt=''></a> </div>" 
-                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href=''>"+data[i].userName+"</a></h2> </div>"
+                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+"</a></h2> </div>"
                    					/* + "<div class='box-middle p0'> <p>"+data[i].department+"</p><p><span class='font-style-italic color-blue-light'>"+data[i].institutionName+"</span></p><p>"+data[i].institutionLocation+"</p>" */
                    					+ "<div class='box-middle p0'> <p>Biochemistry & Cell Biology Research Faculty</p><p><span class='font-style-italic color-blue-light'>University of Oslo</span></p><p>Oslo, Norway</p>"
                    					+ " </div> </div> </div> </div> </div>"
@@ -149,7 +149,7 @@ function loadRecommenedPartners(){
                    			for(var i=0;i<data.length;i++){
                    				$("#card-section").append("<div class='col-lg-6 mb-4'><div class='box box-border-radius box-shadow bg-white'><div class='inner-wrap inner-wrap-flex asset'> "
                    					+ "<div class='content-left'> <a href=''><img src='"+data[i].imageURL+"' alt=''></a> </div>" 
-                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href=''>"+data[i].userName+"</a></h2> </div>"
+                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+"</a></h2> </div>"
                    					/* + "<div class='box-middle p0'> <p>"+data[i].department+"</p><p><span class='font-style-italic color-blue-light'>"+data[i].institutionName+"</span></p><p>"+data[i].institutionLocation+"</p>" */
                    					+ "<div class='box-middle p0'> <p>Biochemistry & Cell Biology Research Faculty</p><p><span class='font-style-italic color-blue-light'>University of Oslo</span></p><p>Oslo, Norway</p>"
                    					+ " </div> </div> </div> </div> </div>"
@@ -158,6 +158,30 @@ function loadRecommenedPartners(){
                    		}
                    	}
                    	
+                   },error: function(){	             
+                   }
+			},
+
+         });
+	});
+}
+
+function goToProfile(userId){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='loadProfileDetails'/>"
+		,{
+              method: 'post',
+              data:{
+              	  '<portlet:namespace/>key':userId
+              },
+              sync : true, 
+              on:{
+           	   complete:function()
+            		{		            		   
+            		},
+                   success:function()
+                   {	
+                	   location.href="<%=themeDisplay.getURLPortal() %>"+"/profile";
                    },error: function(){	             
                    }
 			},

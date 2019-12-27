@@ -16,6 +16,9 @@ import java.io.PrintWriter;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -36,6 +39,22 @@ import org.osgi.service.component.annotations.Component;
 )
 public class PersonalInformationPortlet extends MVCPortlet {
 	
+	public static long selectedProfileMatching = 0;
+	
+	@Override
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		PortletSession ps = request.getPortletSession();
+		Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
+		selectedProfileMatching = 0;
+		if (obj == null) {
+			System.out.println("PortletSession attribute NOT found");
+		} else {
+			selectedProfileMatching = Long.valueOf(obj.toString());
+			System.out.println("PortletSession attribute found"+selectedProfileMatching);
+		}
+		super.render(request, response);
+	}
+	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) throws IOException,PortletException {
 		String resourceID = null;
@@ -51,12 +70,22 @@ public class PersonalInformationPortlet extends MVCPortlet {
 		PrintWriter out = null;
 		JSONObject jsonObject = null;
 		String profileStatus = "";
+		String isEdit = "Yes";
+		
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		try{
 			out = resourceResponse.getWriter();
-			profileStatus = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("status");
-			String[] onlineStatus = (String[]) themeDisplay.getUser().getExpandoBridge().getAttribute("onlineStatus");
-			user = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
+			long userId = themeDisplay.getUserId();
+			System.out.println("selectedProfileMatching==="+selectedProfileMatching);
+			if(selectedProfileMatching>0){
+				userId = selectedProfileMatching;
+				isEdit = "No";
+			}
+						
+			user = UserLocalServiceUtil.getUser(userId);
+			profileStatus = (String) user.getExpandoBridge().getAttribute("status");
+			String[] onlineStatus = (String[]) user.getExpandoBridge().getAttribute("onlineStatus");
+			
 			if(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId()!=0){
 				ListType listType = ListTypeServiceUtil.getListType(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId());
 				prefixValue = listType.getName();
@@ -65,9 +94,10 @@ public class PersonalInformationPortlet extends MVCPortlet {
 			jsonObject.put("prefixValue", prefixValue);
 			jsonObject.put("fullName", user.getFullName());
 			jsonObject.put("jobTitle", user.getJobTitle());
-			jsonObject.put("profileImage", themeDisplay.getUser().getPortraitURL(themeDisplay));
+			jsonObject.put("profileImage", user.getPortraitURL(themeDisplay));
 			jsonObject.put("profileStatus", profileStatus);
-			jsonObject.put("onlineStatus",onlineStatus);
+			jsonObject.put("onlineStatus", onlineStatus);
+			jsonObject.put("isEdit", isEdit);
 			out.print(jsonObject);
 		}catch(Exception e){
 			

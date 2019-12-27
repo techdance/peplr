@@ -23,6 +23,9 @@ import java.util.List;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -42,6 +45,23 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class InstitutionProfilePortlet extends MVCPortlet {
+	
+	public static long selectedProfileMatching = 0;
+	
+	@Override
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		PortletSession ps = request.getPortletSession();
+		Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
+		selectedProfileMatching = 0;
+		if (obj == null) {
+			System.out.println("PortletSession attribute NOT found");
+		} else {
+			selectedProfileMatching = Long.valueOf(obj.toString());
+			System.out.println("PortletSession attribute found"+selectedProfileMatching);
+		}
+		super.render(request, response);
+	}
+	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) throws IOException,PortletException {
 		String resourceID = null;
@@ -60,8 +80,14 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 		StringBuilder subTemplate = new StringBuilder();
 		try{
 			out = resourceResponse.getWriter();
+			
+			long userId = themeDisplay.getUserId();
+			if(selectedProfileMatching>0){
+				userId = selectedProfileMatching;
+			}
+			
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userInstitutionProfileDetails.class, PortalClassLoaderUtil.getClassLoader());
-			dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
+			dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(userId)));
 			listData = userInstitutionProfileDetailsLocalServiceUtil.dynamicQuery(dynamicQuery);
 			
 			jsonArray = JSONFactoryUtil.createJSONArray();
@@ -72,7 +98,7 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 				jsonObject.put("academCalendar",listData.get(0).getAcadeCalendar());
 				jsonObject.put("departamentDescription", listData.get(0).getDepartmentdescription());	
 				DynamicQuery dynamicQuerySub = DynamicQueryFactoryUtil.forClass(userInstitutionProfileSubDetails.class, PortalClassLoaderUtil.getClassLoader());
-				dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
+				dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(userId)));
 				List<userInstitutionProfileSubDetails> listSubData = userInstitutionProfileSubDetailsLocalServiceUtil.dynamicQuery(dynamicQuerySub);
 				if(listSubData.size()>0){	
 					for(userInstitutionProfileSubDetails sub:listSubData){
