@@ -143,10 +143,11 @@ public class ProfilePersonalInformationPortlet extends MVCPortlet {
 				}
 				String profileStatus = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("status");
 				String[] onlineStatus = (String[]) themeDisplay.getUser().getExpandoBridge().getAttribute("onlineStatus");
+				long portraitId = user.getPortraitId();
 				
 				jsonObject.put("firstName", user.getFirstName());
 				jsonObject.put("lastName", user.getLastName());
-				jsonObject.put("profileImage",themeDisplay.getUser().getPortraitURL(themeDisplay));
+				jsonObject.put("profileImage", themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId);
 				jsonObject.put("jobTitle", user.getJobTitle());
 				jsonObject.put("profileStatus", profileStatus);
 				jsonObject.put("onlineStatus", onlineStatus);

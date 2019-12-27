@@ -2,7 +2,16 @@ package com.collaborated.matching.portlet;
 
 import com.collaborated.entity.model.profileAreaofinterest;
 import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
+import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.model.ExpandoTable;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -11,6 +20,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -51,6 +62,8 @@ public class MatchingScreenPortlet extends MVCPortlet {
 		System.out.println("resourceID" + resourceID);
 		if (resourceID != null && resourceID.equals("getAllDetails")) {
 			getAllDetails(resourceRequest,resourceResponse);
+		}else if (resourceID != null && resourceID.equals("loadRecommenedPartners")) {
+			loadRecommenedPartners(resourceRequest,resourceResponse);
 		}
 	}
 	public void getAllDetails(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
@@ -78,16 +91,71 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					 JSONObject jsonobj=jsonArray.getJSONObject(l);
 					 User user = UserLocalServiceUtil.getUser(Long.valueOf(jsonobj.getString("userId")));
 					 jsonObjectFinal = JSONFactoryUtil.createJSONObject();
-					 String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+					// String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+					 ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
+					 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
+					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
+					 long portraitId = user.getPortraitId();
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);
 					 jsonObjectFinal.put("institutionLocation", "");
-					 jsonObjectFinal.put("imageURL", themeDisplay.getUser().getPortraitURL(themeDisplay));
+					 jsonObjectFinal.put("imageURL", themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId);
 					 jsonArrayFinal.put(jsonObjectFinal);
 				 }
 			}
 			out.print(jsonArrayFinal);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if (out != null) {
+				out.close();
+			}
+		}
+	}
+	
+	public void loadRecommenedPartners(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
+		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		JSONArray jsonArray = null;
+		JSONArray jsonArrayFinal = null;
+		JSONObject jsonObjectFinal = null;
+		PrintWriter out = null;
+		List<profileAreaofinterest> listData = null;
+		try{
+			out = resourceResponse.getWriter();
+			
+			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(profileAreaofinterest.class, PortalClassLoaderUtil.getClassLoader());
+			dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
+			listData = profileAreaofinterestLocalServiceUtil.dynamicQuery(dynamicQuery);
+			if(listData.size()>0){
+				String query = "SELECT DISTINCT(userId) FROM `collaborated_profileAreaofinterest` where userId!="+themeDisplay.getUserId()+" LIMIT 3";
+				/*String query = "SELECT DISTINCT(userId) FROM `collaborated_profileareaofinterest` WHERE (projectType='"+singleData.getProjectType()+"' OR "
+						+ "discipline='"+singleData.getDiscipline()+"')";*/
+				jsonArray = GetData(query);
+				jsonArrayFinal = JSONFactoryUtil.createJSONArray();
+				for(int l=0;l<jsonArray.length();l++){
+					 JSONObject jsonobj=jsonArray.getJSONObject(l);
+					 User user = UserLocalServiceUtil.getUser(Long.valueOf(jsonobj.getString("userId")));
+					 jsonObjectFinal = JSONFactoryUtil.createJSONObject();
+					 //String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+					 
+					 ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
+					 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
+					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
+					 
+					 long portraitId = user.getPortraitId();
+				     
+					 jsonObjectFinal.put("userName", user.getFullName());
+					 jsonObjectFinal.put("department", user.getJobTitle());
+					 jsonObjectFinal.put("institutionName", instituteName);
+					 jsonObjectFinal.put("institutionLocation", "");
+					 jsonObjectFinal.put("imageURL", themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId);
+					 jsonArrayFinal.put(jsonObjectFinal);
+				 }
+				 out.print(jsonArrayFinal);
+			}else{
+				out.print("showmessage");
+			}			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
