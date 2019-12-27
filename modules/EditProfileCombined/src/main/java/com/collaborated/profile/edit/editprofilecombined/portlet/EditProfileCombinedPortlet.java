@@ -60,6 +60,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
+import com.liferay.portal.kernel.service.ListTypeLocalServiceUtil;
 import com.liferay.portal.kernel.service.ListTypeServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
@@ -131,6 +132,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			getProfessionalBio(resourceRequest,resourceResponse);
 		}else if(resourceID != null && resourceID.equals("getInstituteProfile")){
 			getInstituteProfile(resourceRequest,resourceResponse);
+		}else if(resourceID !=null && resourceID.equals("removeCollaborationInterest")){
+			removeCollaborationInterest(resourceRequest,resourceResponse);
 		}
 	}
 	
@@ -211,7 +214,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					user.setLastName(lastName);
 					user.setJobTitle(jobTitle);
 					user.setExpandoBridgeAttributes(serviceContext);
-					UserLocalServiceUtil.updateUser(user);					
+					UserLocalServiceUtil.updateUser(user);			
+					
 					List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");
 					for(ListType l:listType){
 						if(l.getName().toLowerCase().equals(prefixValue)){
@@ -222,7 +226,14 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						Contact contact = ContactLocalServiceUtil.getContact(user.getContactId());
 						contact.setPrefixId(prefixId);
 						ContactLocalServiceUtil.updateContact(contact);
-					}									
+					}				
+					else{
+						ListType l = ListTypeLocalServiceUtil.addListType(prefixValue, "com.liferay.portal.kernel.model.Contact.prefix");
+						Contact contact = ContactLocalServiceUtil.getContact(user.getContactId());
+						contact.setPrefixId(l.getListTypeId());
+						ContactLocalServiceUtil.updateContact(contact);
+					}
+					
 					InputStream inputStream = uploadRequest.getFileAsStream("file");
 					if (Validator.isNotNull(inputStream)) {
 						byte[] bytes = FileUtil.getBytes(inputStream);
@@ -1121,6 +1132,26 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			e.printStackTrace();
 		} finally {
 			if (out != null) {
+				out.close();
+			}
+		}
+	}
+	
+	private void removeCollaborationInterest(ResourceRequest resourceRequest,
+			ResourceResponse resourceResponse) throws IOException {
+		profileAreaofinterest  profileAreaofinterest = null;
+		PrintWriter out = null;
+		try {
+			out = resourceResponse.getWriter();
+			long profileInterestId = ParamUtil.getLong(resourceRequest, "profileInterestId");
+			if(profileInterestId!=0){
+				profileAreaofinterestLocalServiceUtil.deleteprofileAreaofinterest(profileInterestId);
+				out.print("removed");
+			}
+		}catch(Exception e){
+			
+		}finally{
+			if(out!=null){
 				out.close();
 			}
 		}

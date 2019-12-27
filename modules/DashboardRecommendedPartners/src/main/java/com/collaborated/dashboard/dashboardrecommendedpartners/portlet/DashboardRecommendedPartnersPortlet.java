@@ -15,8 +15,10 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Image;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ImageLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -91,11 +93,13 @@ public class DashboardRecommendedPartnersPortlet extends MVCPortlet {
 					 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
 					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
 					 
+					 long portraitId = user.getPortraitId();
+				     
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);
 					 jsonObjectFinal.put("institutionLocation", "");
-					 jsonObjectFinal.put("imageURL", themeDisplay.getUser().getPortraitURL(themeDisplay));
+					 jsonObjectFinal.put("imageURL", themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId);
 					 jsonArrayFinal.put(jsonObjectFinal);
 				 }
 				 out.print(jsonArrayFinal);

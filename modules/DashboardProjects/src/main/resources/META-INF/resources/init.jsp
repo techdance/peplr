@@ -10,3 +10,17 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<style>
+.easyPieChart {
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+}
+.easyPieChart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>

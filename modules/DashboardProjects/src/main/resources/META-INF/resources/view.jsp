@@ -1,6 +1,6 @@
 <%@ include file="/init.jsp" %>
 
-<div class="box box-border-radius box-shadow bg-white">
+<!-- <div class="box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
 			<h2 class="box-subhead"><i class="fas fa-address-card"></i> My Projects</h2>
@@ -63,6 +63,99 @@
 							<td class="align-center"><img src="/o/ahea-theme/images/svg/Documents-Orange-Icon-1.svg" width="42" alt=""></td>
 							<td class="align-center"><img src="/o/ahea-theme/images/svg/Colleagues-Orange-Icon-1.svg" width="44" alt=""></td>
 							<td class="align-center"><img src="/o/ahea-theme/images/imag-status-3.jpg" alt=""></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="box box-border-radius box-shadow bg-white">
+	<div class="inner-wrap">
+		<div class="box-top position-relative">
+			<h2 class="box-subhead"><i class="fas fa-address-card"></i> My Projects</h2>
+			<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog"></i></a>
+
+			<div class="toltip2 menu-toltip toltip-overlay any-toltip">
+				<ul>
+					<li><a href="#">Create New Project</a></li>
+					<li><a href="#">Go to My Projects</a></li>
+					<li><a href="javascript:void(0);" class="btn-remove">Remove</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="box-middle">
+			<div class="table-wrapper-scroll-x my-custom-scrollbar">
+				<table class="table table-sm">
+					<thead>
+						<th align="left">Project Title</th>
+						<th align="center">Start/End</th>
+						<th align="center">Type</th>
+						<th align="center">Organizer</th>
+						<th align="center">Documents</th>
+						<th align="center">Colleagues</th>
+						<th align="center">Status</th>
+					</thead>
+					<tbody>
+						<tr class="row-color-blue">
+							<td>What Artificial Intelligence Can Do for Small Businesses</td>
+							<td class="align-center">May 6, 2019 - Nov 22, 2019</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/icon-doc.svg" width="30" alt=""></td>
+							<td class="align-center">
+								<span class="wrap-image">
+									<img src="/o/ahea-theme/images/imag-organ-1.jpg" alt="">
+									<span class="user-active"></span>
+								</span>
+								<div class="org-name">Randy Wolff</div>
+							</td>
+							<td class="align-center">
+								<img src="/o/ahea-theme/images/svg/Documents-Blue-Icon-1.svg" width="42" alt="">
+							</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Colleagues-Blue-Icon-1.svg" width="44" alt=""></td>
+							<td class="align-center">
+								<div class="circular-chart" data-percent="98" data-size="60" data-bar-color="#084366">
+									98%
+								</div>
+							</td>
+						</tr>
+						<tr class="row-color-green">
+							<td>AHEA Course Orientation</td>
+							<td class="align-center">Oct 14, 2019 - Nov 15, 2019</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Type-Lecture-Orange-Icon-1.svg" width="44" alt=""></td>
+							<td class="align-center">
+								<span class="wrap-image">
+									<img src="/o/ahea-theme/images/imag-organ-2.jpg" alt="">
+									<span class="user-active"></span>
+								</span>
+								<div class="org-name">William Stinson</div>
+							</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Documents-Green-Icon-1.svg" width="42" alt=""></td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Colleagues-Green-Icon-1.svg" width="44" alt=""></td>
+							<td class="align-center">
+								<div class="circular-chart" data-percent="45" data-size="60" data-bar-color="#339900">
+									45%
+								</div>
+							</td>
+						</tr>
+						<tr class="row-color-orange">
+							<td>Ethics in Multinational Management</td>
+							<td class="align-center">Nov 1, 2019 - Feb 28, 2020</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/icon-check.svg" width="30" alt=""></td>
+							<td class="align-center">
+								<span class="wrap-image">
+									<img src="/o/ahea-theme/images/bradley.png" alt="" width="40">
+									<span class="user-active"></span>
+								</span>
+								<div class="org-name">Bradley Dexter</div>
+							</td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Documents-Orange-Icon-1.svg" width="42" alt=""></td>
+							<td class="align-center"><img src="/o/ahea-theme/images/svg/Colleagues-Orange-Icon-1.svg" width="44" alt=""></td>
+							<td class="align-center">
+								<div class="circular-chart" data-percent="0" data-size="60" data-bar-color="#ed771a">
+									0%
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -23,7 +23,7 @@
 				</div>
 				<div class="content-icon">
 					<div>
-						<i class="fas fa-address-book"></i> <strong>Bio</strong>
+						<i class="fas fa-address-book"></i><strong>Bio</strong>
 					</div>
 					<div class="text">
 						<p>Extensive background in special education, disability
@@ -40,8 +40,19 @@
 					</p>
 	
 				</div>
-				<a href="#" class="btn btn-blue" style="margin-top: 30px;">View
-					CV</a>
+				<div>
+					<div class="content-icon video">
+						<div style="margin-bottom:8px"><i class="fab fa-youtube"></i><strong>Introduction Video</strong></div>
+						<div class="wrap-video img-resp">
+							<img src="/o/ahea-theme/images/sanaa-video.png">
+						</div>
+						<p class="text-center mt-2">
+							<a href="#" class="">http://youtube.com/wzercsxz1</a>
+						</p>
+					</div>
+				</div>
+				<a href="#" class="btn btn-blue" style="margin-top:10px;">View CV</a>
+				
 			</div>
 		</div>
 	</div>

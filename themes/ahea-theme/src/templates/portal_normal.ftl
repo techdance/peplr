@@ -12,7 +12,7 @@
 	<@liferay_util["include"] page=top_head_include />
 
 	<script src="https://kit.fontawesome.com/e4f868da6e.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<#--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  -->
 	<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,400,400i,700,700i,800,800i&display=swap" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 	
@@ -86,7 +86,17 @@
 
 <script src="/o/ahea-theme/js/jquery.sortable.js"></script>
 <script src="/o/ahea-theme/js/perfect-scrollbar.js"></script>
-<script src="/o/ahea-theme/js/custom.js"></script>
+<script src="/o/ahea-theme/js/custom.js?v=1.1"></script>
+
+<script type="text/javascript" src="/o/ahea-theme/js/jquery.easy-pie-chart.min.js"></script>
+<script type="text/javascript" src="/o/ahea-theme/js/app.js"></script>
+<script type="text/javascript" src="/o/ahea-theme/js/plugins.js"></script>
+<script>
+$(document).ready(function(){
+	Plugins.init();
+});
+</script>
+
 <@liferay_util["include"] page=body_bottom_include />
 
 <@liferay_util["include"] page=bottom_include />

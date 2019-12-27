@@ -12,7 +12,10 @@
 <portlet:defineObjects />
 
 <style>
-
+div.collaboration .content-icon {
+    margin-bottom: 10px;
+    color: black;
+}
 .interest-modal{
 	background: white;
 	border: 1px solid rgb(232, 232, 232);
@@ -24,11 +27,15 @@
 	padding:15px;
 	position: absolute;
 	z-index: 1;
-	margin-top:68px;
+	margin-top:15px;
 }
 
 .interest-modal{
-	width: 465px;
+	width: 100%;
+	max-width: 465px;
+	left: auto;
+	right: 0;
+    /* transform: translateX(-50%); */
 }
 
 .interest-modal .toltip-close2 a{
@@ -80,6 +87,7 @@
 		    line-height: 1.5;
 		    margin-bottom: .5rem;
 		    padding: 15px 20px;
+		    height: 100%;
 		}
 		span.left-corner {
 		    font-weight: bold;
@@ -118,6 +126,21 @@
 			.interest-modal {
 			    width: 100% !important;
 			}
+		}
+		section.wrap-profile .content-icon {
+		    color: black;
+		}
+		.top-label-range {
+		    display: flex;
+		    justify-content: space-between;
+		}
+		.ac {
+		    text-align: center;
+		}
+		.areas-of-interest p small {
+		    display: block;
+		    font-size: 12px;
+		    line-height: 14px !important;
 		}
 </style>
 <portlet:resourceURL var="saveCollaborationInterest" id="saveCollaborationInterest"></portlet:resourceURL>
@@ -206,21 +229,21 @@ function loadProjectDetails(){
                     		var data = JSON.parse(value);
                     		if(data.length>0){
                     			for(var i=0;i<data.length;i++){
+                    				console.log("i is", i);
                     				if(data[i].deliveryMethod==""){
-	                    				$("#area-of-interest-block-profile").append("<div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row'><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
-	                    					+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline+" </p> <p> <strong>Region</strong><br> "+data[i].region+" </p> </div> "
-	                    					+ " <a href='#' class='btn btn-blue col-sm-6 p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
-	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a>  </div>"
-   	                    					
-	                    				);
+                    					$("#area-of-interest-block-profile").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'> "
+                    						+ "<span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> <small>"+data[i].projectType+"</small> </p>"
+                    						+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> <small>"+data[i].discipline+"</small> </p> <p> <strong>Region</strong><br> <small>"+data[i].region+" </small></p> </div> </div>"
+                    						/* + " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#'>Remove</a></div></div>" */
+                    						+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6'><a href='#' class='btn btn-blue btn-tiny' onclick='goToMatching("+data[i].id+")'>Find Matches</a></div></div></div>"
+                    					);
                     				}
                     				else{
-                    					$("#area-of-interest-block-profile").append("<div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row'><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
-   	                    					+ " <p> <strong>Delivery Method</strong><br> "+data[i].deliveryMethod+" </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline+" </p> <p> <strong>Region</strong><br> "+data[i].region+" </p> </div> "
-   	                    					+ " <a href='#' class='btn btn-blue col-sm-6  p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
-   	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a> </div>"
-   	                    					
-   	                    				);
+                    					$("#area-of-interest-block-profile").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> <small>"+data[i].projectType+"</small> </p>"
+                    						+ " <p> <strong>Delivery Method</strong><br> <small>"+data[i].deliveryMethod+"</small> </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> <small> "+data[i].discipline+"</small> </p> <p> <strong>Region</strong><br> <small> "+data[i].region+"</small> </p> </div> </div>"
+                    						/* + " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#'>Remove</a></div></div>" */
+                    						+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6'><a href='#' class='btn btn-blue btn-tiny' onclick='goToMatching("+data[i].id+")'>Find Matches</a></div></div></div>" 
+                    					);
                     				}
                     			}                    			
                     		}
@@ -248,7 +271,9 @@ function getViewMoreData(id){
              		{		            		   
              		},
                     success:function()
-                    {			                    	
+                    {	
+                    	console.log("id", id);
+                    	$("#view-more-interest-modal").appendTo('#popup-'+id);
                     	var value=this.get('responseData');	
                     	if(value!=null && value!="undefined" && value!=undefined){
                     		var data = JSON.parse(value);
@@ -339,8 +364,8 @@ function goToMatching(id){
 		});
 }
 
-$(window).click(function(e) {
+/* $(window).click(function(e) {
     relativeY = (e.pageY - $('.editcollaboratedarea').offset().top);
         $('#view-more-interest-modal').css('top',relativeY +"px");
-});
+}); */
 </script>

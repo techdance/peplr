@@ -10,7 +10,7 @@ for (String s: onlineStatus) {
 <div class="box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h2 class="box-subhead"><i class="fas fa-user"></i> My Profile</h2>
+			<h2 class="box-subhead"><i class="fas fa-user"></i><a href="<%=themeDisplay.getURLPortal() %>/profile" style="color: black;"> My Profile</a></h2>
 			<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog"></i></a>
 			<div class="toltip2 menu-toltip toltip-overlay any-toltip">
 				<ul>

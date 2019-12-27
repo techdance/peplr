@@ -25,10 +25,10 @@ jQuery(document).ready(function(){
 			jQuery("#sidebar-content-mobile #nav li ul.sub-menu").hide();
 			jQuery(this).find("ul.sub-menu").show();
 		});
-		jQuery("#menu-button-hide-show").click(function(){
-			jQuery(".group-hide").toggle();
-			jQuery("#sidebar").toggleClass("hidden");
-		});
+		//jQuery("#menu-button-hide-show").click(function(){
+			//jQuery(".group-hide").toggle();
+			//jQuery("#sidebar").toggleClass("hidden");
+		//});
 		$('#sidebar ul#nav li a').each(function() { 
 			   var menuVal=$(this).attr("href"); 
 			var menuimg=menuVal.split("/").pop();
@@ -36,7 +36,14 @@ jQuery(document).ready(function(){
 		});
 		$("#sidebar ul#nav li a span.my-tiles").append("<span class='note'><span class='outer'>12</span></span>")
 		
-		
+		jQuery("#menu-button-hide-show").click(function(){
+			if(jQuery( "#sidebar" ).hasClass( "hidden" ))
+				jQuery(this).html("<i class='fas fa-arrow-circle-left'></i>");
+			else
+				jQuery(this).html("<i class='fas fa-arrow-circle-right'></i>");
+			jQuery(".group-hide").toggle();
+			jQuery("#sidebar").toggleClass("hidden");
+		});
 		
 	});	
 
@@ -62,15 +69,15 @@ jQuery(function() {
 });
 
 jQuery(function() {
-	jQuery("#btn-badges, .toltip-close a").click(function(){
-		jQuery("#badges-toltip").slideToggle();
-		jQuery("#btn-badges .note").slideToggle();
-	});
+	// jQuery("#btn-badges, .toltip-close a").click(function(){
+	// 	jQuery("#badges-toltip").slideToggle();
+	// 	jQuery("#btn-badges .note").slideToggle();
+	// });
 
-	jQuery("#btn-notification").click(function(){
-		jQuery("#notification-toltip").slideToggle();
-		jQuery("#btn-notification .note").slideToggle();
-	});
+	// jQuery("#btn-notification").click(function(){
+	// 	jQuery("#notification-toltip").slideToggle();
+	// 	jQuery("#btn-notification .note").slideToggle();
+	// });
 
 	jQuery(".toltip-close-details a.close-this").click(function(){
 		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
@@ -137,4 +144,42 @@ jQuery(function() {
 		changeYear: true,
 		dateFormat: 'dd-mm-yy'
 	});
+});
+
+Liferay.provide(window,'showMsg',function(msg){	
+	AUI().use(
+			  'aui-modal',
+			  function(A) {
+			    var modal = new A.Modal(
+			      {
+			    	  centered: true,
+			        headerContent: '<center><h4 class="font-weight-semibold m-0"> Message</h4></center>',
+			        modal: true,
+			        render: '#modal',
+			        toolbars: {
+			        		 header: []
+			         },
+			        width: 305,
+			        zIndex:1,
+			      }
+			    ).render();
+	
+  	  modal.set('bodyContent', msg);
+			    
+	modal.addToolbar(
+    	      [
+    	        {
+    	            label: 'OK',
+    	            on: {
+    	              click: function() {
+    	            	  modal.hide();
+    	            	  
+    	              }
+    	               
+    	              }
+    	            }
+    	          
+    	      ]
+		);
+});
 });

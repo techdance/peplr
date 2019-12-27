@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4480px" height="852px" viewBox="0 0 4480 852" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Badge Colors</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="1307" cy="400" r="400"></circle>
+        <filter x="-5.5%" y="-4.2%" width="111.0%" height="111.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="2214" cy="400" r="400"></circle>
+        <filter x="-5.5%" y="-4.2%" width="111.0%" height="111.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-5" cx="3121" cy="400" r="400"></circle>
+        <filter x="-5.5%" y="-4.2%" width="111.0%" height="111.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-7" cx="4028" cy="400" r="400"></circle>
+        <filter x="-5.5%" y="-4.2%" width="111.0%" height="111.0%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-9" cx="400" cy="400" r="400"></circle>
+        <filter x="-5.5%" y="-4.2%" width="111.0%" height="111.0%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Badge-Colors" transform="translate(26.000000, 16.000000)">
+            <g id="Gold">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#E8B923" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="Silver">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="#D2D2D2" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+            <g id="Bronze">
+                <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                <use fill="#CD7F32" fill-rule="evenodd" xlink:href="#path-5"></use>
+            </g>
+            <g id="Titanium">
+                <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                <use fill="#6A696F" fill-rule="evenodd" xlink:href="#path-7"></use>
+            </g>
+            <g id="Platinum">
+                <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                <use fill="#AFAAA2" fill-rule="evenodd" xlink:href="#path-9"></use>
+            </g>
+        </g>
+    </g>
+</svg>

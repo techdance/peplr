@@ -104,7 +104,8 @@ long institutionProfileId=0;
 				<div class="row row-custom">
 					<div class="col-md-6">						
 						<div class="fileinput fileinput-new" data-provides="fileinput">
-					   		<div class="fileinput-preview thumbnail d-flex align-items-center justify-content-center" data-trigger="fileinput">					      
+					   		<div class="fileinput-preview thumbnail d-flex align-items-center justify-content-center" data-trigger="fileinput">
+					   			<img  src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" id="userImage" class="img-responsive rounded-circle" alt="Responsive image">					      
 					          	<div class="upload-file position-absolute">
 					          		<input type="file" id="<portlet:namespace/>file" name='<portlet:namespace/>file' accept="image/*" /> 
 					          	</div>
@@ -410,9 +411,11 @@ long institutionProfileId=0;
 		</div>
 		<div class="box-middle">
 			<div class="row row-custom">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<h4 class="mb-3">Areas of Interest</h4>
-					<div id="area-of-interest-block"></div>
+					
+					<div class="clearfix">
+					<div id="area-of-interest-block" class="row row-custom "></div>
 					
 					<div id="view-more-interest-modal"	class="box-border-radius box-shadow interest-modal">
 						<div class="view-more-interest-modal-inner position-relative">
@@ -464,6 +467,11 @@ long institutionProfileId=0;
 							</div>
 						</div>
 					</div>
+					</div>
+					
+					
+					
+					
 					<div class="mb-2">
 						<a href="javascript:void(0);" class="btn btn-blue btn-w-100"
 							id="add-interest">Add An Interest</a>
@@ -610,7 +618,7 @@ long institutionProfileId=0;
 						</i>
 					</p>
 				</div>
-				<div class="col-md-6">
+				<!-- <div class="col-md-6">
 					
 				<h4 class="mb-3">Introduction Video</h4>
 				
@@ -627,7 +635,7 @@ long institutionProfileId=0;
 					<p>
 						<a href="#" class="btn btn-blue btn-w-100">Upload Video</a>
 					</p>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
