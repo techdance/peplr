@@ -28,7 +28,7 @@ function loadUserCommunicationPreferences(){
                     {		
                     	debugger;
                     	var value=this.get('responseData');	
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		$("#primaryLanguage_Communication").text(data.primaryLanguage_Communication);
                     		$("#secondaryLanguage_Communication").text(data.secondaryLanguage_Communication);      	                

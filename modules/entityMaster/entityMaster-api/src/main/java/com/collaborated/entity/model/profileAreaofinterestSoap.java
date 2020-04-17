@@ -42,14 +42,24 @@ public class profileAreaofinterestSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setProjectType(model.getProjectType());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setDiscipline(model.getDiscipline());
 		soapModel.setLanguage(model.getLanguage());
-		soapModel.setLocation(model.getLocation());
 		soapModel.setCampus(model.getCampus());
 		soapModel.setProgramLevel(model.getProgramLevel());
 		soapModel.setProgramLength(model.getProgramLength());
 		soapModel.setDeliveryMethod(model.getDeliveryMethod());
 		soapModel.setCredits(model.getCredits());
+		soapModel.setCollaborationType(model.getCollaborationType());
+		soapModel.setDiscipline1(model.getDiscipline1());
+		soapModel.setDiscipline2(model.getDiscipline2());
+		soapModel.setDiscipline3(model.getDiscipline3());
+		soapModel.setLocation1(model.getLocation1());
+		soapModel.setLocation2(model.getLocation2());
+		soapModel.setLocation3(model.getLocation3());
+		soapModel.setLocation4(model.getLocation4());
+		soapModel.setRangerYearStart(model.getRangerYearStart());
+		soapModel.setRangerYearEnd(model.getRangerYearEnd());
+		soapModel.setRangerMonthStart(model.getRangerMonthStart());
+		soapModel.setRangerMonthEnd(model.getRangerMonthEnd());
 
 		return soapModel;
 	}
@@ -161,28 +171,12 @@ public class profileAreaofinterestSoap implements Serializable {
 		_description = description;
 	}
 
-	public String getDiscipline() {
-		return _discipline;
-	}
-
-	public void setDiscipline(String discipline) {
-		_discipline = discipline;
-	}
-
 	public String getLanguage() {
 		return _language;
 	}
 
 	public void setLanguage(String language) {
 		_language = language;
-	}
-
-	public String getLocation() {
-		return _location;
-	}
-
-	public void setLocation(String location) {
-		_location = location;
 	}
 
 	public String getCampus() {
@@ -225,6 +219,102 @@ public class profileAreaofinterestSoap implements Serializable {
 		_credits = credits;
 	}
 
+	public String getCollaborationType() {
+		return _collaborationType;
+	}
+
+	public void setCollaborationType(String collaborationType) {
+		_collaborationType = collaborationType;
+	}
+
+	public String getDiscipline1() {
+		return _discipline1;
+	}
+
+	public void setDiscipline1(String discipline1) {
+		_discipline1 = discipline1;
+	}
+
+	public String getDiscipline2() {
+		return _discipline2;
+	}
+
+	public void setDiscipline2(String discipline2) {
+		_discipline2 = discipline2;
+	}
+
+	public String getDiscipline3() {
+		return _discipline3;
+	}
+
+	public void setDiscipline3(String discipline3) {
+		_discipline3 = discipline3;
+	}
+
+	public String getLocation1() {
+		return _location1;
+	}
+
+	public void setLocation1(String location1) {
+		_location1 = location1;
+	}
+
+	public String getLocation2() {
+		return _location2;
+	}
+
+	public void setLocation2(String location2) {
+		_location2 = location2;
+	}
+
+	public String getLocation3() {
+		return _location3;
+	}
+
+	public void setLocation3(String location3) {
+		_location3 = location3;
+	}
+
+	public String getLocation4() {
+		return _location4;
+	}
+
+	public void setLocation4(String location4) {
+		_location4 = location4;
+	}
+
+	public int getRangerYearStart() {
+		return _rangerYearStart;
+	}
+
+	public void setRangerYearStart(int rangerYearStart) {
+		_rangerYearStart = rangerYearStart;
+	}
+
+	public int getRangerYearEnd() {
+		return _rangerYearEnd;
+	}
+
+	public void setRangerYearEnd(int rangerYearEnd) {
+		_rangerYearEnd = rangerYearEnd;
+	}
+
+	public String getRangerMonthStart() {
+		return _rangerMonthStart;
+	}
+
+	public void setRangerMonthStart(String rangerMonthStart) {
+		_rangerMonthStart = rangerMonthStart;
+	}
+
+	public String getRangerMonthEnd() {
+		return _rangerMonthEnd;
+	}
+
+	public void setRangerMonthEnd(String rangerMonthEnd) {
+		_rangerMonthEnd = rangerMonthEnd;
+	}
+
 	private long _PK_areaofinterest;
 	private long _groupId;
 	private long _userId;
@@ -232,12 +322,22 @@ public class profileAreaofinterestSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _projectType;
 	private String _description;
-	private String _discipline;
 	private String _language;
-	private String _location;
 	private String _campus;
 	private String _programLevel;
 	private String _programLength;
 	private String _deliveryMethod;
 	private String _credits;
+	private String _collaborationType;
+	private String _discipline1;
+	private String _discipline2;
+	private String _discipline3;
+	private String _location1;
+	private String _location2;
+	private String _location3;
+	private String _location4;
+	private int _rangerYearStart;
+	private int _rangerYearEnd;
+	private String _rangerMonthStart;
+	private String _rangerMonthEnd;
 }

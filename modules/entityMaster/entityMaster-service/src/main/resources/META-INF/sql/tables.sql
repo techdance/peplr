@@ -1,3 +1,7 @@
+create table collaborated_commonWebsserviceAPI (
+	commonAPIId LONG not null primary key
+);
+
 create table collaborated_communicationPreferences (
 	PK_communicationPreferences LONG not null primary key,
 	groupId LONG,
@@ -11,7 +15,7 @@ create table collaborated_communicationPreferences (
 	tertiaryLanguageId LONG,
 	tertiaryLanguageName VARCHAR(75) null,
 	emailAddress VARCHAR(75) null,
-	phoneNumber LONG,
+	phoneNumber VARCHAR(75) null,
 	website VARCHAR(75) null
 );
 
@@ -31,14 +35,24 @@ create table collaborated_profileAreaofinterest (
 	modifiedDate DATE null,
 	projectType VARCHAR(75) null,
 	description VARCHAR(75) null,
-	discipline VARCHAR(75) null,
 	language VARCHAR(75) null,
-	location VARCHAR(75) null,
 	campus VARCHAR(75) null,
 	programLevel VARCHAR(75) null,
 	programLength VARCHAR(75) null,
 	deliveryMethod VARCHAR(75) null,
-	credits VARCHAR(75) null
+	credits VARCHAR(75) null,
+	collaborationType VARCHAR(75) null,
+	discipline1 VARCHAR(75) null,
+	discipline2 VARCHAR(75) null,
+	discipline3 VARCHAR(75) null,
+	location1 VARCHAR(75) null,
+	location2 VARCHAR(75) null,
+	location3 VARCHAR(75) null,
+	location4 VARCHAR(75) null,
+	rangerYearStart INTEGER,
+	rangerYearEnd INTEGER,
+	rangerMonthStart VARCHAR(75) null,
+	rangerMonthEnd VARCHAR(75) null
 );
 
 create table collaborated_userCredential (

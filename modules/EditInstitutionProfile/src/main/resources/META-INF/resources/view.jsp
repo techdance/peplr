@@ -19,7 +19,7 @@
 											</div>
 											<div class="box-bottom">
                                                 <p><i class="fa fa-paperclip" aria-hidden="true"></i> Foundation of Empathy in Establishing Clinical Best Practices</p>
-                                                <p><a href="#" class="btn btn-blue btn-w-100 btn2"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload Research Paper PDF</a></p>
+                                                <!-- <p><a href="#" class="btn btn-blue btn-w-100 btn2"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload Research Paper PDF</a></p> -->
                                             </div>
                                         </div>
                                     </div>

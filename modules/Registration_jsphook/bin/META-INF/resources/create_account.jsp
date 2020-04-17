@@ -161,8 +161,8 @@ birthdayCalendar.set(Calendar.YEAR, 1970);
 				<aui:option class="" value="Dr"> Dr </aui:option>
 				<aui:option class="" value="Miss"> Miss </aui:option>
 				<aui:option class="" value="Mr"> Mr </aui:option>
-				<aui:option class="" value="Ms"> Ms </aui:option> 
 				<aui:option class="" value="Mrs"> Mrs </aui:option>
+				<aui:option class="" value="Ms"> Ms </aui:option> 				
 				<aui:option class="" value="Mx"> Mx </aui:option>
 		     </aui:select>
 			</div>
@@ -235,9 +235,23 @@ return result;
 			 
 			 
 		<div class="wrap-input-icon icon-lock">
-		<aui:input label="" placeholder="password" name="password1" type="password" value="" cssClass="wrap-input">
-			<aui:validator name="required" />
-		</aui:input>
+			<aui:input label="" placeholder="password" name="password1" type="password" value="" cssClass="wrap-input">
+				<aui:validator name="required" />
+				<aui:validator  name="custom"  errorMessage="Password must be at least 8 characters with one capital letter, one number, and one symbol" >                                                       
+	          	function(val, fieldNode, ruleValue) {
+	              var passwordPattern = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$^&*!~])");
+	                           var result = passwordPattern.test(val);
+	                                    if(result){
+	                                             return result;
+	                                        }else{
+	                                               return result;
+	                                            }
+	                                    }
+	           </aui:validator>
+	           <aui:validator name="minLength">8</aui:validator> 
+			</aui:input>
+			<span class="icon-eye fa fa-fw fa-eye field-icon toggle-password"></span>
+			<div class="block-note font-style-italic">* Password must be 8 characters with one capital letter and one number</div>
 		</div>
 		<div class="wrap-input-icon icon-lock">
 				<aui:input label="" placeholder="Confirm Password" name="password2" type="password" value="" cssClass="wrap-input">
@@ -245,6 +259,7 @@ return result;
 						'#<portlet:namespace />password1'
 					</aui:validator>
 				</aui:input>
+				<span class="icon-eye fa fa-fw fa-eye field-icon toggle-confirmpassword"></span>
 				<a href="#" title="More Info"><i class="fas fa-info-circle"></i></a>
 			</div>
 			<%-- <c:if test="<%= PropsValues.LOGIN_CREATE_ACCOUNT_ALLOW_CUSTOM_PASSWORD %>">
@@ -286,6 +301,11 @@ return result;
 	<aui:button-row cssClass="text-center wrap-input-submit">
 		<aui:button type="submit" value="Create Account" />
 	</aui:button-row>
+	<p class="termscondition text-center" >By Clicking Create Account, you agree to <a href="/termsofservice" target="_blank">Terms of Service </a>
+	and have read and acknowledge our <a href="/privacy-policy" target="_blank">Privacy Policy</a></p>
+	<div class="rechapta-image text-center">
+		<img src="/o/ahea-theme/images/recaptcha.png" class="img-fluid mx-auto" />
+	</div>
 </aui:form>
 
 
@@ -300,4 +320,86 @@ $(window).on('load', function() {
 	$(".lfr-input-text ").addClass("form-control");
 	$(".lfr-input-text ").addClass("lfr-input-text");
 });
+
+$( document ).ready(function() {
+	
+	$('.institute-name .lfr-input-text').on('focus blur', function (e) {
+		   $(this).parents('.lfr-ddm-field-group').toggleClass('show-label', (e.type === 'focus' || this.value.length > 0));
+		   //$('.form-validator-stack').parent(".control-group").addClass('error');
+		  }).trigger('blur');
+});
+
+
+$(function(){
+	$(".institute-name .lfr-ddm-field-group.field-wrapper").append("<div class='form-validator-stack help-block' id='pqai___instituteNameHelperClass'><div role='alert' class='required' style='color: #dc3545;'>This field is required.</div></div>");
+	$("#pqai___instituteNameHelperClass").css("display","none");
+	function createAccount(event) {
+    	var instituteName = $('#pqai___instituteName').val();
+    	if(instituteName==""){
+    		$("#pqai___instituteNameHelperClass").css("display","block");
+    		return false;
+    	}
+    }
+    $('.wrap-input-submit button').click(createAccount);
+    $("#pqai___instituteName").keydown(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").keypress(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").keyup(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    	        $("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+    $("#pqai___instituteName").blur(function (event) {
+    	$("#pqai___instituteNameHelperClass").css("display","block");
+    	if($("#pqai___instituteName").val()!=""){
+    		$("#pqai___instituteNameHelperClass").css("display","none");
+    	}
+    });
+});
+
+jQuery(document).ready(function(){
+	$(".toggle-password").click(function() {
+		$(this).toggleClass("fa-eye fa-eye-slash");
+		var input = $("#_com_liferay_login_web_portlet_LoginPortlet_password1");
+		if (input.attr("type") == "password")
+			input.attr("type", "text");
+		else
+			input.attr("type", "password");
+	});
+	$(".toggle-confirmpassword").click(function() {
+		$(this).toggleClass("fa-eye fa-eye-slash");
+		var input2 = $("#_com_liferay_login_web_portlet_LoginPortlet_password2");
+		if (input2.attr("type") == "password")
+			input2.attr("type", "text");
+		else
+			input2.attr("type", "password");
+	});
+});
 </script>
+<style>
+	.font-style-italic {
+	    font-style: italic;
+	}
+	.block-note {
+	    color: #777777;
+	    font-weight: normal;
+	    font-size: 10px;
+	    line-height: 1.5;
+	    font-family: "Merriweather Sans"," SansSerif";
+	    margin-bottom: 15px;
+	    text-align: center;
+	}
+</style>
+
+
+

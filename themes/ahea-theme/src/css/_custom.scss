@@ -114,8 +114,10 @@ div p:last-child{
 	margin-right: 0px;
 }
 .top .img-circle{
-	height: auto;
-	width:50px;
+	height: 50px;
+    width: 50px;
+    object-fit: contain;
+    box-shadow: 0 0 2px #0000001f;
 }
 .top .hello,
 .top .hello a{
@@ -483,20 +485,21 @@ div.item span{
 
 span.note{
 	background: #f09444;
-	border:1px solid #fff;
-	border-radius: 50%;
-	-moz-border-radius: 50%;
-	-webkit-border-radius:50%;
-	color:white;
-	padding: 2px 4px;
-	position: absolute;
-	left: 15px;
-	top:0px;
-	height: 23px;
-	width: 23px;
-	font-size: 12px;
-	line-height: 15px;
-	text-align: center;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: white;
+    padding: 0;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+    height: 16px;
+    width: 16px;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    font-weight: bold;
 }
 span.note .outer{
 	display: flex;
@@ -505,20 +508,25 @@ span.note .outer{
 }
 
 .top-icon span.note{
-	left:inherit;
-	right:0px;
-	top:5px;
+	left: inherit;
+    right: 2px;
+    top: 7px;
 }
 
 .icon-2 span.note{
-	right:-12px;
-	top:2px;
+	right: -1px;
+    top: 5px;
 }
 .icon-3 span.note{
-	right:-12px;
-	top:-8px;
+	right: -5px;
+    top: 5px;
 }
-
+.top-icon.hello, .top-icon.hello a {
+    color: #ff993f !important;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 10px;
+}
 .top-button .btn{width: 100px;}
 
 span.user-active{
@@ -734,6 +742,9 @@ span.wrap-image img{
 #sidebar ul#nav > li:hover > a{
 	background: #0b1972;
 	border-left:4px solid #f09444;
+}
+#sidebar ul#nav > li:hover > a {
+	background: #0092f7;
 }
 
 #sidebar ul#nav li a i {
@@ -2630,4 +2641,27 @@ span.user-active {
 	&:hover .info-toltip {
 		display: block;
 	}
+}
+
+.icon-dashboard_custom{
+	opacity: 0.45 !important;
+}
+
+.breadcrumb {
+	background:none;
+	margin-bottom: 0.5rem;
+    padding: 0;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+	// content: "\f105" !important;
+	// font-family: FontAwesome !important;
+	height: .65em;
+	width: .65em;
+}
+.breadcrumb-item a {
+    color: #6c757d;
+}
+.breadcrumb-item.active,
+.breadcrumb-item.active a{
+    color: #0099ff !important;
 }

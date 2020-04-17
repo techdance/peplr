@@ -44,7 +44,7 @@
 		<column name="tertiaryLanguageId" type="long" />
 		<column name="tertiaryLanguageName" type="String" />
 		<column name="emailAddress" type="String" />
-		<column name="phoneNumber" type="long" />
+		<column name="phoneNumber" type="String" />
 		<column name="website" type="String" />
 	</entity>
 	
@@ -68,15 +68,27 @@
 
 		<column name="projectType" type="String" />
 		<column name="description" type="String" />
-		<column name="discipline" type="String" />
-		<column name="language" type="String" />
-		<column name="location" type="String" />
+		<column name="language" type="String" />		
 		<column name="campus" type="String" />
 		
 		<column name="programLevel" type="String" />
 		<column name="programLength" type="String" />
 		<column name="deliveryMethod" type="String" />
 		<column name="credits" type="String" />
+		<column name="collaborationType" type="String" />
+		
+		
+		<column name="discipline1" type="String" />
+		<column name="discipline2" type="String" />
+		<column name="discipline3" type="String" />
+		<column name="location1" type="String" />
+		<column name="location2" type="String" />
+		<column name="location3" type="String" />
+		<column name="location4" type="String" />
+		<column name="rangerYearStart" type="int" />
+		<column name="rangerYearEnd" type="int" />	
+		<column name="rangerMonthStart" type="String" />	
+		<column name="rangerMonthEnd" type="String" />			
 	</entity>
 	
 	<entity local-service="true" name="userCredential" remote-service="true" json-enabled="true">
@@ -175,6 +187,10 @@
 
 		<column name="fileId" type="long" />
 		<column name="PK_userInstition" type="long" />
+	</entity>
+	
+	<entity name="commonWebsserviceAPI" local-service="true" remote-service="true" json-enabled="true">
+		<column name="commonAPIId" type="long" primary="true" />	
 	</entity>
 	
 </service-builder>

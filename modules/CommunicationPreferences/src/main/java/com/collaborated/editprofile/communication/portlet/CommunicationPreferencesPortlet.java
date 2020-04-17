@@ -153,7 +153,7 @@ public class CommunicationPreferencesPortlet extends MVCPortlet {
 		ResultSet rs = null;
 		Connection conn = null;
 		try{
-			String query = "SELECT * FROM `collaborated_languagepreferences` WHERE `PK_languagePreferences`="+languageId;
+			String query = "SELECT languageName FROM `collaborated_languagepreferences` WHERE `PK_languagePreferences`="+languageId;
 			conn = DataAccess.getConnection();
 			st = conn.prepareStatement(query);
 			rs = st.executeQuery(query);
@@ -187,7 +187,7 @@ public class CommunicationPreferencesPortlet extends MVCPortlet {
 		
 		PrintWriter out = null;
 		String emailAddress = ParamUtil.getString(resourceRequest, "communicationEmail");
-		long phoneNumber = ParamUtil.getLong(resourceRequest, "communicationPhoneNumber");
+		String phoneNumber = ParamUtil.getString(resourceRequest, "communicationPhoneNumber");
 		String website = ParamUtil.getString(resourceRequest, "communicationWebsite");
 		
 		
@@ -229,7 +229,7 @@ public class CommunicationPreferencesPortlet extends MVCPortlet {
 				out.print("add");
 			}else{
 				communicationPreferences = communicationPreferencesLocalServiceUtil.getcommunicationPreferences(communicationId);
-				communicationPreferences.setCreateDate(new Date());
+				communicationPreferences.setModifiedDate(new Date());
 				communicationPreferences.setGroupId(themeDisplay.getScopeGroupId());
 				communicationPreferences.setPrimaryLanguageId(primaryLanguageID);
 				communicationPreferences.setSecondaryLanguageId(secondaryLanguageID);

@@ -19,8 +19,8 @@ if(null!=request.getAttribute("languageList")){
 	listArray = (JSONArray)request.getAttribute("languageList");
 }
 
-long primLangId=0,secoLangId=0,terLangId=0,commuId=0,phoneNum=0;
-String primLangName="",secLangName="",terLangName="",email="",website="";
+long primLangId=0,secoLangId=0,terLangId=0,commuId=0;
+String primLangName="",secLangName="",terLangName="",email="",website="",phoneNum="";
 
 DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(communicationPreferences.class, PortalClassLoaderUtil.getClassLoader());
 dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
@@ -94,12 +94,12 @@ if(comList.size()>0){
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<aui:input name="communicationEmail" required='true' label="Email" placeholder="" value= "<%=email %>" cssClass="w-100 input-border-bottom">
+						<aui:input name="communicationEmail" required='true' label="Email" placeholder="Please enter email address" value= "<%=email %>" cssClass="w-100 input-border-bottom">
 							<aui:validator name="email" />
 						</aui:input>
 					</div>
 					<div class="form-group">
-						<aui:input name="communicationPhoneNumber" required='true' label="Phone Number" placeholder="" value="<%=phoneNum %>" cssClass="w-100 input-border-bottom">
+						<aui:input name="communicationPhoneNumber" required='true' label="Phone Number" placeholder="Please enter phone number" value="<%=phoneNum %>" cssClass="w-100 input-border-bottom">
 							<aui:validator name="number" />
 							<aui:validator name="maxLength">10</aui:validator>
 						</aui:input>

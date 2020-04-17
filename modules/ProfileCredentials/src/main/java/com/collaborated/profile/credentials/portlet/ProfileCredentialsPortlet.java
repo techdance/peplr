@@ -96,6 +96,10 @@ public class ProfileCredentialsPortlet extends MVCPortlet {
 				
 				template = "<div class=\"box-middle\"> "
 						+ "<div class=\"content-icon\">"
+							+ "<p><i class=\"fas fa-graduation-cap\"></i><strong>Highest Education Level</strong></p>"
+							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership4()+"</a></p>"
+						+ "</div>"
+						+ "<div class=\"content-icon\">"
 							+ "<p><i class=\"fas fa-trophy\"></i><strong>Professional Memberships</strong></p>"
 							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership1()+"</a></p>"
 						+ "</div>"
@@ -103,10 +107,7 @@ public class ProfileCredentialsPortlet extends MVCPortlet {
 							+ "<p><i class=\"fas fa-certificate\" aria-hidden=\"true\"></i><strong>Certificates</strong></p>"
 							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getCertificate1()+"</a></p>"
 						+ "</div>"
-						+ "<div class=\"content-icon\">"
-							+ "<p><i class=\"fas fa-graduation-cap\"></i><strong>Highest Education Level</strong></p>"
-							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership4()+"</a></p>"
-						+ "</div>"
+						
 				   + "</div>";
 				
 				out.print(template);

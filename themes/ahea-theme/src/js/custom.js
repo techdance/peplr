@@ -79,9 +79,9 @@ jQuery(function() {
 	// 	jQuery("#btn-notification .note").slideToggle();
 	// });
 
-	jQuery(".toltip-close-details a.close-this").click(function(){
-		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
-	});
+	// jQuery(".toltip-close-details a.close-this").click(function(){
+	// 	jQuery(this).closest(".toltip-item").attr('style','display:none !important');
+	// });
 });
 
 jQuery(function() {
@@ -95,34 +95,44 @@ jQuery(function() {
 		jQuery("#btn-badges .note").slideToggle();
 	});
 
-	jQuery("#btn-notification").click(function(e){
-		e.stopPropagation();
-		jQuery("#notification-toltip").slideToggle();
-		jQuery("#btn-notification .note").slideToggle();
-	});
+	// jQuery("#btn-notification").click(function(e){
+	// 	e.stopPropagation();
+	// 	jQuery("#notification-toltip").slideToggle();
+	// 	jQuery("#btn-notification .note").slideToggle();
+	// 	jQuery("#email-toltip").hide();
+	// 	jQuery("#btn-email .note").hide();
+	// 	jQuery("#user-toltip").hide();
+	// });
 
-	jQuery(".toltip-close-details a.close-this").click(function(){
-		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
-	});
+	// jQuery(".toltip-close-details a.close-this").click(function(){
+	// 	jQuery(this).closest(".toltip-item").attr('style','display:none !important');
+	// });
 
-	jQuery("#btn-email").click(function(e){
-		e.stopPropagation();
-		jQuery("#email-toltip").slideToggle();
-		jQuery("#btn-email .note").slideToggle();
-	});
+	// jQuery("#btn-email").click(function(e){
+	// 	e.stopPropagation();
+	// 	jQuery("#email-toltip").slideToggle();
+	// 	jQuery("#btn-email .note").slideToggle();
+	// 	jQuery("#notification-toltip").hide();
+	// 	jQuery("#btn-notification .note").hide();
+	// 	jQuery("#user-toltip").hide();
+	// });
 
-	jQuery("#btn-user").click(function(e){
-		e.stopPropagation();
-		jQuery("#user-toltip").slideToggle();
-	});
+	// jQuery("#btn-user").click(function(e){
+	// 	e.stopPropagation();
+	// 	jQuery("#user-toltip").slideToggle();
+	// 	jQuery("#email-toltip").hide();
+	// 	jQuery("#btn-email .note").hide();
+	// 	jQuery("#notification-toltip").hide();
+	// 	jQuery("#btn-notification .note").hide();
+	// });
 
-	jQuery(".toltip-header-right a.icon-close").click(function(){
-		jQuery(this).closest(".toltip-item").attr('style','display:none !important');
-	});
+	// jQuery(".toltip-header-right a.icon-close").click(function(){
+	// 	jQuery(this).closest(".toltip-item").attr('style','display:none !important');
+	// });
 	
-	jQuery(".box-top").click(function(e){
+	jQuery(".box-top .icon-box").click(function(e){ 
 		e.stopPropagation();
-		jQuery(this).find(".toltip2").slideToggle();
+		jQuery(this).siblings(".toltip2").slideToggle();
 	});
 
 	jQuery("a.btn-remove").click(function(e){

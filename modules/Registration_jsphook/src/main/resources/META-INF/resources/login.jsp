@@ -14,7 +14,12 @@
  */
 --%>
 
+
+<%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
+<%@page import="com.liferay.portal.kernel.model.User"%>
+<%@page import="com.liferay.portal.kernel.service.UserLocalServiceUtil"%>
 <%@ include file="/init.jsp" %>
+
 
 <c:choose>
 	<c:when test="<%= themeDisplay.isSignedIn() %>">
@@ -115,7 +120,7 @@
 					</c:when>
 				</c:choose>
 
-				<liferay-ui:error exception="<%= AuthException.class %>" message="authentication-failed" />
+				<liferay-ui:error exception="<%= AuthException.class %>" message="Incorrect username or password" />
 				<liferay-ui:error exception="<%= CompanyMaxUsersException.class %>" message="unable-to-log-in-because-the-maximum-number-of-users-has-been-reached" />
 				<liferay-ui:error exception="<%= CookieNotSupportedException.class %>" message="authentication-failed-please-enable-browser-cookies" />
 				<liferay-ui:error exception="<%= NoSuchUserException.class %>" message="authentication-failed" />
@@ -160,7 +165,7 @@
 					}
 					%>
 					
-					<div class="wrap-input-icon icon-envelope">
+					<div class="wrap-input-icon icon-user">
 						<aui:input autoFocus="<%= windowState.equals(LiferayWindowState.EXCLUSIVE) || windowState.equals(WindowState.MAXIMIZED) %>" cssClass="clearable" label="<%= loginLabel %>" name="login" showRequiredLabel="<%= false %>" type="text" value="" placeholder="Email Address">
 							<aui:validator name="required" />
 						</aui:input>
@@ -170,21 +175,37 @@
 						<aui:input name="password" showRequiredLabel="<%= false %>" type="password" value="<%= password %>"  placeholder="Password">
 							<aui:validator name="required" />
 						</aui:input>
+						<span class="icon-eye fa fa-fw fa-eye field-icon toggle-password"></span>
 					</div>
 
 					<span id="<portlet:namespace />passwordCapsLockSpan" style="display: none;"><liferay-ui:message key="caps-lock-is-on" /></span>
 
-					<c:if test="<%= company.isAutoLogin() && !PropsValues.SESSION_DISABLED %>">
-						<aui:input checked="<%= rememberMe %>" name="rememberMe" type="checkbox" />
-					</c:if>
+					<div class="d-flex justify-content-between align-items-center">
+						<c:if test="<%= company.isAutoLogin() && !PropsValues.SESSION_DISABLED %>">
+							<aui:input checked="<%= rememberMe %>" name="rememberMe" type="checkbox" />
+						</c:if>
+						<div class="forgot mb-3">
+							<a href="<%=themeDisplay.getURLPortal() %>/web/guest/home?p_p_id=com_liferay_login_web_portlet_LoginPortlet&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;_com_liferay_login_web_portlet_LoginPortlet_mvcRenderCommandName=%2Flogin%2Fforgot_password">
+								Forgot password?
+							</a>
+						</div>
+					</div>
 				</aui:fieldset>
 
-				<aui:button-row cssClass="wrap-input-submit">
-					<aui:button type="submit" value="sign-in" />
+
+				<aui:button-row cssClass="wrap-input-submit my-0">
+					<aui:button type="submit" value="sign-in" id="input-submit"/>
 				</aui:button-row>
 			</aui:form>
-
-			<%@ include file="/navigation.jspf" %>
+			<div class="create-account ac m0">
+				<p class="m-0">Don't have an account? 
+					<a href="<%=themeDisplay.getURLPortal() %>/web/guest/home?p_p_id=com_liferay_login_web_portlet_LoginPortlet&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;saveLastPath=false&amp;_com_liferay_login_web_portlet_LoginPortlet_mvcRenderCommandName=%2Flogin%2Fcreate_account">
+						Create an Account
+					</a>
+				</p>
+			</div>
+			<%-- <%@ include file="/navigation.jspf" %> --%>
+			
 		</div>
 
 		<aui:script sandbox="<%= true %>">
@@ -224,4 +245,16 @@ $(window).on('load', function() {
 	    return $(this).text().replace("Create Account", "Sign Up"); 
 	});
 });
+
+jQuery(document).ready(function(){
+	$(".toggle-password").click(function() {
+		$(this).toggleClass("fa-eye fa-eye-slash");
+		var input = $("#_com_liferay_login_web_portlet_LoginPortlet_password");
+		if (input.attr("type") == "password")
+			input.attr("type", "text");
+		else
+			input.attr("type", "password");
+	});
+});
+
 </script>

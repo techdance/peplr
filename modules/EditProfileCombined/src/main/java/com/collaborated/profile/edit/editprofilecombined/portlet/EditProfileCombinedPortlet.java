@@ -134,6 +134,89 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			getInstituteProfile(resourceRequest,resourceResponse);
 		}else if(resourceID !=null && resourceID.equals("removeCollaborationInterest")){
 			removeCollaborationInterest(resourceRequest,resourceResponse);
+		}else if(resourceID !=null && resourceID.equals("updateAreaofinterest")){
+			updateAreaofinterest(resourceRequest,resourceResponse);
+		}
+	}
+	
+	public void updateAreaofinterest(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException {
+		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(resourceRequest);
+		
+		//Add interest
+		long updateInterestId = ParamUtil.getLong(resourceRequest, "updateInterestId");
+		String projectType = ParamUtil.getString(resourceRequest, "projectTypeEdit");
+		String projectDescription = ParamUtil.getString(resourceRequest, "projectDescriptionEdit");
+		/*String[] disciplineInput = ParamUtil.getParameterValues(resourceRequest, "disciplineEdit");
+		StringBuilder disciplines = new StringBuilder();
+		for(String loc : disciplineInput){
+			disciplines.append(loc);
+			disciplines.append(",");
+		}
+		String discipline = disciplines.toString();
+		String[] locationInput = ParamUtil.getParameterValues(resourceRequest, "locationEdit");
+		StringBuilder locations = new StringBuilder();
+		for(String loc : locationInput){
+			locations.append(loc);
+			locations.append(",");
+		}
+		String location = locations.toString();*/
+		//String intracampus = ParamUtil.getString(resourceRequest, "intracampus");		
+		String preferredLanguage = ParamUtil.getString(resourceRequest, "preferredLanguageEdit");
+		String programLevel = ParamUtil.getString(resourceRequest, "programLevelEdit");
+		String programLength = ParamUtil.getString(resourceRequest, "programLengthEdit");
+		String deliveryMethod = ParamUtil.getString(resourceRequest, "deliveryMethodEdit");
+		String credits = ParamUtil.getString(resourceRequest, "creditsEdit");
+	//	String addInterestButton = ParamUtil.getString(resourceRequest, "addInterestButton");
+		String collaborationType = ParamUtil.getString(resourceRequest, "collaborationTypeEdit");
+		String discipline1 = ParamUtil.getString(resourceRequest, "disciplineEdit1");
+		String discipline2 = ParamUtil.getString(resourceRequest, "disciplineEdit2");
+		String discipline3 = ParamUtil.getString(resourceRequest, "disciplineEdit3");
+		String location1 = ParamUtil.getString(resourceRequest, "locationEdit1");
+		String location2 = ParamUtil.getString(resourceRequest, "locationEdit2");
+		String location3 = ParamUtil.getString(resourceRequest, "locationEdit3");
+		String location4 = ParamUtil.getString(resourceRequest, "locationEdit4");
+		String endMonthRangeEdit = ParamUtil.getString(resourceRequest, "endMonthRangeEdit");
+		int endYearRangeEdit = ParamUtil.getInteger(resourceRequest, "endYearRangeEdit");
+		String startMonthRange = ParamUtil.getString(resourceRequest, "startMonthRange");
+		int startYearRange = ParamUtil.getInteger(resourceRequest, "startYearRange");
+		PrintWriter out = null;		
+		try{
+			profileAreaofinterest profileAreaofinterest = profileAreaofinterestLocalServiceUtil.getprofileAreaofinterest(updateInterestId);
+			profileAreaofinterest.setUserId(themeDisplay.getUserId());
+			profileAreaofinterest.setCreateDate(new Date());
+			profileAreaofinterest.setGroupId(themeDisplay.getScopeGroupId());
+			profileAreaofinterest.setProjectType(projectType);
+			profileAreaofinterest.setDescription(projectDescription);
+			profileAreaofinterest.setDiscipline1(discipline1);	
+			profileAreaofinterest.setLocation1(location1);
+			profileAreaofinterest.setDiscipline2(discipline2);	
+			profileAreaofinterest.setLocation2(location2);
+			profileAreaofinterest.setDiscipline3(discipline3);	
+			profileAreaofinterest.setLocation3(location3);	
+			profileAreaofinterest.setLocation4(location4);
+			profileAreaofinterest.setRangerMonthEnd(endMonthRangeEdit);
+			profileAreaofinterest.setRangerMonthStart(startMonthRange);
+			profileAreaofinterest.setRangerYearEnd(endYearRangeEdit);
+			profileAreaofinterest.setRangerYearStart(startYearRange);
+			//profileAreaofinterest.setDiscipline(discipline.substring(0,discipline.length()-1));
+			profileAreaofinterest.setLanguage(preferredLanguage);
+			//profileAreaofinterest.setLocation(location.substring(0,location.length()-1));
+			//profileAreaofinterest.setCampus(intracampus);
+			profileAreaofinterest.setCollaborationType(collaborationType);
+			
+			if(projectType.equalsIgnoreCase("Course Development") || projectType.equalsIgnoreCase("Curriculum Development")){
+				profileAreaofinterest.setProgramLevel(programLevel);
+				profileAreaofinterest.setProgramLength(programLength);
+				profileAreaofinterest.setDeliveryMethod(deliveryMethod);
+				profileAreaofinterest.setCredits(credits);
+			}
+			profileAreaofinterestLocalServiceUtil.updateprofileAreaofinterest(profileAreaofinterest);
+			
+			out = resourceResponse.getWriter();
+			out.print("update");
+		}catch(Exception e){
+			
 		}
 	}
 	
@@ -160,7 +243,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		
 		//Communication Preferences form
 		String emailAddress = ParamUtil.getString(resourceRequest, "communicationEmail");
-		long phoneNumber = ParamUtil.getLong(resourceRequest, "communicationPhoneNumber");
+		String phoneNumberChar = ParamUtil.getString(resourceRequest, "communicationPhoneNumber");
+		String phoneNumber = phoneNumberChar.replaceAll("[^a-zA-Z0-9]", "");
 		String website = ParamUtil.getString(resourceRequest, "communicationWebsite");	
 		long primaryLanguageID = ParamUtil.getLong(resourceRequest, "primaryLanguage");
 		long secondaryLanguageID = ParamUtil.getLong(resourceRequest, "secondaryLanguage");
@@ -174,15 +258,44 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		long addInterestId = ParamUtil.getLong(resourceRequest, "addInterestId");
 		String projectType = ParamUtil.getString(resourceRequest, "projectType");
 		String projectDescription = ParamUtil.getString(resourceRequest, "projectDescription");
-		String discipline = ParamUtil.getString(resourceRequest, "discipline");
+		String discipline1 = ParamUtil.getString(resourceRequest, "discipline1");
+		String discipline2 = ParamUtil.getString(resourceRequest, "discipline2");
+		String discipline3 = ParamUtil.getString(resourceRequest, "discipline3");
+		String endMonthRangeAdd = ParamUtil.getString(resourceRequest, "endMonthRangeAdd");
+		int endYearRangeAdd = ParamUtil.getInteger(resourceRequest, "endYearRangeAdd");
+		String startMonthRange = ParamUtil.getString(resourceRequest, "startMonthRange");
+		int startYearRange = ParamUtil.getInteger(resourceRequest, "startYearRange");
+		
+		//String discipline4 = ParamUtil.getString(resourceRequest, "discipline4");
+//		String[] disciplineInput = ParamUtil.getParameterValues(resourceRequest, "discipline");
+//		StringBuilder disciplines = new StringBuilder();
+//		for(String dis : disciplineInput){
+//			disciplines.append(dis);
+//			disciplines.append(",");
+//		}
+//		String discipline = disciplines.toString();
 		String preferredLanguage = ParamUtil.getString(resourceRequest, "preferredLanguage");
-		String location = ParamUtil.getString(resourceRequest, "location");
+		String location1 = ParamUtil.getString(resourceRequest, "location1");
+		String location2 = ParamUtil.getString(resourceRequest, "location2");
+		String location3 = ParamUtil.getString(resourceRequest, "location3");
+		String location4 = ParamUtil.getString(resourceRequest, "location4");
+//		String[] locationInput = ParamUtil.getParameterValues(resourceRequest, "location");
+//		StringBuilder locations = new StringBuilder();
+//		for(String loc : locationInput){
+//			locations.append(loc);
+//			locations.append(",");
+//		}
+//		String location = locations.toString();
+		
+		
+		
 		String intracampus = ParamUtil.getString(resourceRequest, "intracampus");		
 		String programLevel = ParamUtil.getString(resourceRequest, "programLevel");
 		String programLength = ParamUtil.getString(resourceRequest, "programLength");
 		String deliveryMethod = ParamUtil.getString(resourceRequest, "deliveryMethod");
 		String credits = ParamUtil.getString(resourceRequest, "credits");
 		String addInterestButton = ParamUtil.getString(resourceRequest, "addInterestButton");
+		String collaborationType = ParamUtil.getString(resourceRequest, "collaborationType");
 		
 		//Area of Expertise (Professional Bio)
 		String areasofexpertise1 = ParamUtil.getString(resourceRequest, "areasofexpertise1");
@@ -192,6 +305,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		String cvLink = ParamUtil.getString(resourceRequest, "cvLink");
 		String bioDescription = ParamUtil.getString(resourceRequest, "bioDescription");
 		long professionalBioId = ParamUtil.getLong(resourceRequest, "professionalBioId");
+		
 		
 		System.out.println(areasofexpertise2+bioDescription+"bioDescription");
 		
@@ -290,7 +404,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				List<communicationPreferences> communicationList = communicationPreferencesLocalServiceUtil.dynamicQuery(dynamicQueryCommunicationPrefe);
 				if(communicationList.size()==0){
 					if(!(primaryLanguageName.equalsIgnoreCase("")) || !(secondaryLanguageName.equalsIgnoreCase("")) || !(tertiaryLanguageName.equalsIgnoreCase(""))
-							|| !(emailAddress.equalsIgnoreCase("")) || (phoneNumber!=0) || !(website.equalsIgnoreCase(""))
+							|| !(emailAddress.equalsIgnoreCase("")) || (phoneNumber!="") || !(website.equalsIgnoreCase(""))
 							){
 						communicationPreferences = communicationPreferencesLocalServiceUtil.createcommunicationPreferences(CounterLocalServiceUtil.increment());
 						communicationPreferences.setUserId(themeDisplay.getUserId());
@@ -303,7 +417,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						communicationPreferences.setSecondaryLanguageName(secondaryLanguageName);
 						communicationPreferences.setTertiaryLanguageName(tertiaryLanguageName);
 						communicationPreferences.setEmailAddress(emailAddress);
-						communicationPreferences.setPhoneNumber(phoneNumber);
+						communicationPreferences.setPhoneNumber("+"+phoneNumber);
 						communicationPreferences.setWebsite(website);
 						communicationPreferencesLocalServiceUtil.addcommunicationPreferences(communicationPreferences);
 					}
@@ -321,7 +435,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					communicationPreferences.setSecondaryLanguageName(secondaryLanguageName);
 					communicationPreferences.setTertiaryLanguageName(tertiaryLanguageName);
 					communicationPreferences.setEmailAddress(emailAddress);
-					communicationPreferences.setPhoneNumber(phoneNumber);
+					communicationPreferences.setPhoneNumber("+"+phoneNumber);
 					communicationPreferences.setWebsite(website);
 					communicationPreferencesLocalServiceUtil.updatecommunicationPreferences(communicationPreferences);
 					out = resourceResponse.getWriter();
@@ -374,10 +488,22 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					profileAreaofinterest.setGroupId(themeDisplay.getScopeGroupId());
 					profileAreaofinterest.setProjectType(projectType);
 					profileAreaofinterest.setDescription(projectDescription);
-					profileAreaofinterest.setDiscipline(discipline);
-					profileAreaofinterest.setLanguage(preferredLanguage);
-					profileAreaofinterest.setLocation(location);
-					profileAreaofinterest.setCampus(intracampus);
+					profileAreaofinterest.setLanguage(preferredLanguage);	
+//					profileAreaofinterest.setDiscipline1(discipline.substring(0,discipline.length()-1));			
+//					profileAreaofinterest.setLocation1(location.substring(0,location.length()-1));
+					//profileAreaofinterest.setCampus(intracampus);
+					profileAreaofinterest.setDiscipline1(discipline1);	
+					profileAreaofinterest.setLocation1(location1);
+					profileAreaofinterest.setDiscipline2(discipline2);	
+					profileAreaofinterest.setLocation2(location2);
+					profileAreaofinterest.setDiscipline3(discipline3);	
+					profileAreaofinterest.setLocation3(location3);	
+					profileAreaofinterest.setLocation4(location4);
+					profileAreaofinterest.setCollaborationType(collaborationType);
+					profileAreaofinterest.setRangerYearEnd(endYearRangeAdd);
+					profileAreaofinterest.setRangerMonthEnd(endMonthRangeAdd);
+					profileAreaofinterest.setRangerMonthStart(startMonthRange);
+					profileAreaofinterest.setRangerYearStart(startYearRange);
 					
 					if(projectType.equalsIgnoreCase("Course Development") || projectType.equalsIgnoreCase("Curriculum Development")){
 						profileAreaofinterest.setProgramLevel(programLevel);
@@ -894,7 +1020,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		
 		PrintWriter out = null;
 		String emailAddress = ParamUtil.getString(resourceRequest, "communicationEmail");
-		long phoneNumber = ParamUtil.getLong(resourceRequest, "communicationPhoneNumber");
+		String phoneNumberChar = ParamUtil.getString(resourceRequest, "communicationPhoneNumber");
+		String phoneNumber = phoneNumberChar.replaceAll("[^a-zA-Z0-9]", "");
 		String website = ParamUtil.getString(resourceRequest, "communicationWebsite");
 		
 		
@@ -977,9 +1104,15 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				for(profileAreaofinterest pa:listData){
 					jsonObject = JSONFactoryUtil.createJSONObject();
 					jsonObject.put("projectType", pa.getProjectType());
-					jsonObject.put("discipline", pa.getDiscipline());
-					jsonObject.put("region", pa.getLocation());
-					jsonObject.put("deliveryMethod", pa.getDeliveryMethod());
+					jsonObject.put("discipline1", pa.getDiscipline1());
+					jsonObject.put("discipline2", pa.getDiscipline2());
+					jsonObject.put("discipline3", pa.getDiscipline3());
+					jsonObject.put("region1", pa.getLocation1());
+					jsonObject.put("region2", pa.getLocation2());
+					jsonObject.put("region3", pa.getLocation3());
+					jsonObject.put("region4", pa.getLocation4());
+					jsonObject.put("deliveryMethod", pa.getDeliveryMethod());					
+					jsonObject.put("language", pa.getLanguage());
 					jsonObject.put("id", pa.getPK_areaofinterest());
 					jsonArray.put(jsonObject);
 				}
@@ -1014,14 +1147,24 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject = JSONFactoryUtil.createJSONObject();
 				jsonObject.put("projectType", singleData.getProjectType());
 				jsonObject.put("deliveryMethod", singleData.getDeliveryMethod());
-				jsonObject.put("discipline", singleData.getDiscipline());
+				jsonObject.put("discipline1", singleData.getDiscipline1());
+				jsonObject.put("discipline2", singleData.getDiscipline2());
+				jsonObject.put("discipline3", singleData.getDiscipline3());
 				jsonObject.put("description", singleData.getDescription());
-				jsonObject.put("campus", intercampus);
+				//jsonObject.put("campus", intercampus);
 				jsonObject.put("programLevel", singleData.getProgramLevel());
 				jsonObject.put("programLength", singleData.getProgramLength());
 				jsonObject.put("credits", singleData.getCredits());
 				jsonObject.put("language", singleData.getLanguage());
-				jsonObject.put("region", singleData.getLocation());
+				jsonObject.put("region1", singleData.getLocation1());
+				jsonObject.put("region2", singleData.getLocation2());
+				jsonObject.put("region3", singleData.getLocation3());
+				jsonObject.put("region4", singleData.getLocation4());
+				jsonObject.put("collaborationType", singleData.getCollaborationType());
+				jsonObject.put("startMonth", singleData.getRangerMonthStart());
+				jsonObject.put("endMonth", singleData.getRangerMonthEnd());
+				jsonObject.put("startYear", singleData.getRangerYearStart());
+				jsonObject.put("endYear", singleData.getRangerYearEnd());
 				jsonObject.put("PK_areaofinterest", singleData.getPK_areaofinterest());
 			}
 			System.out.println("================"+jsonObject);
@@ -1113,9 +1256,9 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			profileAreaofinterest.setGroupId(themeDisplay.getScopeGroupId());
 			profileAreaofinterest.setProjectType(projectType);
 			profileAreaofinterest.setDescription(projectDescription);
-			profileAreaofinterest.setDiscipline(discipline);
+			//profileAreaofinterest.setDiscipline(discipline);
 			profileAreaofinterest.setLanguage(preferredLanguage);
-			profileAreaofinterest.setLocation(location);
+			//profileAreaofinterest.setLocation(location);
 			profileAreaofinterest.setCampus(intracampus);
 			
 			if(projectType.equalsIgnoreCase("Course Development") || projectType.equalsIgnoreCase("Curriculum Development")){
@@ -1174,7 +1317,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject.put("primLangId",listData.get(0).getPrimaryLanguageId());
 				jsonObject.put("secoLangId",listData.get(0).getSecondaryLanguageId());
 				jsonObject.put("terLangId ",listData.get(0).getTertiaryLanguageId());
-				jsonObject.put("phoneNum", listData.get(0).getPhoneNumber());
+				jsonObject.put("phoneNum", listData.get(0).getPhoneNumber().substring(1));
 				jsonObject.put("primLangName", listData.get(0).getPrimaryLanguageName());
 				jsonObject.put("secLangName", listData.get(0).getSecondaryLanguageName());
 				jsonObject.put("terLangName ",listData.get(0).getTertiaryLanguageName());

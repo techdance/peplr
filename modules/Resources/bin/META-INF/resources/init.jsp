@@ -51,7 +51,7 @@
 	    color: #9999ff;
 	}
 	.asset-type-c h2 {
-	    color: #00cc66;
+	    color: #ff6666;
 	}
 	.asset-type-d h2 {
 	    color: #ff993e;

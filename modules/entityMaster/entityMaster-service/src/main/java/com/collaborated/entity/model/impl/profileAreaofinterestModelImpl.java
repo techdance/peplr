@@ -77,14 +77,24 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "projectType", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
-			{ "discipline", Types.VARCHAR },
 			{ "language", Types.VARCHAR },
-			{ "location", Types.VARCHAR },
 			{ "campus", Types.VARCHAR },
 			{ "programLevel", Types.VARCHAR },
 			{ "programLength", Types.VARCHAR },
 			{ "deliveryMethod", Types.VARCHAR },
-			{ "credits", Types.VARCHAR }
+			{ "credits", Types.VARCHAR },
+			{ "collaborationType", Types.VARCHAR },
+			{ "discipline1", Types.VARCHAR },
+			{ "discipline2", Types.VARCHAR },
+			{ "discipline3", Types.VARCHAR },
+			{ "location1", Types.VARCHAR },
+			{ "location2", Types.VARCHAR },
+			{ "location3", Types.VARCHAR },
+			{ "location4", Types.VARCHAR },
+			{ "rangerYearStart", Types.INTEGER },
+			{ "rangerYearEnd", Types.INTEGER },
+			{ "rangerMonthStart", Types.VARCHAR },
+			{ "rangerMonthEnd", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -96,17 +106,27 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("projectType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("discipline", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("language", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("location", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("campus", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("programLevel", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("programLength", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("deliveryMethod", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("credits", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("collaborationType", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("discipline1", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("discipline2", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("discipline3", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("location1", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("location2", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("location3", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("location4", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("rangerYearStart", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("rangerYearEnd", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("rangerMonthStart", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("rangerMonthEnd", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_profileAreaofinterest (PK_areaofinterest LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,projectType VARCHAR(75) null,description VARCHAR(75) null,discipline VARCHAR(75) null,language VARCHAR(75) null,location VARCHAR(75) null,campus VARCHAR(75) null,programLevel VARCHAR(75) null,programLength VARCHAR(75) null,deliveryMethod VARCHAR(75) null,credits VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_profileAreaofinterest (PK_areaofinterest LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,projectType VARCHAR(75) null,description VARCHAR(75) null,language VARCHAR(75) null,campus VARCHAR(75) null,programLevel VARCHAR(75) null,programLength VARCHAR(75) null,deliveryMethod VARCHAR(75) null,credits VARCHAR(75) null,collaborationType VARCHAR(75) null,discipline1 VARCHAR(75) null,discipline2 VARCHAR(75) null,discipline3 VARCHAR(75) null,location1 VARCHAR(75) null,location2 VARCHAR(75) null,location3 VARCHAR(75) null,location4 VARCHAR(75) null,rangerYearStart INTEGER,rangerYearEnd INTEGER,rangerMonthStart VARCHAR(75) null,rangerMonthEnd VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_profileAreaofinterest";
 	public static final String ORDER_BY_JPQL = " ORDER BY profileAreaofinterest.PK_areaofinterest ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_profileAreaofinterest.PK_areaofinterest ASC";
@@ -142,14 +162,24 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setProjectType(soapModel.getProjectType());
 		model.setDescription(soapModel.getDescription());
-		model.setDiscipline(soapModel.getDiscipline());
 		model.setLanguage(soapModel.getLanguage());
-		model.setLocation(soapModel.getLocation());
 		model.setCampus(soapModel.getCampus());
 		model.setProgramLevel(soapModel.getProgramLevel());
 		model.setProgramLength(soapModel.getProgramLength());
 		model.setDeliveryMethod(soapModel.getDeliveryMethod());
 		model.setCredits(soapModel.getCredits());
+		model.setCollaborationType(soapModel.getCollaborationType());
+		model.setDiscipline1(soapModel.getDiscipline1());
+		model.setDiscipline2(soapModel.getDiscipline2());
+		model.setDiscipline3(soapModel.getDiscipline3());
+		model.setLocation1(soapModel.getLocation1());
+		model.setLocation2(soapModel.getLocation2());
+		model.setLocation3(soapModel.getLocation3());
+		model.setLocation4(soapModel.getLocation4());
+		model.setRangerYearStart(soapModel.getRangerYearStart());
+		model.setRangerYearEnd(soapModel.getRangerYearEnd());
+		model.setRangerMonthStart(soapModel.getRangerMonthStart());
+		model.setRangerMonthEnd(soapModel.getRangerMonthEnd());
 
 		return model;
 	}
@@ -222,14 +252,24 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("projectType", getProjectType());
 		attributes.put("description", getDescription());
-		attributes.put("discipline", getDiscipline());
 		attributes.put("language", getLanguage());
-		attributes.put("location", getLocation());
 		attributes.put("campus", getCampus());
 		attributes.put("programLevel", getProgramLevel());
 		attributes.put("programLength", getProgramLength());
 		attributes.put("deliveryMethod", getDeliveryMethod());
 		attributes.put("credits", getCredits());
+		attributes.put("collaborationType", getCollaborationType());
+		attributes.put("discipline1", getDiscipline1());
+		attributes.put("discipline2", getDiscipline2());
+		attributes.put("discipline3", getDiscipline3());
+		attributes.put("location1", getLocation1());
+		attributes.put("location2", getLocation2());
+		attributes.put("location3", getLocation3());
+		attributes.put("location4", getLocation4());
+		attributes.put("rangerYearStart", getRangerYearStart());
+		attributes.put("rangerYearEnd", getRangerYearEnd());
+		attributes.put("rangerMonthStart", getRangerMonthStart());
+		attributes.put("rangerMonthEnd", getRangerMonthEnd());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -281,22 +321,10 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			setDescription(description);
 		}
 
-		String discipline = (String)attributes.get("discipline");
-
-		if (discipline != null) {
-			setDiscipline(discipline);
-		}
-
 		String language = (String)attributes.get("language");
 
 		if (language != null) {
 			setLanguage(language);
-		}
-
-		String location = (String)attributes.get("location");
-
-		if (location != null) {
-			setLocation(location);
 		}
 
 		String campus = (String)attributes.get("campus");
@@ -327,6 +355,78 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 
 		if (credits != null) {
 			setCredits(credits);
+		}
+
+		String collaborationType = (String)attributes.get("collaborationType");
+
+		if (collaborationType != null) {
+			setCollaborationType(collaborationType);
+		}
+
+		String discipline1 = (String)attributes.get("discipline1");
+
+		if (discipline1 != null) {
+			setDiscipline1(discipline1);
+		}
+
+		String discipline2 = (String)attributes.get("discipline2");
+
+		if (discipline2 != null) {
+			setDiscipline2(discipline2);
+		}
+
+		String discipline3 = (String)attributes.get("discipline3");
+
+		if (discipline3 != null) {
+			setDiscipline3(discipline3);
+		}
+
+		String location1 = (String)attributes.get("location1");
+
+		if (location1 != null) {
+			setLocation1(location1);
+		}
+
+		String location2 = (String)attributes.get("location2");
+
+		if (location2 != null) {
+			setLocation2(location2);
+		}
+
+		String location3 = (String)attributes.get("location3");
+
+		if (location3 != null) {
+			setLocation3(location3);
+		}
+
+		String location4 = (String)attributes.get("location4");
+
+		if (location4 != null) {
+			setLocation4(location4);
+		}
+
+		Integer rangerYearStart = (Integer)attributes.get("rangerYearStart");
+
+		if (rangerYearStart != null) {
+			setRangerYearStart(rangerYearStart);
+		}
+
+		Integer rangerYearEnd = (Integer)attributes.get("rangerYearEnd");
+
+		if (rangerYearEnd != null) {
+			setRangerYearEnd(rangerYearEnd);
+		}
+
+		String rangerMonthStart = (String)attributes.get("rangerMonthStart");
+
+		if (rangerMonthStart != null) {
+			setRangerMonthStart(rangerMonthStart);
+		}
+
+		String rangerMonthEnd = (String)attributes.get("rangerMonthEnd");
+
+		if (rangerMonthEnd != null) {
+			setRangerMonthEnd(rangerMonthEnd);
 		}
 	}
 
@@ -441,22 +541,6 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 
 	@JSON
 	@Override
-	public String getDiscipline() {
-		if (_discipline == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _discipline;
-		}
-	}
-
-	@Override
-	public void setDiscipline(String discipline) {
-		_discipline = discipline;
-	}
-
-	@JSON
-	@Override
 	public String getLanguage() {
 		if (_language == null) {
 			return StringPool.BLANK;
@@ -469,22 +553,6 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 	@Override
 	public void setLanguage(String language) {
 		_language = language;
-	}
-
-	@JSON
-	@Override
-	public String getLocation() {
-		if (_location == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _location;
-		}
-	}
-
-	@Override
-	public void setLocation(String location) {
-		_location = location;
 	}
 
 	@JSON
@@ -567,6 +635,188 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		_credits = credits;
 	}
 
+	@JSON
+	@Override
+	public String getCollaborationType() {
+		if (_collaborationType == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _collaborationType;
+		}
+	}
+
+	@Override
+	public void setCollaborationType(String collaborationType) {
+		_collaborationType = collaborationType;
+	}
+
+	@JSON
+	@Override
+	public String getDiscipline1() {
+		if (_discipline1 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _discipline1;
+		}
+	}
+
+	@Override
+	public void setDiscipline1(String discipline1) {
+		_discipline1 = discipline1;
+	}
+
+	@JSON
+	@Override
+	public String getDiscipline2() {
+		if (_discipline2 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _discipline2;
+		}
+	}
+
+	@Override
+	public void setDiscipline2(String discipline2) {
+		_discipline2 = discipline2;
+	}
+
+	@JSON
+	@Override
+	public String getDiscipline3() {
+		if (_discipline3 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _discipline3;
+		}
+	}
+
+	@Override
+	public void setDiscipline3(String discipline3) {
+		_discipline3 = discipline3;
+	}
+
+	@JSON
+	@Override
+	public String getLocation1() {
+		if (_location1 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _location1;
+		}
+	}
+
+	@Override
+	public void setLocation1(String location1) {
+		_location1 = location1;
+	}
+
+	@JSON
+	@Override
+	public String getLocation2() {
+		if (_location2 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _location2;
+		}
+	}
+
+	@Override
+	public void setLocation2(String location2) {
+		_location2 = location2;
+	}
+
+	@JSON
+	@Override
+	public String getLocation3() {
+		if (_location3 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _location3;
+		}
+	}
+
+	@Override
+	public void setLocation3(String location3) {
+		_location3 = location3;
+	}
+
+	@JSON
+	@Override
+	public String getLocation4() {
+		if (_location4 == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _location4;
+		}
+	}
+
+	@Override
+	public void setLocation4(String location4) {
+		_location4 = location4;
+	}
+
+	@JSON
+	@Override
+	public int getRangerYearStart() {
+		return _rangerYearStart;
+	}
+
+	@Override
+	public void setRangerYearStart(int rangerYearStart) {
+		_rangerYearStart = rangerYearStart;
+	}
+
+	@JSON
+	@Override
+	public int getRangerYearEnd() {
+		return _rangerYearEnd;
+	}
+
+	@Override
+	public void setRangerYearEnd(int rangerYearEnd) {
+		_rangerYearEnd = rangerYearEnd;
+	}
+
+	@JSON
+	@Override
+	public String getRangerMonthStart() {
+		if (_rangerMonthStart == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _rangerMonthStart;
+		}
+	}
+
+	@Override
+	public void setRangerMonthStart(String rangerMonthStart) {
+		_rangerMonthStart = rangerMonthStart;
+	}
+
+	@JSON
+	@Override
+	public String getRangerMonthEnd() {
+		if (_rangerMonthEnd == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _rangerMonthEnd;
+		}
+	}
+
+	@Override
+	public void setRangerMonthEnd(String rangerMonthEnd) {
+		_rangerMonthEnd = rangerMonthEnd;
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
@@ -601,14 +851,24 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		profileAreaofinterestImpl.setModifiedDate(getModifiedDate());
 		profileAreaofinterestImpl.setProjectType(getProjectType());
 		profileAreaofinterestImpl.setDescription(getDescription());
-		profileAreaofinterestImpl.setDiscipline(getDiscipline());
 		profileAreaofinterestImpl.setLanguage(getLanguage());
-		profileAreaofinterestImpl.setLocation(getLocation());
 		profileAreaofinterestImpl.setCampus(getCampus());
 		profileAreaofinterestImpl.setProgramLevel(getProgramLevel());
 		profileAreaofinterestImpl.setProgramLength(getProgramLength());
 		profileAreaofinterestImpl.setDeliveryMethod(getDeliveryMethod());
 		profileAreaofinterestImpl.setCredits(getCredits());
+		profileAreaofinterestImpl.setCollaborationType(getCollaborationType());
+		profileAreaofinterestImpl.setDiscipline1(getDiscipline1());
+		profileAreaofinterestImpl.setDiscipline2(getDiscipline2());
+		profileAreaofinterestImpl.setDiscipline3(getDiscipline3());
+		profileAreaofinterestImpl.setLocation1(getLocation1());
+		profileAreaofinterestImpl.setLocation2(getLocation2());
+		profileAreaofinterestImpl.setLocation3(getLocation3());
+		profileAreaofinterestImpl.setLocation4(getLocation4());
+		profileAreaofinterestImpl.setRangerYearStart(getRangerYearStart());
+		profileAreaofinterestImpl.setRangerYearEnd(getRangerYearEnd());
+		profileAreaofinterestImpl.setRangerMonthStart(getRangerMonthStart());
+		profileAreaofinterestImpl.setRangerMonthEnd(getRangerMonthEnd());
 
 		profileAreaofinterestImpl.resetOriginalValues();
 
@@ -718,28 +978,12 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			profileAreaofinterestCacheModel.description = null;
 		}
 
-		profileAreaofinterestCacheModel.discipline = getDiscipline();
-
-		String discipline = profileAreaofinterestCacheModel.discipline;
-
-		if ((discipline != null) && (discipline.length() == 0)) {
-			profileAreaofinterestCacheModel.discipline = null;
-		}
-
 		profileAreaofinterestCacheModel.language = getLanguage();
 
 		String language = profileAreaofinterestCacheModel.language;
 
 		if ((language != null) && (language.length() == 0)) {
 			profileAreaofinterestCacheModel.language = null;
-		}
-
-		profileAreaofinterestCacheModel.location = getLocation();
-
-		String location = profileAreaofinterestCacheModel.location;
-
-		if ((location != null) && (location.length() == 0)) {
-			profileAreaofinterestCacheModel.location = null;
 		}
 
 		profileAreaofinterestCacheModel.campus = getCampus();
@@ -782,12 +1026,96 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			profileAreaofinterestCacheModel.credits = null;
 		}
 
+		profileAreaofinterestCacheModel.collaborationType = getCollaborationType();
+
+		String collaborationType = profileAreaofinterestCacheModel.collaborationType;
+
+		if ((collaborationType != null) && (collaborationType.length() == 0)) {
+			profileAreaofinterestCacheModel.collaborationType = null;
+		}
+
+		profileAreaofinterestCacheModel.discipline1 = getDiscipline1();
+
+		String discipline1 = profileAreaofinterestCacheModel.discipline1;
+
+		if ((discipline1 != null) && (discipline1.length() == 0)) {
+			profileAreaofinterestCacheModel.discipline1 = null;
+		}
+
+		profileAreaofinterestCacheModel.discipline2 = getDiscipline2();
+
+		String discipline2 = profileAreaofinterestCacheModel.discipline2;
+
+		if ((discipline2 != null) && (discipline2.length() == 0)) {
+			profileAreaofinterestCacheModel.discipline2 = null;
+		}
+
+		profileAreaofinterestCacheModel.discipline3 = getDiscipline3();
+
+		String discipline3 = profileAreaofinterestCacheModel.discipline3;
+
+		if ((discipline3 != null) && (discipline3.length() == 0)) {
+			profileAreaofinterestCacheModel.discipline3 = null;
+		}
+
+		profileAreaofinterestCacheModel.location1 = getLocation1();
+
+		String location1 = profileAreaofinterestCacheModel.location1;
+
+		if ((location1 != null) && (location1.length() == 0)) {
+			profileAreaofinterestCacheModel.location1 = null;
+		}
+
+		profileAreaofinterestCacheModel.location2 = getLocation2();
+
+		String location2 = profileAreaofinterestCacheModel.location2;
+
+		if ((location2 != null) && (location2.length() == 0)) {
+			profileAreaofinterestCacheModel.location2 = null;
+		}
+
+		profileAreaofinterestCacheModel.location3 = getLocation3();
+
+		String location3 = profileAreaofinterestCacheModel.location3;
+
+		if ((location3 != null) && (location3.length() == 0)) {
+			profileAreaofinterestCacheModel.location3 = null;
+		}
+
+		profileAreaofinterestCacheModel.location4 = getLocation4();
+
+		String location4 = profileAreaofinterestCacheModel.location4;
+
+		if ((location4 != null) && (location4.length() == 0)) {
+			profileAreaofinterestCacheModel.location4 = null;
+		}
+
+		profileAreaofinterestCacheModel.rangerYearStart = getRangerYearStart();
+
+		profileAreaofinterestCacheModel.rangerYearEnd = getRangerYearEnd();
+
+		profileAreaofinterestCacheModel.rangerMonthStart = getRangerMonthStart();
+
+		String rangerMonthStart = profileAreaofinterestCacheModel.rangerMonthStart;
+
+		if ((rangerMonthStart != null) && (rangerMonthStart.length() == 0)) {
+			profileAreaofinterestCacheModel.rangerMonthStart = null;
+		}
+
+		profileAreaofinterestCacheModel.rangerMonthEnd = getRangerMonthEnd();
+
+		String rangerMonthEnd = profileAreaofinterestCacheModel.rangerMonthEnd;
+
+		if ((rangerMonthEnd != null) && (rangerMonthEnd.length() == 0)) {
+			profileAreaofinterestCacheModel.rangerMonthEnd = null;
+		}
+
 		return profileAreaofinterestCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(51);
 
 		sb.append("{PK_areaofinterest=");
 		sb.append(getPK_areaofinterest());
@@ -803,12 +1131,8 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		sb.append(getProjectType());
 		sb.append(", description=");
 		sb.append(getDescription());
-		sb.append(", discipline=");
-		sb.append(getDiscipline());
 		sb.append(", language=");
 		sb.append(getLanguage());
-		sb.append(", location=");
-		sb.append(getLocation());
 		sb.append(", campus=");
 		sb.append(getCampus());
 		sb.append(", programLevel=");
@@ -819,6 +1143,30 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		sb.append(getDeliveryMethod());
 		sb.append(", credits=");
 		sb.append(getCredits());
+		sb.append(", collaborationType=");
+		sb.append(getCollaborationType());
+		sb.append(", discipline1=");
+		sb.append(getDiscipline1());
+		sb.append(", discipline2=");
+		sb.append(getDiscipline2());
+		sb.append(", discipline3=");
+		sb.append(getDiscipline3());
+		sb.append(", location1=");
+		sb.append(getLocation1());
+		sb.append(", location2=");
+		sb.append(getLocation2());
+		sb.append(", location3=");
+		sb.append(getLocation3());
+		sb.append(", location4=");
+		sb.append(getLocation4());
+		sb.append(", rangerYearStart=");
+		sb.append(getRangerYearStart());
+		sb.append(", rangerYearEnd=");
+		sb.append(getRangerYearEnd());
+		sb.append(", rangerMonthStart=");
+		sb.append(getRangerMonthStart());
+		sb.append(", rangerMonthEnd=");
+		sb.append(getRangerMonthEnd());
 		sb.append("}");
 
 		return sb.toString();
@@ -826,7 +1174,7 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(79);
 
 		sb.append("<model><model-name>");
 		sb.append("com.collaborated.entity.model.profileAreaofinterest");
@@ -861,16 +1209,8 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>discipline</column-name><column-value><![CDATA[");
-		sb.append(getDiscipline());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>language</column-name><column-value><![CDATA[");
 		sb.append(getLanguage());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>location</column-name><column-value><![CDATA[");
-		sb.append(getLocation());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>campus</column-name><column-value><![CDATA[");
@@ -892,6 +1232,54 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			"<column><column-name>credits</column-name><column-value><![CDATA[");
 		sb.append(getCredits());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>collaborationType</column-name><column-value><![CDATA[");
+		sb.append(getCollaborationType());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discipline1</column-name><column-value><![CDATA[");
+		sb.append(getDiscipline1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discipline2</column-name><column-value><![CDATA[");
+		sb.append(getDiscipline2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>discipline3</column-name><column-value><![CDATA[");
+		sb.append(getDiscipline3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>location1</column-name><column-value><![CDATA[");
+		sb.append(getLocation1());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>location2</column-name><column-value><![CDATA[");
+		sb.append(getLocation2());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>location3</column-name><column-value><![CDATA[");
+		sb.append(getLocation3());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>location4</column-name><column-value><![CDATA[");
+		sb.append(getLocation4());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>rangerYearStart</column-name><column-value><![CDATA[");
+		sb.append(getRangerYearStart());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>rangerYearEnd</column-name><column-value><![CDATA[");
+		sb.append(getRangerYearEnd());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>rangerMonthStart</column-name><column-value><![CDATA[");
+		sb.append(getRangerMonthStart());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>rangerMonthEnd</column-name><column-value><![CDATA[");
+		sb.append(getRangerMonthEnd());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -910,13 +1298,23 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 	private boolean _setModifiedDate;
 	private String _projectType;
 	private String _description;
-	private String _discipline;
 	private String _language;
-	private String _location;
 	private String _campus;
 	private String _programLevel;
 	private String _programLength;
 	private String _deliveryMethod;
 	private String _credits;
+	private String _collaborationType;
+	private String _discipline1;
+	private String _discipline2;
+	private String _discipline3;
+	private String _location1;
+	private String _location2;
+	private String _location3;
+	private String _location4;
+	private int _rangerYearStart;
+	private int _rangerYearEnd;
+	private String _rangerMonthStart;
+	private String _rangerMonthEnd;
 	private profileAreaofinterest _escapedModel;
 }

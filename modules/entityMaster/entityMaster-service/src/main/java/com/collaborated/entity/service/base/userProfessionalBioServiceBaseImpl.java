@@ -15,6 +15,7 @@
 package com.collaborated.entity.service.base;
 
 import com.collaborated.entity.model.userProfessionalBio;
+import com.collaborated.entity.service.persistence.commonWebsserviceAPIPersistence;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
 import com.collaborated.entity.service.persistence.languagePreferencesPersistence;
 import com.collaborated.entity.service.persistence.profileAreaofinterestPersistence;
@@ -58,6 +59,63 @@ public abstract class userProfessionalBioServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * Never modify or reference this class directly. Always use {@link com.collaborated.entity.service.userProfessionalBioServiceUtil} to access the user professional bio remote service.
 	 */
+
+	/**
+	 * Returns the common websservice a p i local service.
+	 *
+	 * @return the common websservice a p i local service
+	 */
+	public com.collaborated.entity.service.commonWebsserviceAPILocalService getcommonWebsserviceAPILocalService() {
+		return commonWebsserviceAPILocalService;
+	}
+
+	/**
+	 * Sets the common websservice a p i local service.
+	 *
+	 * @param commonWebsserviceAPILocalService the common websservice a p i local service
+	 */
+	public void setcommonWebsserviceAPILocalService(
+		com.collaborated.entity.service.commonWebsserviceAPILocalService commonWebsserviceAPILocalService) {
+		this.commonWebsserviceAPILocalService = commonWebsserviceAPILocalService;
+	}
+
+	/**
+	 * Returns the common websservice a p i remote service.
+	 *
+	 * @return the common websservice a p i remote service
+	 */
+	public com.collaborated.entity.service.commonWebsserviceAPIService getcommonWebsserviceAPIService() {
+		return commonWebsserviceAPIService;
+	}
+
+	/**
+	 * Sets the common websservice a p i remote service.
+	 *
+	 * @param commonWebsserviceAPIService the common websservice a p i remote service
+	 */
+	public void setcommonWebsserviceAPIService(
+		com.collaborated.entity.service.commonWebsserviceAPIService commonWebsserviceAPIService) {
+		this.commonWebsserviceAPIService = commonWebsserviceAPIService;
+	}
+
+	/**
+	 * Returns the common websservice a p i persistence.
+	 *
+	 * @return the common websservice a p i persistence
+	 */
+	public commonWebsserviceAPIPersistence getcommonWebsserviceAPIPersistence() {
+		return commonWebsserviceAPIPersistence;
+	}
+
+	/**
+	 * Sets the common websservice a p i persistence.
+	 *
+	 * @param commonWebsserviceAPIPersistence the common websservice a p i persistence
+	 */
+	public void setcommonWebsserviceAPIPersistence(
+		commonWebsserviceAPIPersistence commonWebsserviceAPIPersistence) {
+		this.commonWebsserviceAPIPersistence = commonWebsserviceAPIPersistence;
+	}
 
 	/**
 	 * Returns the communication preferences local service.
@@ -657,6 +715,12 @@ public abstract class userProfessionalBioServiceBaseImpl extends BaseServiceImpl
 		}
 	}
 
+	@BeanReference(type = com.collaborated.entity.service.commonWebsserviceAPILocalService.class)
+	protected com.collaborated.entity.service.commonWebsserviceAPILocalService commonWebsserviceAPILocalService;
+	@BeanReference(type = com.collaborated.entity.service.commonWebsserviceAPIService.class)
+	protected com.collaborated.entity.service.commonWebsserviceAPIService commonWebsserviceAPIService;
+	@BeanReference(type = commonWebsserviceAPIPersistence.class)
+	protected commonWebsserviceAPIPersistence commonWebsserviceAPIPersistence;
 	@BeanReference(type = com.collaborated.entity.service.communicationPreferencesLocalService.class)
 	protected com.collaborated.entity.service.communicationPreferencesLocalService communicationPreferencesLocalService;
 	@BeanReference(type = com.collaborated.entity.service.communicationPreferencesService.class)

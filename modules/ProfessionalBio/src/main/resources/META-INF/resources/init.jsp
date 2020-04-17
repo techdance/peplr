@@ -11,7 +11,11 @@
 
 <portlet:defineObjects />
 
-
+<style>
+.ahea-profile-new .portlet-topper {
+	display: none;
+}
+</style>
 <script>
 
 jQuery(function() {

@@ -200,11 +200,11 @@ public class communicationPreferencesSoap implements Serializable {
 		_emailAddress = emailAddress;
 	}
 
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return _phoneNumber;
 	}
 
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
 	}
 
@@ -228,6 +228,6 @@ public class communicationPreferencesSoap implements Serializable {
 	private long _tertiaryLanguageId;
 	private String _tertiaryLanguageName;
 	private String _emailAddress;
-	private long _phoneNumber;
+	private String _phoneNumber;
 	private String _website;
 }

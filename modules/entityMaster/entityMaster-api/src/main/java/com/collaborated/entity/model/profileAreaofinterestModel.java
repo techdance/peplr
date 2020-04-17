@@ -177,21 +177,6 @@ public interface profileAreaofinterestModel extends BaseModel<profileAreaofinter
 	public void setDescription(String description);
 
 	/**
-	 * Returns the discipline of this profile areaofinterest.
-	 *
-	 * @return the discipline of this profile areaofinterest
-	 */
-	@AutoEscape
-	public String getDiscipline();
-
-	/**
-	 * Sets the discipline of this profile areaofinterest.
-	 *
-	 * @param discipline the discipline of this profile areaofinterest
-	 */
-	public void setDiscipline(String discipline);
-
-	/**
 	 * Returns the language of this profile areaofinterest.
 	 *
 	 * @return the language of this profile areaofinterest
@@ -205,21 +190,6 @@ public interface profileAreaofinterestModel extends BaseModel<profileAreaofinter
 	 * @param language the language of this profile areaofinterest
 	 */
 	public void setLanguage(String language);
-
-	/**
-	 * Returns the location of this profile areaofinterest.
-	 *
-	 * @return the location of this profile areaofinterest
-	 */
-	@AutoEscape
-	public String getLocation();
-
-	/**
-	 * Sets the location of this profile areaofinterest.
-	 *
-	 * @param location the location of this profile areaofinterest
-	 */
-	public void setLocation(String location);
 
 	/**
 	 * Returns the campus of this profile areaofinterest.
@@ -295,6 +265,184 @@ public interface profileAreaofinterestModel extends BaseModel<profileAreaofinter
 	 * @param credits the credits of this profile areaofinterest
 	 */
 	public void setCredits(String credits);
+
+	/**
+	 * Returns the collaboration type of this profile areaofinterest.
+	 *
+	 * @return the collaboration type of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getCollaborationType();
+
+	/**
+	 * Sets the collaboration type of this profile areaofinterest.
+	 *
+	 * @param collaborationType the collaboration type of this profile areaofinterest
+	 */
+	public void setCollaborationType(String collaborationType);
+
+	/**
+	 * Returns the discipline1 of this profile areaofinterest.
+	 *
+	 * @return the discipline1 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getDiscipline1();
+
+	/**
+	 * Sets the discipline1 of this profile areaofinterest.
+	 *
+	 * @param discipline1 the discipline1 of this profile areaofinterest
+	 */
+	public void setDiscipline1(String discipline1);
+
+	/**
+	 * Returns the discipline2 of this profile areaofinterest.
+	 *
+	 * @return the discipline2 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getDiscipline2();
+
+	/**
+	 * Sets the discipline2 of this profile areaofinterest.
+	 *
+	 * @param discipline2 the discipline2 of this profile areaofinterest
+	 */
+	public void setDiscipline2(String discipline2);
+
+	/**
+	 * Returns the discipline3 of this profile areaofinterest.
+	 *
+	 * @return the discipline3 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getDiscipline3();
+
+	/**
+	 * Sets the discipline3 of this profile areaofinterest.
+	 *
+	 * @param discipline3 the discipline3 of this profile areaofinterest
+	 */
+	public void setDiscipline3(String discipline3);
+
+	/**
+	 * Returns the location1 of this profile areaofinterest.
+	 *
+	 * @return the location1 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getLocation1();
+
+	/**
+	 * Sets the location1 of this profile areaofinterest.
+	 *
+	 * @param location1 the location1 of this profile areaofinterest
+	 */
+	public void setLocation1(String location1);
+
+	/**
+	 * Returns the location2 of this profile areaofinterest.
+	 *
+	 * @return the location2 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getLocation2();
+
+	/**
+	 * Sets the location2 of this profile areaofinterest.
+	 *
+	 * @param location2 the location2 of this profile areaofinterest
+	 */
+	public void setLocation2(String location2);
+
+	/**
+	 * Returns the location3 of this profile areaofinterest.
+	 *
+	 * @return the location3 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getLocation3();
+
+	/**
+	 * Sets the location3 of this profile areaofinterest.
+	 *
+	 * @param location3 the location3 of this profile areaofinterest
+	 */
+	public void setLocation3(String location3);
+
+	/**
+	 * Returns the location4 of this profile areaofinterest.
+	 *
+	 * @return the location4 of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getLocation4();
+
+	/**
+	 * Sets the location4 of this profile areaofinterest.
+	 *
+	 * @param location4 the location4 of this profile areaofinterest
+	 */
+	public void setLocation4(String location4);
+
+	/**
+	 * Returns the ranger year start of this profile areaofinterest.
+	 *
+	 * @return the ranger year start of this profile areaofinterest
+	 */
+	public int getRangerYearStart();
+
+	/**
+	 * Sets the ranger year start of this profile areaofinterest.
+	 *
+	 * @param rangerYearStart the ranger year start of this profile areaofinterest
+	 */
+	public void setRangerYearStart(int rangerYearStart);
+
+	/**
+	 * Returns the ranger year end of this profile areaofinterest.
+	 *
+	 * @return the ranger year end of this profile areaofinterest
+	 */
+	public int getRangerYearEnd();
+
+	/**
+	 * Sets the ranger year end of this profile areaofinterest.
+	 *
+	 * @param rangerYearEnd the ranger year end of this profile areaofinterest
+	 */
+	public void setRangerYearEnd(int rangerYearEnd);
+
+	/**
+	 * Returns the ranger month start of this profile areaofinterest.
+	 *
+	 * @return the ranger month start of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getRangerMonthStart();
+
+	/**
+	 * Sets the ranger month start of this profile areaofinterest.
+	 *
+	 * @param rangerMonthStart the ranger month start of this profile areaofinterest
+	 */
+	public void setRangerMonthStart(String rangerMonthStart);
+
+	/**
+	 * Returns the ranger month end of this profile areaofinterest.
+	 *
+	 * @return the ranger month end of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getRangerMonthEnd();
+
+	/**
+	 * Sets the ranger month end of this profile areaofinterest.
+	 *
+	 * @param rangerMonthEnd the ranger month end of this profile areaofinterest
+	 */
+	public void setRangerMonthEnd(String rangerMonthEnd);
 
 	@Override
 	public boolean isNew();

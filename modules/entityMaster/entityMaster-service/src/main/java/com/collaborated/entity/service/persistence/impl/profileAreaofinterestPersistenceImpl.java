@@ -358,14 +358,24 @@ public class profileAreaofinterestPersistenceImpl extends BasePersistenceImpl<pr
 		profileAreaofinterestImpl.setModifiedDate(profileAreaofinterest.getModifiedDate());
 		profileAreaofinterestImpl.setProjectType(profileAreaofinterest.getProjectType());
 		profileAreaofinterestImpl.setDescription(profileAreaofinterest.getDescription());
-		profileAreaofinterestImpl.setDiscipline(profileAreaofinterest.getDiscipline());
 		profileAreaofinterestImpl.setLanguage(profileAreaofinterest.getLanguage());
-		profileAreaofinterestImpl.setLocation(profileAreaofinterest.getLocation());
 		profileAreaofinterestImpl.setCampus(profileAreaofinterest.getCampus());
 		profileAreaofinterestImpl.setProgramLevel(profileAreaofinterest.getProgramLevel());
 		profileAreaofinterestImpl.setProgramLength(profileAreaofinterest.getProgramLength());
 		profileAreaofinterestImpl.setDeliveryMethod(profileAreaofinterest.getDeliveryMethod());
 		profileAreaofinterestImpl.setCredits(profileAreaofinterest.getCredits());
+		profileAreaofinterestImpl.setCollaborationType(profileAreaofinterest.getCollaborationType());
+		profileAreaofinterestImpl.setDiscipline1(profileAreaofinterest.getDiscipline1());
+		profileAreaofinterestImpl.setDiscipline2(profileAreaofinterest.getDiscipline2());
+		profileAreaofinterestImpl.setDiscipline3(profileAreaofinterest.getDiscipline3());
+		profileAreaofinterestImpl.setLocation1(profileAreaofinterest.getLocation1());
+		profileAreaofinterestImpl.setLocation2(profileAreaofinterest.getLocation2());
+		profileAreaofinterestImpl.setLocation3(profileAreaofinterest.getLocation3());
+		profileAreaofinterestImpl.setLocation4(profileAreaofinterest.getLocation4());
+		profileAreaofinterestImpl.setRangerYearStart(profileAreaofinterest.getRangerYearStart());
+		profileAreaofinterestImpl.setRangerYearEnd(profileAreaofinterest.getRangerYearEnd());
+		profileAreaofinterestImpl.setRangerMonthStart(profileAreaofinterest.getRangerMonthStart());
+		profileAreaofinterestImpl.setRangerMonthEnd(profileAreaofinterest.getRangerMonthEnd());
 
 		return profileAreaofinterestImpl;
 	}

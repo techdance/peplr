@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.collaborated.entity.model.languagePreferences;
 import com.collaborated.entity.service.languagePreferencesLocalService;
+import com.collaborated.entity.service.persistence.commonWebsserviceAPIPersistence;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
 import com.collaborated.entity.service.persistence.languagePreferencesPersistence;
 import com.collaborated.entity.service.persistence.profileAreaofinterestPersistence;
@@ -325,6 +326,44 @@ public abstract class languagePreferencesLocalServiceBaseImpl
 	public languagePreferences updatelanguagePreferences(
 		languagePreferences languagePreferences) {
 		return languagePreferencesPersistence.update(languagePreferences);
+	}
+
+	/**
+	 * Returns the common websservice a p i local service.
+	 *
+	 * @return the common websservice a p i local service
+	 */
+	public com.collaborated.entity.service.commonWebsserviceAPILocalService getcommonWebsserviceAPILocalService() {
+		return commonWebsserviceAPILocalService;
+	}
+
+	/**
+	 * Sets the common websservice a p i local service.
+	 *
+	 * @param commonWebsserviceAPILocalService the common websservice a p i local service
+	 */
+	public void setcommonWebsserviceAPILocalService(
+		com.collaborated.entity.service.commonWebsserviceAPILocalService commonWebsserviceAPILocalService) {
+		this.commonWebsserviceAPILocalService = commonWebsserviceAPILocalService;
+	}
+
+	/**
+	 * Returns the common websservice a p i persistence.
+	 *
+	 * @return the common websservice a p i persistence
+	 */
+	public commonWebsserviceAPIPersistence getcommonWebsserviceAPIPersistence() {
+		return commonWebsserviceAPIPersistence;
+	}
+
+	/**
+	 * Sets the common websservice a p i persistence.
+	 *
+	 * @param commonWebsserviceAPIPersistence the common websservice a p i persistence
+	 */
+	public void setcommonWebsserviceAPIPersistence(
+		commonWebsserviceAPIPersistence commonWebsserviceAPIPersistence) {
+		this.commonWebsserviceAPIPersistence = commonWebsserviceAPIPersistence;
 	}
 
 	/**
@@ -758,6 +797,10 @@ public abstract class languagePreferencesLocalServiceBaseImpl
 		}
 	}
 
+	@BeanReference(type = com.collaborated.entity.service.commonWebsserviceAPILocalService.class)
+	protected com.collaborated.entity.service.commonWebsserviceAPILocalService commonWebsserviceAPILocalService;
+	@BeanReference(type = commonWebsserviceAPIPersistence.class)
+	protected commonWebsserviceAPIPersistence commonWebsserviceAPIPersistence;
 	@BeanReference(type = com.collaborated.entity.service.communicationPreferencesLocalService.class)
 	protected com.collaborated.entity.service.communicationPreferencesLocalService communicationPreferencesLocalService;
 	@BeanReference(type = communicationPreferencesPersistence.class)

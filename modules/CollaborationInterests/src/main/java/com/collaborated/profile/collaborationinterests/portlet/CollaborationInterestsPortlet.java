@@ -100,9 +100,10 @@ public class CollaborationInterestsPortlet extends MVCPortlet {
 				for(profileAreaofinterest pa:listData){
 					jsonObject = JSONFactoryUtil.createJSONObject();
 					jsonObject.put("projectType", pa.getProjectType());
-					jsonObject.put("discipline", pa.getDiscipline());
-					jsonObject.put("region", pa.getLocation());
+					jsonObject.put("discipline", pa.getDiscipline1());
+					jsonObject.put("region", pa.getLocation1());
 					jsonObject.put("deliveryMethod", pa.getDeliveryMethod());
+					jsonObject.put("language", pa.getLanguage());
 					jsonObject.put("id", pa.getPK_areaofinterest());
 					jsonArray.put(jsonObject);
 				}
@@ -135,14 +136,19 @@ public class CollaborationInterestsPortlet extends MVCPortlet {
 				jsonObject = JSONFactoryUtil.createJSONObject();
 				jsonObject.put("projectType", singleData.getProjectType());
 				jsonObject.put("deliveryMethod", singleData.getDeliveryMethod());
-				jsonObject.put("discipline", singleData.getDiscipline());
+				jsonObject.put("discipline1", singleData.getDiscipline1());
+				jsonObject.put("discipline2", singleData.getDiscipline2());
+				jsonObject.put("discipline3", singleData.getDiscipline3());
 				jsonObject.put("description", singleData.getDescription());
 				jsonObject.put("campus", intercampus);
 				jsonObject.put("programLevel", singleData.getProgramLevel());
 				jsonObject.put("programLength", singleData.getProgramLength());
 				jsonObject.put("credits", singleData.getCredits());
 				jsonObject.put("language", singleData.getLanguage());
-				jsonObject.put("region", singleData.getLocation());
+				jsonObject.put("region1", singleData.getLocation1());
+				jsonObject.put("region2", singleData.getLocation2());
+				jsonObject.put("region3", singleData.getLocation3());
+				jsonObject.put("region4", singleData.getLocation4());
 				jsonObject.put("PK_areaofinterest", singleData.getPK_areaofinterest());
 			}
 			System.out.println("================"+jsonObject);

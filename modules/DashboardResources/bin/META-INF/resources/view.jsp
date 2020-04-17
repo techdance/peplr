@@ -3,7 +3,7 @@
 <div class="resources box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h2 class="box-subhead"><i class="fas fa-cogs"></i>Resources</h2>
+			<h2 class="box-subhead"><i class="fas fa-cogs"></i><a href="<%=themeDisplay.getURLPortal() %>/resources" style="color: black;">Resources</a></h2>
 			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 		</div>
 	</div>
@@ -17,8 +17,8 @@
 			<li><a href="#">Getting Started</a></li>
 			<li><a href="#">Best Practices</a></li>
 			<li><a href="#">Templates</a></li>
-			<li><a href="#">Tutorial</a></li>
-			<li><a href="#">More Resources</a></li>
+			<li><a href="#">Tutorials</a></li>
+			<li><a href="<%=themeDisplay.getURLPortal() %>/resources">More Resources</a></li>
 		</ul>
 	</div>
 </div>

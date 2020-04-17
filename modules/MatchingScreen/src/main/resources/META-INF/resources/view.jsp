@@ -92,7 +92,7 @@
 	</div><!-- row -->
 	<div class="row">
 		<div class="col-md-12 text-center font16 font-weight-bold">
-			<a href="profile-edit.html" class="font-style-italic hover-underline">Still not finding what you're looking for?</a>
+			<a href="<%=themeDisplay.getURLPortal() %>/edit-profile?param=interest" class="font-style-italic hover-underline">Still not finding what you're looking for?</a>
 		</div>
 	</div>
 </section>

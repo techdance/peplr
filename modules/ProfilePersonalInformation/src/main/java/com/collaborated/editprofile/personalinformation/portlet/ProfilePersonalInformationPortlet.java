@@ -35,6 +35,9 @@ import java.util.List;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -61,6 +64,8 @@ public class ProfilePersonalInformationPortlet extends MVCPortlet {
 			removeProfileImage(resourceRequest,resourceResponse);
 		}
 	}
+	
+	
 	
 	public void updateProfile(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);

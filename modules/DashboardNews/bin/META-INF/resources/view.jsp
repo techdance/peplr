@@ -7,7 +7,7 @@
 			<a href="javascript:void(0);" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 			<div class="toltip2 menu-toltip toltip-overlay any-toltip">
 				<ul>
-					<li><a href="#">More Mews</a></li>
+					<li><a href="#">More News</a></li>
 					<li><a href="javascript:void(0);" class="btn-remove">Remove</a></li>
 				</ul>
 			</div>

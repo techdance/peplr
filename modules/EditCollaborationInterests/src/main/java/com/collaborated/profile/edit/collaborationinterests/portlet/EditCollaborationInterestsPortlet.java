@@ -96,9 +96,9 @@ public class EditCollaborationInterestsPortlet extends MVCPortlet {
 			profileAreaofinterest.setGroupId(themeDisplay.getScopeGroupId());
 			profileAreaofinterest.setProjectType(projectType);
 			profileAreaofinterest.setDescription(projectDescription);
-			profileAreaofinterest.setDiscipline(discipline);
+			profileAreaofinterest.setDiscipline1(discipline);
 			profileAreaofinterest.setLanguage(preferredLanguage);
-			profileAreaofinterest.setLocation(location);
+			profileAreaofinterest.setLocation1(location);
 			profileAreaofinterest.setCampus(intracampus);
 			
 			if(projectType.equalsIgnoreCase("Course Development") || projectType.equalsIgnoreCase("Curriculum Development")){
@@ -136,8 +136,8 @@ public class EditCollaborationInterestsPortlet extends MVCPortlet {
 				for(profileAreaofinterest pa:listData){
 					jsonObject = JSONFactoryUtil.createJSONObject();
 					jsonObject.put("projectType", pa.getProjectType());
-					jsonObject.put("discipline", pa.getDiscipline());
-					jsonObject.put("region", pa.getLocation());
+					jsonObject.put("discipline", pa.getDiscipline1());
+					jsonObject.put("region", pa.getLocation1());
 					jsonObject.put("deliveryMethod", pa.getDeliveryMethod());
 					jsonObject.put("id", pa.getPK_areaofinterest());
 					jsonArray.put(jsonObject);
@@ -171,14 +171,14 @@ public class EditCollaborationInterestsPortlet extends MVCPortlet {
 				jsonObject = JSONFactoryUtil.createJSONObject();
 				jsonObject.put("projectType", singleData.getProjectType());
 				jsonObject.put("deliveryMethod", singleData.getDeliveryMethod());
-				jsonObject.put("discipline", singleData.getDiscipline());
+				jsonObject.put("discipline", singleData.getDiscipline1());
 				jsonObject.put("description", singleData.getDescription());
 				jsonObject.put("campus", intercampus);
 				jsonObject.put("programLevel", singleData.getProgramLevel());
 				jsonObject.put("programLength", singleData.getProgramLength());
 				jsonObject.put("credits", singleData.getCredits());
 				jsonObject.put("language", singleData.getLanguage());
-				jsonObject.put("region", singleData.getLocation());
+				jsonObject.put("region", singleData.getLocation1());
 				jsonObject.put("PK_areaofinterest", singleData.getPK_areaofinterest());
 			}
 			System.out.println("================"+jsonObject);

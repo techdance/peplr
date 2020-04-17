@@ -12,7 +12,7 @@
 					</div>
 					<div class="content-right">
 						<div class="box-top position-relative text-uppercase">
-							<h2>Getting Started: </h2>
+							<h2>Getting Started </h2>
 						</div>
 						<div class="box-middle">
 							<p>Begin using CollaboratED with these quick tips and instructions.</p>
@@ -32,7 +32,7 @@
 					</div>
 					<div class="content-right">
 						<div class="box-top position-relative text-uppercase">
-							<h2>Best Practices & How-To Guides: </h2>
+							<h2>Best Practices & How-To Guides </h2>
 						</div>
 						<div class="box-middle">
 							<p>Find methods and techniques that will help you best utilize CollaboratED for networking, collaborating and developing courses.</p>
@@ -52,7 +52,7 @@
 					</div>
 					<div class="content-right">
 						<div class="box-top position-relative text-uppercase">
-							<h2>Tutorials: </h2>
+							<h2>Tutorials </h2>
 						</div>
 						<div class="box-middle">
 							<p>View a collection of tutorials designed to help you use CollaboratED effectively.</p>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="content-right">
 						<div class="box-top position-relative text-uppercase">
-							<h2>TEMPLATES:</h2>
+							<h2>TEMPLATES</h2>
 						</div>
 						<div class="box-middle">
 							<p>Design teaching plans, syllabi and other instructional material with AHEA's professionally constructed templates.</p>

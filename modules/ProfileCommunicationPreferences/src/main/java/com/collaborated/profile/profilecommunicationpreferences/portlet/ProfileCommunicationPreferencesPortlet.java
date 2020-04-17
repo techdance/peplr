@@ -95,7 +95,7 @@ public class ProfileCommunicationPreferencesPortlet extends MVCPortlet {
 				jsonObject.put("primaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getPrimaryLanguageId()));
 				jsonObject.put("secondaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getSecondaryLanguageId()));
 				jsonObject.put("emailId_Communication", communicationPreferences.get(0).getEmailAddress());
-				jsonObject.put("phoneNumber_Communication", communicationPreferences.get(0).getPhoneNumber());
+				jsonObject.put("phoneNumber_Communication", communicationPreferences.get(0).getPhoneNumber().substring(1));
 				jsonObject.put("website_Communication", communicationPreferences.get(0).getWebsite());
 			}
 			out.print(jsonObject);

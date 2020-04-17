@@ -82,7 +82,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 			{ "tertiaryLanguageId", Types.BIGINT },
 			{ "tertiaryLanguageName", Types.VARCHAR },
 			{ "emailAddress", Types.VARCHAR },
-			{ "phoneNumber", Types.BIGINT },
+			{ "phoneNumber", Types.VARCHAR },
 			{ "website", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
@@ -100,11 +100,11 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		TABLE_COLUMNS_MAP.put("tertiaryLanguageId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("tertiaryLanguageName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("emailAddress", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("phoneNumber", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("website", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_communicationPreferences (PK_communicationPreferences LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,primaryLanguageId LONG,primaryLanguageName VARCHAR(75) null,secondaryLanguageId LONG,secondaryLanguageName VARCHAR(75) null,tertiaryLanguageId LONG,tertiaryLanguageName VARCHAR(75) null,emailAddress VARCHAR(75) null,phoneNumber LONG,website VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_communicationPreferences (PK_communicationPreferences LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,primaryLanguageId LONG,primaryLanguageName VARCHAR(75) null,secondaryLanguageId LONG,secondaryLanguageName VARCHAR(75) null,tertiaryLanguageId LONG,tertiaryLanguageName VARCHAR(75) null,emailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,website VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_communicationPreferences";
 	public static final String ORDER_BY_JPQL = " ORDER BY communicationPreferences.PK_communicationPreferences ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_communicationPreferences.PK_communicationPreferences ASC";
@@ -312,7 +312,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 			setEmailAddress(emailAddress);
 		}
 
-		Long phoneNumber = (Long)attributes.get("phoneNumber");
+		String phoneNumber = (String)attributes.get("phoneNumber");
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
@@ -501,12 +501,17 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 	@JSON
 	@Override
-	public long getPhoneNumber() {
-		return _phoneNumber;
+	public String getPhoneNumber() {
+		if (_phoneNumber == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _phoneNumber;
+		}
 	}
 
 	@Override
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
 	}
 
@@ -703,6 +708,12 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 		communicationPreferencesCacheModel.phoneNumber = getPhoneNumber();
 
+		String phoneNumber = communicationPreferencesCacheModel.phoneNumber;
+
+		if ((phoneNumber != null) && (phoneNumber.length() == 0)) {
+			communicationPreferencesCacheModel.phoneNumber = null;
+		}
+
 		communicationPreferencesCacheModel.website = getWebsite();
 
 		String website = communicationPreferencesCacheModel.website;
@@ -838,7 +849,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 	private long _tertiaryLanguageId;
 	private String _tertiaryLanguageName;
 	private String _emailAddress;
-	private long _phoneNumber;
+	private String _phoneNumber;
 	private String _website;
 	private communicationPreferences _escapedModel;
 }

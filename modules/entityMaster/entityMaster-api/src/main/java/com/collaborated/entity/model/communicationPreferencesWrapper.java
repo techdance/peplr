@@ -156,7 +156,7 @@ public class communicationPreferencesWrapper implements communicationPreferences
 			setEmailAddress(emailAddress);
 		}
 
-		Long phoneNumber = (Long)attributes.get("phoneNumber");
+		String phoneNumber = (String)attributes.get("phoneNumber");
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
@@ -233,6 +233,16 @@ public class communicationPreferencesWrapper implements communicationPreferences
 	@Override
 	public java.lang.String getEmailAddress() {
 		return _communicationPreferences.getEmailAddress();
+	}
+
+	/**
+	* Returns the phone number of this communication preferences.
+	*
+	* @return the phone number of this communication preferences
+	*/
+	@Override
+	public java.lang.String getPhoneNumber() {
+		return _communicationPreferences.getPhoneNumber();
 	}
 
 	/**
@@ -333,16 +343,6 @@ public class communicationPreferencesWrapper implements communicationPreferences
 	@Override
 	public long getPK_communicationPreferences() {
 		return _communicationPreferences.getPK_communicationPreferences();
-	}
-
-	/**
-	* Returns the phone number of this communication preferences.
-	*
-	* @return the phone number of this communication preferences
-	*/
-	@Override
-	public long getPhoneNumber() {
-		return _communicationPreferences.getPhoneNumber();
 	}
 
 	/**
@@ -482,7 +482,7 @@ public class communicationPreferencesWrapper implements communicationPreferences
 	* @param phoneNumber the phone number of this communication preferences
 	*/
 	@Override
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(java.lang.String phoneNumber) {
 		_communicationPreferences.setPhoneNumber(phoneNumber);
 	}
 

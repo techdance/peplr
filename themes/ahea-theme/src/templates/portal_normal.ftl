@@ -27,6 +27,8 @@
 
 <@liferay.control_menu />
 
+
+
 <div class="pt-0" id="wrapper">
 	<div class="page-wrapper d-flex flex-cloumn flex-lg-row">
 		<div id="sidebar" class="sidebar-fixed">
@@ -42,7 +44,7 @@
 					<#include "${full_templates_path}/navigation.ftl" />
 				</div>
 				<div id="wrap-logo-bottom" class="d-none d-xl-block">
-					<a href="#"><img src="/o/ahea-theme/images/logo-tower-education.png"></a>
+					<a href="https://www.toweredtech.com/" target="_blank"><img src="/o/ahea-theme/images/logo-tower-education.png"></a>
 				</div>
 			</div>
 		</div>
@@ -86,7 +88,7 @@
 
 <script src="/o/ahea-theme/js/jquery.sortable.js"></script>
 <script src="/o/ahea-theme/js/perfect-scrollbar.js"></script>
-<script src="/o/ahea-theme/js/custom.js?v=1.1"></script>
+<script src="/o/ahea-theme/js/custom.js?v=1.2"></script>
 
 <script type="text/javascript" src="/o/ahea-theme/js/jquery.easy-pie-chart.min.js"></script>
 <script type="text/javascript" src="/o/ahea-theme/js/app.js"></script>

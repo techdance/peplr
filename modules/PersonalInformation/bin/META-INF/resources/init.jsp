@@ -29,6 +29,7 @@ function loadUserInfo(){
                     {		
                     	debugger;
                     	var value=this.get('responseData');	
+                    	$(".btn-edit-profile").show();
                     	if(value!=null && value!="undefined" && value!=undefined){
                     		var data = JSON.parse(value);
                     		$("#fullName").text(data.fullName);
@@ -39,6 +40,9 @@ function loadUserInfo(){
          	               // $("#<portlet:namespace/>ExpandoAttribute--profileStatus--").val(data.profileStatus);
          	                $("#profileStatus").text(data.profileStatus);
          	                console.log(data.onlineStatus);
+         	                if(data.isEdit=="No"){
+         	                	$(".btn-edit-profile").hide();
+         	                }
          	                if(data.onlineStatus){
          	                	
          	                	

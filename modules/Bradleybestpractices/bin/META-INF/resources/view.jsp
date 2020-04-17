@@ -2,6 +2,14 @@
 
 <section class="wrap-best-practices">
 							<div class="row row-custom sortable">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+										<ol class="breadcrumb">
+										  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+										  <li class="breadcrumb-item active" aria-current="page">Bradley Best Practice</li>
+										</ol>
+									</nav>
+							</div>
 								<div class="col-lg-4 mb-4">
 									<div class="resources box box-border-radius box-shadow bg-white">
 										<div class="inner-wrap">

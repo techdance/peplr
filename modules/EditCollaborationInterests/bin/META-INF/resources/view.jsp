@@ -12,7 +12,7 @@
 		<div class="box-middle">
 			<div class="row row-custom">
 				<div class="col-md-6">
-					<h4 class="mb-3">Areas of interest</h4>
+					<h4 class="mb-3">Areas of Interest</h4>
 					<div id="area-of-interest-block"></div>
 					
 					<div id="view-more-interest-modal"	class="box-border-radius box-shadow interest-modal">
@@ -108,7 +108,7 @@
 							<div class="view-more-interest-modal-inner-content w-100">
 								<div class="row mb-2">
 									<div class="col-md-12">
-										<aui:select name="projectType" label="What type of project are you interest in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
+										<aui:select name="projectType" label="What type of project you are interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
 											<aui:option value="">Select a Project</aui:option>
 											<aui:option value="Academic Journal">Academic Journal</aui:option>
 											<aui:option value="Best Practices">Best Practices</aui:option>

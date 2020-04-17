@@ -10,3 +10,39 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+
+<script>
+
+jQuery(function() {
+	loadProfessionalCredentials();
+});
+
+function loadProfessionalCredentials(){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='getCredentialData'/>"
+			,{
+               method: 'get',
+               data:{ 		            	   
+               },
+               sync : true, 
+               on:{
+            	   complete:function()
+             		{		            		   
+             		},
+                    success:function()
+                    {			                    	
+                    	var value=this.get('responseData');	
+                    	debugger;
+                    	$("#profileCredentials").html("");
+                    	if(value!=null && value!="undefined" && value!=undefined){
+                    		$("#profileCredentials").html(value);
+                 	   }
+                    },error: function(){	             
+                    }
+				},
+
+	         });
+		});
+}
+</script>

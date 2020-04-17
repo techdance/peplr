@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="com.collaborated.entity.model.commonWebsserviceAPI">
+		<field name="commonAPIId" type="long" />
+	</model>
 	<model name="com.collaborated.entity.model.communicationPreferences">
 		<field name="PK_communicationPreferences" type="long" />
 		<field name="groupId" type="long" />
@@ -14,7 +17,7 @@
 		<field name="tertiaryLanguageId" type="long" />
 		<field name="tertiaryLanguageName" type="String" />
 		<field name="emailAddress" type="String" />
-		<field name="phoneNumber" type="long" />
+		<field name="phoneNumber" type="String" />
 		<field name="website" type="String" />
 	</model>
 	<model name="com.collaborated.entity.model.languagePreferences">
@@ -32,14 +35,24 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="projectType" type="String" />
 		<field name="description" type="String" />
-		<field name="discipline" type="String" />
 		<field name="language" type="String" />
-		<field name="location" type="String" />
 		<field name="campus" type="String" />
 		<field name="programLevel" type="String" />
 		<field name="programLength" type="String" />
 		<field name="deliveryMethod" type="String" />
 		<field name="credits" type="String" />
+		<field name="collaborationType" type="String" />
+		<field name="discipline1" type="String" />
+		<field name="discipline2" type="String" />
+		<field name="discipline3" type="String" />
+		<field name="location1" type="String" />
+		<field name="location2" type="String" />
+		<field name="location3" type="String" />
+		<field name="location4" type="String" />
+		<field name="rangerYearStart" type="int" />
+		<field name="rangerYearEnd" type="int" />
+		<field name="rangerMonthStart" type="String" />
+		<field name="rangerMonthEnd" type="String" />
 	</model>
 	<model name="com.collaborated.entity.model.userCredential">
 		<field name="PK_userCredential" type="long" />

@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="box-middle text-center wrap-images">
-		<a href="#" class="text-left"><img src="/o/ahea-theme/images/sms-users-circle.png" alt=""></a>
+		<a href="https://www.toweredtech.com/" class="text-left" target="_blank"><img src="/o/ahea-theme/images/desktop.png" alt=""></a>
 
 		<a href="#"><img src="/o/ahea-theme/images/sms-circle.png" alt=""></a>
 

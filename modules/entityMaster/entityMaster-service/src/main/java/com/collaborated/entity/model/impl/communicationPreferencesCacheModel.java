@@ -157,7 +157,12 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 			communicationPreferencesImpl.setEmailAddress(emailAddress);
 		}
 
-		communicationPreferencesImpl.setPhoneNumber(phoneNumber);
+		if (phoneNumber == null) {
+			communicationPreferencesImpl.setPhoneNumber(StringPool.BLANK);
+		}
+		else {
+			communicationPreferencesImpl.setPhoneNumber(phoneNumber);
+		}
 
 		if (website == null) {
 			communicationPreferencesImpl.setWebsite(StringPool.BLANK);
@@ -190,8 +195,7 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 		tertiaryLanguageId = objectInput.readLong();
 		tertiaryLanguageName = objectInput.readUTF();
 		emailAddress = objectInput.readUTF();
-
-		phoneNumber = objectInput.readLong();
+		phoneNumber = objectInput.readUTF();
 		website = objectInput.readUTF();
 	}
 
@@ -240,7 +244,12 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 			objectOutput.writeUTF(emailAddress);
 		}
 
-		objectOutput.writeLong(phoneNumber);
+		if (phoneNumber == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(phoneNumber);
+		}
 
 		if (website == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -262,6 +271,6 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 	public long tertiaryLanguageId;
 	public String tertiaryLanguageName;
 	public String emailAddress;
-	public long phoneNumber;
+	public String phoneNumber;
 	public String website;
 }

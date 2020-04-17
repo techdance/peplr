@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.collaborated.entity.model.commonWebsserviceAPI" />
 	<import class="com.collaborated.entity.model.communicationPreferences" />
 	<import class="com.collaborated.entity.model.languagePreferences" />
 	<import class="com.collaborated.entity.model.profileAreaofinterest" />
@@ -9,6 +10,11 @@
 	<import class="com.collaborated.entity.model.userInstitutionProfileDetails" />
 	<import class="com.collaborated.entity.model.userInstitutionProfileSubDetails" />
 	<import class="com.collaborated.entity.model.userProfessionalBio" />
+	<class name="com.collaborated.entity.model.impl.commonWebsserviceAPIImpl" table="collaborated_commonWebsserviceAPI">
+		<id name="commonAPIId" type="long">
+			<generator class="assigned" />
+		</id>
+	</class>
 	<class name="com.collaborated.entity.model.impl.communicationPreferencesImpl" table="collaborated_communicationPreferences">
 		<id name="PK_communicationPreferences" type="long">
 			<generator class="assigned" />
@@ -24,7 +30,7 @@
 		<property name="tertiaryLanguageId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="tertiaryLanguageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="phoneNumber" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="phoneNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="website" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.languagePreferencesImpl" table="collaborated_languagePreferences">
@@ -46,14 +52,24 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="projectType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="discipline" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="language" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="location" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="campus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="programLevel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="programLength" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="deliveryMethod" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="credits" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="collaborationType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="discipline1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="discipline2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="discipline3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="location1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="location2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="location3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="location4" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="rangerYearStart" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="rangerYearEnd" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="rangerMonthStart" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="rangerMonthEnd" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.userCredentialImpl" table="collaborated_userCredential">
 		<id name="PK_userCredential" type="long">

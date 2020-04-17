@@ -18,7 +18,7 @@
 
 </head>
 
-<body id="page-register" class="${css_class}">
+<body id="page-register" class="${css_class} page-enter page-sign-in">
 
 <@liferay_ui["quick-access"] contentId="#main-content" />
 

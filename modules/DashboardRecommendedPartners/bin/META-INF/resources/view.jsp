@@ -7,57 +7,33 @@
 		<div class="box-top position-relative">
 			<h2 class="box-subhead"><i class="fa fa-users" aria-hidden="true"></i>Recommended Partners</h2>
 			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
-		</div>
-
-		<div class="box-middle dashboardnews"> 
-			
+		</div>		
+		<div class="box-middle dashboardnews">
 			<div id="showErrorMessage">
-			<p><a href="<%=themeDisplay.getURLPortal() %>/edit-profile">To view Recommended Partners, complete your Collaboration Interests on the Edit Profile screen.</a></p>
+				<p><a href="<%=themeDisplay.getURLPortal() %>/edit-profile">To view Recommended Partners, complete your Collaboration Interests on the Edit Profile screen.</a></p>
 			</div>
 		</div>
-
-		<div class="box-bottom text-center font-weight-bold position-relative">
-			Find Additional Partners <a href="javascript:void();" class="btn btn-blue" id="partner-search">Search</a>
-			<div class="toltip4 text-left any-toltip" id="search-toltip">
-				<div class="search-box-header position-relative">
-					<a href="javascript:void(0);" class="btn-close color-white"><i class="fa fa-times-circle"></i></a>
-					<p>What Are You Looking For?</p>
+			<!-- <div class="item">
+				<div class="item-img partner-img position-relative">
+					<a href="javascript:void(0);"><img src="/o/ahea-theme/images/Karthik.png" width="59"></a>
+					<div class="toltip3 any-toltip toltip-bg-black">
+						<div class="d-flex">
+							<a href="#"><img src="images/contact-partner-1.png" width="50"></a>
+							<a href="#"><img src="images/contact-partner-2.png" width="50"></a>
+							<a href="#"><img src="images/contact-partner-3.png" width="50"></a>
+						</div>
+					</div>
 				</div>
-				<div class="search-box-body">
-					<table class="table-search" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td class="label-td" width="150">Program</td>
-							<td class="input-td">
-								<select name="" id="">
-									<option value="Anthropology">Anthropology</option>
-									<option value="Biochemistry">Biochemistry</option>
-									<option value="Biology">Biology</option>
-									<option value="Chemistry">Chemistry</option>
-									<option value="Economics">Economics</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="label-td">Location</td>
-							<td class="input-td">
-								<input type="text" placeholder="Enter Region Or Country">
-							</td>
-						</tr>
-					</table>
-
-					<table>
-						<tr>
-							<td class="label-td2">Program Start Date</td>
-							<td class="input-td">
-								<input type="text" class="datepicker" placeholder=" dd / mm / yy " readonly>
-							</td>
-						</tr>
-					</table>
+				<div class="item-text">
+					<a href="#" class="partner partner-name color-black hover-underline">Karthik Koothrappali, Ph.D.</a>
+					<span class="partner partner-title">Lecturer, Business &amp; Economics </span>
+					<span class="partner partner-university">University of Dubai </span>
+					<span class="partner partner-address">Dubai, UAE</span>
 				</div>
-				<div class="search-box-footer position-relative text-center">
-					<a href="#" class="btn btn-blue">Search</a>
-				</div>
-			</div>
+			</div> -->
 		</div>
-	</div>
+		
+		<div class="box-bottom text-center font-weight-bold position-relative pt-4 pb-4">
+			<a href="<%=themeDisplay.getURLPortal() %>/matching-screen" class="btn btn-blue btn-w-100" id="partner-search">View Matches</a>
+		</div>
 </div>

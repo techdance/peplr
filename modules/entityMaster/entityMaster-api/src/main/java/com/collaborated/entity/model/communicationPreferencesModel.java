@@ -253,14 +253,15 @@ public interface communicationPreferencesModel extends BaseModel<communicationPr
 	 *
 	 * @return the phone number of this communication preferences
 	 */
-	public long getPhoneNumber();
+	@AutoEscape
+	public String getPhoneNumber();
 
 	/**
 	 * Sets the phone number of this communication preferences.
 	 *
 	 * @param phoneNumber the phone number of this communication preferences
 	 */
-	public void setPhoneNumber(long phoneNumber);
+	public void setPhoneNumber(String phoneNumber);
 
 	/**
 	 * Returns the website of this communication preferences.

@@ -110,9 +110,13 @@ function getAllDetails(id){
                    		var data = JSON.parse(value);
                    		if(data.length>0){
                    			for(var i=0;i<data.length;i++){
+                   				var educationLevel = data[i].educationLevel;
+                   				if(data[i].educationLevel!=""){
+                   					educationLevel = ", "+data[i].educationLevel;
+                   				}
                    				$("#card-section").append("<div class='col-lg-6 mb-4'><div class='box box-border-radius box-shadow bg-white'><div class='inner-wrap inner-wrap-flex asset'> "
                    					+ "<div class='content-left'> <a href=''><img src='"+data[i].imageURL+"' alt=''></a> </div>" 
-                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+"</a></h2> </div>"
+                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+educationLevel+"</a></h2> </div>"
                    					/* + "<div class='box-middle p0'> <p>"+data[i].department+"</p><p><span class='font-style-italic color-blue-light'>"+data[i].institutionName+"</span></p><p>"+data[i].institutionLocation+"</p>" */
                    					+ "<div class='box-middle p0'> <p>Biochemistry & Cell Biology Research Faculty</p><p><span class='font-style-italic color-blue-light'>University of Oslo</span></p><p>Oslo, Norway</p>"
                    					+ " </div> </div> </div> </div> </div>"
@@ -147,9 +151,13 @@ function loadRecommenedPartners(){
                    		var data = JSON.parse(value);
                    		if(data.length>0){
                    			for(var i=0;i<data.length;i++){
+                   				var educationLevel = data[i].educationLevel;
+                   				if(data[i].educationLevel!=""){
+                   					educationLevel = ", "+data[i].educationLevel;
+                   				}
                    				$("#card-section").append("<div class='col-lg-6 mb-4'><div class='box box-border-radius box-shadow bg-white'><div class='inner-wrap inner-wrap-flex asset'> "
                    					+ "<div class='content-left'> <a href=''><img src='"+data[i].imageURL+"' alt=''></a> </div>" 
-                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+"</a></h2> </div>"
+                   					+ "<div class='content-right'><div class='box-top position-relative'><h2><a href='#' onClick='goToProfile("+ data[i].userId +")'>"+data[i].userName+educationLevel+"</a></h2> </div>"
                    					/* + "<div class='box-middle p0'> <p>"+data[i].department+"</p><p><span class='font-style-italic color-blue-light'>"+data[i].institutionName+"</span></p><p>"+data[i].institutionLocation+"</p>" */
                    					+ "<div class='box-middle p0'> <p>Biochemistry & Cell Biology Research Faculty</p><p><span class='font-style-italic color-blue-light'>University of Oslo</span></p><p>Oslo, Norway</p>"
                    					+ " </div> </div> </div> </div> </div>"

@@ -1,7 +1,9 @@
 package com.collaborated.matching.portlet;
 
 import com.collaborated.entity.model.profileAreaofinterest;
+import com.collaborated.entity.model.userCredential;
 import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
+import com.collaborated.entity.service.userCredentialLocalServiceUtil;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoTable;
 import com.liferay.expando.kernel.model.ExpandoTableConstants;
@@ -79,12 +81,13 @@ public class MatchingScreenPortlet extends MVCPortlet {
 		List<profileAreaofinterest> listData = null;
 		profileAreaofinterest singleData = null;
 		long key = ParamUtil.getLong(resourceRequest, "key");
+		String educationLevel = "";
 		try{
 			out = resourceResponse.getWriter();
 			singleData = profileAreaofinterestLocalServiceUtil.getprofileAreaofinterest(key);
 			if(singleData!=null){
 				String query = "SELECT * FROM `collaborated_profileAreaofinterest` WHERE (projectType='"+singleData.getProjectType()+"' OR "
-						+ "discipline='"+singleData.getDiscipline()+"') AND userId!="+themeDisplay.getUserId();
+						+ "discipline='"+singleData.getDiscipline1()+"') AND userId!="+themeDisplay.getUserId();
 				/*String query = "SELECT DISTINCT(userId) FROM `collaborated_profileareaofinterest` WHERE (projectType='"+singleData.getProjectType()+"' OR "
 						+ "discipline='"+singleData.getDiscipline()+"')";*/
 				jsonArray = GetData(query);
@@ -93,6 +96,15 @@ public class MatchingScreenPortlet extends MVCPortlet {
 				for(int l=0;l<jsonArray.length();l++){
 					 JSONObject jsonobj=jsonArray.getJSONObject(l);
 					 User user = UserLocalServiceUtil.getUser(Long.valueOf(jsonobj.getString("userId")));
+					 
+					 DynamicQuery dynamicQueryCredential = DynamicQueryFactoryUtil.forClass(userCredential.class, PortalClassLoaderUtil.getClassLoader());
+					 dynamicQueryCredential.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+					 List<userCredential> creList = userCredentialLocalServiceUtil.dynamicQuery(dynamicQueryCredential);
+					 if(creList.size()>0){
+						 educationLevel = "";
+						 educationLevel = creList.get(0).getMembership4();
+					 }
+					 
 					 jsonObjectFinal = JSONFactoryUtil.createJSONObject();
 					// String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
 					 ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
@@ -100,6 +112,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
 					 long portraitId = user.getPortraitId();
 					 jsonObjectFinal.put("userId", user.getUserId());
+					 jsonObjectFinal.put("educationLevel",educationLevel);
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);
@@ -125,6 +138,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 		JSONObject jsonObjectFinal = null;
 		PrintWriter out = null;
 		List<profileAreaofinterest> listData = null;
+		String educationLevel = "";
 		try{
 			out = resourceResponse.getWriter();
 			
@@ -140,6 +154,15 @@ public class MatchingScreenPortlet extends MVCPortlet {
 				for(int l=0;l<jsonArray.length();l++){
 					 JSONObject jsonobj=jsonArray.getJSONObject(l);
 					 User user = UserLocalServiceUtil.getUser(Long.valueOf(jsonobj.getString("userId")));
+					 
+					 DynamicQuery dynamicQueryCredential = DynamicQueryFactoryUtil.forClass(userCredential.class, PortalClassLoaderUtil.getClassLoader());
+					 dynamicQueryCredential.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+					 List<userCredential> creList = userCredentialLocalServiceUtil.dynamicQuery(dynamicQueryCredential);
+					 if(creList.size()>0){
+						 educationLevel = "";
+						 educationLevel = creList.get(0).getMembership4();
+					 }
+					 
 					 jsonObjectFinal = JSONFactoryUtil.createJSONObject();
 					 //String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
 					 
@@ -150,6 +173,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					 long portraitId = user.getPortraitId();
 				     
 					 jsonObjectFinal.put("userId", user.getUserId());
+					 jsonObjectFinal.put("educationLevel",educationLevel);
 					 jsonObjectFinal.put("userName", user.getFullName());
 					 jsonObjectFinal.put("department", user.getJobTitle());
 					 jsonObjectFinal.put("institutionName", instituteName);

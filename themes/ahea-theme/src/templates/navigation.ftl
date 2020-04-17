@@ -13,6 +13,7 @@
 				nav_item_css_class = ""
 				nav_item_layout = nav_item.getLayout()
 				nav_child_menu_css_class=""
+				nav_child_dashboard = ""
 			/>
 
 			<#if nav_item.isSelected()>
@@ -22,10 +23,21 @@
 					nav_child_menu_css_class="subMenu"
 				/>
 			</#if>
-			<#if nav_item.getName()=="Welcome" ||  nav_item.getName()=="Edit Profile" ||  nav_item.getName()=="Edit Profile Combined" ||  nav_item.getName()=="Profile" ||  nav_item.getName()=="Matching" || nav_item.getName()=="Course Development" || nav_item.getName()=="Lab Screen">
+			<#if nav_item.getName()=="Dashboard">
+				<#assign
+					nav_child_dashboard = " style='opacity: 0.45 !important;'"
+				/>
+			</#if>
+			
+			<#if nav_item.getName()=="Welcome" ||  nav_item.getName()=="Edit Profile" ||  nav_item.getName()=="Edit Profile Combined" ||  nav_item.getName()=="Profile" ||  nav_item.getName()=="Matching" || nav_item.getName()=="Course Development" || nav_item.getName()=="Lab Screen" || nav_item.getName()=="Privacy Policy" || nav_item.getName()=="Terms of Service">
 			<#else>
-				<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation" >
+				
+				<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation">
+					<#if nav_item.getName()=="Dashboard">
+						<a aria-labelledby="layout_${nav_item.getLayoutId()}" ${nav_item_attr_has_popup} href="#" ${nav_item.getTarget()} role="menuitem"><span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span></a>					
+					<#else>
 					<a aria-labelledby="layout_${nav_item.getLayoutId()}" ${nav_item_attr_has_popup} href="${nav_item.getURL()}" ${nav_item.getTarget()} role="menuitem"><span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span></a>
+					</#if>
 
 					<#if nav_item.hasChildren()>
 						<ul class="sub-menu child-menu ${nav_child_menu_css_class} m-0" role="menu">
