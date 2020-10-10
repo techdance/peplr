@@ -1485,3 +1485,36 @@ function scrollToInterest() {
            $('#view-more-interest-modal').css('top',relativeY +"px");
    }); */
 </script>
+
+<!-- <aui:validator name="required" />
+							<aui:validator errorMessage="Please enter valid first name" name="custom" >
+							function(val, fieldNode, ruleValue) {                         
+								var result = true;
+								var fileName=$('#<portlet:namespace/>firstName').val(); 
+								if(fileName!=''){
+									var tt = /^[a-zA-Z ]*$/.test(fileName);
+									if(tt==false){
+										result = false;
+									}else{
+										result = true;
+									}
+								}
+								return result;
+							}
+							</aui:validator>  -->
+						<!-- <aui:validator name="required" />
+						    <aui:validator errorMessage="Please enter valid last name" name="custom">
+						   	function(val, fieldNode, ruleValue) {                         
+								var result = true;
+								var fileName=$('#<portlet:namespace/>lastName').val(); 
+								if(fileName!=''){
+									var tt = /^[a-zA-Z ]*$/.test(fileName);
+									if(tt==false){
+										result = false;
+									}else{
+										result = true;
+									}
+								}
+								return result;
+							}
+						    </aui:validator> -->

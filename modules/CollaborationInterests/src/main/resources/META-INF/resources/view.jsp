@@ -3,6 +3,10 @@
 
 
 <div class="collaboration box box-border-radius box-shadow bg-white">
+	<!-- Loader -->
+	<div id="collaborationInterestLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<!-- <div class="box-top position-relative">
 			<h2 class="box-subhead">
@@ -88,7 +92,7 @@
 		</div> -->
 		
 		<div class="box-top position-relative">
-				<h2 class="box-subhead"><i class="fas fa-user"></i>Collaboration Interests</h2>
+				<h2 class="box-subhead"><span class="icon-regular icon-comment-smile"></span>Collaboration Interests</h2>
 				<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog"></i></a>
 			</div>
 			<div class="box-middle">
@@ -96,7 +100,7 @@
 					<div class="col-md-12">
 						<div class="content-icon">
 							<div>
-								<i class="fas fa-search"></i><strong>Areas of Interest</strong></div>
+								<span class="icon-regular icon-s-search"></span><strong>Areas of Interest</strong></div>
 									<div class="areas-of-interest">
 										<div id="area-of-interest-block-profile" class="row row-custom "></div>
 										<!--row-->
@@ -124,7 +128,7 @@
 																		<strong>Preferred Language</strong><br><span class="view-language"></span>
 																	</div>
 																	<div class="col-md-6 mb-2 order-md-2">
-																		<strong>Collaboration Type</strong><br><span class="view-campus"></span>
+																		<strong>Collaboration Type</strong><br><span class="view-collaboration-type"></span>
 																	</div>
 																	<div class="col-md-6 mb-2 order-md-4">
 																		<strong>Discipline 1</strong><br><span class="view-discipline1"></span>
@@ -160,7 +164,7 @@
 						 												 <strong>Project Date Range</strong>
 						 												 <div class="top-label-range">
 						 												 	<div class="top-init-range">
-						 												 		<div id="currentdayCI2"></div>
+						 												 		<div><span class="end-month mr-1"></span><span id="currentdayCI2"></span></div>
 						 												 	</div>
 																			<div class="year-last-range pickerdata">
 																				<input type="text" id="datePickerCI2" value="2020" readonly/>
@@ -169,10 +173,11 @@
 						 												 <input type="text" class="js-range-slider" id="projectRangeCI2" name="my_range" value="" />
 																	</div>
 																</div>
-																<div class="row text-center pt-2 mt-3">
-																	<a href="javascript:void(0);" class="btn btn-blue btn-w-100 m-auto" data-dismiss="modal">Find Matches</a>
+																<div class="">
+																	<span class="row view-find-matches text-center pt-2 mt-3"></span>
+																	
 																	<div class="col-md-12 ac mt-3">
-																		<strong>Created: 2019-10-31 11:34 AM</strong>
+																		<strong>Created: <span class="created_date">2019-10-31</span></strong>
 																	</div>
 																</div>
 															</div>
@@ -192,89 +197,3 @@
 		
 	</div>
 </div>
-<script>
-$(document).ready(function() {
-	
-	function formatDate(date) {
-		  var monthNames = [
-		    "Jan", "Feb", "Mar",
-		    "Apr", "May", "Jun", "Jul",
-		    "Aug", "Sept", "Oct",
-		    "Novr", "Dec"
-		  ];
-
-		  var day = date.getDate();
-		  var monthIndex = date.getMonth();
-		  var year = date.getFullYear();
-
-		  return  monthNames[monthIndex] +  ' ' + year;
-		}
-
-	
-	document.getElementById("currentdayCI2").innerHTML = formatDate(new Date());
-	
-	var lang = "en-US";
-    var year = 2018;
-    
-    function dateToTS (date) {
-        return date.valueOf();
-    }
-    
-    function tsToDate (ts) {
-        var d = new Date(ts);
-    
-        return d.toLocaleDateString(lang, {
-            month: 'short',
-        });
-    }
-    var da = new Date();
-    if (da.getMonth() == 11) {
-        var current = new Date(da.getFullYear() + 1, 0, 1);
-    } else {
-        var current = new Date(da.getFullYear(), da.getMonth() + 11, 1);
-    }
-    
-    $("#projectRangeCI").ionRangeSlider({
-    	skin: "big",
-    	type: "single",
-        grid: true,
-        grid_num: 11,
-        min:dateToTS(new Date()),
-        max: dateToTS(current),        
-        prettify: tsToDate
-    });
-	
-    $("#projectRangeCI2").ionRangeSlider({
-    	skin: "big",
-    	type: "single",
-        grid: true,
-        grid_num: 11,
-        min:dateToTS(new Date()),
-        max: dateToTS(current),        
-        prettify: tsToDate
-    });
-    var end_year = da.getFullYear() + 15;
-    var nd = new Date();
-    nd.setFullYear(end_year)
-    
-    console.log(nd,"end_date")
-	 $( "#datePickerCI" ).datepicker({
-		 format: "yyyy",
-	     viewMode: "years", 
-	     minViewMode: "years",
-	     autoclose: true,
-	     startDate : new Date(),
-	     endDate : nd
-	 });
-	
-    $( "#datePickerCI2" ).datepicker({
-		 format: "yyyy",
-	     viewMode: "years", 
-	     minViewMode: "years",
-	     autoclose: true,
-	     startDate : new Date(),
-	     endDate : nd
-	 });
-    
-});
-</script>

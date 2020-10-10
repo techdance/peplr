@@ -17,14 +17,36 @@ package com.collaborated.entity.service.base;
 import aQute.bnd.annotation.ProviderType;
 
 import com.collaborated.entity.model.userInstitutionProfileDetails;
+import com.collaborated.entity.service.persistence.Custom_CalendarPersistence;
+import com.collaborated.entity.service.persistence.Custom_WorkflowLogPersistence;
+import com.collaborated.entity.service.persistence.Custom_WorkflowPersistence;
+import com.collaborated.entity.service.persistence.Custom_Workflow_CompletedPersistence;
+import com.collaborated.entity.service.persistence.Custom_Workflow_TaskPersistence;
+import com.collaborated.entity.service.persistence.Custom_Workflow_TransitionPersistence;
 import com.collaborated.entity.service.persistence.commonWebsserviceAPIPersistence;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
+import com.collaborated.entity.service.persistence.labDetailedActivityTablePersistence;
+import com.collaborated.entity.service.persistence.labDetailedCourseHoursPersistence;
+import com.collaborated.entity.service.persistence.labDetailedCourseIdentificationPersistence;
+import com.collaborated.entity.service.persistence.labDetailedCourseObjectivesPersistence;
+import com.collaborated.entity.service.persistence.labDetailedCourseResourcesPersistence;
+import com.collaborated.entity.service.persistence.labDetailedCourseTopicsPersistence;
+import com.collaborated.entity.service.persistence.labDetailedInstructorQualificationPersistence;
+import com.collaborated.entity.service.persistence.labDetailedLearningEnvironmentsPersistence;
+import com.collaborated.entity.service.persistence.labScreenProjectOverviewPersistence;
+import com.collaborated.entity.service.persistence.labScreenProjectPartnersPersistence;
+import com.collaborated.entity.service.persistence.labScreenTaskPersistence;
 import com.collaborated.entity.service.persistence.languagePreferencesPersistence;
 import com.collaborated.entity.service.persistence.profileAreaofinterestPersistence;
+import com.collaborated.entity.service.persistence.projectDiscussionPersistence;
+import com.collaborated.entity.service.persistence.projectFilesUploadPersistence;
+import com.collaborated.entity.service.persistence.projectFolderUploadPersistence;
+import com.collaborated.entity.service.persistence.projectInviteTrackingPersistence;
 import com.collaborated.entity.service.persistence.userCredentialPersistence;
 import com.collaborated.entity.service.persistence.userInstitutionProfileDetailsPersistence;
 import com.collaborated.entity.service.persistence.userInstitutionProfileSubDetailsPersistence;
 import com.collaborated.entity.service.persistence.userProfessionalBioPersistence;
+import com.collaborated.entity.service.persistence.userProfileImagePersistence;
 import com.collaborated.entity.service.userInstitutionProfileDetailsLocalService;
 
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -405,6 +427,652 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the custom_ calendar local service.
+	 *
+	 * @return the custom_ calendar local service
+	 */
+	public com.collaborated.entity.service.Custom_CalendarLocalService getCustom_CalendarLocalService() {
+		return custom_CalendarLocalService;
+	}
+
+	/**
+	 * Sets the custom_ calendar local service.
+	 *
+	 * @param custom_CalendarLocalService the custom_ calendar local service
+	 */
+	public void setCustom_CalendarLocalService(
+		com.collaborated.entity.service.Custom_CalendarLocalService custom_CalendarLocalService) {
+		this.custom_CalendarLocalService = custom_CalendarLocalService;
+	}
+
+	/**
+	 * Returns the custom_ calendar persistence.
+	 *
+	 * @return the custom_ calendar persistence
+	 */
+	public Custom_CalendarPersistence getCustom_CalendarPersistence() {
+		return custom_CalendarPersistence;
+	}
+
+	/**
+	 * Sets the custom_ calendar persistence.
+	 *
+	 * @param custom_CalendarPersistence the custom_ calendar persistence
+	 */
+	public void setCustom_CalendarPersistence(
+		Custom_CalendarPersistence custom_CalendarPersistence) {
+		this.custom_CalendarPersistence = custom_CalendarPersistence;
+	}
+
+	/**
+	 * Returns the custom_ workflow local service.
+	 *
+	 * @return the custom_ workflow local service
+	 */
+	public com.collaborated.entity.service.Custom_WorkflowLocalService getCustom_WorkflowLocalService() {
+		return custom_WorkflowLocalService;
+	}
+
+	/**
+	 * Sets the custom_ workflow local service.
+	 *
+	 * @param custom_WorkflowLocalService the custom_ workflow local service
+	 */
+	public void setCustom_WorkflowLocalService(
+		com.collaborated.entity.service.Custom_WorkflowLocalService custom_WorkflowLocalService) {
+		this.custom_WorkflowLocalService = custom_WorkflowLocalService;
+	}
+
+	/**
+	 * Returns the custom_ workflow persistence.
+	 *
+	 * @return the custom_ workflow persistence
+	 */
+	public Custom_WorkflowPersistence getCustom_WorkflowPersistence() {
+		return custom_WorkflowPersistence;
+	}
+
+	/**
+	 * Sets the custom_ workflow persistence.
+	 *
+	 * @param custom_WorkflowPersistence the custom_ workflow persistence
+	 */
+	public void setCustom_WorkflowPersistence(
+		Custom_WorkflowPersistence custom_WorkflowPersistence) {
+		this.custom_WorkflowPersistence = custom_WorkflowPersistence;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ completed local service.
+	 *
+	 * @return the custom_ workflow_ completed local service
+	 */
+	public com.collaborated.entity.service.Custom_Workflow_CompletedLocalService getCustom_Workflow_CompletedLocalService() {
+		return custom_Workflow_CompletedLocalService;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ completed local service.
+	 *
+	 * @param custom_Workflow_CompletedLocalService the custom_ workflow_ completed local service
+	 */
+	public void setCustom_Workflow_CompletedLocalService(
+		com.collaborated.entity.service.Custom_Workflow_CompletedLocalService custom_Workflow_CompletedLocalService) {
+		this.custom_Workflow_CompletedLocalService = custom_Workflow_CompletedLocalService;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ completed persistence.
+	 *
+	 * @return the custom_ workflow_ completed persistence
+	 */
+	public Custom_Workflow_CompletedPersistence getCustom_Workflow_CompletedPersistence() {
+		return custom_Workflow_CompletedPersistence;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ completed persistence.
+	 *
+	 * @param custom_Workflow_CompletedPersistence the custom_ workflow_ completed persistence
+	 */
+	public void setCustom_Workflow_CompletedPersistence(
+		Custom_Workflow_CompletedPersistence custom_Workflow_CompletedPersistence) {
+		this.custom_Workflow_CompletedPersistence = custom_Workflow_CompletedPersistence;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ task local service.
+	 *
+	 * @return the custom_ workflow_ task local service
+	 */
+	public com.collaborated.entity.service.Custom_Workflow_TaskLocalService getCustom_Workflow_TaskLocalService() {
+		return custom_Workflow_TaskLocalService;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ task local service.
+	 *
+	 * @param custom_Workflow_TaskLocalService the custom_ workflow_ task local service
+	 */
+	public void setCustom_Workflow_TaskLocalService(
+		com.collaborated.entity.service.Custom_Workflow_TaskLocalService custom_Workflow_TaskLocalService) {
+		this.custom_Workflow_TaskLocalService = custom_Workflow_TaskLocalService;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ task persistence.
+	 *
+	 * @return the custom_ workflow_ task persistence
+	 */
+	public Custom_Workflow_TaskPersistence getCustom_Workflow_TaskPersistence() {
+		return custom_Workflow_TaskPersistence;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ task persistence.
+	 *
+	 * @param custom_Workflow_TaskPersistence the custom_ workflow_ task persistence
+	 */
+	public void setCustom_Workflow_TaskPersistence(
+		Custom_Workflow_TaskPersistence custom_Workflow_TaskPersistence) {
+		this.custom_Workflow_TaskPersistence = custom_Workflow_TaskPersistence;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ transition local service.
+	 *
+	 * @return the custom_ workflow_ transition local service
+	 */
+	public com.collaborated.entity.service.Custom_Workflow_TransitionLocalService getCustom_Workflow_TransitionLocalService() {
+		return custom_Workflow_TransitionLocalService;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ transition local service.
+	 *
+	 * @param custom_Workflow_TransitionLocalService the custom_ workflow_ transition local service
+	 */
+	public void setCustom_Workflow_TransitionLocalService(
+		com.collaborated.entity.service.Custom_Workflow_TransitionLocalService custom_Workflow_TransitionLocalService) {
+		this.custom_Workflow_TransitionLocalService = custom_Workflow_TransitionLocalService;
+	}
+
+	/**
+	 * Returns the custom_ workflow_ transition persistence.
+	 *
+	 * @return the custom_ workflow_ transition persistence
+	 */
+	public Custom_Workflow_TransitionPersistence getCustom_Workflow_TransitionPersistence() {
+		return custom_Workflow_TransitionPersistence;
+	}
+
+	/**
+	 * Sets the custom_ workflow_ transition persistence.
+	 *
+	 * @param custom_Workflow_TransitionPersistence the custom_ workflow_ transition persistence
+	 */
+	public void setCustom_Workflow_TransitionPersistence(
+		Custom_Workflow_TransitionPersistence custom_Workflow_TransitionPersistence) {
+		this.custom_Workflow_TransitionPersistence = custom_Workflow_TransitionPersistence;
+	}
+
+	/**
+	 * Returns the custom_ workflow log local service.
+	 *
+	 * @return the custom_ workflow log local service
+	 */
+	public com.collaborated.entity.service.Custom_WorkflowLogLocalService getCustom_WorkflowLogLocalService() {
+		return custom_WorkflowLogLocalService;
+	}
+
+	/**
+	 * Sets the custom_ workflow log local service.
+	 *
+	 * @param custom_WorkflowLogLocalService the custom_ workflow log local service
+	 */
+	public void setCustom_WorkflowLogLocalService(
+		com.collaborated.entity.service.Custom_WorkflowLogLocalService custom_WorkflowLogLocalService) {
+		this.custom_WorkflowLogLocalService = custom_WorkflowLogLocalService;
+	}
+
+	/**
+	 * Returns the custom_ workflow log persistence.
+	 *
+	 * @return the custom_ workflow log persistence
+	 */
+	public Custom_WorkflowLogPersistence getCustom_WorkflowLogPersistence() {
+		return custom_WorkflowLogPersistence;
+	}
+
+	/**
+	 * Sets the custom_ workflow log persistence.
+	 *
+	 * @param custom_WorkflowLogPersistence the custom_ workflow log persistence
+	 */
+	public void setCustom_WorkflowLogPersistence(
+		Custom_WorkflowLogPersistence custom_WorkflowLogPersistence) {
+		this.custom_WorkflowLogPersistence = custom_WorkflowLogPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed activity table local service.
+	 *
+	 * @return the lab detailed activity table local service
+	 */
+	public com.collaborated.entity.service.labDetailedActivityTableLocalService getlabDetailedActivityTableLocalService() {
+		return labDetailedActivityTableLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed activity table local service.
+	 *
+	 * @param labDetailedActivityTableLocalService the lab detailed activity table local service
+	 */
+	public void setlabDetailedActivityTableLocalService(
+		com.collaborated.entity.service.labDetailedActivityTableLocalService labDetailedActivityTableLocalService) {
+		this.labDetailedActivityTableLocalService = labDetailedActivityTableLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed activity table persistence.
+	 *
+	 * @return the lab detailed activity table persistence
+	 */
+	public labDetailedActivityTablePersistence getlabDetailedActivityTablePersistence() {
+		return labDetailedActivityTablePersistence;
+	}
+
+	/**
+	 * Sets the lab detailed activity table persistence.
+	 *
+	 * @param labDetailedActivityTablePersistence the lab detailed activity table persistence
+	 */
+	public void setlabDetailedActivityTablePersistence(
+		labDetailedActivityTablePersistence labDetailedActivityTablePersistence) {
+		this.labDetailedActivityTablePersistence = labDetailedActivityTablePersistence;
+	}
+
+	/**
+	 * Returns the lab detailed course hours local service.
+	 *
+	 * @return the lab detailed course hours local service
+	 */
+	public com.collaborated.entity.service.labDetailedCourseHoursLocalService getlabDetailedCourseHoursLocalService() {
+		return labDetailedCourseHoursLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed course hours local service.
+	 *
+	 * @param labDetailedCourseHoursLocalService the lab detailed course hours local service
+	 */
+	public void setlabDetailedCourseHoursLocalService(
+		com.collaborated.entity.service.labDetailedCourseHoursLocalService labDetailedCourseHoursLocalService) {
+		this.labDetailedCourseHoursLocalService = labDetailedCourseHoursLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed course hours persistence.
+	 *
+	 * @return the lab detailed course hours persistence
+	 */
+	public labDetailedCourseHoursPersistence getlabDetailedCourseHoursPersistence() {
+		return labDetailedCourseHoursPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed course hours persistence.
+	 *
+	 * @param labDetailedCourseHoursPersistence the lab detailed course hours persistence
+	 */
+	public void setlabDetailedCourseHoursPersistence(
+		labDetailedCourseHoursPersistence labDetailedCourseHoursPersistence) {
+		this.labDetailedCourseHoursPersistence = labDetailedCourseHoursPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed course identification local service.
+	 *
+	 * @return the lab detailed course identification local service
+	 */
+	public com.collaborated.entity.service.labDetailedCourseIdentificationLocalService getlabDetailedCourseIdentificationLocalService() {
+		return labDetailedCourseIdentificationLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed course identification local service.
+	 *
+	 * @param labDetailedCourseIdentificationLocalService the lab detailed course identification local service
+	 */
+	public void setlabDetailedCourseIdentificationLocalService(
+		com.collaborated.entity.service.labDetailedCourseIdentificationLocalService labDetailedCourseIdentificationLocalService) {
+		this.labDetailedCourseIdentificationLocalService = labDetailedCourseIdentificationLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed course identification persistence.
+	 *
+	 * @return the lab detailed course identification persistence
+	 */
+	public labDetailedCourseIdentificationPersistence getlabDetailedCourseIdentificationPersistence() {
+		return labDetailedCourseIdentificationPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed course identification persistence.
+	 *
+	 * @param labDetailedCourseIdentificationPersistence the lab detailed course identification persistence
+	 */
+	public void setlabDetailedCourseIdentificationPersistence(
+		labDetailedCourseIdentificationPersistence labDetailedCourseIdentificationPersistence) {
+		this.labDetailedCourseIdentificationPersistence = labDetailedCourseIdentificationPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed course objectives local service.
+	 *
+	 * @return the lab detailed course objectives local service
+	 */
+	public com.collaborated.entity.service.labDetailedCourseObjectivesLocalService getlabDetailedCourseObjectivesLocalService() {
+		return labDetailedCourseObjectivesLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed course objectives local service.
+	 *
+	 * @param labDetailedCourseObjectivesLocalService the lab detailed course objectives local service
+	 */
+	public void setlabDetailedCourseObjectivesLocalService(
+		com.collaborated.entity.service.labDetailedCourseObjectivesLocalService labDetailedCourseObjectivesLocalService) {
+		this.labDetailedCourseObjectivesLocalService = labDetailedCourseObjectivesLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed course objectives persistence.
+	 *
+	 * @return the lab detailed course objectives persistence
+	 */
+	public labDetailedCourseObjectivesPersistence getlabDetailedCourseObjectivesPersistence() {
+		return labDetailedCourseObjectivesPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed course objectives persistence.
+	 *
+	 * @param labDetailedCourseObjectivesPersistence the lab detailed course objectives persistence
+	 */
+	public void setlabDetailedCourseObjectivesPersistence(
+		labDetailedCourseObjectivesPersistence labDetailedCourseObjectivesPersistence) {
+		this.labDetailedCourseObjectivesPersistence = labDetailedCourseObjectivesPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed course resources local service.
+	 *
+	 * @return the lab detailed course resources local service
+	 */
+	public com.collaborated.entity.service.labDetailedCourseResourcesLocalService getlabDetailedCourseResourcesLocalService() {
+		return labDetailedCourseResourcesLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed course resources local service.
+	 *
+	 * @param labDetailedCourseResourcesLocalService the lab detailed course resources local service
+	 */
+	public void setlabDetailedCourseResourcesLocalService(
+		com.collaborated.entity.service.labDetailedCourseResourcesLocalService labDetailedCourseResourcesLocalService) {
+		this.labDetailedCourseResourcesLocalService = labDetailedCourseResourcesLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed course resources persistence.
+	 *
+	 * @return the lab detailed course resources persistence
+	 */
+	public labDetailedCourseResourcesPersistence getlabDetailedCourseResourcesPersistence() {
+		return labDetailedCourseResourcesPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed course resources persistence.
+	 *
+	 * @param labDetailedCourseResourcesPersistence the lab detailed course resources persistence
+	 */
+	public void setlabDetailedCourseResourcesPersistence(
+		labDetailedCourseResourcesPersistence labDetailedCourseResourcesPersistence) {
+		this.labDetailedCourseResourcesPersistence = labDetailedCourseResourcesPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed course topics local service.
+	 *
+	 * @return the lab detailed course topics local service
+	 */
+	public com.collaborated.entity.service.labDetailedCourseTopicsLocalService getlabDetailedCourseTopicsLocalService() {
+		return labDetailedCourseTopicsLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed course topics local service.
+	 *
+	 * @param labDetailedCourseTopicsLocalService the lab detailed course topics local service
+	 */
+	public void setlabDetailedCourseTopicsLocalService(
+		com.collaborated.entity.service.labDetailedCourseTopicsLocalService labDetailedCourseTopicsLocalService) {
+		this.labDetailedCourseTopicsLocalService = labDetailedCourseTopicsLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed course topics persistence.
+	 *
+	 * @return the lab detailed course topics persistence
+	 */
+	public labDetailedCourseTopicsPersistence getlabDetailedCourseTopicsPersistence() {
+		return labDetailedCourseTopicsPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed course topics persistence.
+	 *
+	 * @param labDetailedCourseTopicsPersistence the lab detailed course topics persistence
+	 */
+	public void setlabDetailedCourseTopicsPersistence(
+		labDetailedCourseTopicsPersistence labDetailedCourseTopicsPersistence) {
+		this.labDetailedCourseTopicsPersistence = labDetailedCourseTopicsPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed instructor qualification local service.
+	 *
+	 * @return the lab detailed instructor qualification local service
+	 */
+	public com.collaborated.entity.service.labDetailedInstructorQualificationLocalService getlabDetailedInstructorQualificationLocalService() {
+		return labDetailedInstructorQualificationLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed instructor qualification local service.
+	 *
+	 * @param labDetailedInstructorQualificationLocalService the lab detailed instructor qualification local service
+	 */
+	public void setlabDetailedInstructorQualificationLocalService(
+		com.collaborated.entity.service.labDetailedInstructorQualificationLocalService labDetailedInstructorQualificationLocalService) {
+		this.labDetailedInstructorQualificationLocalService = labDetailedInstructorQualificationLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed instructor qualification persistence.
+	 *
+	 * @return the lab detailed instructor qualification persistence
+	 */
+	public labDetailedInstructorQualificationPersistence getlabDetailedInstructorQualificationPersistence() {
+		return labDetailedInstructorQualificationPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed instructor qualification persistence.
+	 *
+	 * @param labDetailedInstructorQualificationPersistence the lab detailed instructor qualification persistence
+	 */
+	public void setlabDetailedInstructorQualificationPersistence(
+		labDetailedInstructorQualificationPersistence labDetailedInstructorQualificationPersistence) {
+		this.labDetailedInstructorQualificationPersistence = labDetailedInstructorQualificationPersistence;
+	}
+
+	/**
+	 * Returns the lab detailed learning environments local service.
+	 *
+	 * @return the lab detailed learning environments local service
+	 */
+	public com.collaborated.entity.service.labDetailedLearningEnvironmentsLocalService getlabDetailedLearningEnvironmentsLocalService() {
+		return labDetailedLearningEnvironmentsLocalService;
+	}
+
+	/**
+	 * Sets the lab detailed learning environments local service.
+	 *
+	 * @param labDetailedLearningEnvironmentsLocalService the lab detailed learning environments local service
+	 */
+	public void setlabDetailedLearningEnvironmentsLocalService(
+		com.collaborated.entity.service.labDetailedLearningEnvironmentsLocalService labDetailedLearningEnvironmentsLocalService) {
+		this.labDetailedLearningEnvironmentsLocalService = labDetailedLearningEnvironmentsLocalService;
+	}
+
+	/**
+	 * Returns the lab detailed learning environments persistence.
+	 *
+	 * @return the lab detailed learning environments persistence
+	 */
+	public labDetailedLearningEnvironmentsPersistence getlabDetailedLearningEnvironmentsPersistence() {
+		return labDetailedLearningEnvironmentsPersistence;
+	}
+
+	/**
+	 * Sets the lab detailed learning environments persistence.
+	 *
+	 * @param labDetailedLearningEnvironmentsPersistence the lab detailed learning environments persistence
+	 */
+	public void setlabDetailedLearningEnvironmentsPersistence(
+		labDetailedLearningEnvironmentsPersistence labDetailedLearningEnvironmentsPersistence) {
+		this.labDetailedLearningEnvironmentsPersistence = labDetailedLearningEnvironmentsPersistence;
+	}
+
+	/**
+	 * Returns the lab screen project overview local service.
+	 *
+	 * @return the lab screen project overview local service
+	 */
+	public com.collaborated.entity.service.labScreenProjectOverviewLocalService getlabScreenProjectOverviewLocalService() {
+		return labScreenProjectOverviewLocalService;
+	}
+
+	/**
+	 * Sets the lab screen project overview local service.
+	 *
+	 * @param labScreenProjectOverviewLocalService the lab screen project overview local service
+	 */
+	public void setlabScreenProjectOverviewLocalService(
+		com.collaborated.entity.service.labScreenProjectOverviewLocalService labScreenProjectOverviewLocalService) {
+		this.labScreenProjectOverviewLocalService = labScreenProjectOverviewLocalService;
+	}
+
+	/**
+	 * Returns the lab screen project overview persistence.
+	 *
+	 * @return the lab screen project overview persistence
+	 */
+	public labScreenProjectOverviewPersistence getlabScreenProjectOverviewPersistence() {
+		return labScreenProjectOverviewPersistence;
+	}
+
+	/**
+	 * Sets the lab screen project overview persistence.
+	 *
+	 * @param labScreenProjectOverviewPersistence the lab screen project overview persistence
+	 */
+	public void setlabScreenProjectOverviewPersistence(
+		labScreenProjectOverviewPersistence labScreenProjectOverviewPersistence) {
+		this.labScreenProjectOverviewPersistence = labScreenProjectOverviewPersistence;
+	}
+
+	/**
+	 * Returns the lab screen project partners local service.
+	 *
+	 * @return the lab screen project partners local service
+	 */
+	public com.collaborated.entity.service.labScreenProjectPartnersLocalService getlabScreenProjectPartnersLocalService() {
+		return labScreenProjectPartnersLocalService;
+	}
+
+	/**
+	 * Sets the lab screen project partners local service.
+	 *
+	 * @param labScreenProjectPartnersLocalService the lab screen project partners local service
+	 */
+	public void setlabScreenProjectPartnersLocalService(
+		com.collaborated.entity.service.labScreenProjectPartnersLocalService labScreenProjectPartnersLocalService) {
+		this.labScreenProjectPartnersLocalService = labScreenProjectPartnersLocalService;
+	}
+
+	/**
+	 * Returns the lab screen project partners persistence.
+	 *
+	 * @return the lab screen project partners persistence
+	 */
+	public labScreenProjectPartnersPersistence getlabScreenProjectPartnersPersistence() {
+		return labScreenProjectPartnersPersistence;
+	}
+
+	/**
+	 * Sets the lab screen project partners persistence.
+	 *
+	 * @param labScreenProjectPartnersPersistence the lab screen project partners persistence
+	 */
+	public void setlabScreenProjectPartnersPersistence(
+		labScreenProjectPartnersPersistence labScreenProjectPartnersPersistence) {
+		this.labScreenProjectPartnersPersistence = labScreenProjectPartnersPersistence;
+	}
+
+	/**
+	 * Returns the lab screen task local service.
+	 *
+	 * @return the lab screen task local service
+	 */
+	public com.collaborated.entity.service.labScreenTaskLocalService getlabScreenTaskLocalService() {
+		return labScreenTaskLocalService;
+	}
+
+	/**
+	 * Sets the lab screen task local service.
+	 *
+	 * @param labScreenTaskLocalService the lab screen task local service
+	 */
+	public void setlabScreenTaskLocalService(
+		com.collaborated.entity.service.labScreenTaskLocalService labScreenTaskLocalService) {
+		this.labScreenTaskLocalService = labScreenTaskLocalService;
+	}
+
+	/**
+	 * Returns the lab screen task persistence.
+	 *
+	 * @return the lab screen task persistence
+	 */
+	public labScreenTaskPersistence getlabScreenTaskPersistence() {
+		return labScreenTaskPersistence;
+	}
+
+	/**
+	 * Sets the lab screen task persistence.
+	 *
+	 * @param labScreenTaskPersistence the lab screen task persistence
+	 */
+	public void setlabScreenTaskPersistence(
+		labScreenTaskPersistence labScreenTaskPersistence) {
+		this.labScreenTaskPersistence = labScreenTaskPersistence;
+	}
+
+	/**
 	 * Returns the language preferences local service.
 	 *
 	 * @return the language preferences local service
@@ -478,6 +1146,158 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	public void setprofileAreaofinterestPersistence(
 		profileAreaofinterestPersistence profileAreaofinterestPersistence) {
 		this.profileAreaofinterestPersistence = profileAreaofinterestPersistence;
+	}
+
+	/**
+	 * Returns the project discussion local service.
+	 *
+	 * @return the project discussion local service
+	 */
+	public com.collaborated.entity.service.projectDiscussionLocalService getprojectDiscussionLocalService() {
+		return projectDiscussionLocalService;
+	}
+
+	/**
+	 * Sets the project discussion local service.
+	 *
+	 * @param projectDiscussionLocalService the project discussion local service
+	 */
+	public void setprojectDiscussionLocalService(
+		com.collaborated.entity.service.projectDiscussionLocalService projectDiscussionLocalService) {
+		this.projectDiscussionLocalService = projectDiscussionLocalService;
+	}
+
+	/**
+	 * Returns the project discussion persistence.
+	 *
+	 * @return the project discussion persistence
+	 */
+	public projectDiscussionPersistence getprojectDiscussionPersistence() {
+		return projectDiscussionPersistence;
+	}
+
+	/**
+	 * Sets the project discussion persistence.
+	 *
+	 * @param projectDiscussionPersistence the project discussion persistence
+	 */
+	public void setprojectDiscussionPersistence(
+		projectDiscussionPersistence projectDiscussionPersistence) {
+		this.projectDiscussionPersistence = projectDiscussionPersistence;
+	}
+
+	/**
+	 * Returns the project files upload local service.
+	 *
+	 * @return the project files upload local service
+	 */
+	public com.collaborated.entity.service.projectFilesUploadLocalService getprojectFilesUploadLocalService() {
+		return projectFilesUploadLocalService;
+	}
+
+	/**
+	 * Sets the project files upload local service.
+	 *
+	 * @param projectFilesUploadLocalService the project files upload local service
+	 */
+	public void setprojectFilesUploadLocalService(
+		com.collaborated.entity.service.projectFilesUploadLocalService projectFilesUploadLocalService) {
+		this.projectFilesUploadLocalService = projectFilesUploadLocalService;
+	}
+
+	/**
+	 * Returns the project files upload persistence.
+	 *
+	 * @return the project files upload persistence
+	 */
+	public projectFilesUploadPersistence getprojectFilesUploadPersistence() {
+		return projectFilesUploadPersistence;
+	}
+
+	/**
+	 * Sets the project files upload persistence.
+	 *
+	 * @param projectFilesUploadPersistence the project files upload persistence
+	 */
+	public void setprojectFilesUploadPersistence(
+		projectFilesUploadPersistence projectFilesUploadPersistence) {
+		this.projectFilesUploadPersistence = projectFilesUploadPersistence;
+	}
+
+	/**
+	 * Returns the project folder upload local service.
+	 *
+	 * @return the project folder upload local service
+	 */
+	public com.collaborated.entity.service.projectFolderUploadLocalService getprojectFolderUploadLocalService() {
+		return projectFolderUploadLocalService;
+	}
+
+	/**
+	 * Sets the project folder upload local service.
+	 *
+	 * @param projectFolderUploadLocalService the project folder upload local service
+	 */
+	public void setprojectFolderUploadLocalService(
+		com.collaborated.entity.service.projectFolderUploadLocalService projectFolderUploadLocalService) {
+		this.projectFolderUploadLocalService = projectFolderUploadLocalService;
+	}
+
+	/**
+	 * Returns the project folder upload persistence.
+	 *
+	 * @return the project folder upload persistence
+	 */
+	public projectFolderUploadPersistence getprojectFolderUploadPersistence() {
+		return projectFolderUploadPersistence;
+	}
+
+	/**
+	 * Sets the project folder upload persistence.
+	 *
+	 * @param projectFolderUploadPersistence the project folder upload persistence
+	 */
+	public void setprojectFolderUploadPersistence(
+		projectFolderUploadPersistence projectFolderUploadPersistence) {
+		this.projectFolderUploadPersistence = projectFolderUploadPersistence;
+	}
+
+	/**
+	 * Returns the project invite tracking local service.
+	 *
+	 * @return the project invite tracking local service
+	 */
+	public com.collaborated.entity.service.projectInviteTrackingLocalService getprojectInviteTrackingLocalService() {
+		return projectInviteTrackingLocalService;
+	}
+
+	/**
+	 * Sets the project invite tracking local service.
+	 *
+	 * @param projectInviteTrackingLocalService the project invite tracking local service
+	 */
+	public void setprojectInviteTrackingLocalService(
+		com.collaborated.entity.service.projectInviteTrackingLocalService projectInviteTrackingLocalService) {
+		this.projectInviteTrackingLocalService = projectInviteTrackingLocalService;
+	}
+
+	/**
+	 * Returns the project invite tracking persistence.
+	 *
+	 * @return the project invite tracking persistence
+	 */
+	public projectInviteTrackingPersistence getprojectInviteTrackingPersistence() {
+		return projectInviteTrackingPersistence;
+	}
+
+	/**
+	 * Sets the project invite tracking persistence.
+	 *
+	 * @param projectInviteTrackingPersistence the project invite tracking persistence
+	 */
+	public void setprojectInviteTrackingPersistence(
+		projectInviteTrackingPersistence projectInviteTrackingPersistence) {
+		this.projectInviteTrackingPersistence = projectInviteTrackingPersistence;
 	}
 
 	/**
@@ -630,6 +1450,44 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	public void setuserProfessionalBioPersistence(
 		userProfessionalBioPersistence userProfessionalBioPersistence) {
 		this.userProfessionalBioPersistence = userProfessionalBioPersistence;
+	}
+
+	/**
+	 * Returns the user profile image local service.
+	 *
+	 * @return the user profile image local service
+	 */
+	public com.collaborated.entity.service.userProfileImageLocalService getuserProfileImageLocalService() {
+		return userProfileImageLocalService;
+	}
+
+	/**
+	 * Sets the user profile image local service.
+	 *
+	 * @param userProfileImageLocalService the user profile image local service
+	 */
+	public void setuserProfileImageLocalService(
+		com.collaborated.entity.service.userProfileImageLocalService userProfileImageLocalService) {
+		this.userProfileImageLocalService = userProfileImageLocalService;
+	}
+
+	/**
+	 * Returns the user profile image persistence.
+	 *
+	 * @return the user profile image persistence
+	 */
+	public userProfileImagePersistence getuserProfileImagePersistence() {
+		return userProfileImagePersistence;
+	}
+
+	/**
+	 * Sets the user profile image persistence.
+	 *
+	 * @param userProfileImagePersistence the user profile image persistence
+	 */
+	public void setuserProfileImagePersistence(
+		userProfileImagePersistence userProfileImagePersistence) {
+		this.userProfileImagePersistence = userProfileImagePersistence;
 	}
 
 	/**
@@ -805,6 +1663,74 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	protected com.collaborated.entity.service.communicationPreferencesLocalService communicationPreferencesLocalService;
 	@BeanReference(type = communicationPreferencesPersistence.class)
 	protected communicationPreferencesPersistence communicationPreferencesPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_CalendarLocalService.class)
+	protected com.collaborated.entity.service.Custom_CalendarLocalService custom_CalendarLocalService;
+	@BeanReference(type = Custom_CalendarPersistence.class)
+	protected Custom_CalendarPersistence custom_CalendarPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_WorkflowLocalService.class)
+	protected com.collaborated.entity.service.Custom_WorkflowLocalService custom_WorkflowLocalService;
+	@BeanReference(type = Custom_WorkflowPersistence.class)
+	protected Custom_WorkflowPersistence custom_WorkflowPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_Workflow_CompletedLocalService.class)
+	protected com.collaborated.entity.service.Custom_Workflow_CompletedLocalService custom_Workflow_CompletedLocalService;
+	@BeanReference(type = Custom_Workflow_CompletedPersistence.class)
+	protected Custom_Workflow_CompletedPersistence custom_Workflow_CompletedPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_Workflow_TaskLocalService.class)
+	protected com.collaborated.entity.service.Custom_Workflow_TaskLocalService custom_Workflow_TaskLocalService;
+	@BeanReference(type = Custom_Workflow_TaskPersistence.class)
+	protected Custom_Workflow_TaskPersistence custom_Workflow_TaskPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_Workflow_TransitionLocalService.class)
+	protected com.collaborated.entity.service.Custom_Workflow_TransitionLocalService custom_Workflow_TransitionLocalService;
+	@BeanReference(type = Custom_Workflow_TransitionPersistence.class)
+	protected Custom_Workflow_TransitionPersistence custom_Workflow_TransitionPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_WorkflowLogLocalService.class)
+	protected com.collaborated.entity.service.Custom_WorkflowLogLocalService custom_WorkflowLogLocalService;
+	@BeanReference(type = Custom_WorkflowLogPersistence.class)
+	protected Custom_WorkflowLogPersistence custom_WorkflowLogPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedActivityTableLocalService.class)
+	protected com.collaborated.entity.service.labDetailedActivityTableLocalService labDetailedActivityTableLocalService;
+	@BeanReference(type = labDetailedActivityTablePersistence.class)
+	protected labDetailedActivityTablePersistence labDetailedActivityTablePersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedCourseHoursLocalService.class)
+	protected com.collaborated.entity.service.labDetailedCourseHoursLocalService labDetailedCourseHoursLocalService;
+	@BeanReference(type = labDetailedCourseHoursPersistence.class)
+	protected labDetailedCourseHoursPersistence labDetailedCourseHoursPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedCourseIdentificationLocalService.class)
+	protected com.collaborated.entity.service.labDetailedCourseIdentificationLocalService labDetailedCourseIdentificationLocalService;
+	@BeanReference(type = labDetailedCourseIdentificationPersistence.class)
+	protected labDetailedCourseIdentificationPersistence labDetailedCourseIdentificationPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedCourseObjectivesLocalService.class)
+	protected com.collaborated.entity.service.labDetailedCourseObjectivesLocalService labDetailedCourseObjectivesLocalService;
+	@BeanReference(type = labDetailedCourseObjectivesPersistence.class)
+	protected labDetailedCourseObjectivesPersistence labDetailedCourseObjectivesPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedCourseResourcesLocalService.class)
+	protected com.collaborated.entity.service.labDetailedCourseResourcesLocalService labDetailedCourseResourcesLocalService;
+	@BeanReference(type = labDetailedCourseResourcesPersistence.class)
+	protected labDetailedCourseResourcesPersistence labDetailedCourseResourcesPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedCourseTopicsLocalService.class)
+	protected com.collaborated.entity.service.labDetailedCourseTopicsLocalService labDetailedCourseTopicsLocalService;
+	@BeanReference(type = labDetailedCourseTopicsPersistence.class)
+	protected labDetailedCourseTopicsPersistence labDetailedCourseTopicsPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedInstructorQualificationLocalService.class)
+	protected com.collaborated.entity.service.labDetailedInstructorQualificationLocalService labDetailedInstructorQualificationLocalService;
+	@BeanReference(type = labDetailedInstructorQualificationPersistence.class)
+	protected labDetailedInstructorQualificationPersistence labDetailedInstructorQualificationPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labDetailedLearningEnvironmentsLocalService.class)
+	protected com.collaborated.entity.service.labDetailedLearningEnvironmentsLocalService labDetailedLearningEnvironmentsLocalService;
+	@BeanReference(type = labDetailedLearningEnvironmentsPersistence.class)
+	protected labDetailedLearningEnvironmentsPersistence labDetailedLearningEnvironmentsPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labScreenProjectOverviewLocalService.class)
+	protected com.collaborated.entity.service.labScreenProjectOverviewLocalService labScreenProjectOverviewLocalService;
+	@BeanReference(type = labScreenProjectOverviewPersistence.class)
+	protected labScreenProjectOverviewPersistence labScreenProjectOverviewPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labScreenProjectPartnersLocalService.class)
+	protected com.collaborated.entity.service.labScreenProjectPartnersLocalService labScreenProjectPartnersLocalService;
+	@BeanReference(type = labScreenProjectPartnersPersistence.class)
+	protected labScreenProjectPartnersPersistence labScreenProjectPartnersPersistence;
+	@BeanReference(type = com.collaborated.entity.service.labScreenTaskLocalService.class)
+	protected com.collaborated.entity.service.labScreenTaskLocalService labScreenTaskLocalService;
+	@BeanReference(type = labScreenTaskPersistence.class)
+	protected labScreenTaskPersistence labScreenTaskPersistence;
 	@BeanReference(type = com.collaborated.entity.service.languagePreferencesLocalService.class)
 	protected com.collaborated.entity.service.languagePreferencesLocalService languagePreferencesLocalService;
 	@BeanReference(type = languagePreferencesPersistence.class)
@@ -813,6 +1739,22 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	protected com.collaborated.entity.service.profileAreaofinterestLocalService profileAreaofinterestLocalService;
 	@BeanReference(type = profileAreaofinterestPersistence.class)
 	protected profileAreaofinterestPersistence profileAreaofinterestPersistence;
+	@BeanReference(type = com.collaborated.entity.service.projectDiscussionLocalService.class)
+	protected com.collaborated.entity.service.projectDiscussionLocalService projectDiscussionLocalService;
+	@BeanReference(type = projectDiscussionPersistence.class)
+	protected projectDiscussionPersistence projectDiscussionPersistence;
+	@BeanReference(type = com.collaborated.entity.service.projectFilesUploadLocalService.class)
+	protected com.collaborated.entity.service.projectFilesUploadLocalService projectFilesUploadLocalService;
+	@BeanReference(type = projectFilesUploadPersistence.class)
+	protected projectFilesUploadPersistence projectFilesUploadPersistence;
+	@BeanReference(type = com.collaborated.entity.service.projectFolderUploadLocalService.class)
+	protected com.collaborated.entity.service.projectFolderUploadLocalService projectFolderUploadLocalService;
+	@BeanReference(type = projectFolderUploadPersistence.class)
+	protected projectFolderUploadPersistence projectFolderUploadPersistence;
+	@BeanReference(type = com.collaborated.entity.service.projectInviteTrackingLocalService.class)
+	protected com.collaborated.entity.service.projectInviteTrackingLocalService projectInviteTrackingLocalService;
+	@BeanReference(type = projectInviteTrackingPersistence.class)
+	protected projectInviteTrackingPersistence projectInviteTrackingPersistence;
 	@BeanReference(type = com.collaborated.entity.service.userCredentialLocalService.class)
 	protected com.collaborated.entity.service.userCredentialLocalService userCredentialLocalService;
 	@BeanReference(type = userCredentialPersistence.class)
@@ -829,6 +1771,10 @@ public abstract class userInstitutionProfileDetailsLocalServiceBaseImpl
 	protected com.collaborated.entity.service.userProfessionalBioLocalService userProfessionalBioLocalService;
 	@BeanReference(type = userProfessionalBioPersistence.class)
 	protected userProfessionalBioPersistence userProfessionalBioPersistence;
+	@BeanReference(type = com.collaborated.entity.service.userProfileImageLocalService.class)
+	protected com.collaborated.entity.service.userProfileImageLocalService userProfileImageLocalService;
+	@BeanReference(type = userProfileImagePersistence.class)
+	protected userProfileImagePersistence userProfileImagePersistence;
 	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)

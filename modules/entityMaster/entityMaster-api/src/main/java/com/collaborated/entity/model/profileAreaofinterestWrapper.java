@@ -84,6 +84,8 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 		attributes.put("rangerYearEnd", getRangerYearEnd());
 		attributes.put("rangerMonthStart", getRangerMonthStart());
 		attributes.put("rangerMonthEnd", getRangerMonthEnd());
+		attributes.put("universityName", getUniversityName());
+		attributes.put("groupName", getGroupName());
 
 		return attributes;
 	}
@@ -238,6 +240,18 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 
 		if (rangerMonthEnd != null) {
 			setRangerMonthEnd(rangerMonthEnd);
+		}
+
+		String universityName = (String)attributes.get("universityName");
+
+		if (universityName != null) {
+			setUniversityName(universityName);
+		}
+
+		String groupName = (String)attributes.get("groupName");
+
+		if (groupName != null) {
+			setGroupName(groupName);
 		}
 	}
 
@@ -398,6 +412,16 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 	}
 
 	/**
+	* Returns the group name of this profile areaofinterest.
+	*
+	* @return the group name of this profile areaofinterest
+	*/
+	@Override
+	public java.lang.String getGroupName() {
+		return _profileAreaofinterest.getGroupName();
+	}
+
+	/**
 	* Returns the language of this profile areaofinterest.
 	*
 	* @return the language of this profile areaofinterest
@@ -495,6 +519,16 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 	@Override
 	public java.lang.String getRangerMonthStart() {
 		return _profileAreaofinterest.getRangerMonthStart();
+	}
+
+	/**
+	* Returns the university name of this profile areaofinterest.
+	*
+	* @return the university name of this profile areaofinterest
+	*/
+	@Override
+	public java.lang.String getUniversityName() {
+		return _profileAreaofinterest.getUniversityName();
 	}
 
 	/**
@@ -704,6 +738,16 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 	}
 
 	/**
+	* Sets the group name of this profile areaofinterest.
+	*
+	* @param groupName the group name of this profile areaofinterest
+	*/
+	@Override
+	public void setGroupName(java.lang.String groupName) {
+		_profileAreaofinterest.setGroupName(groupName);
+	}
+
+	/**
 	* Sets the language of this profile areaofinterest.
 	*
 	* @param language the language of this profile areaofinterest
@@ -861,6 +905,16 @@ public class profileAreaofinterestWrapper implements profileAreaofinterest,
 	@Override
 	public void setRangerYearStart(int rangerYearStart) {
 		_profileAreaofinterest.setRangerYearStart(rangerYearStart);
+	}
+
+	/**
+	* Sets the university name of this profile areaofinterest.
+	*
+	* @param universityName the university name of this profile areaofinterest
+	*/
+	@Override
+	public void setUniversityName(java.lang.String universityName) {
+		_profileAreaofinterest.setUniversityName(universityName);
 	}
 
 	/**

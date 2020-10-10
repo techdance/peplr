@@ -1,14 +1,18 @@
 <%@ include file="/init.jsp" %>
 
 <div class="box box-border-radius box-shadow bg-white block-top">
+	<!-- Loader -->
+	<div id="bradleyLabProjectPartnersLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h3 class="box-subhead"><i class="fa fa-users"></i> Project Partners</h3>
+			<h3 class="box-subhead"><span class="icon-regular icon-users"></span> Project Partners</h3>
 			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 		</div>
 		<div class="box-middle text1">
-			<div class="row row-custom">
-				<div class="col-md-3">
+			<div id="projectPartners" class="row row-custom">
+				<!-- <div class="col-md-4">
 					<div class="item item-flex">
 						<div class="item-img">
 							<img src="/o/ahea-theme/images/Inez.png" alt="" width="58">
@@ -28,8 +32,8 @@
 							<span class="partner partner-address">Lisbon, PRT</span>
 						</div>
 					</div>
-				</div><!-- col -->
-				<div class="col-md-3">
+				</div>
+				<div class="col-md-4">
 					<div class="item item-flex">
 						<div class="item-img">
 							<img src="/o/ahea-theme/images/bradley.png" alt="" width="58">
@@ -49,7 +53,7 @@
 							<span class="partner partner-address">Iowa City, IA USA</span>
 						</div>
 					</div>
-				</div><!-- col -->
+				</div> -->
 			</div>
 		</div>
 	</div>

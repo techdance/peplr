@@ -12,7 +12,15 @@
 <portlet:defineObjects />
 
 <style>
-	
+.box-subhead {
+	max-width: 100%;
+}
+.icon-comment-smile::before {
+    content: "\f4b4";
+}
+.icon-s-search::before {
+    content: "\f002";
+}
 div.collaboration .content-icon {
     margin-bottom: 10px;
     color: black;
@@ -451,6 +459,98 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
 
 <portlet:resourceURL var="saveCollaborationInterest" id="saveCollaborationInterest"></portlet:resourceURL>
 <script>
+ $(document).ready(function() {
+	 var monthNames = [
+		    "Jan", "Feb", "Mar",
+		    "Apr", "May", "Jun", "Jul",
+		    "Aug", "Sept", "Oct",
+		    "Novr", "Dec"
+		  ];
+	function formatDate(date) {
+		  
+		  var day = date.getDate();
+		  var monthIndex = date.getMonth();
+		  var year = date.getFullYear();
+
+		  return  monthNames[monthIndex] +  ' ' + year;
+		}
+
+	
+	/* document.getElementById("currentdayCI2").innerHTML = formatDate(new Date()); */
+	document.getElementById("currentdayCI2").innerHTML = new Date().getFullYear();
+	
+	function monthNameToNum(monthname) {
+	    var month = monthNames.indexOf(monthname);
+	    return month ? month : 0;
+	}
+	
+	/*	
+	var lang = "en-US";
+    var year = 2018;
+    
+    function dateToTS (date) {
+        return date.valueOf();
+    }
+    
+    function tsToDate (ts) {
+        var d = new Date(ts);
+    
+        return d.toLocaleDateString(lang, {
+            month: 'short',
+        });
+    }
+    var da = new Date();
+    if (da.getMonth() == 11) {
+        var current = new Date(da.getFullYear() + 1, 0, 1);
+    } else {
+        var current = new Date(da.getFullYear(), da.getMonth() + 11, 1);
+    }
+    
+    $("#projectRangeCI").ionRangeSlider({
+    	skin: "big",
+    	type: "single",
+        grid: true,
+        grid_num: 11,
+        min:dateToTS(new Date()),
+        max: dateToTS(current),        
+        prettify: tsToDate
+    });
+	
+    $("#projectRangeCI2").ionRangeSlider({
+    	skin: "big",
+    	type: "single",
+        grid: true,
+        grid_num: 11,
+        min:dateToTS(new Date()),
+        max: dateToTS(current),        
+        prettify: tsToDate
+    }); 
+    var end_year = da.getFullYear() + 15;
+    var nd = new Date();
+    nd.setFullYear(end_year)
+    
+    console.log(nd,"end_date")
+	 $( "#datePickerCI" ).datepicker({
+		 format: "yyyy",
+	     viewMode: "years", 
+	     minViewMode: "years",
+	     autoclose: true,
+	     startDate : new Date(),
+	     endDate : nd
+	 });
+	
+    $( "#datePickerCI2" ).datepicker({
+		 format: "yyyy",
+	     viewMode: "years", 
+	     minViewMode: "years",
+	     autoclose: true,
+	     startDate : new Date(),
+	     endDate : nd
+	 });
+	 */
+});
+
+var A=AUI();
 jQuery(function() {
 	$("#courseDevelopmentPopup").hide();
 	loadProjectDetails();
@@ -475,7 +575,7 @@ jQuery(function() {
 	});
 });
 
-var A=AUI();
+
 Liferay.provide(window,'showMsg',function(msg){
 		AUI().use(
 		 'aui-modal',
@@ -531,32 +631,47 @@ function loadProjectDetails(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		if(data.length>0){
                     			for(var i=0;i<data.length;i++){
-                    				console.log("i is", i);var lang = "";
+                    				var lang = "";var matchAction = '';
+                    				var redirectURL = "<%=themeDisplay.getURLPortal() %>"+"/project-creation?projectId="+data[i].id;
                     				if(data[i].language!="undefined"){
                     					lang = data[i].language;
                     				}
-                    				if(data[i].deliveryMethod==""){
-                    					$("#area-of-interest-block-profile").append("<div class='col-xl-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'> "
-                    						+ "<span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> <small>"+data[i].projectType+"</small> </p>"
-                    						+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> <small>"+data[i].discipline+"</small> </p> <p> <strong>Region</strong><br> <small>"+data[i].region+" </small></p> </div> </div>"
-                    						/* + " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#'>Remove</a></div></div>" */
-                    						+ " <div class='row row-custom mt-2'><div class='col-md-6 p-0'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 p-0'><a href='#' class='btn btn-blue btn-tiny' onclick='goToMatching("+data[i].id+")'>Find Matches</a></div></div></div>"
-                    					);
+                    				
+                    				if(data[i].startProject==true && data[i].projectStarted==false){
+                    					matchAction = "<a href='"+redirectURL+"' class='btn btn-blue btn-tiny'>Start Project</a>";
+                    				}else if(data[i].startProject==true && data[i].projectStarted==true){
+                    					matchAction = "<a href='#' class='btn btn-blue btn-tiny'>Project Created</a>";
+                    				}else{
+                    					matchAction = "<a href='#' class='btn btn-blue btn-tiny' onclick='goToMatching("+data[i].id+")'>FIND MATCHES</a>";
                     				}
-                    				else{
+                    				
+                    				if(data[i].isEdit=="No"){
+                    					matchAction = '';
+                    				}
+                    				
+                    				//if(data[i].deliveryMethod==""){
+                    				//	$("#area-of-interest-block-profile").append("<div class='col-xl-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'> "
+                    					//	+ "<span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> <small>"+data[i].projectType+"</small> </p>"
+                    					//	+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> <small>"+data[i].discipline+"</small> </p> <p> <strong>Region</strong><br> <small>"+data[i].region+" </small></p> </div> </div>"
+                    						/* + " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#'>Remove</a></div></div>" */
+                    					//	+ " <div class='row row-custom mt-2'><div class='col-md-6 p-0'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 p-0'>"+matchAction+"</div></div></div>"
+                    				//	);
+                    				// }
+                    				/* else{ */
                     					$("#area-of-interest-block-profile").append("<div class='col-xl-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> <small>"+data[i].projectType+"</small> </p>"
                     						+ " <p> <strong>Preferred Language</strong><br> <small>"+lang+"</small> </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> <small> "+data[i].discipline+"</small> </p> <p> <strong>Region</strong><br> <small> "+data[i].region+"</small> </p> </div> </div>"
                     						/* + " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 text-right'><a href='#'>Remove</a></div></div>" */
-                    						+ " <div class='row row-custom mt-2'><div class='col-md-6 p-0'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 p-0'><a href='#' class='btn btn-blue btn-tiny' onclick='goToMatching("+data[i].id+")'>Find Matches</a></div></div></div>" 
+                    						+ " <div class='row row-custom mt-2'><div class='col-md-6 p-0'><div class='text-center position-relative'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"'></div></div></div><div class='col-md-6 p-0'>"+matchAction+"</div></div></div>" 
                     					);
-                    				}
+                    				/* } */
                     			}                    			
                     		}
                  	   	}
+                    	$("#collaborationInterestLoader").fadeOut();
                     },error: function(){	             
                     }
 				},
@@ -584,9 +699,11 @@ function getViewMoreData(id){
                     	console.log("id", id);
                     	// $("#view-more-interest-modal").appendTo('#popup-'+id);
                     	var value=this.get('responseData');	
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){ debugger;
                     		var data = JSON.parse(value);
+                    		console.log("value", value);
                     		$(".view-project-type").text(data.projectType);
+                    		$(".view-collaboration-type").text(data.collaborationType);
                     		$(".view-discipline1").text(data.discipline1);
                     		$(".view-discipline2").text(data.discipline2);
                     		$(".view-discipline3").text(data.discipline3);
@@ -601,8 +718,24 @@ function getViewMoreData(id){
                     		$(".view-location2").text(data.region2);
                     		$(".view-location3").text(data.region3);
                     		$(".view-location4").text(data.region4);
+                    		$(".created_date").text(data.created);
+                    		$(".end-month").text(data.startMonth);
+                    		$("#currentdayCI2").text(data.startYear);
                     		$(".view-find-matches").html("");
-                    		$(".view-find-matches").append('<a href="#" class="btn btn-blue btn-w-100 m-auto" onclick="goToMatching('+data.PK_areaofinterest+')">Find Matches</a>');
+                    		$("#datePickerCI2").val(data.endYear);
+                    		$("#projectRangeCI2").ionRangeSlider({
+                    	    	skin: "big",
+                    	    	type: "single",
+                    	        grid: true,
+                    	        values: [
+                    	            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    	            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                    	        ],
+                    	        from: monthNameToNum(data.endMonth),
+                    	    });
+                    		if(data.matchButton==true){
+                    			$(".view-find-matches").append('<a href="#" class="btn btn-blue btn-w-100 m-auto" onclick="goToMatching('+data.PK_areaofinterest+')">Find Matches</a>');
+                    		}
                     		/* $("#view-more-interest-modal").slideToggle(); */
                     		$('#view-more-interest-modal').modal('show');
                  	   	}

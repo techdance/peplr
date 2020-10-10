@@ -45,6 +45,10 @@ if(comList.size()>0){
 <portlet:resourceURL var="savecommunicationForm" id="savecommunicationForm"></portlet:resourceURL>
 
 <div class="credentials box box-border-radius box-shadow bg-white">
+<!-- Loader -->
+<div id="editCommunicationPreferencesLoader" class="sectionloader"> 
+	<div class="loader"></div>
+</div>
 <div class="inner-wrap">
 	<div class="box-top position-relative">
 	    <h2 class="box-subhead mw-100"><i class="fas fa-user"></i>Communication Preferences</h2>
@@ -124,6 +128,7 @@ $(document).ready(function(){
 	if(<%=comList.size() %>!=0){
 		$("#<portlet:namespace/>communicationSubmit").html("Update");
 	}
+	$("#editCommunicationPreferencesLoader").fadeOut();
 });
 
 function saveUserCommuncationPreferences(){
@@ -152,6 +157,7 @@ function saveUserCommuncationPreferences(){
             		   }else{
             			   showMsg("Not saved");
             		   }
+            		   $("#editCommunicationPreferencesLoader").fadeOut();
                    },
                    failure:function(data){
                 	   //$("#wait").hide();

@@ -367,6 +367,7 @@ public class communicationPreferencesPersistenceImpl extends BasePersistenceImpl
 		communicationPreferencesImpl.setTertiaryLanguageName(communicationPreferences.getTertiaryLanguageName());
 		communicationPreferencesImpl.setEmailAddress(communicationPreferences.getEmailAddress());
 		communicationPreferencesImpl.setPhoneNumber(communicationPreferences.getPhoneNumber());
+		communicationPreferencesImpl.setMobileNumber(communicationPreferences.getMobileNumber());
 		communicationPreferencesImpl.setWebsite(communicationPreferences.getWebsite());
 
 		return communicationPreferencesImpl;

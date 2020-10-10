@@ -66,7 +66,7 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{PK_communicationPreferences=");
 		sb.append(PK_communicationPreferences);
@@ -94,6 +94,8 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 		sb.append(emailAddress);
 		sb.append(", phoneNumber=");
 		sb.append(phoneNumber);
+		sb.append(", mobileNumber=");
+		sb.append(mobileNumber);
 		sb.append(", website=");
 		sb.append(website);
 		sb.append("}");
@@ -164,6 +166,13 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 			communicationPreferencesImpl.setPhoneNumber(phoneNumber);
 		}
 
+		if (mobileNumber == null) {
+			communicationPreferencesImpl.setMobileNumber(StringPool.BLANK);
+		}
+		else {
+			communicationPreferencesImpl.setMobileNumber(mobileNumber);
+		}
+
 		if (website == null) {
 			communicationPreferencesImpl.setWebsite(StringPool.BLANK);
 		}
@@ -196,6 +205,7 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 		tertiaryLanguageName = objectInput.readUTF();
 		emailAddress = objectInput.readUTF();
 		phoneNumber = objectInput.readUTF();
+		mobileNumber = objectInput.readUTF();
 		website = objectInput.readUTF();
 	}
 
@@ -251,6 +261,13 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 			objectOutput.writeUTF(phoneNumber);
 		}
 
+		if (mobileNumber == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(mobileNumber);
+		}
+
 		if (website == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -272,5 +289,6 @@ public class communicationPreferencesCacheModel implements CacheModel<communicat
 	public String tertiaryLanguageName;
 	public String emailAddress;
 	public String phoneNumber;
+	public String mobileNumber;
 	public String website;
 }

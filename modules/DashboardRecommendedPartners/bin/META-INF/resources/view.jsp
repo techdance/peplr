@@ -2,11 +2,15 @@
 <%
 
 %>
-<div class="recommended box box-border-radius box-shadow bg-white">
+<div class="recommended box box-border-radius box-shadow bg-white pointerEventsNone">
+	<!-- Loader -->
+	<div id="dashboardRecommentedPartnersLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h2 class="box-subhead"><i class="fa fa-users" aria-hidden="true"></i>Recommended Partners</h2>
-			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
+			<h2 class="box-subhead icon-fa-box icon-user-friends pl-45">Recommended Partners</h2>
+			<a href="javascript:void(0);" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 		</div>		
 		<div class="box-middle dashboardnews">
 			<div id="showErrorMessage">
@@ -18,14 +22,14 @@
 					<a href="javascript:void(0);"><img src="/o/ahea-theme/images/Karthik.png" width="59"></a>
 					<div class="toltip3 any-toltip toltip-bg-black">
 						<div class="d-flex">
-							<a href="#"><img src="images/contact-partner-1.png" width="50"></a>
-							<a href="#"><img src="images/contact-partner-2.png" width="50"></a>
-							<a href="#"><img src="images/contact-partner-3.png" width="50"></a>
+							<a href="javascript:void(0);"><img src="images/contact-partner-1.png" width="50"></a>
+							<a href="javascript:void(0);"><img src="images/contact-partner-2.png" width="50"></a>
+							<a href="javascript:void(0);"><img src="images/contact-partner-3.png" width="50"></a>
 						</div>
 					</div>
 				</div>
 				<div class="item-text">
-					<a href="#" class="partner partner-name color-black hover-underline">Karthik Koothrappali, Ph.D.</a>
+					<a href="javascript:void(0);" class="partner partner-name color-black hover-underline">Karthik Koothrappali, Ph.D.</a>
 					<span class="partner partner-title">Lecturer, Business &amp; Economics </span>
 					<span class="partner partner-university">University of Dubai </span>
 					<span class="partner partner-address">Dubai, UAE</span>

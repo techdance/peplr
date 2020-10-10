@@ -15,6 +15,29 @@
 .ahea-profile-new .portlet-topper {
 	display: none;
 }
+.view-cv {
+	position: absolute;
+    top: 20px;
+    right: 30px;
+}
+.icon-globe-stand::before {
+    content: "\f5f6";
+}
+.icon-user-ninja::before {
+    content: "\f504";
+}
+.icon-shield-check::before {
+    content: "\f2f7";
+}
+.icon-camcorder::before {
+    content: "\f8a8";
+}
+.icon-user-secret::before {
+    content: "\f21b";
+}
+.icon-book-user::before {
+    content: "\f7e7";
+}
 </style>
 <script>
 
@@ -39,9 +62,10 @@ function loadProfessionalBio(){
                     	var value=this.get('responseData');	
                     	debugger;
                     	$("#professionalBioData").html("");
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		$("#professionalBioData").html(value);
                  	   }
+                    	$("#professionalBioLoader").fadeOut();
                     },error: function(){	             
                     }
 				},

@@ -66,7 +66,7 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{PK_areaofinterest=");
 		sb.append(PK_areaofinterest);
@@ -118,6 +118,10 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 		sb.append(rangerMonthStart);
 		sb.append(", rangerMonthEnd=");
 		sb.append(rangerMonthEnd);
+		sb.append(", universityName=");
+		sb.append(universityName);
+		sb.append(", groupName=");
+		sb.append(groupName);
 		sb.append("}");
 
 		return sb.toString();
@@ -274,6 +278,20 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 			profileAreaofinterestImpl.setRangerMonthEnd(rangerMonthEnd);
 		}
 
+		if (universityName == null) {
+			profileAreaofinterestImpl.setUniversityName(StringPool.BLANK);
+		}
+		else {
+			profileAreaofinterestImpl.setUniversityName(universityName);
+		}
+
+		if (groupName == null) {
+			profileAreaofinterestImpl.setGroupName(StringPool.BLANK);
+		}
+		else {
+			profileAreaofinterestImpl.setGroupName(groupName);
+		}
+
 		profileAreaofinterestImpl.resetOriginalValues();
 
 		return profileAreaofinterestImpl;
@@ -310,6 +328,8 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 		rangerYearEnd = objectInput.readInt();
 		rangerMonthStart = objectInput.readUTF();
 		rangerMonthEnd = objectInput.readUTF();
+		universityName = objectInput.readUTF();
+		groupName = objectInput.readUTF();
 	}
 
 	@Override
@@ -452,6 +472,20 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 		else {
 			objectOutput.writeUTF(rangerMonthEnd);
 		}
+
+		if (universityName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(universityName);
+		}
+
+		if (groupName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(groupName);
+		}
 	}
 
 	public long PK_areaofinterest;
@@ -479,4 +513,6 @@ public class profileAreaofinterestCacheModel implements CacheModel<profileAreaof
 	public int rangerYearEnd;
 	public String rangerMonthStart;
 	public String rangerMonthEnd;
+	public String universityName;
+	public String groupName;
 }

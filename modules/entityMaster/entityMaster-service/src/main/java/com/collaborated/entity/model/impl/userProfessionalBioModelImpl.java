@@ -80,7 +80,8 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 			{ "areaofexpertise3", Types.VARCHAR },
 			{ "experienceyears", Types.VARCHAR },
 			{ "cvlink", Types.VARCHAR },
-			{ "biodescription", Types.VARCHAR }
+			{ "biodescription", Types.VARCHAR },
+			{ "bioDiscipline", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -96,9 +97,10 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		TABLE_COLUMNS_MAP.put("experienceyears", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("cvlink", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("biodescription", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("bioDiscipline", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_userProfessionalBio (PK_userProfessionalBio LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,areaofexpertise1 VARCHAR(75) null,areaofexpertise2 VARCHAR(75) null,areaofexpertise3 VARCHAR(75) null,experienceyears VARCHAR(75) null,cvlink VARCHAR(75) null,biodescription VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_userProfessionalBio (PK_userProfessionalBio LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,areaofexpertise1 VARCHAR(75) null,areaofexpertise2 VARCHAR(75) null,areaofexpertise3 VARCHAR(75) null,experienceyears VARCHAR(75) null,cvlink VARCHAR(75) null,biodescription VARCHAR(75) null,bioDiscipline VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_userProfessionalBio";
 	public static final String ORDER_BY_JPQL = " ORDER BY userProfessionalBio.PK_userProfessionalBio ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_userProfessionalBio.PK_userProfessionalBio ASC";
@@ -137,6 +139,7 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		model.setExperienceyears(soapModel.getExperienceyears());
 		model.setCvlink(soapModel.getCvlink());
 		model.setBiodescription(soapModel.getBiodescription());
+		model.setBioDiscipline(soapModel.getBioDiscipline());
 
 		return model;
 	}
@@ -213,6 +216,7 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		attributes.put("experienceyears", getExperienceyears());
 		attributes.put("cvlink", getCvlink());
 		attributes.put("biodescription", getBiodescription());
+		attributes.put("bioDiscipline", getBioDiscipline());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -287,6 +291,12 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 
 		if (biodescription != null) {
 			setBiodescription(biodescription);
+		}
+
+		String bioDiscipline = (String)attributes.get("bioDiscipline");
+
+		if (bioDiscipline != null) {
+			setBioDiscipline(bioDiscipline);
 		}
 	}
 
@@ -463,6 +473,22 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		_biodescription = biodescription;
 	}
 
+	@JSON
+	@Override
+	public String getBioDiscipline() {
+		if (_bioDiscipline == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _bioDiscipline;
+		}
+	}
+
+	@Override
+	public void setBioDiscipline(String bioDiscipline) {
+		_bioDiscipline = bioDiscipline;
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
@@ -501,6 +527,7 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		userProfessionalBioImpl.setExperienceyears(getExperienceyears());
 		userProfessionalBioImpl.setCvlink(getCvlink());
 		userProfessionalBioImpl.setBiodescription(getBiodescription());
+		userProfessionalBioImpl.setBioDiscipline(getBioDiscipline());
 
 		userProfessionalBioImpl.resetOriginalValues();
 
@@ -642,12 +669,20 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 			userProfessionalBioCacheModel.biodescription = null;
 		}
 
+		userProfessionalBioCacheModel.bioDiscipline = getBioDiscipline();
+
+		String bioDiscipline = userProfessionalBioCacheModel.bioDiscipline;
+
+		if ((bioDiscipline != null) && (bioDiscipline.length() == 0)) {
+			userProfessionalBioCacheModel.bioDiscipline = null;
+		}
+
 		return userProfessionalBioCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{PK_userProfessionalBio=");
 		sb.append(getPK_userProfessionalBio());
@@ -671,6 +706,8 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 		sb.append(getCvlink());
 		sb.append(", biodescription=");
 		sb.append(getBiodescription());
+		sb.append(", bioDiscipline=");
+		sb.append(getBioDiscipline());
 		sb.append("}");
 
 		return sb.toString();
@@ -678,7 +715,7 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("com.collaborated.entity.model.userProfessionalBio");
@@ -728,6 +765,10 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 			"<column><column-name>biodescription</column-name><column-value><![CDATA[");
 		sb.append(getBiodescription());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>bioDiscipline</column-name><column-value><![CDATA[");
+		sb.append(getBioDiscipline());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -750,5 +791,6 @@ public class userProfessionalBioModelImpl extends BaseModelImpl<userProfessional
 	private String _experienceyears;
 	private String _cvlink;
 	private String _biodescription;
+	private String _bioDiscipline;
 	private userProfessionalBio _escapedModel;
 }

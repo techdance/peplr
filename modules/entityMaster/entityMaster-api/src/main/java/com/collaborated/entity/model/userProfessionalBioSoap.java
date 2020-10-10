@@ -45,6 +45,7 @@ public class userProfessionalBioSoap implements Serializable {
 		soapModel.setExperienceyears(model.getExperienceyears());
 		soapModel.setCvlink(model.getCvlink());
 		soapModel.setBiodescription(model.getBiodescription());
+		soapModel.setBioDiscipline(model.getBioDiscipline());
 
 		return soapModel;
 	}
@@ -188,6 +189,14 @@ public class userProfessionalBioSoap implements Serializable {
 		_biodescription = biodescription;
 	}
 
+	public String getBioDiscipline() {
+		return _bioDiscipline;
+	}
+
+	public void setBioDiscipline(String bioDiscipline) {
+		_bioDiscipline = bioDiscipline;
+	}
+
 	private long _PK_userProfessionalBio;
 	private long _groupId;
 	private long _userId;
@@ -199,4 +208,5 @@ public class userProfessionalBioSoap implements Serializable {
 	private String _experienceyears;
 	private String _cvlink;
 	private String _biodescription;
+	private String _bioDiscipline;
 }

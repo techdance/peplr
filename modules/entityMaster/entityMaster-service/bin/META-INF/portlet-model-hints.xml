@@ -18,7 +18,219 @@
 		<field name="tertiaryLanguageName" type="String" />
 		<field name="emailAddress" type="String" />
 		<field name="phoneNumber" type="String" />
+		<field name="mobileNumber" type="String" />
 		<field name="website" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_Calendar">
+		<field name="PK_calendarEventId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="calendarResourceId" type="long" />
+		<field name="timeZoneId" type="String" />
+		<field name="startDate" type="String" />
+		<field name="endDate" type="String" />
+		<field name="startTime" type="String" />
+		<field name="endTime" type="String" />
+		<field name="eventTitle" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_Workflow">
+		<field name="workFlowId" type="long" />
+		<field name="workFlowName" type="String" />
+		<field name="startWorkflowTaskId" type="String" />
+		<field name="comments" type="String" />
+		<field name="isActive" type="long" />
+		<field name="createdDate" type="Date" />
+		<field name="createdBy" type="long" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_Workflow_Completed">
+		<field name="cId" type="long" />
+		<field name="trackingId" type="long" />
+		<field name="workflowId" type="long" />
+		<field name="workflowTaskId" type="String" />
+		<field name="trasitionId" type="long" />
+		<field name="logDescription" type="String" />
+		<field name="comments" type="String" />
+		<field name="completedDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="createdDate" type="Date" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_Workflow_Task">
+		<field name="workFlowTaskId" type="String" />
+		<field name="workFlowId" type="long" />
+		<field name="taskName" type="String" />
+		<field name="roleId" type="long" />
+		<field name="roleName" type="String" />
+		<field name="comments" type="String" />
+		<field name="createdDate" type="Date" />
+		<field name="createdBy" type="long" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_Workflow_Transition">
+		<field name="transitionId" type="long" />
+		<field name="workFlowId" type="long" />
+		<field name="workFlowTaskId" type="String" />
+		<field name="transitionName" type="String" />
+		<field name="logDescription" type="String" />
+		<field name="next_WorkFlowTaskId" type="String" />
+		<field name="isEnd" type="long" />
+		<field name="comments" type="String" />
+		<field name="createdDate" type="Date" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_WorkflowLog">
+		<field name="logId" type="long" />
+		<field name="trackingId" type="long" />
+		<field name="workflowId" type="long" />
+		<field name="workflowTaskId" type="String" />
+		<field name="trasitionId" type="long" />
+		<field name="logDescription" type="String" />
+		<field name="comments" type="String" />
+		<field name="assigneeClassPK" type="long" />
+		<field name="className" type="String" />
+		<field name="assignedDate" type="Date" />
+		<field name="completedDate" type="Date" />
+		<field name="createdBy" type="long" />
+		<field name="createdDate" type="Date" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedActivityTable">
+		<field name="PK_activityTableId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="week" type="long" />
+		<field name="courseObjective" type="String" />
+		<field name="learningEnvironmentDesign" type="String" />
+		<field name="activity" type="String" />
+		<field name="content" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedCourseHours">
+		<field name="PK_courseHoursId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="numberOfCredits" type="long" />
+		<field name="numberOfCourseWeeks" type="long" />
+		<field name="courseHoursPerWeek" type="long" />
+		<field name="lectureHoursPerWeek" type="long" />
+		<field name="labHoursPerWeek" type="long" />
+		<field name="independentStudyHoursPerWeek" type="long" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedCourseIdentification">
+		<field name="PK_courseId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="courseTitle" type="String" />
+		<field name="courseNumber" type="String" />
+		<field name="prerequisites" type="String" />
+		<field name="courseDescription" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedCourseObjectives">
+		<field name="PK_courseObjectivesId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="courseObjective" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedCourseResources">
+		<field name="PK_courseResourceId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="textbokTitle" type="String" />
+		<field name="publisherName" type="String" />
+		<field name="author" type="String" />
+		<field name="isbn" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedCourseTopics">
+		<field name="PK_courseTopicsId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="courseTopic" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedInstructorQualification">
+		<field name="PK_courseInstructorQualificationId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="instructor1Qualification" type="String" />
+		<field name="instructor2Qualification" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labDetailedLearningEnvironments">
+		<field name="PK_learningEnvironmentId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="PK_courseId" type="long" />
+		<field name="learningEnvironment" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labScreenProjectOverview">
+		<field name="PK_projectId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="projectOwnerId" type="long" />
+		<field name="projectName" type="String" />
+		<field name="projectType" type="String" />
+		<field name="projectDescription" type="String" />
+		<field name="projectDiscipline1" type="String" />
+		<field name="projectDiscipline2" type="String" />
+		<field name="projectDiscipline3" type="String" />
+		<field name="role" type="String" />
+		<field name="projectStartDate" type="String" />
+		<field name="projectEndDate" type="String" />
+		<field name="projectDocumentId" type="long" />
+		<field name="percentage" type="long" />
+		<field name="interestId" type="long" />
+		<field name="projectStatus" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.labScreenProjectPartners">
+		<field name="PK_projectPartnerId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="projectPartnerId" type="long" />
+		<field name="isActive" type="long" />
+	</model>
+	<model name="com.collaborated.entity.model.labScreenTask">
+		<field name="PK_taskId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectId" type="long" />
+		<field name="milestoneName" type="String" />
+		<field name="taskName" type="String" />
+		<field name="projectAssignedTo" type="long" />
+		<field name="taskDescription" type="String" />
+		<field name="taskStatus" type="String" />
+		<field name="dueDate" type="String" />
 	</model>
 	<model name="com.collaborated.entity.model.languagePreferences">
 		<field name="PK_languagePreferences" type="long" />
@@ -53,6 +265,61 @@
 		<field name="rangerYearEnd" type="int" />
 		<field name="rangerMonthStart" type="String" />
 		<field name="rangerMonthEnd" type="String" />
+		<field name="universityName" type="String" />
+		<field name="groupName" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.projectDiscussion">
+		<field name="PK_projectDiscussionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createdOn" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="interestId" type="long" />
+		<field name="projectId" type="long" />
+		<field name="senderId" type="long" />
+		<field name="description" type="String" />
+		<field name="fileEntryId" type="long" />
+		<field name="imageUrl" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.projectFilesUpload">
+		<field name="PK_projectFileId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createdOn" type="Date" />
+		<field name="deletedOn" type="Date" />
+		<field name="userId" type="long" />
+		<field name="deletedBy" type="long" />
+		<field name="PK_projectFolderId" type="long" />
+		<field name="fileName" type="String" />
+		<field name="fileEntryId" type="String" />
+		<field name="description" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.projectFolderUpload">
+		<field name="PK_projectFolderId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createdOn" type="Date" />
+		<field name="deletedOn" type="Date" />
+		<field name="interestId" type="long" />
+		<field name="projectId" type="long" />
+		<field name="userId" type="long" />
+		<field name="deletedBy" type="long" />
+		<field name="parentFolderId" type="long" />
+		<field name="folderId" type="long" />
+		<field name="folderName" type="String" />
+		<field name="description" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.projectInviteTracking">
+		<field name="PK_projectInvitationId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="projectId" type="long" />
+		<field name="inviteFrom" type="long" />
+		<field name="inviteTo" type="long" />
+		<field name="invitationStatus" type="String" />
+		<field name="isRead" type="long" />
+		<field name="isRemoved" type="long" />
+		<field name="messageTitle" type="String" />
+		<field name="messageContent" type="String" />
+		<field name="emailContent" type="String" />
 	</model>
 	<model name="com.collaborated.entity.model.userCredential">
 		<field name="PK_userCredential" type="long" />
@@ -99,5 +366,15 @@
 		<field name="experienceyears" type="String" />
 		<field name="cvlink" type="String" />
 		<field name="biodescription" type="String" />
+		<field name="bioDiscipline" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.userProfileImage">
+		<field name="PK_profileImageId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createdOn" type="Date" />
+		<field name="userId" type="long" />
+		<field name="fileEntryId" type="String" />
+		<field name="fileEntryUrl" type="String" />
+		<field name="blobData" type="Blob" />
 	</model>
 </model-hints>

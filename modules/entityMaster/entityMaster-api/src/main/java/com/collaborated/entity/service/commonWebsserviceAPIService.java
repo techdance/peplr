@@ -18,7 +18,6 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
@@ -50,16 +49,6 @@ public interface commonWebsserviceAPIService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link commonWebsserviceAPIServiceUtil} to access the common websservice a p i remote service. Add custom service methods to {@link com.collaborated.entity.service.impl.commonWebsserviceAPIServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	@JSONWebService
-	@AccessControlled(guestAccessEnabled = true)
-	public JSONArray createUser(java.lang.String prefix,
-		java.lang.String firstName, java.lang.String lastName,
-		java.lang.String institutionEmail, java.lang.String institutionName,
-		java.lang.String password);
-
-	@AccessControlled(guestAccessEnabled = true)
-	public JSONArray customLogin(java.lang.String username,
-		java.lang.String password);
 
 	/**
 	* Returns the OSGi service identifier.

@@ -671,16 +671,16 @@ span.wrap-image img{
     height: 100%;
     left: 0;
     padding:0px;
-    max-width: 215px;
+    max-width: 235px;
     width: 100%;
     z-index: 700;
 
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#011172+0,0084e9+100 */
-	background: #011172; /* Old browsers */
-	background: -moz-linear-gradient(top,  #011172 0%, #0084e9 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top,  #011172 0%,#0084e9 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom,  #011172 0%,#0084e9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#011172', endColorstr='#0084e9',GradientType=0 ); /* IE6-9 */
+	background: #011374;
+    background: -moz-linear-gradient(top, #011374 1%, #014fb2 28%, #008aef 52%, #0099ff 78%, #0099ff 100%);
+    background: -webkit-linear-gradient(top, #011374 1%,#014fb2 28%,#008aef 52%,#0099ff 78%,#0099ff 100%);
+    background: linear-gradient(to bottom, #011374 1%,#014fb2 28%,#008aef 52%,#0099ff 78%,#0099ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#011374', endColorstr='#0099ff',GradientType=0 );
 
 }
 #sidebar * {
@@ -714,9 +714,7 @@ span.wrap-image img{
     height:100%;
     margin-bottom:20px;
     position: relative;
-
     width: 100% !important;
-
 }
 #sidebar ul#nav {
     list-style: none;
@@ -805,10 +803,15 @@ span.wrap-image img{
 }
 #wrap-logo-bottom{
     align-self: flex-end;
-    background:#ffffff;
+    background: #ffffff;
     margin-top: auto;
-    padding:15px;
-    width:100%;
+    padding: 15px;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    max-width: 235px;
 }
 #wrap-logo-bottom img{
     max-width: 255px;
@@ -1895,20 +1898,18 @@ div.zabuto_calendar .purple-event .event-title{
 	text-decoration: none;
 }
 .toltip3{
-	background: #fff;
-	border:1px solid #d4d4d4;
-
-	display: none;
-	position: absolute;
-	top:45px;
-	right: 0px;
-
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	overflow:hidden;
-	padding: 15px;
-	z-index: 10;
+	background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #d4d4d4;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    overflow: hidden;
+    padding: 15px;
+    z-index: 10;
 }
 .toltip3 img{
 	max-width: inherit !important;
@@ -2360,7 +2361,8 @@ div#my-calendar-container {
 }
 #signOutModal .modal-content {
 	border:1px solid #2a9eff;
-    background: rgba(0, 0, 0, 0.8);
+	// background: rgba(0, 0, 0, 0.8);
+	background: rgba(136, 145, 152, 0.95);
     color:white;
     font-size: 20px;
     font-weight: bold;
@@ -2368,9 +2370,13 @@ div#my-calendar-container {
     text-align: center;
 }
 #signOutModal .modal-dialog {
-    max-width: 360px;
+    max-width: 340px;
     margin: 1.75rem auto;
     position: initial !important;
+}
+#signOutModal .modal-body {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 #signOutModal h2{
 	font-family: 'Merriweather Sans', sans-serif;
@@ -2664,4 +2670,155 @@ span.user-active {
 .breadcrumb-item.active,
 .breadcrumb-item.active a{
     color: #0099ff !important;
+}
+
+section.portlet {
+    margin-bottom: 0;
+}
+#sidebar * {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+}
+#sidebar ul#nav li a.disabled {
+    color: #a9a9a9 !important;
+    pointer-events: none;
+    cursor: default;
+}
+#sidebar ul#nav li a {
+	font-family: 'Merriweather Sans',sans-serif;
+	padding: 17px 22px 17px 15px;
+}
+#sidebar ul#nav>li>a.icon-user-group:before {
+    content: "\f63d";
+    font-size: 16px;
+}
+#sidebar ul#nav>li>a.icon-book-reader:before {
+    content: "\f5da";
+}
+#sidebar ul#nav>li>a.icon-clone:before {
+    content: "\f24d";
+}
+#sidebar ul#nav>li>a.icon-th-large:before {
+    content: "\f009";
+    font-family: "Font Awesome 5 Solid";
+}
+#sidebar ul#nav>li>a.icon-sun-haze:before {
+    content: "\f765";
+}
+#sidebar ul#nav>li>a.icon-users::before {
+    content: "\f0c0";
+}
+#sidebar ul#nav>li>a.icon-settings:before {
+    content: "\f085";
+}
+#sidebar ul#nav>li>a:before {
+    font-family: "Font Awesome 5 Solid";
+    font-size: 20px;
+    height: auto;
+    margin-right: 5px;
+}
+#sidebar ul#nav>li>a.my-tiles span {
+	display: none;
+}
+#sidebar ul#nav li.active a {
+    background: #0b1972;
+    border-left: 4px solid #f09444!important;
+}
+#sidebar ul#nav li a.icon-book:before {
+    content: "\f5d9";
+}
+#sidebar ul#nav li a.icon-book-title:before {
+    content: "\f02d";
+}
+#sidebar ul#nav li a.icon-user-friends::before {
+    content: "\f500";
+}
+.sidebar-fixed.hidden ul#nav>li>a:before {
+    margin-left: 15px;
+}
+.sidebar-fixed.hidden ul#nav>li>a {
+    color: inherit;
+}
+.datepicker .datepicker-years table tr td span {
+    font-size: 14px;
+    background: #f4f4f4;
+}
+.modal-dialog {
+	.modal-footer {
+		.btn-toolbar {
+			display: flex;
+			width: 100%;
+			justify-content: flex-end;
+			.btn {
+				max-width: fit-content;
+			}
+		}
+	}
+}
+
+.not-active a{
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #404040 !important;
+}
+.loaderContainer, .sectionloader {
+    position: absolute;
+    background: rgba(255,255,255,.9);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	z-index: 999;
+	.loader {
+		border: 5px solid #f3f3f3;
+		  -webkit-animation: spin 1s linear infinite;
+		  animation: spin 1s linear infinite;
+		  border-top: 5px solid #555;
+		  border-radius: 50%;
+		  width: 50px;
+		  height: 50px;
+	  }
+}
+.loaderContainer {
+	position: fixed;
+	display: none;
+}
+.sectionloader {
+	z-index: 9;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#sidebar ul#nav>li>a {
+	line-height: 18px;
+}
+.sidebar-fixed {
+	#wrap-logo {
+		#nav_logo {
+			max-height: 150px;
+		}
+		#nav_collapse_logo, #nav_logo {
+			max-height: 50px;
+		}
+	}
+	&:not(.hidden) #wrap-logo #nav_collapse_logo {
+		display: none;
+	}
+	&.hidden #wrap-logo #nav_logo {
+		display: none;
+	}
 }

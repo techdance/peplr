@@ -444,6 +444,36 @@ public interface profileAreaofinterestModel extends BaseModel<profileAreaofinter
 	 */
 	public void setRangerMonthEnd(String rangerMonthEnd);
 
+	/**
+	 * Returns the university name of this profile areaofinterest.
+	 *
+	 * @return the university name of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getUniversityName();
+
+	/**
+	 * Sets the university name of this profile areaofinterest.
+	 *
+	 * @param universityName the university name of this profile areaofinterest
+	 */
+	public void setUniversityName(String universityName);
+
+	/**
+	 * Returns the group name of this profile areaofinterest.
+	 *
+	 * @return the group name of this profile areaofinterest
+	 */
+	@AutoEscape
+	public String getGroupName();
+
+	/**
+	 * Sets the group name of this profile areaofinterest.
+	 *
+	 * @param groupName the group name of this profile areaofinterest
+	 */
+	public void setGroupName(String groupName);
+
 	@Override
 	public boolean isNew();
 

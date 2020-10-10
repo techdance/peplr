@@ -7,6 +7,23 @@
   	</div>
   	 <div class="collapse navbar-collapse" id="collapsibleNavbar">
 	<ul class="nav" id="nav" aria-label="<@liferay.language key="site-pages" />" role="menubar">
+	
+			<li class="active">
+				<a href="/home1" class="icon-fa icon-home home">
+					<span class="group-hide">Home</span>
+				</a>
+			</li>
+			<li><a href="/calendar" class="icon-fa icon-calendar myCalendar"><span class="group-hide">My Calendar</span></a></li>
+			<li class="not-active"><a href="/committees-teams" class="icon-fa icon-user-group committeesTeams"><span class="group-hide">Committees & Teams</span></a></li>
+			<li class="not-active"><a href="/my-advisees" class="icon-fa icon-book-reader myAdvisees"><span class="group-hide">My Advisees</span></a></li>
+			<li><a href="${course_url}" class="icon-fa icon-book myCourses"><span class="group-hide">My Courses</span></a></li>
+			<li><a href="/my-projects" class="icon-fa icon-book-title myProjects"><span class="group-hide"> My Projects</span></a></li>
+			<li class="not-active"><a href="/my-files" class="icon-fa icon-copy myFiles"><span class="group-hide"> My Files</span></a></li>
+			<li><a href="/resources" class="icon-fa icon-th-large resources"><span class="group-hide">Resources</span></a></li>
+			<li class="not-active"><a href="/opportunities" class="icon-fa icon-sun-haze opportunities"><span class="group-hide">Opportunities</span></a></li>
+			<li class="not-active"><a href="/recommended-partners" class="icon-fa icon-user-friends recommenedePartners"><span class="group-hide">Recommended Partners</span></a></li>
+			<li class="not-active"><a href="/settings1" class="icon-fa icon-settings settings"><span class="group-hide">Settings</span></a></li>
+	
 		<#list nav_items as nav_item>
 			<#assign
 				nav_item_attr_has_popup = ""
@@ -29,14 +46,17 @@
 				/>
 			</#if>
 			
-			<#if nav_item.getName()=="Welcome" ||  nav_item.getName()=="Edit Profile" ||  nav_item.getName()=="Edit Profile Combined" ||  nav_item.getName()=="Profile" ||  nav_item.getName()=="Matching" || nav_item.getName()=="Course Development" || nav_item.getName()=="Lab Screen" || nav_item.getName()=="Privacy Policy" || nav_item.getName()=="Terms of Service">
+			<#if nav_item.getName()=="Welcome" ||  nav_item.getName()=="Edit Profile" ||  nav_item.getName()=="Edit Profile Combined" ||  nav_item.getName()=="Profile" ||  nav_item.getName()=="Matching" || nav_item.getName()=="Course Development" || nav_item.getName()=="Privacy Policy" || nav_item.getName()=="Terms of Service"
+			|| nav_item.getName()=="My Projects" || nav_item.getName()=="Messaging" || nav_item.getName()=="Forums" || nav_item.getName()=="Dashboard" || nav_item.getName()=="Lab Screen" || nav_item.getName()=="Lab Screen V2"  || nav_item.getName()=="Lab Detailed Screen" || nav_item.getName()=="Asset Display Page" || nav_item.getName()=="Project Invites" || nav_item.getName()=="Project Creation"
+			>
+			
 			<#else>
-				
-				<li class="${nav_item_css_class}" id="layout_${nav_item.getLayoutId()}" role="presentation">
+				<li class="${nav_item_css_class} d-none" id="layout_${nav_item.getLayoutId()}" role="presentation">
 					<#if nav_item.getName()=="Dashboard">
 						<a aria-labelledby="layout_${nav_item.getLayoutId()}" ${nav_item_attr_has_popup} href="#" ${nav_item.getTarget()} role="menuitem"><span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span></a>					
 					<#else>
 					<a aria-labelledby="layout_${nav_item.getLayoutId()}" ${nav_item_attr_has_popup} href="${nav_item.getURL()}" ${nav_item.getTarget()} role="menuitem"><span><@liferay_theme["layout-icon"] layout=nav_item_layout /> ${nav_item.getName()}</span></a>
+					
 					</#if>
 
 					<#if nav_item.hasChildren()>

@@ -10,3 +10,4 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+

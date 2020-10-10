@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 			var menuimg=menuVal.split("/").pop();
 			$(this).find('span').addClass(menuimg);
 		});
-		$("#sidebar ul#nav li a span.my-tiles").append("<span class='note'><span class='outer'>12</span></span>")
+		
 		
 		jQuery("#menu-button-hide-show").click(function(){
 			if(jQuery( "#sidebar" ).hasClass( "hidden" ))
@@ -44,8 +44,29 @@ jQuery(document).ready(function(){
 			jQuery(".group-hide").toggle();
 			jQuery("#sidebar").toggleClass("hidden");
 		});
+
+		/* $("#sidebar ul#nav li a span.committees-teams, #sidebar ul#nav li a span.my-advisees, #sidebar ul#nav li a span.opportunities, #sidebar ul#nav li a span.recommended-partners").parent().addClass("disabled"); */
+
+		menuActive();
 		
 	});	
+
+function menuActive() {
+	var current = location.pathname.split('/');
+	var lastSegment = current.pop() || current.pop();
+	$("#nav li").removeClass("active");
+	$('#nav li a').each(function(){
+		var $this = $(this);
+		// if the current path is like this link, make it active
+		if($this.attr('href').indexOf(lastSegment) !== -1){
+			$this.parent("li").addClass('active');
+		}
+	})
+}
+
+$(window).on("load", function(){
+	menuActive();
+})
 
 jQuery(function() {
 	jQuery('.sortable').sortable({
@@ -54,6 +75,8 @@ jQuery(function() {
 	
 	
 });
+
+
 
 jQuery(function() {
 	jQuery("ul#nav ul > li").click(function(){
@@ -142,6 +165,7 @@ jQuery(function() {
 
 	jQuery(".partner-img").click(function(e){
 		e.stopPropagation();
+		jQuery(".toltip3").slideUp();
 		jQuery(this).find(".toltip3").slideToggle();
 	});
 

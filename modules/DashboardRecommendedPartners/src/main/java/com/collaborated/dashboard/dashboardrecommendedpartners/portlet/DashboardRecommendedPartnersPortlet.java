@@ -1,7 +1,9 @@
 package com.collaborated.dashboard.dashboardrecommendedpartners.portlet;
 
 import com.collaborated.entity.model.profileAreaofinterest;
+import com.collaborated.entity.model.userProfileImage;
 import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
+import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoTable;
 import com.liferay.expando.kernel.model.ExpandoTableConstants;
@@ -13,6 +15,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Image;
@@ -36,10 +39,15 @@ import java.util.List;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Component(
 	immediate = true,
@@ -55,6 +63,24 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class DashboardRecommendedPartnersPortlet extends MVCPortlet {
+	
+	@Override
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		/*JSONObject responseJSONInstitute = null;
+		
+		String apiURL = "http://23.99.141.44:3000/api/institution-profile";
+        String institutionProfileResonse = getMethodAPI(apiURL); 
+	    try {
+	    	responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
+	    	institutionProfile = responseJSONInstitute.getJSONObject("data");	
+	    } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	    }*/
+		
+		super.render(request, response);
+	}
+	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) throws IOException,PortletException {
 		String resourceID = null;
@@ -89,17 +115,58 @@ public class DashboardRecommendedPartnersPortlet extends MVCPortlet {
 					 jsonObjectFinal = JSONFactoryUtil.createJSONObject();
 					 //String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
 					 
-					 ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
-					 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
-					 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
+					 //ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
+					 //ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
+					 //String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
 					 
-					 long portraitId = user.getPortraitId();
+					 //long portraitId = user.getPortraitId();
+					 
+					 
+					 String imageURL = "",imgSRC="";boolean isBase64 = false;
+					 imageURL = "";imgSRC="";isBase64 = false;
+						DynamicQuery dynamicQueryProfileImage = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+						dynamicQueryProfileImage.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+						List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQueryProfileImage);
+						if(values.size()>0){
+							imageURL = values.get(0).getFileEntryUrl();					
+						    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(user.getUserId());	               
+						    imageURL = jsonObject2.getString("byteArray");
+						    imgSRC = "data:image/png;base64,"+imageURL;
+						    isBase64 = true;
+						}else{
+							imageURL = "/o/ahea-theme/images/user.png";
+							imgSRC = imageURL;
+							isBase64 = false;
+						}
+					 
+					 /*String department="", cityState="",instituteName="";
+					 if(institutionProfile!=null){
+							instituteName = institutionProfile.getString("institutionName");
+							JSONObject institutionContact = institutionProfile.getJSONObject("institutionContact");
+							if(institutionContact!=null){
+								department = institutionContact.getString("department");
+							}
+							JSONObject instituteProfileContact = institutionProfile.getJSONObject("institutionLocation");
+							System.out.println("instituteProfileContact==="+instituteProfileContact);
+							if(instituteProfileContact!=null){
+								//department = instituteProfileContact.getString("department");
+								cityState = instituteProfileContact.getString("city")+", "+instituteProfileContact.getString("state");								
+							}
+					}*/
+						
+						String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+						
+						String instituteDepartment = (String) user.getExpandoBridge().getAttribute("instituteDepartment");
+						String instituteCity = (String) user.getExpandoBridge().getAttribute("instituteCity");
+						String instituteState = (String) user.getExpandoBridge().getAttribute("instituteState");
+						String instituteCountry = (String) user.getExpandoBridge().getAttribute("instituteCountry");
 				     
 					 jsonObjectFinal.put("userName", user.getFullName());
-					 jsonObjectFinal.put("department", user.getJobTitle());
+					 jsonObjectFinal.put("jobTitle", user.getJobTitle());
+					 jsonObjectFinal.put("department", instituteDepartment);
 					 jsonObjectFinal.put("institutionName", instituteName);
-					 jsonObjectFinal.put("institutionLocation", "");
-					 jsonObjectFinal.put("imageURL", themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId);
+					 jsonObjectFinal.put("institutionLocation", instituteCity + ", "+instituteState);
+					 jsonObjectFinal.put("imageURL", imgSRC);
 					 jsonArrayFinal.put(jsonObjectFinal);
 				 }
 				 out.print(jsonArrayFinal);
@@ -196,5 +263,20 @@ public class DashboardRecommendedPartnersPortlet extends MVCPortlet {
 			returnval = val;
 		}
 		return returnval;
+	}
+	
+	public String getMethodAPI(String apiURL) {
+		String returnData ="";
+		ResponseEntity<String> returnObject= null;		
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			returnObject=restTemplate.getForEntity(apiURL,String.class);
+			if(returnObject!=null){
+				returnData = returnObject.getBody();
+			}
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return returnData;
 	}
 }

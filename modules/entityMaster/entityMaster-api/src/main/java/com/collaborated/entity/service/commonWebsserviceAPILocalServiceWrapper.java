@@ -131,15 +131,6 @@ public class commonWebsserviceAPILocalServiceWrapper
 		return _commonWebsserviceAPILocalService.getIndexableActionableDynamicQuery();
 	}
 
-	@Override
-	public com.liferay.portal.kernel.json.JSONArray createUser(
-		java.lang.String prefix, java.lang.String firstName,
-		java.lang.String lastName, java.lang.String institutionEmail,
-		java.lang.String institutionName, java.lang.String password) {
-		return _commonWebsserviceAPILocalService.createUser(prefix, firstName,
-			lastName, institutionEmail, institutionName, password);
-	}
-
 	/**
 	* @throws PortalException
 	*/

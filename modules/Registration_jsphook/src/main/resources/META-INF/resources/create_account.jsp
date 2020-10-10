@@ -251,7 +251,7 @@ return result;
 	           <aui:validator name="minLength">8</aui:validator> 
 			</aui:input>
 			<span class="icon-eye fa fa-fw fa-eye field-icon toggle-password"></span>
-			<div class="block-note font-style-italic">* Password must be 8 characters with one capital letter and one number</div>
+			<div class="block-note font-style-italic">* Password must be at least 8 characters with one capital letter, one number, and one symbol</div>
 		</div>
 		<div class="wrap-input-icon icon-lock">
 				<aui:input label="" placeholder="Confirm Password" name="password2" type="password" value="" cssClass="wrap-input">

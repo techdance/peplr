@@ -10,3 +10,14 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+<style>
+.box-subhead i, .box-subhead span {
+    position: absolute;
+    left: 0px;
+    top: 3px;
+}
+.fa-calendar-alt:before {
+    content: "\f073";
+    font-family: 'Font Awesome 5 Regular';
+}
+</style>

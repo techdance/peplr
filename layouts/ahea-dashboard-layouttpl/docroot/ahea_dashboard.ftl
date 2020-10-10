@@ -13,35 +13,41 @@
 	</section>
 	<section class="three-columns">
 		<div class="portlet-layout row">
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-3">
-				${processor.processColumn("column-3", "portlet-column-content portlet-column-content-first")}
+			<div class="col-lg-9 my-projects portlet-column portlet-column-first mb-4" id="column-3">
+				${processor.processColumn("column-3", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-4">
+			<div class="col-lg-3 portlet-column mb-4" id="column-4">
 				${processor.processColumn("column-4", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-5">
+			<div class="col-lg-9 my-projects portlet-column mb-4" id="column-5">
 				${processor.processColumn("column-5", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-6">
+			<div class="col-lg-3 portlet-column mb-4" id="column-6">
 				${processor.processColumn("column-6", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-9 my-projects portlet-column portlet-column-first mb-4" id="column-7">
-				${processor.processColumn("column-7", "portlet-column-content ")}
+			<div class="col-lg-3 portlet-column mb-4" id="column-7">
+				${processor.processColumn("column-7", "portlet-column-content")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-8">
+			<div class="col-lg-3 portlet-column mb-4" id="column-8">
 				${processor.processColumn("column-8", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-9">
+			<div class="col-lg-3 portlet-column mb-4" id="column-9">
 				${processor.processColumn("column-9", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-10">
+			<div class="col-lg-3 portlet-column mb-4" id="column-10">
 				${processor.processColumn("column-10", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-11">
+			<div class="col-lg-3 portlet-column mb-4" id="column-11">
 				${processor.processColumn("column-11", "portlet-column-content ")}
 			</div>
-			<div class="col-lg-3 portlet-column portlet-column-first mb-4" id="column-12">
-				${processor.processColumn("column-12", "portlet-column-content portlet-column-content-last")}
+			<div class="col-lg-3 portlet-column mb-4" id="column-12">
+				${processor.processColumn("column-12", "portlet-column-content ")}
+			</div>
+			<div class="col-lg-3 portlet-column mb-4" id="column-13">
+				${processor.processColumn("column-13", "portlet-column-content ")}
+			</div>
+			<div class="col-lg-3 portlet-column portlet-column-last mb-4" id="column-14">
+				${processor.processColumn("column-14", "portlet-column-content portlet-column-content-last")}
 			</div>
 		</div>
 	</section>

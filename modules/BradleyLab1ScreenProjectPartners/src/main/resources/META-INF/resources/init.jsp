@@ -10,3 +10,89 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+<style>
+.partner-name:hover .toltip-phone {
+	display: none;
+}
+#projectPartners .item-img {
+    width: 58px;
+}
+#projectPartners .item-img img {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.box-subhead i, .box-subhead span {
+    position: absolute;
+    left: 0px;
+    top: 3px;
+}
+.icon-users::before {
+    content: "\f0c0";
+    font-family: 'Font Awesome 5 Regular';
+}
+div.item span {
+	color: #000000 !important;
+}
+</style>
+<script>
+var A=AUI();
+var matchingRequestedId = 0;
+$(document).ready(function(){
+	loadProjectPartners();
+});
+
+function loadProjectPartners(){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='loadProjectPartners'/>"
+			,{
+               method: 'get',
+               data:{ 		            	   
+               },
+               sync : true, 
+               on:{
+            	   complete:function()
+             		{		            		   
+             		},
+                    success:function()
+                    {			                    	
+                    	var value=this.get('responseData');	
+                    	debugger;
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
+                    		$("#projectPartners").html("");
+                    	    $("#projectPartners").html(value);
+                 	   }
+                    	$("#bradleyLabProjectPartnersLoader").fadeOut();
+                    },error: function(){	             
+                    }
+				},
+
+	         });
+		});
+}
+
+function goToProfile(userId,interestId){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='loadProfileDetails'/>"
+		,{
+              method: 'post',
+              data:{
+              	  '<portlet:namespace/>key':userId
+              },
+              sync : true, 
+              on:{
+           	   complete:function()
+            		{		            		   
+            		},
+                   success:function()
+                   {	
+                	   location.href="<%=themeDisplay.getURLPortal() %>"+"/profile?showInvite=true";
+                   },error: function(){	             
+                   }
+			},
+
+         });
+	});
+}
+</script>

@@ -1,12 +1,23 @@
+<%@page import="com.collaborated.profile.portlet.CommonMethods"%>
+<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
+<%@page import="com.collaborated.entity.service.userProfileImageLocalServiceUtil"%>
+<%@page import="java.util.List"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.util.PortalClassLoaderUtil"%>
+<%@page import="com.collaborated.entity.model.userProfileImage"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
 <%@ include file="/init.jsp" %>
 
 <%
 String portalUrl = themeDisplay.getURLPortal();
 String currentUrl = themeDisplay.getURLCurrent();
 String returnURL = "";
-if (currentUrl.contains("edit-profile")) {
+/* if (currentUrl.contains("edit-profile")) {
 	returnURL = "Edit Profile";
-} else if (currentUrl.contains("profile")) {
+} else if (currentUrl.contains("institution-profile-overview")) {
+	returnURL = "Institution";
+}  */if (currentUrl.contains("profile")) {
 	returnURL = "Profile";
 } else if (currentUrl.contains("resources")) {
 	returnURL = "Resources";
@@ -15,10 +26,28 @@ if (currentUrl.contains("edit-profile")) {
 } else if (currentUrl.contains("course-development")) {
 	returnURL = "Course Development";
 }
+
+String imageURL = "",imgSRC="";boolean isBase64 = false;
+DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(themeDisplay.getUser().getUserId()));
+List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
+if(values.size()>0){
+	imageURL = values.get(0).getFileEntryUrl();					
+    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(themeDisplay.getUser().getUserId());	               
+    imageURL = jsonObject2.getString("byteArray");
+    imgSRC = "data:image/png;base64,"+imageURL;
+    isBase64 = true;
+}else{
+	imageURL = "/o/ahea-theme/images/user.png";
+	imgSRC = imageURL;
+	isBase64 = false;
+}
+
 %>
 
 
 <section class="top">
+	<div class="px-3">
 	<!--<div class="top-icon icon-1">
 		<button id="menu-button-hide-show" class="visible-lg"><i class="fas fa-arrow-circle-left"></i></button>
 	</div>-->
@@ -45,7 +74,7 @@ if (currentUrl.contains("edit-profile")) {
 				<p>Congratulations! You earned the Orientation Badge.</p>
 			</div>
 			<div class="toltip-footer text-center">
-				<a href="#" class="btn btn-blue m-auto">View More</a>
+				<a href="javascript:void(0);" class="btn btn-blue m-auto">View More</a>
 			</div>
 		</div>					
 	</div>
@@ -65,8 +94,8 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Lorem ipsum dolor sit amet, adipiscing. Donec odio.</p>
 				</div>
 				<div class="toltip-close-details">
-					<a href="#" class="close-this">Close</a>
-					<a href="#">Details</a>
+					<a href="javascript:void(0);" class="close-this">Close</a>
+					<a href="javascript:void(0);">Details</a>
 				</div>
 			</div>
 			<div class="toltip-item toltip-overlay d-flex mb-2">
@@ -77,8 +106,8 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing. Donec odio.</p>
 				</div>
 				<div class="toltip-close-details">
-					<a href="#" class="close-this">Close</a>
-					<a href="#">Details</a>
+					<a href="javascript:void(0);" class="close-this">Close</a>
+					<a href="javascript:void(0);">Details</a>
 				</div>
 			</div>
 			<div class="toltip-item toltip-overlay d-flex mb-2">
@@ -89,8 +118,8 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Lorem ipsum dolor sit amet, adipiscing. Donec odio.</p>
 				</div>
 				<div class="toltip-close-details">
-					<a href="#" class="close-this">Close</a>
-					<a href="#">Details</a>
+					<a href="javascript:void(0);" class="close-this">Close</a>
+					<a href="javascript:void(0);">Details</a>
 				</div>
 			</div>
 			<div class="toltip-item toltip-overlay d-flex mb-2">
@@ -101,8 +130,8 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing. Donec odio.</p>
 				</div>
 				<div class="toltip-close-details">
-					<a href="#" class="close-this">Close</a>
-					<a href="#">Details</a>
+					<a href="javascript:void(0);" class="close-this">Close</a>
+					<a href="javascript:void(0);">Details</a>
 				</div>
 			</div>
 			<div class="toltip-item toltip-overlay d-flex mb-2">
@@ -113,14 +142,14 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Lorem ipsum dolor sit amet, adipiscing. Donec odio.</p>
 				</div>
 				<div class="toltip-close-details">
-					<a href="#" class="close-this">Close</a>
-					<a href="#">Details</a>
+					<a href="javascript:void(0);" class="close-this">Close</a>
+					<a href="javascript:void(0);">Details</a>
 				</div>
 			</div>
 		</div>
 	</div> 
 	 <div class="top-icon icon-3">
-		<a href="#">
+		<a href="javascript:void(0);">
 			<img src="/o/ahea-theme/images/svg/Envelope-Icon-1.svg" width="40" alt="">
 			<span class="note">
 				<span class="outer">3</span>
@@ -128,47 +157,120 @@ if (currentUrl.contains("edit-profile")) {
 		</a>
 	</div> -->
 	
-	<div class="top-icon icon-1">
-		<!-- <a href="#" id="btn-badges"> -->
-		<a href="javascript:void(0);" data-toggle="modal" data-target="#badgesModal">
+	<div class="top-icon icon-1 top-icon-badges">
+		<!-- <a href="javascript:void(0);" id="btn-badges"> -->
+		<!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#badgesModal">
 			<img src="/o/ahea-theme/images/svg/Badges-Icon-1.svg" width="50" alt="">
 			<span class="note">
 				<span class="outer">1</span>
 			</span>
-		</a>
+		</a> -->
+		
+		<div class="btn-group btn-group-menu">
+			<a href="javascript:void(0);" type="button" class="top-icon-fa top-icon-award disabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="note">
+					<span class="outer">1</span>
+				</span>
+			</a>
+			<div class="dropdown-menu">
+				<div class="toltip toltip-overlay p-3">
+					<div class="toltip-header">
+						<div class="toltip-title icon-fa-box icon-award pl-4">
+							Badges
+						</div>
+						<div class="toltip-close">
+							<a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a>
+						</div>
+					</div>
+					<div class="toltip-body text-center">
+						<div class="wrap-icon">
+							<i class="fad fa-chart-network icon-size-120 mt-3 mb-3" style="color:#6C389B;"></i>
+						</div>
+						<p>Congratulations! You Earned a Networking Badge.</p>
+					</div>
+					<div class="toltip-footer text-center">
+						<a href="javascript:void(0);" class="btn btn-blue m-auto">View More</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="top-icon icon-2">
-		<!-- <a id="btn-notification" href="#"> -->
-		<a href="javascript:void(0);" data-toggle="modal" data-target="#notificationModal">
-			<img class="this-img" src="/o/ahea-theme/images/svg/Bell-Icon-1.svg" width="45" alt="">
-			<span class="note">
-				<span class="outer">5</span>
-			</span>
-		</a>
+		<!-- <a id="btn-notification" href="javascript:void(0);"> -->
+		<!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#notificationModal">
+				<img class="this-img" src="/o/ahea-theme/images/svg/Bell-Icon-1.svg" width="45" alt="">
+				<span class="note">
+					<span id="notifyCount" class="outer">5</span>
+				</span>
+			</a> -->
+		<div class="btn-group btn-group-menu">
+			<a href="javascript:void(0);" class="top-icon-fa top-icon-bell" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="note">
+					<span id="notifyCount" class="outer">5</span>
+				</span>
+			</a>
+			<div class="dropdown-menu">
+				<div id="notification-toltip" class="toltip any-toltip">
+				
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="top-icon icon-3">
-		<!-- <a id="btn-email" href="#"> -->
-		<a href="javascript:void(0);" data-toggle="modal" data-target="#messagesModal">
+	<div class="top-icon icon-3 top-icon-message">
+		<!-- <a id="btn-email" href="javascript:void(0);"> -->
+		<!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#messagesModal">
 			<i class="far fa-comment" style="font-size: 40px;"></i>
 			<span class="note">
 				<span class="outer">3</span>
 			</span>
-		</a>
+		</a> -->
+		
+		<div class="btn-group btn-group-menu">
+			<a href="javascript:void(0);" class="top-icon-fa top-icon-comment msgview" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="note">
+					<span id="messageCount" class="outer">3</span>
+				</span>
+			</a>
+			<div class="dropdown-menu">
+				<div id="email-toltip" class="toltip messagecontent">
+					<div class="toltip-body">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 
 	<div class="top-icon hello">
-		<!-- <a href="#"  id="btn-user" class="btn-menu"> -->
-		<a href="javascript:void(0);" data-toggle="modal" data-target="#userModal" class="btn-menu">
-			<%-- <img class="img-circle img-border-blue" src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" alt=""> --%>
-			<img class="img-circle" src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" alt="">
-			Hello, <%=themeDisplay.getUser().getFirstName() %>
-		</a>
+		<div class="btn-group btn-group-menu show">
+			<!-- <a href="javascript:void(0);"  id="btn-user" class="btn-menu"> -->
+			<%-- <a href="javascript:void(0);" data-toggle="modal" data-target="#userModal" class="btn-menu">
+				<img class="img-circle img-border-blue" src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" alt="">
+				<img class="img-circle" src="<%=themeDisplay.getUser().getPortraitURL(themeDisplay) %>" alt="">
+				Hello, <%=themeDisplay.getUser().getFullName() %>
+			</a> --%>
+			<a href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-menu">
+				<img class="img-circle" src="<%=imgSRC %>" alt="">
+				Hello, <%=themeDisplay.getUser().getFirstName() %>
+			</a>
+			<div class="dropdown-menu p-0">
+				<div id="user-toltip" class="toltip menu-toltip toltip-overlay">
+					<ul>
+						<li><a href="" onclick='goToMyProfile(<%=themeDisplay.getUserId() %>)'>My Profile</a></li>
+						<li><a href="javascript:void(0);">Settings & Privacy</a></li>
+						<li><a href="javascript:void(0);" id="btn-sign-out" data-toggle="modal" data-target="#signOutModal">Sign Out</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- <div class="top-icon top-button">
-		<a href="#" class="btn btn-blue">Tour <i class="fas fa-forward"></i></a>
+		<a href="javascript:void(0);" class="btn btn-blue">Tour <i class="fas fa-forward"></i></a>
 	</div> -->
 	<div class="wrap-top-search">
 		<div class="top-search">
+			<!-- <a href="javascript:void(0);" class="btn btn-blue btn-w-100 mr-2 returnToResult d-none">Return to Results</a> -->
 			<div class="box-search">
 				<form action="">
 					<input type="text" placeholder="Search">
@@ -176,25 +278,34 @@ if (currentUrl.contains("edit-profile")) {
 				</form>
 			</div>
 			<div class="box-question">
-				<a href="#"><img src="/o/ahea-theme/images/search-icon.png" width="38"></a>
+				<a href="javascript:void(0);"><img src="/o/ahea-theme/images/search-icon.png" width="38"></a>
 			</div>
 		</div>
+		<%-- <% if(currentUrl.contains("lab-screen-v2") || currentUrl.contains("lab-detailed-screen")){ %>
+			<a href="/home1" id="submitForReview" class="btn btn-grey btn-w-100 ml-3 ">Submit for Review <i class="far fa-arrow-alt-circle-right"></i></a>
+		<% } %> --%>
+		<a href="javascript:void(0)" id="submitForReview" class="btn btn-grey btn-w-100 ml-3 " >Submit for Review <i class="far fa-arrow-alt-circle-right"></i></a>
 		<!-- <div class="top-text">
-			<p>Looking for an academic collaborator? <a href="#">Click Here</a>.</p>
+			<p>Looking for an academic collaborator? <a href="javascript:void(0);">Click Here</a>.</p>
 		</div> -->
 	</div>
+	<!-- <div class="top-text returnToResult d-none">
+		<p>Looking for an academic collaborator? <a href="javascript:void(0);">Click Here</a>.</p>
+	</div> -->
+	</div>
+	<% if(returnURL!=""){ %>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="/home1"><!-- <i class="fas fa-home"></i> --> Home</a></li>
+		  <li class="breadcrumb-item active" aria-current="page"><%= returnURL %></li>
+		</ol>
+	</nav>
+	<% } %>
 </section>
-<% if(returnURL!=""){ %>
-<nav aria-label="breadcrumb">
-	<ol class="breadcrumb">
-	  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
-	  <li class="breadcrumb-item active" aria-current="page"><%= returnURL %></li>
-	</ol>
-</nav>
-<% } %>
+
 <!-- <div class="" id="onlyEditProfile">
 	<div class="col-lg-12 mb-4 mt-3 text-right" style="padding: 0;">
-		<a class="btn btn-blue" href="#">Save Profile</a>
+		<a class="btn btn-blue" href="javascript:void(0);">Save Profile</a>
 	</div>
 </div> -->
 
@@ -220,7 +331,7 @@ if (currentUrl.contains("edit-profile")) {
 					<p>Congratulations! You Earned a Networking Badge.</p>
 				</div>
 				<div class="toltip-footer text-center">
-					<a href="#" class="btn btn-blue m-auto">View More</a>
+					<a href="javascript:void(0);" class="btn btn-blue m-auto">View More</a>
 				</div>
 			</div>
 		</div>
@@ -233,8 +344,8 @@ if (currentUrl.contains("edit-profile")) {
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 		<div class="modal-body">
-			  <div id="notification-toltip" class="toltip any-toltip">
-				<div class="toltip-item toltip-overlay d-flex">
+			  <!-- <div id="notification-toltip" class="toltip any-toltip"> -->
+				<!-- <div class="toltip-item toltip-overlay d-flex">
 					<div class="toltip-image">
 						<img src="/o/ahea-theme/images/randy.png" width="48">
 					</div>
@@ -273,8 +384,8 @@ if (currentUrl.contains("edit-profile")) {
 					<div class="toltip-text">
 						<p>Missed call from Li Wei </p>
 					</div>
-				</div>
-			</div>
+				</div> -->
+			<!-- </div> -->
 		</div>
 	  </div>
 	</div>
@@ -394,7 +505,7 @@ if (currentUrl.contains("edit-profile")) {
 			  <div id="user-toltip" class="toltip menu-toltip toltip-overlay any-toltip">
 				<ul>
 					<li><a href="" onclick='goToMyProfile(<%=themeDisplay.getUserId() %>)'>My Profile</a></li>
-					<li><a href="#">Settings & Privacy</a></li>
+					<li><a href="javascript:void(0);">Settings & Privacy</a></li>
 					<li><a href="javascript:void(0);" id="btn-sign-out" data-toggle="modal" data-target="#signOutModal">Sign Out</a></li>
 				</ul>
 			</div>
@@ -402,3 +513,44 @@ if (currentUrl.contains("edit-profile")) {
 	  </div>
 	</div>
   </div>
+  
+ <!-- Modal confirmation Message -->
+<div class="modal fade modalToltip modalareainterest" id="confirmationMessage" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div id="modalCourseSummaryContent" class="modal-content">
+	  	<div class="modal-header position-relative text-center">
+			<div class="text-left font15 m-auto">
+				<strong>Confirmation Message</strong> 
+			</div> 
+		</div>
+		<div class='modal-body'> 
+			<div class='interest-modal text-center'>
+				<p class="text-white">Are you sure you want to submit?</p>
+				<button value='Cancel' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</button>
+					<a href="/home1?project=approved" id="moveToDashboard" class='btn btn-blue'>Ok</a>
+			</div>
+		</div>
+	   </div>
+	</div>
+</div>
+
+<!-- Modal confirmation Message -->
+<div class="modal fade modalToltip modalareainterest" id="submitedForApproval" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div id="modalCourseSummaryContent" class="modal-content">
+	  	<div class="modal-header position-relative text-center">
+			<div class="text-left font15 m-auto">
+				<strong></strong> 
+			</div> 
+		</div>
+		<div class='modal-body'> 
+			<div class='interest-modal'>
+				<p class="text-white text-center">Submitted For Approval</p>
+				<div class="text-right">
+					<button value='Cancel' class='btn btn-blue' data-dismiss='modal'>Ok</button>
+				</div>
+			</div>
+		</div>
+	   </div>
+	</div>
+</div>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE layout-templates PUBLIC "-//Liferay//DTD Layout Templates 7.1.0//EN" "http://www.liferay.com/dtd/liferay-layout-templates_7_1_0.dtd">
+
+<layout-templates>
+	<custom>
+		<layout-template id="ahea-labscreen" name="AHEA_Labscreen">
+			<template-path>/ahea_labscreen.ftl</template-path>
+			<thumbnail-path>/ahea_labscreen.png</thumbnail-path>
+		</layout-template>
+	</custom>
+</layout-templates>

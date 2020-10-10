@@ -73,6 +73,7 @@ public class communicationPreferencesWrapper implements communicationPreferences
 		attributes.put("tertiaryLanguageName", getTertiaryLanguageName());
 		attributes.put("emailAddress", getEmailAddress());
 		attributes.put("phoneNumber", getPhoneNumber());
+		attributes.put("mobileNumber", getMobileNumber());
 		attributes.put("website", getWebsite());
 
 		return attributes;
@@ -162,6 +163,12 @@ public class communicationPreferencesWrapper implements communicationPreferences
 			setPhoneNumber(phoneNumber);
 		}
 
+		String mobileNumber = (String)attributes.get("mobileNumber");
+
+		if (mobileNumber != null) {
+			setMobileNumber(mobileNumber);
+		}
+
 		String website = (String)attributes.get("website");
 
 		if (website != null) {
@@ -233,6 +240,16 @@ public class communicationPreferencesWrapper implements communicationPreferences
 	@Override
 	public java.lang.String getEmailAddress() {
 		return _communicationPreferences.getEmailAddress();
+	}
+
+	/**
+	* Returns the mobile number of this communication preferences.
+	*
+	* @return the mobile number of this communication preferences
+	*/
+	@Override
+	public java.lang.String getMobileNumber() {
+		return _communicationPreferences.getMobileNumber();
 	}
 
 	/**
@@ -449,6 +466,16 @@ public class communicationPreferencesWrapper implements communicationPreferences
 	@Override
 	public void setGroupId(long groupId) {
 		_communicationPreferences.setGroupId(groupId);
+	}
+
+	/**
+	* Sets the mobile number of this communication preferences.
+	*
+	* @param mobileNumber the mobile number of this communication preferences
+	*/
+	@Override
+	public void setMobileNumber(java.lang.String mobileNumber) {
+		_communicationPreferences.setMobileNumber(mobileNumber);
 	}
 
 	/**

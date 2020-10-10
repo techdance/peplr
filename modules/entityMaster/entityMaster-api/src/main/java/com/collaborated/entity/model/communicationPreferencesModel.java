@@ -264,6 +264,21 @@ public interface communicationPreferencesModel extends BaseModel<communicationPr
 	public void setPhoneNumber(String phoneNumber);
 
 	/**
+	 * Returns the mobile number of this communication preferences.
+	 *
+	 * @return the mobile number of this communication preferences
+	 */
+	@AutoEscape
+	public String getMobileNumber();
+
+	/**
+	 * Sets the mobile number of this communication preferences.
+	 *
+	 * @param mobileNumber the mobile number of this communication preferences
+	 */
+	public void setMobileNumber(String mobileNumber);
+
+	/**
 	 * Returns the website of this communication preferences.
 	 *
 	 * @return the website of this communication preferences

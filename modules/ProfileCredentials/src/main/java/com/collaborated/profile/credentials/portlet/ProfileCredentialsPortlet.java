@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -42,22 +45,6 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProfileCredentialsPortlet extends MVCPortlet {
 	
-	public static long selectedProfileMatching = 0;
-	
-	@Override
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		PortletSession ps = request.getPortletSession();
-		Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
-		selectedProfileMatching = 0;
-		if (obj == null) {
-			System.out.println("PortletSession attribute NOT found");
-		} else {
-			selectedProfileMatching = Long.valueOf(obj.toString());
-			System.out.println("PortletSession attribute found"+selectedProfileMatching);
-		}
-		super.render(request, response);
-	}
-	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) throws IOException,PortletException {
 		String resourceID = null;
@@ -75,9 +62,25 @@ public class ProfileCredentialsPortlet extends MVCPortlet {
 		try{
 			out = resourceResponse.getWriter();
 			
-			long userId = themeDisplay.getUserId();
+			long userId = 0;
+			long selectedProfileMatching = 0;
+			HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(resourceRequest);
+			httprequest = PortalUtil.getOriginalServletRequest(httprequest);
+
+			HttpSession httpsession = httprequest.getSession();
+			long currentUser = 0;
+			System.out.println(httpsession.getAttribute("currentUser"));
+			if(httpsession.getAttribute("currentUser")!=null){
+				currentUser = (Long)httpsession.getAttribute("currentUser");
+				if(currentUser>0 && currentUser==themeDisplay.getUserId()){
+					String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
+					selectedProfileMatching = new Long(sessionuserID);	
+				}
+			}
 			if(selectedProfileMatching>0){
 				userId = selectedProfileMatching;
+			}else{
+				userId = themeDisplay.getUserId();
 			}
 			
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userCredential.class, PortalClassLoaderUtil.getClassLoader());
@@ -96,22 +99,26 @@ public class ProfileCredentialsPortlet extends MVCPortlet {
 				
 				template = "<div class=\"box-middle\"> "
 						+ "<div class=\"content-icon\">"
-							+ "<p><i class=\"fas fa-graduation-cap\"></i><strong>Highest Education Level</strong></p>"
+							+ "<p><span class=\"icon-regular icon-user-graduate\"></span><strong>Highest Education Level</strong></p>"
 							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership4()+"</a></p>"
 						+ "</div>"
 						+ "<div class=\"content-icon\">"
-							+ "<p><i class=\"fas fa-trophy\"></i><strong>Professional Memberships</strong></p>"
+							+ "<p><span class=\"icon-regular icon-trophy-alt\"></span><strong>Professional Memberships</strong></p>"
 							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership1()+"</a></p>"
+							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership2()+"</a></p>"
+							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getMembership3()+"</a></p>"
 						+ "</div>"
 						+ "<div class=\"content-icon\">"
-							+ "<p><i class=\"fas fa-certificate\" aria-hidden=\"true\"></i><strong>Certificates</strong></p>"
+							+ "<p><span class=\"icon-regular icon-file-certificate\"></span><strong>Certificates</strong></p>"
 							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getCertificate1()+"</a></p>"
+							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getCertificate2()+"</a></p>"
+							+ "<p class=\"blue-color ml20\"><a href=\"#\">"+creList.get(0).getCertificate3()+"</a></p>"
 						+ "</div>"
-						
 				   + "</div>";
 				
-				out.print(template);
+				
 			}
+			out.print(template);
 		}catch(Exception e){
 			e.printStackTrace();			
 		}finally{

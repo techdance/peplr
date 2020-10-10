@@ -73,7 +73,7 @@ function loadUserInfo(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>firstName").val(data.firstName);
          	                $("#<portlet:namespace/>lastName").val(data.lastName);

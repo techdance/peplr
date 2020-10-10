@@ -99,12 +99,19 @@ if (reminderAttempts == null) {
 				<aui:input label="<%= loginLabel %>" name="<%= loginParameter %>" size="30" type="text" value="<%= loginValue %>" placeholder="Institution Email">
 					<aui:validator name="required" />
 				</aui:input>
+				
+				<%-- <%
+				out.println("Captcha enabled==="+PropsValues.CAPTCHA_CHECK_PORTAL_SEND_PASSWORD);
+				%> --%>
+				
+				<%-- <portlet:resourceURL id="/login/captcha" var="captchaURL" />
+				<liferay-ui:captcha url="<%= captchaURL %>" /> --%>
 
-				<c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_SEND_PASSWORD %>">
+				<%-- <c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_SEND_PASSWORD %>">
 					<portlet:resourceURL id="/login/captcha" var="captchaURL" />
 
 					<liferay-ui:captcha url="<%= captchaURL %>" />
-				</c:if>
+				</c:if> --%>
 
 				<aui:button-row cssClass="wrap-input-submit">
 					<aui:button type="submit" value='<%= PropsValues.USERS_REMINDER_QUERIES_ENABLED ? "Send Password Reset Link" : "send-new-password" %>' />

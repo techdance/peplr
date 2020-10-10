@@ -1,3 +1,5 @@
+<%@page import="javax.portlet.PortletSession"%>
+<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
@@ -15,14 +17,20 @@
 <portlet:resourceURL var="saveCredentialsForm" id="saveCredentialsForm"></portlet:resourceURL> 
 <portlet:resourceURL var="savecommunicationForm" id="savecommunicationForm"></portlet:resourceURL>
 <portlet:resourceURL var="saveProfileForm" id="saveProfileForm"></portlet:resourceURL>
+<portlet:resourceURL var="Test" id="Test"></portlet:resourceURL>
 <portlet:resourceURL var="updateAreaofinterest" id="updateAreaofinterest"></portlet:resourceURL>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTB30uKJgKRGvIVHavUEPKACPZkqkkifg&sensor=false"></script>
 <style>
+.top .breadcrumb {
+	display: none;
+}
 .portlet {
 	margin-bottom: 0 !important;
 }
-.yui3-widget-ft.modal-footer {
+/* .yui3-widget-ft.modal-footer {
     display: block;
-}
+} */
 
 .interest-modal{
 	background: white;
@@ -225,13 +233,14 @@ span.left-corner {
     line-height: 1.5;
 }
 .box-middle .form-group .form-control {
-	background: #ececec !important;
+	background-color: #ececec !important;
     border: 1px solid #d4d4d4;
     padding: 6px;
-    height: 32px;
+    height: 32px !important;
 }
-
-
+.form-control option[disabled] {
+    color: rgba(153, 153, 153, .5);
+}
 .modalareainterest .modal-header{
 	background: #f1f3f7;
 	border-radius: inherit !important;
@@ -315,7 +324,7 @@ span.left-corner {
     color: white !important;
 }
 .modalareainterest .interest-modal .form-group .form-control {
-    background: #ececec !important;
+    background-color: #ececec !important;
     border: 1px solid #d4d4d4;
     padding: 6px;
     border-radius: 5px;
@@ -427,8 +436,8 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
 .formGroupmb0 .form-group {
 	margin-bottom: 0;
 }
+/* .formGroupmb0:not(.lastFormGroup):not(.active):not(.showIcon) > a, */
 .formGroupmb0.showIcon .form-group,
-.formGroupmb0:not(.lastFormGroup):not(.active):not(.showIcon) > a,
 .selectableDR:not(.active),
 .nonEditable {
 	opacity: .85;
@@ -463,15 +472,173 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
 	pointer-events: none;
 	cursor: not-allowed;
 }
+.labelOnly {
+	opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.form-group.form-inline.input-checkbox-wrapper {
+    min-height: 63px;
+}
+.form-group.form-inline.input-checkbox-wrapper label {
+	color: #555555;
+    font-size: 14px;
+    margin-top: 25px;
+}
+.titleMultilineBottom {
+	min-height: 44px;
+    display: flex;
+    align-items: flex-end;
+}
+.fullwidth .form-group {
+	width: 100%;
+}
+.icon-regular::before, .icon-regular::after {
+    font-family: 'Font Awesome 5 Regular';
+}
+.icon-book-user::before {
+    content: "\f7e7";
+}
+.icon-globe-stand::before {
+    content: "\f5f6";
+}
+.icon-user-ninja::before {
+    content: "\f504";
+}
+.icon-shield-check::before {
+    content: "\f2f7";
+}
+.icon-camcorder::before {
+    content: "\f8a8";
+}
+.icon-user-secret::before {
+    content: "\f21b";
+}
+.icon-s-search::before {
+    content: "\f002";
+}
+.icon-comment-smile::before {
+    content: "\f4b4";
+}
+.icon-trophy-alt::before {
+    content: "\f2eb";
+}
+.icon-file-certificate::before {
+    content: "\f5f3";
+}
+.icon-user-graduate::before {
+    content: "\f501";
+}
+.icon-id-card::before {
+    content: "\f2c2";
+}
+.icon-comment-dots::before {
+    content: "\f4ad";
+}
+.icon-hospital-user::before {
+    content: "\f80d";
+}
+.icon-user-circle::before {
+    content: "\f2bd";
+}
+.icon-user-cog::before {
+    content: "\f4fe";
+}
+.box-subhead span {
+    position: absolute;
+    left: 0px;
+    top: 3px;
+}
+.cl-asset-type-d {
+    color: #ff993e;
+}	
+.cl-hover-black:hover {
+    color: #000 !important;
+}
+
+.fileinput-preview img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+}
+.icon-info .info-toltip {
+    background: black;
+    color: white;
+    display: none;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 13px;
+    padding: 7px;
+    position: absolute;
+    bottom: 9px;
+    left: 8px;
+    width: 250px;
+    z-index: 100;
+}
+.cl-blue {
+	color: #0099ff !important;
+}
+.box-subhead {
+	max-width: inherit;
+}
+.form-group .input.inactive-input {
+    background-color: #848586 !important;
+    color: #505050;
+    pointer-events: none;
+    cursor: default;
+}
+.overlay-inactive {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0.5;
+    background-color: #6f7880;
+    pointer-events: none;
+    cursor: default;
+    height: 100%;
+    left: 0;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    z-index: 100;
+}
 </style>
-<link rel="stylesheet" href="https://www.jqueryscript.net/demo/Year-Picker-Text-Input/yearpicker.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<script src="https://www.jqueryscript.net/demo/Year-Picker-Text-Input/yearpicker.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+<link rel="stylesheet" href="/o/ahea-theme/css/yearpicker.css" />
+<link rel="stylesheet" href="/o/ahea-theme/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/o/ahea-theme/css/ion.rangeSlider.min.css"/>
+
+<script src="/o/ahea-theme/js/bootstrap-datepicker.js"></script>
+<script src="/o/ahea-theme/js/yearpicker.js"></script>
+<script src="/o/ahea-theme/js/ion.rangeSlider.min.js"></script>
+<%
+long institutionProfileId=0;
+String instituteName = "",academicCalendar="",department="", region = "",cityState="",address1="",address2="",postalCode="";
+JSONObject instituteProfile = null;JSONObject institutionContact = null, instituteProfileContact = null;
+PortletSession sessionObj = renderRequest.getPortletSession();
+instituteProfile = (JSONObject)sessionObj.getAttribute("INSTITUTE_PROFILE",PortletSession.APPLICATION_SCOPE);
+if(instituteProfile!=null){
+	instituteName = instituteProfile.getString("institutionName");
+	academicCalendar = instituteProfile.getString("academicCalendar");
+	institutionContact = instituteProfile.getJSONObject("institutionContact");
+	instituteProfileContact = instituteProfile.getJSONObject("institutionLocation");
+	if(institutionContact!=null){
+		department = institutionContact.getString("department");
+	}
+	if(instituteProfileContact!=null){
+		cityState = instituteProfileContact.getString("city")+", "+instituteProfileContact.getString("state");
+		address1 = instituteProfileContact.getString("address1");
+		address2 = instituteProfileContact.getString("address2");
+		postalCode = instituteProfileContact.getString("postalCode");
+		region = instituteProfileContact.getString("region");
+	}
+}
+%>
 <script>
 var A=AUI();
+var userRegional = "<%=region %>";
 var monthNames = [
     "Jan", "Feb", "Mar",
     "Apr", "May", "Jun", "Jul",
@@ -536,18 +703,28 @@ function loadUserInfo(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>firstName").val(data.firstName);
          	                $("#<portlet:namespace/>lastName").val(data.lastName);
          	                $("#<portlet:namespace/>jobTitle").val(data.jobTitle);
          	                $("#<portlet:namespace/>prefixValue").val(data.prefixValue);
-         	               // $("#<portlet:namespace/>status").val(data.status);
-         	                $("#userImage").attr("src",data.profileImage);
+         	                // $("#<portlet:namespace/>status").val(data.status);
+         	                if(data.isBase64==true){
+         	                	$("#userImage").attr("src","data:image/png;base64,"+data.profileImage);
+         	                	$(".img-circle").attr("src","data:image/png;base64,"+data.profileImage);
+         	                }else{
+         	                	$("#userImage").attr("src",data.profileImage);
+         	                	$(".img-circle").attr("src",data.profileImage);
+         	                }         	                
+         	                
          	               // $("#<portlet:namespace/>ExpandoAttribute--profileStatus--").val(data.profileStatus);
          	                //$("input[id*='profileStatus']").val(data.profileStatus);
          	                $(".profile-status").find("textarea").val(data.profileStatus);
-         	                $("input[name=<portlet:namespace/>ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
+         	                if(data.onlineStatus.length>0){
+         	                	$("input[name=<portlet:namespace/>ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
+         	                }
+         	               $("#editPersonalInformationLoader").fadeOut();
          	              // $("input[name=<portlet:namespace/>ExpandoAttribute--onlineStatus--][value="+data.onlineStatus+"]").attr('checked', 'checked');
                  	   }
                     },error: function(){	             
@@ -617,7 +794,7 @@ function deleteProfileImage(){
                     success:function()
                     {			                    	
                     	var value=this.get('responseData');
-                    	if(value!=null && value!="undefined" && value!=undefined && value=="removed"){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null" && value=="removed"){
                     		showMsg("Removed successfully");
                     		loadUserInfo();
                  	    }else{
@@ -650,7 +827,7 @@ function loadUserCredential(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>membership1").val(data.membership1);
          	                $("#<portlet:namespace/>membership2").val(data.membership2);
@@ -679,7 +856,7 @@ jQuery(function() {
     loadUserCredential();
     loadProjectDetails();
     loadProfessionalBio();
-    loadInstituteProfile();
+    //loadInstituteProfile();
 	jQuery("#add-interest").click(function(e){
 		e.stopPropagation();
 		jQuery("#add-interest-modal").modal('show');
@@ -721,6 +898,7 @@ function clearFile(){
 
 function updateTextInput(val) {
 	$("#<portlet:namespace/>experienceLevel").val(val); 
+	console.log(val);
 }
 
 function loadProjectDetails(){
@@ -739,36 +917,42 @@ function loadProjectDetails(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		if(data.length>0){
                     			$("#area-of-interest-block").html("");                    			
                     			for(var i=0;i<data.length;i++){
-                    				var lang = "";
+                    				var lang = "";var region = "";
                     				if(data[i].language!="undefined"){
                     					lang = data[i].language;
+                    				}     
+                    				if(data[i].collaborationType=="Departmental" || data[i].collaborationType=="Institutional"){
+                    					region = "";
+                    				}else{
+                    					region = data[i].region1;
                     				}
-                        			if(data[i].language==""){
-                    					$("#area-of-interest-block").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
-    	                    					+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline1+" </p> <p> <strong>Region</strong><br> "+data[i].region1+" </p> </div></div> "
-    	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative cursor-pointer'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"' class='modal fade'></div></div></div><div class='col-md-6 text-right cursor-pointer'><a href='javascript:void(0);' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
+                        			//if(data[i].language==""){
+                    					//$("#area-of-interest-block").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
+    	                    				//	+ "</div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline1+" </p> <p> <strong>Region</strong><br> "+region+" </p> </div></div> "
+    	                    				//	+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative cursor-pointer'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"' class='modal fade'></div></div></div><div class='col-md-6 text-right cursor-pointer'><a href='javascript:void(0);' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
     	                    					/* + " <a href='#' class='btn btn-blue col-sm-6 p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
     	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a>  </div>" */
        	                    					
-    	                    				);
-                    				}
-                    				else{
+    	                    			//	);
+                    				// }
+                    				// else{
                     					$("#area-of-interest-block").append("<div class='col-md-6 mb-3'><div class='editcollaboratedarea areas-of-interest"+i+"'><div class='row row-custom position-relative'><span class='left-corner'>"+ (i + 1) +"</span><div class='col-md-6'><p> <strong>Project</strong><br> "+data[i].projectType+" </p>"
-   	                    					+ " <p> <strong>Preferred Language</strong><br> "+lang+" </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline1+" </p> <p> <strong>Region</strong><br> "+data[i].region1+" </p> </div></div> "
+   	                    					+ " <p> <strong>Preferred Language</strong><br> "+lang+" </p>  </div> <div class='col-md-6'> <p> <strong>Discipline</strong><br> "+data[i].discipline1+" </p> <p> <strong>Region</strong><br> "+region+" </p> </div></div> "
    	                    					+ " <div class='row row-custom mt-2'><div class='col-md-6'><div class='position-relative cursor-pointer'><a href='javascript:void(0);' class='view-more-interest' onclick='getViewMoreData("+data[i].id+")'>View more</a><div id='popup-"+data[i].id+"' class='modal fade'></div></div></div><div class='col-md-6 text-right cursor-pointer'><a href='javascript:void(0);' onclick='removeCollaborationInterest("+data[i].id+")'>Remove</a></div></div></div></div>"
    	                    					/* + " <a href='#' class='btn btn-blue col-sm-6  p-2' onclick='goToMatching("+data[i].id+")'>Find Matches</a>"
    	                    					+ " <a href='javascript:void(0);' class='view-more-interest col-sm-6 ml-1 pt-1' onclick='getViewMoreData("+data[i].id+")'>View more</a> </div>" */
    	                    					
    	                    				);
-                    				}
+                    				// }
                     			}                    			
                     		}
                  	   	}
+                    	$("#editCollaborationInterestLoader").fadeOut();
                     	<%-- var url_param = '<%=themeDisplay.getURLPortal()+themeDisplay.getURLCurrent() %>';
                     	var current_url = new URL(url_param);
                     	var param = current_url.searchParams.get("param");
@@ -805,7 +989,7 @@ function getViewMoreData(id){
                     	// $("#view-more-interest-modal").appendTo('#popup-'+id);
                     	
                     	var value=this.get('responseData');	
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		$(".view-project-type").text(data.projectType);
                     		$(".view-discipline1").text(data.discipline1);
@@ -815,6 +999,11 @@ function getViewMoreData(id){
                     		$(".view-description").text(data.description);
                     		$(".view-collaboration-type").text(data.collaborationType);
                     		//$("#<portlet:namespace />projectDescriptionEdit").val(data.description);
+                    		if(data.programLevel=='Post Doctoral'){
+                    			$(".view-program-level").text("Post-Doctoral");
+                    		}else{
+                    			$(".view-program-level").text(data.programLevel);
+                    		}
                     		$(".view-program-level").text(data.programLevel);
                     		$(".view-program-length").text(data.programLength);
                     		$(".view-credits").text(data.credits);
@@ -823,6 +1012,9 @@ function getViewMoreData(id){
                     		$(".view-location2").text(data.region2);
                     		$(".view-location3").text(data.region3);
                     		$(".view-location4").text(data.region4);
+                    		$(".created_date").text(data.created);
+                    		$(".currentMonthStart1").text(data.startMonth);
+                    		$("#currentday1").text(data.startYear);
                     		$(".view-find-matches").html("");
                     		var slider = $("#projectRange1").data("ionRangeSlider");
                     		slider.update({ from: monthNameToNum(data.endMonth) });
@@ -847,6 +1039,7 @@ function getViewMoreData(id){
                     			}
                     			if(data.region1 === "All") {
                     				$("[id^='<portlet:namespace/>locationEdit']").parents('.selectableDREdit').not(".first").removeClass("active");
+                    				$("#<portlet:namespace/>locationEdit2, #<portlet:namespace/>locationEdit3, #<portlet:namespace/>locationEdit4").val("");
                     			}
                     			
                     			$("#<portlet:namespace/>locationEdit1").parents('.selectableDREdit').addClass("active");
@@ -859,8 +1052,10 @@ function getViewMoreData(id){
                     			$("#<portlet:namespace/>locationEdit3").val(data.region3);
                     			$("#<portlet:namespace/>locationEdit4").val(data.region4);
                     			
-                    			$("#<portlet:namespace/>deliveryMethodEdit").val(data.deliveryMethod);
+                    			$("#<portlet:namespace/>deliveryMethodEdit").val(data.deliveryMethodEdit);
                     			$("#<portlet:namespace/>collaborationTypeEdit").val(data.collaborationType);
+                    			$(".currentMonthStart2").text(data.startMonth);
+                    			$("#currentday2").text(data.startYear);
                     			var sliderEdit = $("#projectRange2").data("ionRangeSlider");
                     			sliderEdit.update({ from: monthNameToNum(data.endMonth) });
                     			$("#rangerDatepicker2").val(data.endYear);
@@ -879,6 +1074,12 @@ function getViewMoreData(id){
                     			$("#<portlet:namespace/>programLengthEdit").val(data.programLength);
                     			$("#<portlet:namespace/>programLevelEdit").val(data.programLevel);
                     			$("#<portlet:namespace/>creditsEdit").val(data.credits);
+                    			if(data.collaborationType === "Departmental" || data.collaborationType === "Institutional") {
+                    				$('#<portlet:namespace/>locationEdit1').parents(".selectableDREdit").removeClass("active").show();
+                    			} 
+                    			else {
+                    				$('#<portlet:namespace/>locationEdit1').parents(".selectableDREdit").addClass("active").show();
+                    			}
                     			if($("#<portlet:namespace/>disciplineEdit1").val() != "") {
                     				$("#<portlet:namespace/>disciplineEdit1").parents('.selectableDREdit').addClass("active");
                     				$("#<portlet:namespace/>disciplineEdit1").parents('.selectableDREdit').next().addClass("active");
@@ -902,7 +1103,7 @@ function getViewMoreData(id){
                     			
                     			if(data.projectType =="Course Development"){
                     				$("#courseDevelopmentPopup1").show();
-                    				$(".edit-section .programLength").show();
+                    				$(".edit-section .showOnourseDevelopment").removeClass("d-none");
                     			} else if (data.projectType =="Curriculum Development"){
                     				$("#courseDevelopmentPopup1").show();
                     				$(".edit-section .programLength").hide();
@@ -1100,11 +1301,12 @@ function saveUserCommuncationPreferences(){
 
 function saveProfile(buttonRequest){
 	debugger;
+	
 	$("#<portlet:namespace/>addInterestButton").val(buttonRequest);
-	var prefixValue = $("#<portlet:namespace/>prefixValue").val();
+	/* var prefixValue = $("#<portlet:namespace/>prefixValue").val();
 	var firstName = $("#<portlet:namespace/>firstName").val();
 	var lastName = $("#<portlet:namespace/>lastName").val();
-	var jobTitle = $("#<portlet:namespace/>jobTitle").val();	
+	var jobTitle = $("#<portlet:namespace/>jobTitle").val();	 */
 	$("#<portlet:namespace/>endYearRangeAdd").val($("#rangerDatepicker3").val());
 	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];;
     var date = new Date();
@@ -1119,18 +1321,89 @@ function saveProfile(buttonRequest){
 			return false;
 		}
 	} */
-    var submitAction = "false";
+    var submitAction = "false";var collaboartiontype = $("#<portlet:namespace/>collaborationType").val();
 	debugger;
-	if(buttonRequest=='AddInterest' && ($("#add-interest-modal textarea, #<portlet:namespace/>discipline1, #<portlet:namespace/>location1, #<portlet:namespace/>collaborationType, #<portlet:namespace/>projectType, #<portlet:namespace/>preferredLanguage").val() == "")){
-		submitAction = "false";
-	} 
-	else if(prefixValue!="" && firstName!="" && lastName!="" && jobTitle!="" &&
-				($("#comunication textarea, #comunication input").val() != "") &&
-				($("#<portlet:namespace/>communicationPhoneNumber").val().length<=15)
+	if(buttonRequest=='AddInterest' && ($("#add-interest-modal textarea, #<portlet:namespace/>discipline1, #<portlet:namespace/>collaborationType, #<portlet:namespace/>projectType, #<portlet:namespace/>preferredLanguage").val() != "")){
+		if((collaboartiontype=='Departmental' || collaboartiontype=='Institutional') && $("#<portlet:namespace/>location1").val()==""){
+			submitAction = "true";
+		}
+		if(collaboartiontype=='Global' && $("#<portlet:namespace/>location1").val()!=""){
+			submitAction = "true";
+		}
+		if(collaboartiontype=='Regional' && $("#<portlet:namespace/>location1").val()!=""){
+			submitAction = "true";
+		}
+	} ///$("#<portlet:namespace/>communicationPhoneNumber").val().length>=15
+	/* else if(buttonRequest=='profile' && ($("#comunication textarea, #comunication input").val()!=undefined) 
+			&& ($("#<portlet:namespace/>communicationPhoneNumber").val().length>=15)
 				){
 		submitAction = "true";
+	} */
+	if (buttonRequest=='profile' && ($("#<portlet:namespace/>primaryLanguage").val()!="" && $("#<portlet:namespace/>communicationPhoneNumber").val()!=""
+			&& $("#<portlet:namespace/>communicationMobileNumber").val()!="" && $("#<portlet:namespace/>communicationWebsite").val()!="") && ($("#<portlet:namespace/>communicationPhoneNumber").val().length<=15)	
+	){
+		submitAction = "true";
 	}
+	$("#add-interest-modal .selectableDR:not(.active)").each(function(){
+		$(this).children(".form-group").removeClass("has-error");
+		$(this).find(".form-validator-stack").remove();
+	});
 	if(submitAction == "true"){	
+		$(".loaderContainer").addClass("d-flex");
+		
+		  <%-- var frm = $('#<portlet:namespace/>updateProfileForm');
+		  frm.submit(function (e) {
+			  e.preventDefault(e);
+		  var formData = new FormData(this);
+
+		  $.ajax({
+		    async: true,
+		    dataType: 'json',
+		    contentType: 'multipart/form-data',
+		    type: 'POST',
+		    url: "<%=saveProfileForm.toString() %>",
+		    data: formData,
+		    cache: false,
+		    processData: false,
+		    contentType: false,
+
+		    success: function (data) {
+		       console.log("success");
+		       var collaborationInterestId = $("#<portlet:namespace/>collaborationInterestId").val();
+	   		   var communicationId = $("#<portlet:namespace/>communicationId").val();
+	   		   var credentialId = $("#<portlet:namespace/>credentialId").val();
+	   		   var addInterestId = $("#<portlet:namespace/>addInterestId").val();
+	   		   if(data.details[1].responseText!=null && data.details[1].responseText!=undefined){
+	   			   $("#add-interest-modal").modal("hide");
+	   			   $(".loaderContainer").removeClass("d-flex");
+	   			   showMsg("Saved successfully");	            			
+	   			   loadUserInfo();
+	   			   loadUserCredential();
+	   			   loadProjectDetails();
+	   			   loadProfessionalBio();
+	   			   //loadInstituteProfile();
+	   			   loadUserCommunicationPreferences();
+	   			   resetAddInterest();
+	   			   
+	   		   }else{
+	   			   $("#add-interest-modal").modal("hide");
+	   			   $(".loaderContainer").removeClass("d-flex");
+	   			   loadUserInfo();
+	   			   loadUserCredential();
+	   			   loadProjectDetails();
+	   			   loadProfessionalBio();
+	   			   //loadInstituteProfile();
+	   			   loadUserCommunicationPreferences();
+	   			   resetAddInterest();
+	   		   }
+		    },
+		    error: function(request, status, error) {
+		      console.log("error")
+		    }
+		  });
+		}); --%>
+		
+		
 		AUI().use('aui-io-request-deprecated', function(A){
 		        A.io.request('<%=saveProfileForm.toString()%>', {
 		               method: 'post',
@@ -1152,30 +1425,34 @@ function saveProfile(buttonRequest){
 		            		   var addInterestId = $("#<portlet:namespace/>addInterestId").val();
 		            		   if(data.details[1].responseText!=null && data.details[1].responseText!=undefined){
 		            			   $("#add-interest-modal").modal("hide");
+		            			   $(".loaderContainer").removeClass("d-flex");
 		            			   showMsg("Saved successfully");	            			
 		            			   loadUserInfo();
 		            			   loadUserCredential();
 		            			   loadProjectDetails();
 		            			   loadProfessionalBio();
-		            			   loadInstituteProfile();
+		            			   //loadInstituteProfile();
 		            			   loadUserCommunicationPreferences();
 		            			   resetAddInterest();
+		            			   
 		            		   }else{
 		            			   $("#add-interest-modal").modal("hide");
+		            			   $(".loaderContainer").removeClass("d-flex");
 		            			   loadUserInfo();
 		            			   loadUserCredential();
 		            			   loadProjectDetails();
 		            			   loadProfessionalBio();
-		            			   loadInstituteProfile();
+		            			   //loadInstituteProfile();
 		            			   loadUserCommunicationPreferences();
 		            			   resetAddInterest();
 		            		   }
 		                   },
 		                   failure:function(data){
+		                	   
 		                   }
 		               }
 		            });
-		    	});
+		    	}); 
 	}
 	
 }
@@ -1185,8 +1462,8 @@ function resetAddInterest() {
 	$("#add-interest-modal .collaborationShow").show();
 	$("#add-interest-modal .selectableDR").not(".first").removeClass("active").hide();
 	$("#add-interest-modal #courseDevelopmentPopup").hide();
-	// $(".js-range-slider").data("ionRangeSlider").destory();
-	$("#rangerDatepicker3").val();
+	$(".js-range-slider").data("ionRangeSlider").destory();
+	$("#rangerDatepicker3").val("");
 	
 }
 function resetEditInterest() {
@@ -1199,48 +1476,61 @@ function resetEditInterest() {
 }
 
 function updateAreaofInterest(){
-	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];;
+	var submitAction = "false";
+	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var date = new Date();
     $("#<portlet:namespace/>startMonthRange").val(months[date.getMonth()]);
     $("#<portlet:namespace/>startYearRange").val(date.getFullYear());
    
     //var monthRangeEdit = $(".js-irs-1 span.irs-single").text();
 	$("#<portlet:namespace/>endYearRangeEdit").val($("#rangerDatepicker2").val());
-	
+	var collaborationtype = $("#<portlet:namespace/>collaborationTypeEdit").val();
 	if(($("#add-interest-modal textarea, #<portlet:namespace/>disciplineEdit1, #<portlet:namespace/>locationEdit1, #<portlet:namespace/>collaborationTypeEdit, #<portlet:namespace/>projectTypeEdit, #<portlet:namespace/>preferredLanguageEdit").val() != "")){
 		// return false;edit-section
-		AUI().use('aui-io-request-deprecated', function(A){
-	        A.io.request('<%=updateAreaofinterest.toString()%>', {
-	               method: 'post',
-	               form: {
-	                   id: '<portlet:namespace/>updateProfileForm',
-	                   upload:true
-	               },
-	               cache: false,
-	               contentType: false,
-	               processData: false,
-	               on: {
-	            	   start:function(){
-	            		   //$("#wait").show();
-	            	   },
-	            	   complete: function(data){
-	            		   debugger;
-	            		   if(data.details[1].responseText!=null && data.details[1].responseText=="update"){
-	            			   $('#view-more-interest-modal').modal('hide');
-	            			   showMsg("Updated successfully");
-	            			   loadProjectDetails();
-	            		   }else{
-	            			   $("#add-interest-modal").modal("hide");
-	            			   $('#view-more-interest-modal').modal('hide');
-	            			   loadProjectDetails();
-	            		   }
-	                   },
-	                   failure:function(data){
-	                	   //$("#wait").hide();
-	                   }
-	               }
-	            });
-	    	});
+		if((collaborationtype=='Departmental' || collaborationtype=='Institutional') && $("#<portlet:namespace/>locationEdit1").val()==""){
+			submitAction = "true";
+		}
+		if(collaborationtype=='Global' && $("#<portlet:namespace/>locationEdit1").val()!=""){
+			submitAction = "true";
+		}
+		$("#view-more-interest-modal .selectableDR:not(.active)").each(function(){
+			$(this).children(".form-group").removeClass("has-error");
+			$(this).find(".form-validator-stack").remove();
+		});
+		if(submitAction == "true"){	
+			AUI().use('aui-io-request-deprecated', function(A){
+		        A.io.request('<%=updateAreaofinterest.toString()%>', {
+		               method: 'post',
+		               form: {
+		                   id: '<portlet:namespace/>updateProfileForm',
+		                   upload:true
+		               },
+		               cache: false,
+		               contentType: false,
+		               processData: false,
+		               on: {
+		            	   start:function(){
+		            		   //$("#wait").show();
+		            	   },
+		            	   complete: function(data){
+		            		   debugger;
+		            		   if(data.details[1].responseText!=null && data.details[1].responseText=="update"){
+		            			   $('#view-more-interest-modal').modal('hide');
+		            			   showMsg("Updated successfully");
+		            			   loadProjectDetails();
+		            		   }else{
+		            			   $("#add-interest-modal").modal("hide");
+		            			   $('#view-more-interest-modal').modal('hide');
+		            			   loadProjectDetails();
+		            		   }
+		                   },
+		                   failure:function(data){
+		                	   //$("#wait").hide();
+		                   }
+		               }
+		            });
+		    	});
+		}
 	}
 }
 
@@ -1264,7 +1554,7 @@ function loadUserCommunicationPreferences(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>communicationId").val(data.communicationId);
          	                $("#<portlet:namespace/>primaryLanguageName").val(data.primLangName);
@@ -1274,8 +1564,9 @@ function loadUserCommunicationPreferences(){
          	              	$("#<portlet:namespace/>secondaryLanguage").val(data.secoLangId);
          	             	$("#<portlet:namespace/>tertiaryLanguage").val(data.terLangId);
          	           		$("#<portlet:namespace/>communicationEmail").val(data.email);
-         	           	    $("#<portlet:namespace/>communicationPhoneNumber").val(data.phoneNum);
-         	           		$("#<portlet:namespace/>communicationWebsite").val(data.website);         	           		
+         	           		$("#<portlet:namespace/>communicationPhoneNumber").val(data.phoneNum);
+         	           	    $("#<portlet:namespace/>communicationMobileNumber").val(data.mobileNum);
+         	           		$("#<portlet:namespace/>communicationWebsite").val(data.website);       
                  	   }
                     },error: function(){	             
                     }
@@ -1283,6 +1574,58 @@ function loadUserCommunicationPreferences(){
 
 	         });
 		});
+}
+
+
+function saveProfileTest(buttonRequest){
+	  var frm = $('#<portlet:namespace/>updateProfileForm');
+	  frm.submit(function (e) {
+		  e.preventDefault(e);
+	  var formData = new FormData(this);
+
+	  $.ajax({
+	    async: true,
+	    type: frm.attr('method'),
+	    url: "<%=Test.toString() %>",
+	    data: formData,
+	    cache: false,
+	    processData: false,
+	    contentType: false,
+
+	    success: function (data) {
+	      console.log("success")
+	    },
+	    error: function(request, status, error) {
+	      console.log("error")
+	    }
+	  });
+	});
+	
+	/* AUI().use('aui-io-request-deprecated', function(A){
+        A.io.request("<portlet:resourceURL id='saveProfileFormTest'/>", {
+               method: 'get',
+               data:{ 		            	   
+               },
+               form: {
+                   id: '<portlet:namespace/>updateProfileForm',
+                   upload:true
+               },
+               cache: false,
+               contentType: false,
+               processData: false,
+               on: {
+            	   start:function(){
+            	   },
+            	   complete: function(data){
+            		   debugger;
+            		   
+                   },
+                   failure:function(data){
+                	   
+                   }
+               }
+            });
+    	}); */
 }
 
 function  loadProfessionalBio(){
@@ -1301,7 +1644,7 @@ function  loadProfessionalBio(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>professionalBioId").val(data.professionalBioId);
          	                $("#<portlet:namespace/>areasofexpertise1").val(data.areasofexpertise1);
@@ -1310,8 +1653,10 @@ function  loadProfessionalBio(){
          	               	$("#<portlet:namespace/>experienceLevelUI").val(data.experienceLevelUI);
          	              	$("#<portlet:namespace/>experienceLevel").val(data.experienceLevel);
          	             	$("#<portlet:namespace/>cvLink").val(data.cvLink);
-         	           		$("#<portlet:namespace/>bioDescription").val(data.bioDescription);      	           		
+         	           		$("#<portlet:namespace/>bioDescription").val(data.bioDescription);
+         	           		$("#<portlet:namespace/>bioDiscipline").val(data.bioDiscipline);
                  	   }
+                    	$("#editProfessionalBioLoader").fadeOut();
                     },error: function(){	             
                     }
 				},
@@ -1336,7 +1681,7 @@ function loadInstituteProfile(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
          	        		$("#<portlet:namespace/>institutionProfileId").val(data.institutionProfileId);
          	                $("#<portlet:namespace/>institutionName").val(data.institutionName);
@@ -1439,6 +1784,15 @@ function deleteCollaborationInterest(id){
 
 
 $(document).ready(function(){
+	
+	var url_param = '<%=themeDisplay.getURLPortal()+themeDisplay.getURLCurrent() %>';
+	var current_url = new URL(url_param);
+	var param = current_url.searchParams.get("param");
+	console.log("param==="+param);
+	if(param!="" && param=="interest"){
+		$("html, body").animate({ scrollTop: $(".collaboration").offset().top }, 500);
+	}
+		
 	$('.formGroupmb0 .form-control').each(
     function(){ 
         var val = $(this).val().trim();
@@ -1465,7 +1819,7 @@ $(document).ready(function(){
 	checkFormFields();
 	
 	$(".fa-plus-circle").on("click", function(){
-		$(this).parents('.formGroupmb0').addClass("showIcon");
+		/* $(this).parents('.formGroupmb0').addClass("showIcon"); */
 		$(this).parents('.formGroupmb0').next().removeClass("d-none");
 		$(this).parents('.formGroupmb0').next().addClass("d-flex");
 		checkFormFields();
@@ -1474,7 +1828,7 @@ $(document).ready(function(){
 		$(this).parents().removeClass("active");
 		$(this).parents('.formGroupmb0').removeClass("d-flex");
 		$(this).parents('.formGroupmb0').addClass("d-none");
-		$(this).parents('.formGroupmb0').prev().removeClass("showIcon");
+		/* $(this).parents('.formGroupmb0').prev().removeClass("showIcon"); */
 		$(this).parent().siblings().find('.form-control').val('');
 		checkFormFields();
 	});
@@ -1490,6 +1844,10 @@ $(document).ready(function(){
 		if(selectedLocation === "All") {
 			$("[id^='<portlet:namespace/>location']").parents('.selectableDR').removeClass("active");
 			$(this).parents('.selectableDR').addClass("active");
+			$("#<portlet:namespace/>location2, #<portlet:namespace/>location3, #<portlet:namespace/>location4").val("");
+			$(".selectableDR.showIfNotAll").hide();
+		} else {
+			$(".selectableDR.showIfNotAll").show();
 		}
 		
 	});
@@ -1553,30 +1911,79 @@ $(document).ready(function(){
 	
 	$("#<portlet:namespace/>discipline1").on("change", function(){
 		var selectedDiscpiline = $(this).val();
-		$("#<portlet:namespace/>discipline2 option[value='"+selectedDiscpiline+"']").remove();
-		$("#<portlet:namespace/>discipline3 option[value='"+selectedDiscpiline+"']").remove();
+		if(selectedDiscpiline != "") {
+			$("#<portlet:namespace/>discipline2 option[value='"+selectedDiscpiline+"']").remove();
+			$("#<portlet:namespace/>discipline3 option[value='"+selectedDiscpiline+"']").remove();
+		}
+		if(selectedDiscpiline == "") {
+			$("#<portlet:namespace/>discipline2, #<portlet:namespace/>discipline3").parents(".selectableDR").removeClass("active");
+			$("#<portlet:namespace/>discipline2, #<portlet:namespace/>discipline3").val("");
+		}
 	});
 	$("#<portlet:namespace/>discipline2").on("change", function(){
 		var selectedDiscpiline = $(this).val();
-		$("#<portlet:namespace/>discipline3 option[value='"+selectedDiscpiline+"']").remove();
+		if(selectedDiscpiline != "") {
+			$("#<portlet:namespace/>discipline3 option[value='"+selectedDiscpiline+"']").remove();
+		}
+		if(selectedDiscpiline == "") {
+			$("#<portlet:namespace/>discipline3").parents(".selectableDR").removeClass("active");
+			$("#<portlet:namespace/>discipline3").val("");
+		}
 	});
 	$("#<portlet:namespace/>disciplineEdit1").on("change", function(){
 		var selectedDiscpiline = $(this).val();
-		$(" #<portlet:namespace/>disciplineEdit2 option[value='"+selectedDiscpiline+"']").remove();
-		$(" #<portlet:namespace/>disciplineEdit3 option[value='"+selectedDiscpiline+"']").remove();
+		if(selectedDiscpiline != "") {
+			$(" #<portlet:namespace/>disciplineEdit2 option[value='"+selectedDiscpiline+"']").remove();
+			$(" #<portlet:namespace/>disciplineEdit3 option[value='"+selectedDiscpiline+"']").remove();
+		}
+		if(selectedDiscpiline == "") {
+			$("#<portlet:namespace/>disciplineEdit2, #<portlet:namespace/>disciplineEdit3").parents(".selectableDR").removeClass("active");
+			$("#<portlet:namespace/>disciplineEdit2, #<portlet:namespace/>disciplineEdit3").val("");
+		}
 	});
 	$("#<portlet:namespace/>disciplineEdit2").on("change", function(){
 		var selectedDiscpiline = $(this).val();
-		$(" #<portlet:namespace/>disciplineEdit3 option[value='"+selectedDiscpiline+"']").remove();
+		if(selectedDiscpiline != "") {
+			$(" #<portlet:namespace/>disciplineEdit3 option[value='"+selectedDiscpiline+"']").remove();
+		}
+		if(selectedDiscpiline == "") {
+			$("#<portlet:namespace/>disciplineEdit3").parents(".selectableDR").removeClass("active");
+			$("#<portlet:namespace/>disciplineEdit3").val("");
+		}
 	});
 	
 	$("[id^='<portlet:namespace/>collaborationType']").on("change", function(){ debugger;
 		$('.selectableDR, .selectableDREdit').not(".first").hide();
 		var selectedCollaborationType = $(this).val();
 		if(selectedCollaborationType === "Global") {
-			$('.selectableDR, .selectableDREdit').show();
+			$(".selectableDR:not(.showIfNotAll)").show();
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').val("All");
+		} 
+		if(selectedCollaborationType === "Departmental" || selectedCollaborationType === "Institutional") {
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').parents(".selectableDR").removeClass("active").show();
+		} 
+		else {
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').parents(".selectableDR").addClass("active").show();
+		}
+		if(selectedCollaborationType === "Regional") {
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').val(userRegional);
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').parents(".selectableDR").removeClass("active").show();
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').parent(".form-group").removeClass("has-error");
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').parent(".form-group").find(".form-validator-stack").remove();
+		} else if (selectedCollaborationType === "Departmental" || selectedCollaborationType === "Institutional") {
+			$('#<portlet:namespace/>location1, #<portlet:namespace/>locationEdit1').val("");
 		} 
 	});
+	
+	$('#add-interest-modal, #view-more-interest-modal').on('shown.bs.modal', function () {
+		$("#add-interest-modal .form-group, #view-more-interest-modal .form-group").removeClass("has-error");
+		$("#add-interest-modal .form-group .form-validator-stack, #view-more-interest-modal .form-group .form-validator-stack").remove();
+	});
+	
+	/* $(".loaderContainer").removeClass("d-flex"); */
+	$("#editInstitutionalProfileLoader").fadeOut();
+	$("#editCommunicationPreferencesLoader").fadeOut();
+	$("#editCredentialsLoader").fadeOut();
 	
 });
 

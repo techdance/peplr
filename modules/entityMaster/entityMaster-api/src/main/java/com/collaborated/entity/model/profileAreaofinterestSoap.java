@@ -60,6 +60,8 @@ public class profileAreaofinterestSoap implements Serializable {
 		soapModel.setRangerYearEnd(model.getRangerYearEnd());
 		soapModel.setRangerMonthStart(model.getRangerMonthStart());
 		soapModel.setRangerMonthEnd(model.getRangerMonthEnd());
+		soapModel.setUniversityName(model.getUniversityName());
+		soapModel.setGroupName(model.getGroupName());
 
 		return soapModel;
 	}
@@ -315,6 +317,22 @@ public class profileAreaofinterestSoap implements Serializable {
 		_rangerMonthEnd = rangerMonthEnd;
 	}
 
+	public String getUniversityName() {
+		return _universityName;
+	}
+
+	public void setUniversityName(String universityName) {
+		_universityName = universityName;
+	}
+
+	public String getGroupName() {
+		return _groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		_groupName = groupName;
+	}
+
 	private long _PK_areaofinterest;
 	private long _groupId;
 	private long _userId;
@@ -340,4 +358,6 @@ public class profileAreaofinterestSoap implements Serializable {
 	private int _rangerYearEnd;
 	private String _rangerMonthStart;
 	private String _rangerMonthEnd;
+	private String _universityName;
+	private String _groupName;
 }

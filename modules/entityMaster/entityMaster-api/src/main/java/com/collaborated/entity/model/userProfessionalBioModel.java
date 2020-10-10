@@ -236,6 +236,21 @@ public interface userProfessionalBioModel extends BaseModel<userProfessionalBio>
 	 */
 	public void setBiodescription(String biodescription);
 
+	/**
+	 * Returns the bio discipline of this user professional bio.
+	 *
+	 * @return the bio discipline of this user professional bio
+	 */
+	@AutoEscape
+	public String getBioDiscipline();
+
+	/**
+	 * Sets the bio discipline of this user professional bio.
+	 *
+	 * @param bioDiscipline the bio discipline of this user professional bio
+	 */
+	public void setBioDiscipline(String bioDiscipline);
+
 	@Override
 	public boolean isNew();
 

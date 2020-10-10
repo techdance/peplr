@@ -83,6 +83,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 			{ "tertiaryLanguageName", Types.VARCHAR },
 			{ "emailAddress", Types.VARCHAR },
 			{ "phoneNumber", Types.VARCHAR },
+			{ "mobileNumber", Types.VARCHAR },
 			{ "website", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
@@ -101,10 +102,11 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		TABLE_COLUMNS_MAP.put("tertiaryLanguageName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("emailAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("mobileNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("website", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_communicationPreferences (PK_communicationPreferences LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,primaryLanguageId LONG,primaryLanguageName VARCHAR(75) null,secondaryLanguageId LONG,secondaryLanguageName VARCHAR(75) null,tertiaryLanguageId LONG,tertiaryLanguageName VARCHAR(75) null,emailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,website VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_communicationPreferences (PK_communicationPreferences LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,primaryLanguageId LONG,primaryLanguageName VARCHAR(75) null,secondaryLanguageId LONG,secondaryLanguageName VARCHAR(75) null,tertiaryLanguageId LONG,tertiaryLanguageName VARCHAR(75) null,emailAddress VARCHAR(75) null,phoneNumber VARCHAR(75) null,mobileNumber VARCHAR(75) null,website VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_communicationPreferences";
 	public static final String ORDER_BY_JPQL = " ORDER BY communicationPreferences.PK_communicationPreferences ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_communicationPreferences.PK_communicationPreferences ASC";
@@ -146,6 +148,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		model.setTertiaryLanguageName(soapModel.getTertiaryLanguageName());
 		model.setEmailAddress(soapModel.getEmailAddress());
 		model.setPhoneNumber(soapModel.getPhoneNumber());
+		model.setMobileNumber(soapModel.getMobileNumber());
 		model.setWebsite(soapModel.getWebsite());
 
 		return model;
@@ -226,6 +229,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		attributes.put("tertiaryLanguageName", getTertiaryLanguageName());
 		attributes.put("emailAddress", getEmailAddress());
 		attributes.put("phoneNumber", getPhoneNumber());
+		attributes.put("mobileNumber", getMobileNumber());
 		attributes.put("website", getWebsite());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -316,6 +320,12 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
+		}
+
+		String mobileNumber = (String)attributes.get("mobileNumber");
+
+		if (mobileNumber != null) {
+			setMobileNumber(mobileNumber);
 		}
 
 		String website = (String)attributes.get("website");
@@ -517,6 +527,22 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 	@JSON
 	@Override
+	public String getMobileNumber() {
+		if (_mobileNumber == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _mobileNumber;
+		}
+	}
+
+	@Override
+	public void setMobileNumber(String mobileNumber) {
+		_mobileNumber = mobileNumber;
+	}
+
+	@JSON
+	@Override
 	public String getWebsite() {
 		if (_website == null) {
 			return StringPool.BLANK;
@@ -571,6 +597,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		communicationPreferencesImpl.setTertiaryLanguageName(getTertiaryLanguageName());
 		communicationPreferencesImpl.setEmailAddress(getEmailAddress());
 		communicationPreferencesImpl.setPhoneNumber(getPhoneNumber());
+		communicationPreferencesImpl.setMobileNumber(getMobileNumber());
 		communicationPreferencesImpl.setWebsite(getWebsite());
 
 		communicationPreferencesImpl.resetOriginalValues();
@@ -714,6 +741,14 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 			communicationPreferencesCacheModel.phoneNumber = null;
 		}
 
+		communicationPreferencesCacheModel.mobileNumber = getMobileNumber();
+
+		String mobileNumber = communicationPreferencesCacheModel.mobileNumber;
+
+		if ((mobileNumber != null) && (mobileNumber.length() == 0)) {
+			communicationPreferencesCacheModel.mobileNumber = null;
+		}
+
 		communicationPreferencesCacheModel.website = getWebsite();
 
 		String website = communicationPreferencesCacheModel.website;
@@ -727,7 +762,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{PK_communicationPreferences=");
 		sb.append(getPK_communicationPreferences());
@@ -755,6 +790,8 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		sb.append(getEmailAddress());
 		sb.append(", phoneNumber=");
 		sb.append(getPhoneNumber());
+		sb.append(", mobileNumber=");
+		sb.append(getMobileNumber());
 		sb.append(", website=");
 		sb.append(getWebsite());
 		sb.append("}");
@@ -764,7 +801,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.collaborated.entity.model.communicationPreferences");
@@ -823,6 +860,10 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 		sb.append(getPhoneNumber());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>mobileNumber</column-name><column-value><![CDATA[");
+		sb.append(getMobileNumber());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>website</column-name><column-value><![CDATA[");
 		sb.append(getWebsite());
 		sb.append("]]></column-value></column>");
@@ -850,6 +891,7 @@ public class communicationPreferencesModelImpl extends BaseModelImpl<communicati
 	private String _tertiaryLanguageName;
 	private String _emailAddress;
 	private String _phoneNumber;
+	private String _mobileNumber;
 	private String _website;
 	private communicationPreferences _escapedModel;
 }

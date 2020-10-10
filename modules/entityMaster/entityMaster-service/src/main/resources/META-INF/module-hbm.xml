@@ -4,12 +4,34 @@
 <hibernate-mapping auto-import="false" default-lazy="false">
 	<import class="com.collaborated.entity.model.commonWebsserviceAPI" />
 	<import class="com.collaborated.entity.model.communicationPreferences" />
+	<import class="com.collaborated.entity.model.Custom_Calendar" />
+	<import class="com.collaborated.entity.model.Custom_Workflow" />
+	<import class="com.collaborated.entity.model.Custom_Workflow_Completed" />
+	<import class="com.collaborated.entity.model.Custom_Workflow_Task" />
+	<import class="com.collaborated.entity.model.Custom_Workflow_Transition" />
+	<import class="com.collaborated.entity.model.Custom_WorkflowLog" />
+	<import class="com.collaborated.entity.model.labDetailedActivityTable" />
+	<import class="com.collaborated.entity.model.labDetailedCourseHours" />
+	<import class="com.collaborated.entity.model.labDetailedCourseIdentification" />
+	<import class="com.collaborated.entity.model.labDetailedCourseObjectives" />
+	<import class="com.collaborated.entity.model.labDetailedCourseResources" />
+	<import class="com.collaborated.entity.model.labDetailedCourseTopics" />
+	<import class="com.collaborated.entity.model.labDetailedInstructorQualification" />
+	<import class="com.collaborated.entity.model.labDetailedLearningEnvironments" />
+	<import class="com.collaborated.entity.model.labScreenProjectOverview" />
+	<import class="com.collaborated.entity.model.labScreenProjectPartners" />
+	<import class="com.collaborated.entity.model.labScreenTask" />
 	<import class="com.collaborated.entity.model.languagePreferences" />
 	<import class="com.collaborated.entity.model.profileAreaofinterest" />
+	<import class="com.collaborated.entity.model.projectDiscussion" />
+	<import class="com.collaborated.entity.model.projectFilesUpload" />
+	<import class="com.collaborated.entity.model.projectFolderUpload" />
+	<import class="com.collaborated.entity.model.projectInviteTracking" />
 	<import class="com.collaborated.entity.model.userCredential" />
 	<import class="com.collaborated.entity.model.userInstitutionProfileDetails" />
 	<import class="com.collaborated.entity.model.userInstitutionProfileSubDetails" />
 	<import class="com.collaborated.entity.model.userProfessionalBio" />
+	<import class="com.collaborated.entity.model.userProfileImage" />
 	<class name="com.collaborated.entity.model.impl.commonWebsserviceAPIImpl" table="collaborated_commonWebsserviceAPI">
 		<id name="commonAPIId" type="long">
 			<generator class="assigned" />
@@ -31,7 +53,253 @@
 		<property name="tertiaryLanguageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="phoneNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="mobileNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="website" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_CalendarImpl" table="collaborated_Custom_Calendar">
+		<id name="PK_calendarEventId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="calendarResourceId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="timeZoneId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="startDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="endDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="startTime" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="endTime" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="eventTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_WorkflowImpl" table="collaborated_Custom_Workflow">
+		<id name="workFlowId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="workFlowName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="startWorkflowTaskId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isActive" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+		<property name="createdBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_Workflow_CompletedImpl" table="collaborated_Custom_Workflow_Completed">
+		<id access="com.liferay.portal.dao.orm.hibernate.CamelCasePropertyAccessor" name="cId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="trackingId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="workflowId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="workflowTaskId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="trasitionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="logDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="completedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_Workflow_TaskImpl" table="collaborated_Custom_Workflow_Task">
+		<id name="workFlowTaskId" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="workFlowId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="taskName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="roleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="roleName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+		<property name="createdBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_Workflow_TransitionImpl" table="collaborated_Custom_Workflow_Transition">
+		<id name="transitionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="workFlowId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="workFlowTaskId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="transitionName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="logDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="next_WorkFlowTaskId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isEnd" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_WorkflowLogImpl" table="collaborated_Custom_WorkflowLog">
+		<id name="logId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="trackingId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="workflowId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="workflowTaskId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="trasitionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="logDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="assigneeClassPK" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="className" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="assignedDate" type="org.hibernate.type.TimestampType" />
+		<property name="completedDate" type="org.hibernate.type.TimestampType" />
+		<property name="createdBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedActivityTableImpl" table="collaborated_labDetailedActivityTable">
+		<id name="PK_activityTableId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="week" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="courseObjective" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="learningEnvironmentDesign" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="activity" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedCourseHoursImpl" table="collaborated_labDetailedCourseHours">
+		<id name="PK_courseHoursId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="numberOfCredits" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="numberOfCourseWeeks" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="courseHoursPerWeek" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="lectureHoursPerWeek" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="labHoursPerWeek" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="independentStudyHoursPerWeek" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedCourseIdentificationImpl" table="collaborated_labDetailedCourseIdentification">
+		<id name="PK_courseId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="courseTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="courseNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="prerequisites" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="courseDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedCourseObjectivesImpl" table="collaborated_labDetailedCourseObjectives">
+		<id name="PK_courseObjectivesId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="courseObjective" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedCourseResourcesImpl" table="collaborated_labDetailedCourseResources">
+		<id name="PK_courseResourceId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="textbokTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="publisherName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="author" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isbn" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedCourseTopicsImpl" table="collaborated_labDetailedCourseTopics">
+		<id name="PK_courseTopicsId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="courseTopic" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedInstructorQualificationImpl" table="collaborated_labDetailedInstructorQualification">
+		<id name="PK_courseInstructorQualificationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="instructor1Qualification" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="instructor2Qualification" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labDetailedLearningEnvironmentsImpl" table="collaborated_labDetailedLearningEnvironments">
+		<id name="PK_learningEnvironmentId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="learningEnvironment" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labScreenProjectOverviewImpl" table="collaborated_labScreenProjectOverview">
+		<id name="PK_projectId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="projectOwnerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="projectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectDiscipline1" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectDiscipline2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectDiscipline3" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="role" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectStartDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectEndDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectDocumentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="percentage" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="interestId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="projectStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labScreenProjectPartnersImpl" table="collaborated_labScreenProjectPartners">
+		<id name="PK_projectPartnerId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="projectPartnerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="isActive" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.labScreenTaskImpl" table="collaborated_labScreenTask">
+		<id name="PK_taskId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="milestoneName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="taskName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectAssignedTo" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="taskDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="taskStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="dueDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.languagePreferencesImpl" table="collaborated_languagePreferences">
 		<id name="PK_languagePreferences" type="long">
@@ -70,6 +338,69 @@
 		<property name="rangerYearEnd" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="rangerMonthStart" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="rangerMonthEnd" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="universityName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="groupName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.projectDiscussionImpl" table="collaborated_projectDiscussion">
+		<id name="PK_projectDiscussionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdOn" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="interestId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="senderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="imageUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.projectFilesUploadImpl" table="collaborated_projectFilesUpload">
+		<id name="PK_projectFileId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdOn" type="org.hibernate.type.TimestampType" />
+		<property name="deletedOn" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="deletedBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="PK_projectFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileEntryId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.projectFolderUploadImpl" table="collaborated_projectFolderUpload">
+		<id name="PK_projectFolderId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdOn" type="org.hibernate.type.TimestampType" />
+		<property name="deletedOn" type="org.hibernate.type.TimestampType" />
+		<property name="interestId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="deletedBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="parentFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="folderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="folderName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.projectInviteTrackingImpl" table="collaborated_projectInviteTracking">
+		<id name="PK_projectInvitationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="inviteFrom" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="inviteTo" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="invitationStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="isRead" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="isRemoved" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="messageTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="messageContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="emailContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.userCredentialImpl" table="collaborated_userCredential">
 		<id name="PK_userCredential" type="long">
@@ -124,5 +455,25 @@
 		<property name="experienceyears" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cvlink" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="biodescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="bioDiscipline" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.userProfileImageImpl" table="collaborated_userProfileImage">
+		<id name="PK_profileImageId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createdOn" type="org.hibernate.type.TimestampType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileEntryId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fileEntryUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<one-to-one access="com.liferay.portal.dao.orm.hibernate.PrivatePropertyAccessor" cascade="save-update" class="com.collaborated.entity.model.userProfileImageBlobDataBlobModel" constrained="true" name="blobDataBlobModel" outer-join="false" />
+	</class>
+	<class lazy="true" name="com.collaborated.entity.model.userProfileImageBlobDataBlobModel" table="collaborated_userProfileImage">
+		<id column="PK_profileImageId" name="PK_profileImageId">
+			<generator class="foreign">
+				<param name="property">com.collaborated.entity.model.impl.userProfileImageImpl</param>
+			</generator>
+		</id>
+		<property column="blobData" name="blobDataBlob" type="blob" />
 	</class>
 </hibernate-mapping>

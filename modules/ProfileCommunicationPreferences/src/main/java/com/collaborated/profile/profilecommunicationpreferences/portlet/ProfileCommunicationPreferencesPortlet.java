@@ -16,6 +16,7 @@ import com.liferay.portal.kernel.service.ListTypeServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -32,6 +33,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -43,28 +46,13 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.display-name=ProfileCommunicationPreferences Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
+		"com.liferay.portlet.private-session-attributes=false",
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
 	service = Portlet.class
 )
 public class ProfileCommunicationPreferencesPortlet extends MVCPortlet {
-	
-	public static long selectedProfileMatching = 0;
-	
-	@Override
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		PortletSession ps = request.getPortletSession();
-		Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
-		selectedProfileMatching = 0;
-		if (obj == null) {
-			System.out.println("PortletSession attribute NOT found");
-		} else {
-			selectedProfileMatching = Long.valueOf(obj.toString());
-			System.out.println("PortletSession attribute found"+selectedProfileMatching);
-		}
-		super.render(request, response);
-	}
 	
 	@Override
 	public void serveResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) throws IOException,PortletException {
@@ -82,22 +70,57 @@ public class ProfileCommunicationPreferencesPortlet extends MVCPortlet {
 		try{
 			out = resourceResponse.getWriter();
 			
-			long userId = themeDisplay.getUserId();
+			long userId = 0;
+			long selectedProfileMatching = 0;
+			HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(resourceRequest);
+			httprequest = PortalUtil.getOriginalServletRequest(httprequest);
+
+			HttpSession httpsession = httprequest.getSession();
+			long currentUser = 0;
+			System.out.println(httpsession.getAttribute("currentUser"));
+			if(httpsession.getAttribute("currentUser")!=null){
+				currentUser = (Long)httpsession.getAttribute("currentUser");
+				if(currentUser>0 && currentUser==themeDisplay.getUserId()){
+					String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
+					selectedProfileMatching = new Long(sessionuserID);	
+				}
+			}
 			if(selectedProfileMatching>0){
 				userId = selectedProfileMatching;
+			}else{
+				userId = themeDisplay.getUserId();
 			}
-			
+			String primName = "", secondName = "", tertiaryName = "";
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(communicationPreferences.class, PortalClassLoaderUtil.getClassLoader());
 			dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(userId)));
 			List<communicationPreferences> communicationPreferences = communicationPreferencesLocalServiceUtil.dynamicQuery(dynamicQuery);
+			System.out.println("userId==="+Long.valueOf(userId));
+			System.out.println("communicationPreferences==="+communicationPreferences.size());
 			if(communicationPreferences.size()>0){
 				jsonObject = JSONFactoryUtil.createJSONObject();
-				jsonObject.put("primaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getPrimaryLanguageId()));
-				jsonObject.put("secondaryLanguage_Communication", getLanguageName(communicationPreferences.get(0).getSecondaryLanguageId()));
+				System.out.println(communicationPreferences.get(0).getPrimaryLanguageId()!=0);
+				if(communicationPreferences.get(0).getPrimaryLanguageId()!=0){
+					primName = getLanguageName(communicationPreferences.get(0).getPrimaryLanguageId());
+				}
+				System.out.println(communicationPreferences.get(0).getSecondaryLanguageId()!=0);
+				if(communicationPreferences.get(0).getSecondaryLanguageId()!=0){
+					secondName = getLanguageName(communicationPreferences.get(0).getSecondaryLanguageId());
+				}
+				System.out.println(communicationPreferences.get(0).getTertiaryLanguageId()!=0);
+				if(communicationPreferences.get(0).getTertiaryLanguageId()!=0){
+					tertiaryName = getLanguageName(communicationPreferences.get(0).getTertiaryLanguageId());
+				}
+				System.out.println(primName+"===="+secondName);
+				jsonObject.put("primaryLanguage_Communication", primName);
+				jsonObject.put("secondaryLanguage_Communication", secondName);
+				jsonObject.put("tertiaryLanguage_Communication", tertiaryName);
 				jsonObject.put("emailId_Communication", communicationPreferences.get(0).getEmailAddress());
-				jsonObject.put("phoneNumber_Communication", communicationPreferences.get(0).getPhoneNumber().substring(1));
+				jsonObject.put("phoneNumber_Communication", communicationPreferences.get(0).getPhoneNumber());
 				jsonObject.put("website_Communication", communicationPreferences.get(0).getWebsite());
+				jsonObject.put("mobileNumber_Communication", communicationPreferences.get(0).getMobileNumber());
+				System.out.println("Before==="+jsonObject);
 			}
+			System.out.println("After==="+jsonObject);
 			out.print(jsonObject);
 		}catch(Exception e){
 			

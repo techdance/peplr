@@ -69,6 +69,7 @@ public class userProfessionalBioWrapper implements userProfessionalBio,
 		attributes.put("experienceyears", getExperienceyears());
 		attributes.put("cvlink", getCvlink());
 		attributes.put("biodescription", getBiodescription());
+		attributes.put("bioDiscipline", getBioDiscipline());
 
 		return attributes;
 	}
@@ -140,6 +141,12 @@ public class userProfessionalBioWrapper implements userProfessionalBio,
 
 		if (biodescription != null) {
 			setBiodescription(biodescription);
+		}
+
+		String bioDiscipline = (String)attributes.get("bioDiscipline");
+
+		if (bioDiscipline != null) {
+			setBioDiscipline(bioDiscipline);
 		}
 	}
 
@@ -227,6 +234,16 @@ public class userProfessionalBioWrapper implements userProfessionalBio,
 	@Override
 	public java.lang.String getAreaofexpertise3() {
 		return _userProfessionalBio.getAreaofexpertise3();
+	}
+
+	/**
+	* Returns the bio discipline of this user professional bio.
+	*
+	* @return the bio discipline of this user professional bio
+	*/
+	@Override
+	public java.lang.String getBioDiscipline() {
+		return _userProfessionalBio.getBioDiscipline();
 	}
 
 	/**
@@ -372,6 +389,16 @@ public class userProfessionalBioWrapper implements userProfessionalBio,
 	@Override
 	public void setAreaofexpertise3(java.lang.String areaofexpertise3) {
 		_userProfessionalBio.setAreaofexpertise3(areaofexpertise3);
+	}
+
+	/**
+	* Sets the bio discipline of this user professional bio.
+	*
+	* @param bioDiscipline the bio discipline of this user professional bio
+	*/
+	@Override
+	public void setBioDiscipline(java.lang.String bioDiscipline) {
+		_userProfessionalBio.setBioDiscipline(bioDiscipline);
 	}
 
 	/**

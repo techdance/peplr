@@ -376,6 +376,8 @@ public class profileAreaofinterestPersistenceImpl extends BasePersistenceImpl<pr
 		profileAreaofinterestImpl.setRangerYearEnd(profileAreaofinterest.getRangerYearEnd());
 		profileAreaofinterestImpl.setRangerMonthStart(profileAreaofinterest.getRangerMonthStart());
 		profileAreaofinterestImpl.setRangerMonthEnd(profileAreaofinterest.getRangerMonthEnd());
+		profileAreaofinterestImpl.setUniversityName(profileAreaofinterest.getUniversityName());
+		profileAreaofinterestImpl.setGroupName(profileAreaofinterest.getGroupName());
 
 		return profileAreaofinterestImpl;
 	}

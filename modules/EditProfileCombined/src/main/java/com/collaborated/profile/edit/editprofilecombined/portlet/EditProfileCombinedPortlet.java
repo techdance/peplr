@@ -3,12 +3,16 @@ package com.collaborated.profile.edit.editprofilecombined.portlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,19 +25,25 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import com.collaborated.entity.model.communicationPreferences;
 import com.collaborated.entity.model.profileAreaofinterest;
+import com.collaborated.entity.model.projectInviteTracking;
 import com.collaborated.entity.model.userCredential;
 import com.collaborated.entity.model.userInstitutionProfileDetails;
 import com.collaborated.entity.model.userInstitutionProfileSubDetails;
 import com.collaborated.entity.model.userProfessionalBio;
+import com.collaborated.entity.model.userProfileImage;
 import com.collaborated.entity.service.communicationPreferencesLocalServiceUtil;
 import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
+import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
 import com.collaborated.entity.service.userCredentialLocalServiceUtil;
 import com.collaborated.entity.service.userInstitutionProfileDetailsLocalServiceUtil;
 import com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalServiceUtil;
 import com.collaborated.entity.service.userProfessionalBioLocalServiceUtil;
+import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.document.library.kernel.exception.DuplicateFileException;
 import com.liferay.document.library.kernel.model.DLFileEntry;
@@ -46,9 +56,11 @@ import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -72,6 +84,7 @@ import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -83,6 +96,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 		"javax.portlet.display-name=EditProfileCombined Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
+		"com.liferay.portlet.private-session-attributes=false",
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
@@ -91,12 +105,28 @@ import com.liferay.portal.kernel.util.WebKeys;
 public class EditProfileCombinedPortlet extends MVCPortlet {
 	
 	final Log LOG = LogFactoryUtil.getLog(EditProfileCombinedPortlet.class);
+	JSONObject data=null;
+	JSONObject responseJSONInstitute = null;
 	
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws PortletException, IOException {
 		JSONArray listArray = getLanguageList();
 		renderRequest.setAttribute("languageList", listArray);
-		//System.out.println(listArray);
+		PortletSession ps = renderRequest.getPortletSession();
+		//userJSON = (JSONObject)ps.getAttribute("USER_PROFILE", PortletSession.APPLICATION_SCOPE);
+		//ps.getAttribute("MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
+		
+		String apiURL = PropsUtil.get("INSTITUTION_PROFILE_API_URL");
+        String institutionProfileResonse = getMethodAPI(apiURL); 
+	    try {
+	    	responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
+		    data = responseJSONInstitute.getJSONObject("data");
+		    ps.setAttribute("INSTITUTE_PROFILE", data, PortletSession.APPLICATION_SCOPE);
+	    } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	    }
+		
 		super.doView(renderRequest, renderResponse); // make sure this is the last line in your method
 	}
 	
@@ -136,7 +166,14 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			removeCollaborationInterest(resourceRequest,resourceResponse);
 		}else if(resourceID !=null && resourceID.equals("updateAreaofinterest")){
 			updateAreaofinterest(resourceRequest,resourceResponse);
-		}
+		}/*else if(resourceID !=null && resourceID.equals("Test")){
+			saveProfileFormTest(resourceRequest,resourceResponse);
+		}*/
+	}
+	
+	public void saveProfileFormTest(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException {
+		System.out.println("Save profile button hit");
+		saveProfileForm(resourceRequest,resourceResponse);
 	}
 	
 	public void updateAreaofinterest(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException {
@@ -220,15 +257,27 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		}
 	}
 	
+	private boolean isFolderExistProfile(long parentFolderId, long repositoryId,String userIdForFolder) {
+		boolean folderExist = false;
+		try {
+			DLAppServiceUtil.getFolder(repositoryId, parentFolderId,userIdForFolder);
+			folderExist = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return folderExist;
+	}
+	
 	public void saveProfileForm(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(resourceRequest);
 		
 		//Personal Information
-		String firstName = uploadRequest.getParameter("firstName");
+		/*String firstName = uploadRequest.getParameter("firstName");
 		String lastName = uploadRequest.getParameter("lastName");
 		String prefixValue = uploadRequest.getParameter("prefixValue").toLowerCase();
-		String jobTitle = uploadRequest.getParameter("jobTitle");
+		String jobTitle = uploadRequest.getParameter("jobTitle");*/
 		File file = uploadRequest.getFile("file");
 		
 		//Credentials Form
@@ -244,7 +293,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		//Communication Preferences form
 		String emailAddress = ParamUtil.getString(resourceRequest, "communicationEmail");
 		String phoneNumberChar = ParamUtil.getString(resourceRequest, "communicationPhoneNumber");
-		String phoneNumber = phoneNumberChar.replaceAll("[^a-zA-Z0-9]", "");
+		String communicationMobileNumber = ParamUtil.getString(resourceRequest, "communicationMobileNumber");
+		//String phoneNumber = phoneNumberChar.replaceAll("[^a-zA-Z0-9]", "");
 		String website = ParamUtil.getString(resourceRequest, "communicationWebsite");	
 		long primaryLanguageID = ParamUtil.getLong(resourceRequest, "primaryLanguage");
 		long secondaryLanguageID = ParamUtil.getLong(resourceRequest, "secondaryLanguage");
@@ -304,6 +354,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		String experienceLevel = ParamUtil.getString(resourceRequest, "experienceLevel");
 		String cvLink = ParamUtil.getString(resourceRequest, "cvLink");
 		String bioDescription = ParamUtil.getString(resourceRequest, "bioDescription");
+		String bioDiscipline = ParamUtil.getString(resourceRequest, "bioDiscipline");
 		long professionalBioId = ParamUtil.getLong(resourceRequest, "professionalBioId");
 		
 		
@@ -324,13 +375,13 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				ServiceContext serviceContext = ServiceContextFactory.getInstance(User.class.getName(), resourceRequest);
 				user = themeDisplay.getUser();
 				if(user!=null){
-					user.setFirstName(firstName);
-					user.setLastName(lastName);
-					user.setJobTitle(jobTitle);
+					//user.setFirstName(firstName);
+					//user.setLastName(lastName);
+					//user.setJobTitle(jobTitle);
 					user.setExpandoBridgeAttributes(serviceContext);
 					UserLocalServiceUtil.updateUser(user);			
 					
-					List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");
+					/*List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");
 					for(ListType l:listType){
 						if(l.getName().toLowerCase().equals(prefixValue)){
 							prefixId = l.getListTypeId();
@@ -346,14 +397,22 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						Contact contact = ContactLocalServiceUtil.getContact(user.getContactId());
 						contact.setPrefixId(l.getListTypeId());
 						ContactLocalServiceUtil.updateContact(contact);
-					}
+					}*/
 					
-					InputStream inputStream = uploadRequest.getFileAsStream("file");
+					/*InputStream inputStream = uploadRequest.getFileAsStream("file");
 					if (Validator.isNotNull(inputStream)) {
 						byte[] bytes = FileUtil.getBytes(inputStream);
 	                    LOG.info("Image bytes [" + bytes + "]");
 	                    UserLocalServiceUtil.updatePortrait(user.getUserId(), bytes);
+					}*/
+					
+					
+					boolean profileAdded = false;
+					if (file != null && file.length() > 0) {
+						profileAdded = CommonMethods.addProfileImage(user.getUserId(),file);
 					}
+					
+					
 					out = resourceResponse.getWriter();
 					out.print("update");
 				}
@@ -379,7 +438,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						userCredential.setCertificate3(certificate3);
 						userCredentialLocalServiceUtil.adduserCredential(userCredential);
 					}
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("add");
 				}else{
 					userCredential = userCredentialLocalServiceUtil.getuserCredential(userList.get(0).getPK_userCredential());
@@ -394,7 +453,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					userCredential.setCertificate2(certificate2);
 					userCredential.setCertificate3(certificate3);
 					userCredentialLocalServiceUtil.updateuserCredential(userCredential);
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("update");
 				}
 				
@@ -404,7 +463,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				List<communicationPreferences> communicationList = communicationPreferencesLocalServiceUtil.dynamicQuery(dynamicQueryCommunicationPrefe);
 				if(communicationList.size()==0){
 					if(!(primaryLanguageName.equalsIgnoreCase("")) || !(secondaryLanguageName.equalsIgnoreCase("")) || !(tertiaryLanguageName.equalsIgnoreCase(""))
-							|| !(emailAddress.equalsIgnoreCase("")) || (phoneNumber!="") || !(website.equalsIgnoreCase(""))
+							|| !(emailAddress.equalsIgnoreCase("")) || (phoneNumberChar!="") || !(website.equalsIgnoreCase(""))
 							){
 						communicationPreferences = communicationPreferencesLocalServiceUtil.createcommunicationPreferences(CounterLocalServiceUtil.increment());
 						communicationPreferences.setUserId(themeDisplay.getUserId());
@@ -417,13 +476,15 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						communicationPreferences.setSecondaryLanguageName(secondaryLanguageName);
 						communicationPreferences.setTertiaryLanguageName(tertiaryLanguageName);
 						communicationPreferences.setEmailAddress(emailAddress);
-						communicationPreferences.setPhoneNumber("+"+phoneNumber);
+						communicationPreferences.setPhoneNumber(phoneNumberChar);
+						communicationPreferences.setMobileNumber(communicationMobileNumber);
 						communicationPreferences.setWebsite(website);
 						communicationPreferencesLocalServiceUtil.addcommunicationPreferences(communicationPreferences);
 					}
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("add");
 				}else{
+					System.out.println("primaryLanguageID========"+primaryLanguageID);
 					communicationPreferences = communicationPreferencesLocalServiceUtil.getcommunicationPreferences(communicationList.get(0).getPK_communicationPreferences());
 					communicationPreferences.setModifiedDate(new Date());
 					communicationPreferences.setUserId(themeDisplay.getUserId());
@@ -435,10 +496,11 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					communicationPreferences.setSecondaryLanguageName(secondaryLanguageName);
 					communicationPreferences.setTertiaryLanguageName(tertiaryLanguageName);
 					communicationPreferences.setEmailAddress(emailAddress);
-					communicationPreferences.setPhoneNumber("+"+phoneNumber);
+					communicationPreferences.setPhoneNumber(phoneNumberChar);
 					communicationPreferences.setWebsite(website);
+					communicationPreferences.setMobileNumber(communicationMobileNumber);
 					communicationPreferencesLocalServiceUtil.updatecommunicationPreferences(communicationPreferences);
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("update");
 				}
 				
@@ -448,7 +510,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				dynamicQueryProfessionalBio.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
 				List<userProfessionalBio> bioList = userProfessionalBioLocalServiceUtil.dynamicQuery(dynamicQueryProfessionalBio);
 				if(bioList.size()==0){
-					if(!(areasofexpertise1.equalsIgnoreCase("")) || !(areasofexpertise2.equalsIgnoreCase("")) || !(areasofexpertise3.equalsIgnoreCase(""))){
+					if(!(areasofexpertise1.equalsIgnoreCase("")) || !(areasofexpertise2.equalsIgnoreCase("")) || !(areasofexpertise3.equalsIgnoreCase(""))
+						||	!(bioDescription.equalsIgnoreCase("")) || !(bioDiscipline.equalsIgnoreCase(""))){
 						userProfessionalBio = userProfessionalBioLocalServiceUtil.createuserProfessionalBio(CounterLocalServiceUtil.increment());
 						userProfessionalBio.setUserId(themeDisplay.getUserId());
 						userProfessionalBio.setCreateDate(new Date());
@@ -459,9 +522,10 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						userProfessionalBio.setExperienceyears(experienceLevel);
 						userProfessionalBio.setCvlink(cvLink);
 						userProfessionalBio.setBiodescription(bioDescription);
+						userProfessionalBio.setBioDiscipline(bioDiscipline);
 						userProfessionalBioLocalServiceUtil.adduserProfessionalBio(userProfessionalBio);
 					}
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("add");
 				}else{
 					userProfessionalBio = userProfessionalBioLocalServiceUtil.getuserProfessionalBio(bioList.get(0).getPK_userProfessionalBio());
@@ -474,13 +538,15 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					userProfessionalBio.setExperienceyears(experienceLevel);
 					userProfessionalBio.setCvlink(cvLink);
 					userProfessionalBio.setBiodescription(bioDescription);
+					userProfessionalBio.setBioDiscipline(bioDiscipline);
 					userProfessionalBioLocalServiceUtil.updateuserProfessionalBio(userProfessionalBio);
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("update");
 				}
 				
 				profileAreaofinterest  profileAreaofinterest = null;
 				if(addInterestButton.equalsIgnoreCase("AddInterest")){
+					String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
 					addInterestId = CounterLocalServiceUtil.increment();
 					profileAreaofinterest = profileAreaofinterestLocalServiceUtil.createprofileAreaofinterest(addInterestId);
 					profileAreaofinterest.setUserId(themeDisplay.getUserId());
@@ -504,6 +570,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					profileAreaofinterest.setRangerMonthEnd(endMonthRangeAdd);
 					profileAreaofinterest.setRangerMonthStart(startMonthRange);
 					profileAreaofinterest.setRangerYearStart(startYearRange);
+					profileAreaofinterest.setUniversityName(instituteName);
 					
 					if(projectType.equalsIgnoreCase("Course Development") || projectType.equalsIgnoreCase("Curriculum Development")){
 						profileAreaofinterest.setProgramLevel(programLevel);
@@ -512,7 +579,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						profileAreaofinterest.setCredits(credits);
 					}
 					profileAreaofinterestLocalServiceUtil.addprofileAreaofinterest(profileAreaofinterest);
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("add");
 				}
 				
@@ -545,7 +612,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 							userInstitutionProfileSubDetails.setPK_userInstition(userInstitutionProfileDetails.getPK_userInstition());
 						}
 					}					
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("add");
 				}else{
 					userInstitutionProfileDetails = userInstitutionProfileDetailsLocalServiceUtil.getuserInstitutionProfileDetails(institutionList.get(0).getPK_userInstition());
@@ -567,7 +634,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 						userInstitutionProfileSubDetailsLocalServiceUtil.adduserInstitutionProfileSubDetails(userInstitutionProfileSubDetails);
 					}
 					
-					out = resourceResponse.getWriter();
+					//out = resourceResponse.getWriter();
 					out.print("update");
 				}
 				
@@ -581,13 +648,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				
 				
 				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (PortalException e) {
-				e.printStackTrace();
-			} catch (SystemException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}finally{
 				if (out != null) {
@@ -733,9 +794,9 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				ServiceContext serviceContext = ServiceContextFactory.getInstance(User.class.getName(), resourceRequest);
 				
 				User user = themeDisplay.getUser();
-				user.setFirstName(firstName);
-				user.setLastName(lastName);
-				user.setJobTitle(jobTitle);
+				//user.setFirstName(firstName);
+				//user.setLastName(lastName);
+				//user.setJobTitle(jobTitle);
 				user.setExpandoBridgeAttributes(serviceContext);
 				UserLocalServiceUtil.updateUser(user);
 				
@@ -751,18 +812,23 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					ContactLocalServiceUtil.updateContact(contact);
 				}
 								
-				InputStream inputStream = uploadRequest.getFileAsStream("file");
+				/*InputStream inputStream = uploadRequest.getFileAsStream("file");
 				if (Validator.isNotNull(inputStream)) {
 					byte[] bytes = FileUtil.getBytes(inputStream);
                     LOG.info("Image bytes [" + bytes + "]");
                     UserLocalServiceUtil.updatePortrait(user.getUserId(), bytes);
-				}
+				}*/
 				
 				/*if (file != null) {			
 					InputStream inputStream = new FileInputStream(file);
 					byte[] bytes = FileUtil.getBytes(inputStream);
 					UserServiceUtil.updatePortrait(themeDisplay.getUser().getUserId(), bytes);
 				}*/	
+				
+				boolean profileAdded = false;
+				if (file != null && file.length() > 0) {
+					profileAdded = CommonMethods.addProfileImage(user.getUserId(),file);
+				}
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -779,11 +845,13 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			}
 	}
 	
-	public void getProfileInfo(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
+	public void getProfileInfo(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		User user = null;
 		JSONObject jsonObject = null;
-		PrintWriter out = null;
+		PrintWriter out = null;OutputStream o = null;Blob blob = null;
+		String firstName = "",lastName="",jobTitle="",prefixValue="",imageURL="";
+		boolean isBase64=false;
 		try{
 			out = resourceResponse.getWriter();
 			user = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
@@ -791,21 +859,69 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject = JSONFactoryUtil.createJSONObject();
 				if(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId()!=0){
 					ListType listType = ListTypeServiceUtil.getListType(ContactLocalServiceUtil.getContact(user.getContactId()).getPrefixId());
-					jsonObject.put("prefixValue", listType.getName().toLowerCase());
+					prefixValue = listType.getName().toLowerCase();
+					//jsonObject.put("prefixValue", listType.getName().toLowerCase());
 				}else{
-					jsonObject.put("prefixValue", "");
+					//jsonObject.put("prefixValue", "");
 				}
 				String profileStatus = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("status");
 				String[] onlineStatus = (String[]) themeDisplay.getUser().getExpandoBridge().getAttribute("onlineStatus");
+				String instituteName = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
 				
-				jsonObject.put("firstName", user.getFirstName());
-				jsonObject.put("lastName", user.getLastName());
-				jsonObject.put("profileImage",themeDisplay.getUser().getPortraitURL(themeDisplay));
-				jsonObject.put("jobTitle", user.getJobTitle());
+				String instituteDepartment = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteDepartment");
+				String instituteCity = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteCity");
+				String instituteState = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteState");
+				String instituteCountry = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteCountry");
+				
+				JSONObject userJSON = null;
+				if(userJSON!=null){
+					firstName = userJSON.getString("firstName");
+					lastName = userJSON.getString("lastName"); 
+					prefixValue = userJSON.getString("prefix").toLowerCase();
+					if(userJSON.getString("position").trim()!=null && userJSON.getString("position").trim()!=""){
+						jobTitle = userJSON.getString("position");
+					}
+				}else{
+					firstName = user.getFirstName();
+					lastName = user.getLastName();
+					jobTitle = user.getJobTitle();
+				}
+				
+				/*FileEntry dlFileEntry = null;String imageURL = "";
+				dlFileEntry = DLAppServiceUtil.getFileEntry(user.getPortraitId());
+				if(dlFileEntry!=null){
+					imageURL = "/documents/" + dlFileEntry.getGroupId() + "/" + dlFileEntry.getFolderId() + "/" + dlFileEntry.getTitle();
+				}*/
+				
+				
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+				List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(values.size()>0){
+					imageURL = values.get(0).getFileEntryUrl();					
+	                JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(user.getUserId());	               
+	                imageURL = jsonObject2.getString("byteArray");
+	                isBase64 = true;
+				}else{
+					//imageURL = user.getPortraitURL(themeDisplay) ;
+					imageURL = "/o/ahea-theme/images/user.png";
+					isBase64 = false;
+				}
+				
+				jsonObject.put("prefixValue", prefixValue);
+				jsonObject.put("firstName", firstName);
+				jsonObject.put("lastName", lastName);
+				jsonObject.put("isBase64",isBase64);
+				jsonObject.put("profileImage",imageURL);
+				jsonObject.put("jobTitle", jobTitle);
 				jsonObject.put("profileStatus", profileStatus);
 				jsonObject.put("onlineStatus", onlineStatus);
+				jsonObject.put("instituteName", instituteName);
+				jsonObject.put("instituteDepartment", instituteDepartment);
+				jsonObject.put("instituteCity", instituteCity);
+				jsonObject.put("instituteState", instituteState);
+				jsonObject.put("instituteCountry", instituteCountry);
 				out.print(jsonObject);
-				System.out.println(jsonObject);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -817,6 +933,11 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			if (out != null) {
 				out.close();
 			}
+			/*if(o!=null){
+				o.flush();
+	            o.close();
+			}*/
+			
 		}
 	}
 	
@@ -1101,9 +1222,10 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			System.out.println(listData);
 			jsonArray = JSONFactoryUtil.createJSONArray();
 			if(listData.size()>0){
-				for(profileAreaofinterest pa:listData){
+				for(profileAreaofinterest pa:listData){					
 					jsonObject = JSONFactoryUtil.createJSONObject();
 					jsonObject.put("projectType", pa.getProjectType());
+					jsonObject.put("collaborationType", pa.getCollaborationType());
 					jsonObject.put("discipline1", pa.getDiscipline1());
 					jsonObject.put("discipline2", pa.getDiscipline2());
 					jsonObject.put("discipline3", pa.getDiscipline3());
@@ -1114,6 +1236,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					jsonObject.put("deliveryMethod", pa.getDeliveryMethod());					
 					jsonObject.put("language", pa.getLanguage());
 					jsonObject.put("id", pa.getPK_areaofinterest());
+					
 					jsonArray.put(jsonObject);
 				}
 			}
@@ -1132,21 +1255,29 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		JSONObject jsonObject = null;
 		PrintWriter out = null;
 		profileAreaofinterest singleData = null;
-		String intercampus = "";
+		String intercampus = "",deliveryMethod = "",deliveryMethodEdit="";
 		long key = ParamUtil.getLong(resourceRequest, "key");
 		
 		try{
 			out = resourceResponse.getWriter();
 			singleData = profileAreaofinterestLocalServiceUtil.fetchprofileAreaofinterest(key);
+			SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-dd");
 			if(singleData!=null){
 				if(singleData.getCampus().equalsIgnoreCase("1")){
 					intercampus = "Intracampus";
 				}else if(singleData.getCampus().equalsIgnoreCase("2")){
 					intercampus = "Intercampus";
 				}
+				
+				if(singleData.getDeliveryMethod().equalsIgnoreCase("Blended or Hybrid")){
+					deliveryMethod = "Blended";
+				}else{
+					deliveryMethod = singleData.getDeliveryMethod();
+				}
 				jsonObject = JSONFactoryUtil.createJSONObject();
 				jsonObject.put("projectType", singleData.getProjectType());
-				jsonObject.put("deliveryMethod", singleData.getDeliveryMethod());
+				jsonObject.put("deliveryMethod", deliveryMethod);
+				jsonObject.put("deliveryMethodEdit", singleData.getDeliveryMethod());
 				jsonObject.put("discipline1", singleData.getDiscipline1());
 				jsonObject.put("discipline2", singleData.getDiscipline2());
 				jsonObject.put("discipline3", singleData.getDiscipline3());
@@ -1166,6 +1297,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject.put("startYear", singleData.getRangerYearStart());
 				jsonObject.put("endYear", singleData.getRangerYearEnd());
 				jsonObject.put("PK_areaofinterest", singleData.getPK_areaofinterest());
+				jsonObject.put("created", displayFormat.format(singleData.getCreateDate()));
 			}
 			System.out.println("================"+jsonObject);
 			out.print(jsonObject);
@@ -1211,7 +1343,8 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject.put("areasofexpertise3", listData.get(0).getAreaofexpertise3());
 				jsonObject.put("experienceLevel", listData.get(0).getExperienceyears());
 				jsonObject.put("cvLink", listData.get(0).getCvlink());
-				jsonObject.put("bioDescription",listData.get(0).getBiodescription());					
+				jsonObject.put("bioDescription",listData.get(0).getBiodescription());	
+				jsonObject.put("bioDiscipline", listData.get(0).getBioDiscipline());
 				jsonArray.put(jsonObject);
 			}
 			out.print(jsonObject);
@@ -1288,8 +1421,15 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			out = resourceResponse.getWriter();
 			long profileInterestId = ParamUtil.getLong(resourceRequest, "profileInterestId");
 			if(profileInterestId!=0){
-				profileAreaofinterestLocalServiceUtil.deleteprofileAreaofinterest(profileInterestId);
-				out.print("removed");
+				DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(projectInviteTracking.class, PortalClassLoaderUtil.getClassLoader());
+				dynamicQuery.add(PropertyFactoryUtil.forName("projectId").eq(profileInterestId));
+				List<projectInviteTracking> listData = userProfessionalBioLocalServiceUtil.dynamicQuery(dynamicQuery);
+				if(listData.size()==0){
+					profileAreaofinterestLocalServiceUtil.deleteprofileAreaofinterest(profileInterestId);
+					out.print("removed");
+				}else{
+					out.print("error");
+				}				
 			}
 		}catch(Exception e){
 			
@@ -1314,13 +1454,21 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			jsonArray = JSONFactoryUtil.createJSONArray();
 			if(listData.size()>0){
 				jsonObject = JSONFactoryUtil.createJSONObject();
+				String mobileNum = listData.get(0).getMobileNumber(), phoneNum = listData.get(0).getPhoneNumber();
+				if(!(listData.get(0).getMobileNumber().equalsIgnoreCase("")) && listData.get(0).getMobileNumber().contains("-")){
+					mobileNum = listData.get(0).getMobileNumber().replace("-", "");
+				}
+				if(!(listData.get(0).getPhoneNumber().equalsIgnoreCase("")) && listData.get(0).getPhoneNumber().contains("-")){
+					phoneNum = listData.get(0).getPhoneNumber().replace("-", "");
+				}
 				jsonObject.put("primLangId",listData.get(0).getPrimaryLanguageId());
 				jsonObject.put("secoLangId",listData.get(0).getSecondaryLanguageId());
-				jsonObject.put("terLangId ",listData.get(0).getTertiaryLanguageId());
-				jsonObject.put("phoneNum", listData.get(0).getPhoneNumber().substring(1));
+				jsonObject.put("terLangId",listData.get(0).getTertiaryLanguageId());
+				jsonObject.put("mobileNum", mobileNum);
+				jsonObject.put("phoneNum", phoneNum);
 				jsonObject.put("primLangName", listData.get(0).getPrimaryLanguageName());
 				jsonObject.put("secLangName", listData.get(0).getSecondaryLanguageName());
-				jsonObject.put("terLangName ",listData.get(0).getTertiaryLanguageName());
+				jsonObject.put("terLangName",listData.get(0).getTertiaryLanguageName());
 				jsonObject.put("email",listData.get(0).getEmailAddress());
 				jsonObject.put("website", listData.get(0).getWebsite());
 				jsonObject.put("communicationId", listData.get(0).getPK_communicationPreferences());
@@ -1392,5 +1540,20 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 			}
 		}catch(Exception e){}
 		return imgURL;
+	}
+	
+	public String getMethodAPI(String apiURL) {
+		String returnData ="";
+		ResponseEntity<String> returnObject= null;		
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			returnObject=restTemplate.getForEntity(apiURL,String.class);
+			if(returnObject!=null){
+				returnData = returnObject.getBody();
+			}
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return returnData;
 	}
 }

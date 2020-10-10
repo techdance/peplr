@@ -16,16 +16,9 @@ package com.collaborated.entity.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.collaborated.entity.service.commonWebsserviceAPIServiceUtil;
-
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-
-import java.rmi.RemoteException;
-
 /**
  * Provides the SOAP utility for the
- * {@link commonWebsserviceAPIServiceUtil} service utility. The
+ * {@link com.collaborated.entity.service.commonWebsserviceAPIServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -60,43 +53,9 @@ import java.rmi.RemoteException;
  * @author Brian Wing Shun Chan
  * @see commonWebsserviceAPIServiceHttp
  * @see com.collaborated.entity.model.commonWebsserviceAPISoap
- * @see commonWebsserviceAPIServiceUtil
+ * @see com.collaborated.entity.service.commonWebsserviceAPIServiceUtil
  * @generated
  */
 @ProviderType
 public class commonWebsserviceAPIServiceSoap {
-	public static java.lang.String createUser(java.lang.String prefix,
-		java.lang.String firstName, java.lang.String lastName,
-		java.lang.String institutionEmail, java.lang.String institutionName,
-		java.lang.String password) throws RemoteException {
-		try {
-			com.liferay.portal.kernel.json.JSONArray returnValue = commonWebsserviceAPIServiceUtil.createUser(prefix,
-					firstName, lastName, institutionEmail, institutionName,
-					password);
-
-			return returnValue.toString();
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static java.lang.String customLogin(java.lang.String username,
-		java.lang.String password) throws RemoteException {
-		try {
-			com.liferay.portal.kernel.json.JSONArray returnValue = commonWebsserviceAPIServiceUtil.customLogin(username,
-					password);
-
-			return returnValue.toString();
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	private static Log _log = LogFactoryUtil.getLog(commonWebsserviceAPIServiceSoap.class);
 }

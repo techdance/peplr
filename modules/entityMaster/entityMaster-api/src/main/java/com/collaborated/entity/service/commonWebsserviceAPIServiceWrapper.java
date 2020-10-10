@@ -34,21 +34,6 @@ public class commonWebsserviceAPIServiceWrapper
 		_commonWebsserviceAPIService = commonWebsserviceAPIService;
 	}
 
-	@Override
-	public com.liferay.portal.kernel.json.JSONArray createUser(
-		java.lang.String prefix, java.lang.String firstName,
-		java.lang.String lastName, java.lang.String institutionEmail,
-		java.lang.String institutionName, java.lang.String password) {
-		return _commonWebsserviceAPIService.createUser(prefix, firstName,
-			lastName, institutionEmail, institutionName, password);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.json.JSONArray customLogin(
-		java.lang.String username, java.lang.String password) {
-		return _commonWebsserviceAPIService.customLogin(username, password);
-	}
-
 	/**
 	* Returns the OSGi service identifier.
 	*

@@ -10,7 +10,35 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
-
+<style>
+.box-subhead {
+	max-width: 100%;
+}
+.line-height-15 {
+    line-height: 15px;
+}
+.icon-desktop-alt::before {
+    content: "\f390";
+}
+.icon-phone-laptop::before {
+    content: "\f87a";
+}
+.icon-phone-office::before {
+    content: "\f67d";
+}
+.icon-envelope::before {
+    content: "\f0e0";
+}
+.icon-comment-medical::before {
+    content: "\f7f5";
+}
+.icon-comment-check::before {
+    content: "\f4ac";
+}
+.icon-comment-dots::before {
+    content: "\f4ad";
+}
+</style>
 <script>
 function loadUserCommunicationPreferences(){
 	AUI().use('aui-io-request-deprecated', function(A){
@@ -31,14 +59,18 @@ function loadUserCommunicationPreferences(){
                     	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		$("#primaryLanguage_Communication").text(data.primaryLanguage_Communication);
-                    		$("#secondaryLanguage_Communication").text(data.secondaryLanguage_Communication);      	                
+                    		$("#secondaryLanguage_Communication").text(data.secondaryLanguage_Communication); 
+                    		$("#tertiaryLanguage_Communication").text(data.tertiaryLanguage_Communication);
                     		$("#emailId_Communication").text(data.emailId_Communication);
          	                $("#phoneNumber_Communication").text(data.phoneNumber_Communication);
+         	                $("#mobileNumber_Communication").text(data.mobileNumber_Communication);
          	                $("#website_Communication").text(data.website_Communication);
          	                $("#emailId_Communication").attr("href", "mailto:"+data.emailId_Communication);
          	                $("#phoneNumber_Communication").attr("href", "tel:"+data.phoneNumber_Communication);
+         	                $("#mobileNumber_Communication").attr("href", "tel:"+data.mobileNumber_Communication);
          	                $("#website_Communication").attr("href", data.website_Communication);
                  	   }
+                    	$("#communicationPreferencesLoader").fadeOut();
                     },error: function(){	             
                     }
 				},

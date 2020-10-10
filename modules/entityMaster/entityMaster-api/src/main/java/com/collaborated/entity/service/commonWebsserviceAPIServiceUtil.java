@@ -41,19 +41,6 @@ public class commonWebsserviceAPIServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.collaborated.entity.service.impl.commonWebsserviceAPIServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.kernel.json.JSONArray createUser(
-		java.lang.String prefix, java.lang.String firstName,
-		java.lang.String lastName, java.lang.String institutionEmail,
-		java.lang.String institutionName, java.lang.String password) {
-		return getService()
-				   .createUser(prefix, firstName, lastName, institutionEmail,
-			institutionName, password);
-	}
-
-	public static com.liferay.portal.kernel.json.JSONArray customLogin(
-		java.lang.String username, java.lang.String password) {
-		return getService().customLogin(username, password);
-	}
 
 	/**
 	* Returns the OSGi service identifier.

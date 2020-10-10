@@ -1,5 +1,4 @@
-
-
+<%@page import="javax.portlet.PortletSession"%>
 <%@page import="com.collaborated.entity.service.userProfessionalBioLocalServiceUtil"%>
 <%@page import="com.collaborated.entity.model.userProfessionalBio"%>
 <%@ include file="/init.jsp" %>
@@ -47,7 +46,7 @@ if(null!=request.getAttribute("languageList")){
 }
 
 long primLangId=0,secoLangId=0,terLangId=0,commuId=0;
-String primLangName="",secLangName="",terLangName="",email="",website="",phoneNum="";
+String primLangName="",secLangName="",terLangName="",email="",website="",phoneNum="",mobileNum="";
 
 DynamicQuery dynamicQueryCommunication = DynamicQueryFactoryUtil.forClass(communicationPreferences.class, PortalClassLoaderUtil.getClassLoader());
 dynamicQueryCommunication.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
@@ -57,18 +56,26 @@ if(comList.size()>0){
 	secoLangId = comList.get(0).getSecondaryLanguageId();
 	terLangId = comList.get(0).getTertiaryLanguageId();
 	commuId = comList.get(0).getPK_communicationPreferences();
-	phoneNum = comList.get(0).getPhoneNumber().substring(1);
+	//phoneNum = comList.get(0).getPhoneNumber().substring(1);	
+	phoneNum = comList.get(0).getPhoneNumber();
 	primLangName = comList.get(0).getPrimaryLanguageName();
 	secLangName = comList.get(0).getSecondaryLanguageName();
 	terLangName = comList.get(0).getTertiaryLanguageName();
 	email = comList.get(0).getEmailAddress();
 	website = comList.get(0).getWebsite();
+	mobileNum = comList.get(0).getMobileNumber();
+	if(!(mobileNum.equalsIgnoreCase("")) && mobileNum.contains("-")){
+		mobileNum = mobileNum.replace("-", "");
+	}
+	if(!(phoneNum.equalsIgnoreCase("")) && phoneNum.contains("-")){
+		phoneNum = phoneNum.replace("-", "");
+	}
 }
 %>
 <!-- Professional Bio  -->
 <%
 long professionalBioId = 0;
-String areasofexpertise1="",areasofexpertise2="",areasofexpertise3="",experienceLevel="",cvLink="",bioDescription="";
+String areasofexpertise1="",areasofexpertise2="",areasofexpertise3="",experienceLevel="",cvLink="",bioDescription="",bioDiscipline="";
 DynamicQuery dynamicQueryProfessionalBio = DynamicQueryFactoryUtil.forClass(userProfessionalBio.class, PortalClassLoaderUtil.getClassLoader());
 dynamicQueryProfessionalBio.add(PropertyFactoryUtil.forName("userId").eq(Long.valueOf(themeDisplay.getUserId())));
 List<userProfessionalBio> bioList = userProfessionalBioLocalServiceUtil.dynamicQuery(dynamicQueryProfessionalBio);
@@ -80,27 +87,37 @@ if(bioList.size()>0){
 	experienceLevel = bioList.get(0).getExperienceyears();
 	cvLink = bioList.get(0).getCvlink();
 	bioDescription = bioList.get(0).getBiodescription();
+	bioDiscipline = bioList.get(0).getBioDiscipline();
 }
 %>
 
 <!-- Institution Profile -->
 
-<%
-long institutionProfileId=0;
 
-%>
+<aui:form name="updateProfileForm" onSubmit="event.preventDefault();" enctype='multipart/form-data'>
 
-<aui:form name="updateProfileForm" onSubmit="event.preventDefault();">
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+	  <li class="breadcrumb-item"><a href="/home1">Home</a></li>
+	  <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
+	  <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+	</ol>
+</nav>
+
 <div class="d-flex flex-row row row-custom">
 	
-	<div class="col-lg-12 mb-4 mt-3 text-right">
+	<!-- <div class="col-lg-12 mb-4 mt-3 text-right">
 		<aui:button  value="Save Profile" type="submit" onclick="saveProfile()"  cssClass="btn btn-blue"></aui:button>
-	</div>
+	</div> -->
 	<div class="col-lg-6 mb-3">
-	<div class="personal box box-border-radius box-shadow bg-white">
+	<div class="personal box box-border-radius box-shadow bg-white position-relative">
+	<!-- Loader -->
+	<div id="editPersonalInformationLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 			<div class="box-top position-relative">
-				<h2 class="box-subhead"><i class="fas fa-user"></i>Personal Information</h2>
+				<h2 class="box-subhead"><span class="icon-regular icon-user-circle"></span>Personal Information</h2>
 			</div>
 			<div class="box-middle">
 				<div class="row row-custom">
@@ -117,11 +134,11 @@ long institutionProfileId=0;
 					         	</span>
 							</div>
 														
-							<a href="#" class="fileinput-exists" data-dismiss="fileinput" onclick="removeProfileImage()"><i class="fa fa-close"></i></a>
+							<a href="javascript:void(0);" class="fileinput-exists" data-dismiss="fileinput" onclick="removeProfileImage()"><i class="fa fa-close"></i></a>
 					 	</div>
 					</div>
 					<div class="col-md-6">
-						<aui:select name="prefixValue" label="Prefix" placeholder="" required="true" cssClass="wrap-input">
+						<aui:select name="prefixValue" label="Prefix" placeholder="" cssClass="wrap-input" disabled="true">
 							<aui:option class="" value=""></aui:option> 
 							<aui:option class="" value="dr"> Dr </aui:option>
 							<aui:option class="" value="miss"> Miss </aui:option>
@@ -131,51 +148,20 @@ long institutionProfileId=0;
 							<aui:option class="" value="mx"> Mx </aui:option>
 						</aui:select>
 						
-						<aui:input type="text" name="firstName" id="firstName" label="First Name" placeholder="" cssClass="wrap-input">
-							<aui:validator name="required" />
-							<aui:validator errorMessage="Please enter valid first name" name="custom" >
-							function(val, fieldNode, ruleValue) {                         
-								var result = true;
-								var fileName=$('#<portlet:namespace/>firstName').val(); 
-								if(fileName!=''){
-									var tt = /^[a-zA-Z ]*$/.test(fileName);
-									if(tt==false){
-										result = false;
-									}else{
-										result = true;
-									}
-								}
-								return result;
-							}
-							</aui:validator> 
+						<aui:input type="text" name="firstName" id="firstName" label="First Name" placeholder="" cssClass="wrap-input" disabled="true">							
 						</aui:input>
 						
-						<aui:input name="lastName" id="lastName" label="Last Name" placeholder="" cssClass="wrap-input">
-							<aui:validator name="required" />
-						    <aui:validator errorMessage="Please enter valid last name" name="custom">
-						   	function(val, fieldNode, ruleValue) {                         
-								var result = true;
-								var fileName=$('#<portlet:namespace/>lastName').val(); 
-								if(fileName!=''){
-									var tt = /^[a-zA-Z ]*$/.test(fileName);
-									if(tt==false){
-										result = false;
-									}else{
-										result = true;
-									}
-								}
-								return result;
-							}
-						    </aui:validator>
+						
+						<aui:input name="lastName" id="lastName" label="Last Name" placeholder="" cssClass="wrap-input" disabled="true">							
 						</aui:input>
 						
-						<aui:input name="jobTitle" id="jobTitle" label="Position" placeholder="" cssClass="wrap-input">
-							<aui:validator name="required" />
+						<aui:input name="jobTitle" id="jobTitle" label="Position" placeholder="" cssClass="wrap-input" disabled="true">							
 						</aui:input>
 					</div>
 				</div>
 			</div>
-			<div class="wrap-input-icon wrap-input profile-status">
+			<div class="wrap-input-icon wrap-input profile-status checkde">
+				
 				<liferay-ui:custom-attribute
 			        className="<%= User.class.getName() %>"
 			        classPK="<%= 0 %>"
@@ -185,7 +171,7 @@ long institutionProfileId=0;
 			    /> 
 			</div>	
 			
-			<div class="wrap-input-icon wrap-input online-status d-flex align-items-center">
+			<div class="wrap-input-icon wrap-input online-status d-flex align-items-center checked">
 				<label class="control-label mr-3 font-weight-bold">Online Status</label>
 				<liferay-ui:custom-attribute
 			        className="<%= User.class.getName() %>"
@@ -199,10 +185,14 @@ long institutionProfileId=0;
 </div>
 	</div>
 	<div class="col-lg-6 mb-3">
-		<div class="comunication box box-border-radius box-shadow bg-white">
+		<div class="comunication box box-border-radius box-shadow bg-white position-relative">
+			<!-- Loader -->
+			<div id="editInstitutionalProfileLoader" class="sectionloader"> 
+				<div class="loader"></div>
+			</div>
                                         <div class="inner-wrap position-relative">
 											<div class="box-top position-relative">
-                                                <h2 class="box-subhead"><i class="fas fa-user"></i>Institution Profile</h2>
+                                                <h2 class="box-subhead"><span class="icon-regular icon-hospital-user"></span> Institution Profile</h2>
 											</div>
 											<div id="profile-map">
 												<div id="map"></div>
@@ -211,9 +201,9 @@ long institutionProfileId=0;
 												<div class="row row-custom">
 	                                                <div class="col-md-6">
 	                                                	<aui:input type="hidden" name="institutionProfileId" label="" value="<%=institutionProfileId %>" cssClass="input" />
-	                                               		<aui:input type="text" name="institutionName" label="Institution" value="" cssClass="input" />
-	                                               		<aui:input type="text" name="academCalendar" label="Academic Calendar" value="" cssClass="input" />
-	                                               		<aui:input type="textarea" name="departamentDescription" label="Department" value="" cssClass="input" style="min-height: 120px;" />
+	                                               		<aui:input type="text" name="institutionName" label="Institution Name" value="<%=instituteName %>" cssClass="input" disabled="true"/>
+	                                               		<aui:input type="text" name="academCalendar" label="Academic Calendar" value="<%=academicCalendar %>" cssClass="input" disabled="true"/>
+	                                               		<aui:input type="textarea" name="departamentDescription" label="Department" value="<%=department %>" cssClass="input" style="min-height: 120px;" disabled="true"/>
 	                                                </div>
 	                                            </div>
 											</div>
@@ -258,21 +248,41 @@ long institutionProfileId=0;
                                     </div></div>
 	</div>
 	<div class="col-lg-6 mb-3">
-	<div class="credentials box box-border-radius box-shadow bg-white comm-pref">
+	<div class="credentials box box-border-radius box-shadow bg-white position-relative comm-pref">
+	<!-- Loader -->
+	<div id="editCommunicationPreferencesLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 	<div class="box-top position-relative">
-	    <h2 class="box-subhead mw-100"><i class="fas fa-user"></i>Communication Preferences</h2>
+	    <h2 class="box-subhead mw-100"><span class="icon-regular icon-comment-dots"></span>Communication Preferences</h2>
 	</div>
 		<aui:input name="communicationId" placeholder="" value="<%=commuId %>" type="hidden" cssClass="w-100 input-border-bottom"></aui:input>
 		<aui:input name="primaryLanguageName" placeholder="" value="<%=primLangName %>" type="hidden" cssClass="w-100 input-border-bottom"></aui:input>
 		<aui:input name="secondaryLanguageName" placeholder="" value="<%=secLangName %>" type="hidden" cssClass="w-100 input-border-bottom"></aui:input>
 		<aui:input name="tertiaryLanguageName" placeholder="" value="<%=terLangName %>" type="hidden" cssClass="w-100 input-border-bottom"></aui:input> 
 		<div class="box-middle">
-	       	<h4 class="mb-3">Languages</h4>
 	        <div class="row row-custom">
+	        	
+				<!-- <div class="col-md-6">
+					<div class="form-group">
+						<aui:select name="primaryLanguage" label="Languages" placeholder="" cssClass="wrap-input labelOnly">
+							<aui:option class="" value="">  </aui:option>
+					    </aui:select> 
+					</div>
+				</div>-->
+				<div class="col-md-6">
+					<h4 class="mb-3">Languages</h4>
+				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<aui:select name="primaryLanguage" label="Primary Language" placeholder="" cssClass="wrap-input">
+						<aui:input name="communicationEmail" required='true' label="Email" placeholder="Please enter email address" value= "<%=email %>" cssClass="w-100 input-border-bottom">							
+						</aui:input>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<aui:select name="primaryLanguage" required='true' label="Primary Language" placeholder="" cssClass="wrap-input">
 							<aui:option class="" value="">  </aui:option>
 							<% if(listArray!=null && listArray.length()>0){
 								for(int l=0;l<listArray.length();l++){
@@ -282,36 +292,10 @@ long institutionProfileId=0;
 							<% } } %> 
 					    </aui:select>
 					</div>
-					<div class="form-group">
-						<aui:select name="secondaryLanguage" label="Secondary Language" placeholder="" cssClass="wrap-input">
-							<aui:option class="" value="">  </aui:option>
-							<% if(listArray!=null && listArray.length()>0){
-								for(int l=0;l<listArray.length();l++){
-									 JSONObject jsonobj=listArray.getJSONObject(l);	
-								 %>
-								<option value="<%=jsonobj.getLong("languageId") %>" <%=(jsonobj.getLong("languageId")==secoLangId)?"selected":"" %>> <%=jsonobj.getString("languageName") %> </option> 
-							<% } } %>
-					    </aui:select>
-					</div>
-					<div class="form-group">
-						<aui:select name="tertiaryLanguage" label="Tertiary Language" placeholder="" cssClass="wrap-input">
-							<aui:option class="" value="">  </aui:option>
-							<% if(listArray!=null && listArray.length()>0){
-								for(int l=0;l<listArray.length();l++){
-									 JSONObject jsonobj=listArray.getJSONObject(l);	
-								 %>
-								<option value="<%=jsonobj.getLong("languageId") %>" <%=(jsonobj.getLong("languageId")==terLangId)?"selected":"" %>> <%=jsonobj.getString("languageName") %> </option> 
-							<% } } %> 							
-					    </aui:select>
-					</div> 
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<aui:input name="communicationEmail" required='true' label="Email" placeholder="Please enter email address" value= "<%=email %>" cssClass="w-100 input-border-bottom">							
-						</aui:input>
-					</div>
-					<div class="form-group">
-						<aui:input name="communicationPhoneNumber" required='true' label="Phone Number" placeholder="Please enter phone number" value="<%=phoneNum %>" cssClass="w-100 input-border-bottom">							
+						<aui:input name="communicationPhoneNumber" required='true' label="Office" placeholder="Please enter phone number" value="<%=phoneNum %>" cssClass="w-100 input-border-bottom">							
 							<aui:validator name="maxLength">15</aui:validator>
 							<aui:validator name="myValidator" errorMessage="numbers-not-allowed">
 						        function(val, fieldNode, ruleValue){ 
@@ -325,6 +309,57 @@ long institutionProfileId=0;
 						    </aui:validator>
 						</aui:input>
 					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<aui:select name="secondaryLanguage" label="Secondary Language" placeholder="" cssClass="wrap-input">
+							<aui:option class="" value="">  </aui:option>
+							<% if(listArray!=null && listArray.length()>0){
+								for(int l=0;l<listArray.length();l++){
+									 JSONObject jsonobj=listArray.getJSONObject(l);	
+								 %>
+								<option value="<%=jsonobj.getLong("languageId") %>" <%=(jsonobj.getLong("languageId")==secoLangId)?"selected":"" %>> <%=jsonobj.getString("languageName") %> </option> 
+							<% } } %>
+					    </aui:select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<aui:input name="communicationMobileNumber" required='true' label="Mobile" placeholder="Please enter phone number" value="<%=mobileNum %>" cssClass="w-100 input-border-bottom">							
+							<aui:validator name="maxLength">15</aui:validator>
+							<aui:validator name="myValidator" errorMessage="numbers-not-allowed">
+						        function(val, fieldNode, ruleValue){ 
+						        	var pattern=/^(?=.*?[1-9])[0-9()-]+$/;
+						            var matches = pattern.test(val);
+						            if(matches != null)
+						                return false;
+						            else
+						                return true;
+						       }
+						    </aui:validator>
+						</aui:input>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<aui:select name="tertiaryLanguage" label="Tertiary Language" placeholder="" cssClass="wrap-input">
+							<aui:option class="" value="">  </aui:option>
+							<% if(listArray!=null && listArray.length()>0){
+								for(int l=0;l<listArray.length();l++){
+									 JSONObject jsonobj=listArray.getJSONObject(l);	
+								 %>
+								<option value="<%=jsonobj.getLong("languageId") %>" <%=(jsonobj.getLong("languageId")==terLangId)?"selected":"" %>> <%=jsonobj.getString("languageName") %> </option> 
+							<% } } %> 							
+					    </aui:select>
+					</div> 
+				</div>
+				<div class="col-md-6 position-relative d-flex align-items-center">
+					<aui:input name="check" label="Receive SMS Notifications" type="checkbox" value="SMSNotifications"></aui:input>
+					<i class="fa fa-info-circle icon-info cl-blue" aria-hidden="true">
+						<span class="info-toltip">Standard messaging rates may apply.</span>
+					</i>
+				</div>
+				<div class="col-md-12">
 					<div class="form-group">
 						<aui:input name="communicationWebsite" required='true' label="Website" placeholder="" value="<%=website %>" cssClass="w-100 input-border-bottom">
 						</aui:input>
@@ -336,78 +371,81 @@ long institutionProfileId=0;
 </div>
 	</div>
 	<div class="col-lg-6 mb-3">
-		<div class="credentials box box-border-radius box-shadow bg-white">
+		<div class="credentials box box-border-radius box-shadow bg-white position-relative">
+		<!-- Loader -->
+	<div id="editCredentialsLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
     <div class="inner-wrap">
         <div class="box-top position-relative">
-            <h2 class="box-subhead"><i class="fas fa-user"></i>Credentials</h2>
+            <h2 class="box-subhead"><span class="icon-regular icon-id-card"></span>Credentials</h2>
         </div>
         	<aui:input name="credentialId" placeholder="" value="<%=credentialId %>" type="hidden" cssClass="w-100 input-border-bottom"></aui:input>
 	        <div class="box-middle">
 	            <div id="credentials-fields" class="row row-custom">
-	            	<div class="col-md-12">
-	            		<div class="row">
-	            			<div class="col-md-6">
-	            				<aui:input type="text" name="membership4" label="Highest Education Level" value="<%=membership4 %>" cssClass="input" /> 
-	            			</div>
-	            		</div>
-	            	</div>
 	            	<div class="col-md-6">
-		             	<h4 class="mb-3">Professional Memberships</h4>
+	            		<div>
+            				<h4 class="mb-3"><span class="icon-regular icon-user-graduate"></span> Highest Education Level</h4>
+            				<aui:input type="text" name="membership4" label="" value="<%=membership4 %>" cssClass="input" /> 
+            			</div>
+            		</div>
+            		<div class="col-md-6">&nbsp;</div>
+	            	<div class="col-md-6">
+		             	<h4 class="mb-3"><span class="icon-regular icon-trophy-alt"></span> Professional Memberships</h4>
 		             	<div class="d-flex align-items-end formGroupmb0 mb-2 firstFormGroup">
-		             		<a href="javascript::void(0);" id="add-membership" class="color-black font20 mr-1">
+		             		<a href="javascript::void(0);" id="add-membership" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
 		             			<i class="fas fa-minus-circle invisible"></i>
 		             			<i class="fas fa-plus-circle"></i>
 		             		</a>
-		             		<aui:input type="text" name="membership1" label="Membership &ndash; 1" value="<%=membership1 %>" cssClass="input" />
+		             		<aui:input type="text" name="membership1" label="" value="<%=membership1 %>" cssClass="input" />
 		             	</div>
 		             	<div id="membership-2" class="d-none align-items-end formGroupmb0 mb-2">
-		             		<a href="javascript::void(0);" id="remove-membership-2" class="color-black font20 mr-1">
-		             			<i class="fas fa-plus-circle showIfNotActive"></i>
+		             		<a href="javascript::void(0);" id="remove-membership-2" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
+		             			<i class="fas fa-plus-circle showIfNotActive mr-1"></i>
 		             			<i class="fas fa-minus-circle showIfActive"></i>
 		             		</a>
-		             		<aui:input type="text" name="membership2" label="Membership &ndash; 2" value="<%=membership2 %>" cssClass="input" />
+		             		<aui:input type="text" name="membership2" label="" value="<%=membership2 %>" cssClass="input" />
 		             	</div>
 		             	<div id="membership-3" class="d-none align-items-end formGroupmb0 mb-2 lastFormGroup">
-		             		<a href="javascript::void(0);" id="remove-membership-3" class="color-black font20 mr-1">
+		             		<a href="javascript::void(0);" id="remove-membership-3" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
 		             			<i class="fas fa-minus-circle invisible"></i>
 		             			<i class="fas fa-minus-circle"></i>
 		             		</a>
-		             		<aui:input type="text" name="membership3" label="Membership &ndash; 3" value="<%=membership3 %>" cssClass="input" />
+		             		<aui:input type="text" name="membership3" label="" value="<%=membership3 %>" cssClass="input" />
 		             	</div>
 		             </div>
 		             <div class="col-md-6">
-		             	<h4 class="mb-3">Certificates
-		             		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		             	</h4>
+		             	<h4 class="mb-3"><span class="icon-regular icon-file-certificate"></span> Certificates</h4>
 		             	<div class="d-flex align-items-end formGroupmb0 mb-2 firstFormGroup">
-		             		<a href="javascript::void(0);" id="add-certificate" class="color-black font20 mr-1">
+		             		<a href="javascript::void(0);" id="add-certificate" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
 		             			<i class="fas fa-minus-circle invisible"></i>
 		             			<i class="fas fa-plus-circle"></i>
 		             		</a>
-		             		<aui:input type="text" name="certificate1" label="Certificate &ndash; 1" value="<%=certificate1 %>" cssClass="input" />
+		             		<aui:input type="text" name="certificate1" label="" value="<%=certificate1 %>" cssClass="input" />
 		             	</div>
 		             	<div id="certificate-2" class="d-none align-items-end formGroupmb0 mb-2">
-		             		<a href="javascript::void(0);" id="remove-certificate-2" class="color-black font20 mr-1">
-		             			<i class="fas fa-plus-circle showIfNotActive"></i>
+		             		<a href="javascript::void(0);" id="remove-certificate-2" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
+		             			<i class="fas fa-plus-circle showIfNotActive mr-1"></i>
 		             			<i class="fas fa-minus-circle showIfActive"></i>
 		             		</a>
-		             		<aui:input type="text" name="certificate2" label="Certificate &ndash; 2" value="<%=certificate2 %>" cssClass="input" />
+		             		<aui:input type="text" name="certificate2" label="" value="<%=certificate2 %>" cssClass="input" />
 		             	</div>
 		             	<div id="certificate-3" class="d-none align-items-end formGroupmb0 mb-2 lastFormGroup">
-		             		<a href="javascript::void(0);" id="remove-certificate-3" class="color-black font20 mr-1">
+		             		<a href="javascript::void(0);" id="remove-certificate-3" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
 		             			<i class="fas fa-minus-circle invisible"></i>
 		             			<i class="fas fa-minus-circle"></i>
 		             		</a>
-		             		<aui:input type="text" name="certificate3" label="Certificate &ndash; 3" value="<%=certificate3 %>" cssClass="input" />
+		             		<aui:input type="text" name="certificate3" label="" value="<%=certificate3 %>" cssClass="input" />
 		             	</div>
 		             </div>
+		             
 	        	</div>
 	        </div>
     </div>
 </div>
 	</div>
 	<div class="col-lg-6 mb-3">
-	<%-- <div class="profesional box box-border-radius box-shadow bg-white">
+	<%-- <div class="profesional box box-border-radius box-shadow bg-white position-relative">
                          <div class="inner-wrap">
                              <div class="box-top position-relative">
                                  <h2 class="box-subhead"><i class="fas fa-user"></i>Professional Bio</h2>
@@ -456,28 +494,31 @@ long institutionProfileId=0;
              </div>
          </div> --%>
          
-         <div class="profesional box box-border-radius box-shadow bg-white">
+         <div class="profesional box box-border-radius box-shadow bg-white position-relative">
+         <!-- Loader -->
+	<div id="editProfessionalBioLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h2 class="box-subhead"><i class="fas fa-user"></i>Professional Bio</h2>
+			<h2 class="box-subhead"><span class="icon-regular icon-user-secret"></span>Professional Bio</h2>
 		</div>
 		<div class="box-middle">
 			<div class="row row-custom mb-4">
-				<div class="col-md-12">
-					<h4 class="mb-3"><i class="fab fa-youtube"></i> Introduction Video</h4>
-				</div>
 				<div class="col-md-6">
-
-					<div class="wrap-video img-resp mb-2">
+					<div class="wrap-video img-resp mb-2 position-relative">
+						<div class="overlay-inactive"></div>
+						<h3 class="mb-3"><span class="icon-regular icon-camcorder pr-3"></span> Introduction Video</h3>
 						<img src="/o/ahea-theme/images/video-bradley.png">
-						<a href="http://youtube.com/jkfvljfg786" target="_blank">http://youtube.com/jkfvljfg786</a>
+						<!-- <a href="http://youtube.com/jkfvljfg786" target="_blank">http://youtube.com/jkfvljfg786</a> -->
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input type="text" name="" placeholder="http://youtube.com/jkfvljfg786" class="field input form-control">
-					</div>
-					<p><a href="#" class="btn btn-blue btn-w-100">Upload Video</a></p>
+					</div> -->
+					<aui:input type="text" name="youtubeVideo" label="" value="" cssClass="input" placeholder="http://youtube.com/jkfvljfg786" />
+					<p><a href="#" class="btn btn-blue btn-w-100" style="pointer-events: none;">Upload Video</a></p>
 				</div>
 			</div>
 			
@@ -487,33 +528,65 @@ long institutionProfileId=0;
                                   	
 			<div class="row row-custom mb-4">
 				<div class="col-md-12">
+					<div class="content-icon position-relative mb-4">
+						<div><span class="icon-regular icon-shield-check"></span> <strong>Discipline</strong></div>
+						<aui:select name="bioDiscipline" label="" cssClass="wrap-input input select" required="true" style="width: auto; margin-left: 25px;">
+							<aui:option value="Anthropology"></aui:option>
+							<aui:option value="Archaeology">Archaeology</aui:option>
+							<aui:option value="Arts">Arts</aui:option>
+							<aui:option value="Biology">Biology</aui:option>
+							<aui:option value="Business">Business</aui:option>
+							<aui:option value="Chemistry">Chemistry</aui:option>
+							<aui:option value="Computer Science">Computer Science</aui:option>
+							<aui:option value="Earth Science">Earth Science</aui:option>
+							<aui:option value="Economics">Economics</aui:option>
+							<aui:option value="Education">Education</aui:option>
+							<aui:option value="Engineering">Engineering</aui:option>
+							<aui:option value="History">History</aui:option>
+							<aui:option value="Human Geography">Human Geography</aui:option>
+							<aui:option value="Languages">Languages</aui:option>
+							<aui:option value="Law">Law</aui:option>
+							<aui:option value="Literature">Literature</aui:option>
+							<aui:option value="Mathematics">Mathematics</aui:option>
+							<aui:option value="Medicine and Health">Medicine and Health</aui:option>
+							<aui:option value="Philosophy">Philosophy</aui:option>
+							<aui:option value="Physics">Physics</aui:option>
+							<aui:option value="Political Science">Political Science</aui:option>
+							<aui:option value="Psychology">Psychology</aui:option>
+							<aui:option value="Sociology">Sociology</aui:option>
+							<aui:option value="Space Sciences">Space Sciences</aui:option>
+							<aui:option value="Statistics">Statistics</aui:option>
+							<aui:option value="Theology">Theology</aui:option>
+						</aui:select>
+					</div>
+				</div>
+				<div class="col-md-12">
 					<div class="mb-4">
-						<h4 class="mb-3">Areas Of Expertise</h4>
-						<div class="form-group">
-							<label>Area of Expertise &ndash; 1</label>
-							<div class="d-flex">
-								<a href="javascript::void(0);" id="add-area" class="color-black font20 mr-1"><i class="fas fa-plus-circle"></i></a>
+						<h4 class="mb-3"><span class="icon-regular icon-user-ninja"></span> Areas Of Expertise</h4>
+						<div class="d-flex align-items-end formGroupmb0 mb-2 fullwidth firstFormGroup">
+								<a href="javascript::void(0);" id="add-area" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
+									<i class="fas fa-minus-circle invisible mr-1" aria-hidden="true"></i>
+									<i class="fas fa-plus-circle"></i>
+								</a>
 								<!-- <input type="text" name="" value="Business Analytics & Intelligence" class="field input form-control"> -->
 								<aui:input type="text" name="areasofexpertise1" label="" value="<%=areasofexpertise1 %>" cssClass="field input form-control" />
 							</div>
-
-						</div>
-						<div id="area-2" class="form-group area">
-							<label>Area of Expertise &ndash; 2</label>
-							<div class="d-flex">
-								<a href="javascript::void(0);" id="remove-area-2" class="color-black font20 mr-1"><i class="fas fa-minus-circle"></i></a>
+						<div id="area-2" class="d-none align-items-end formGroupmb0 mb-2 fullwidth">
+								<a href="javascript::void(0);" id="remove-area-2" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
+									<i class="fas fa-plus-circle mr-1"></i>
+									<i class="fas fa-minus-circle"></i>
+								</a>
 								<!-- <input type="text" name="" value="Business Ethics" class="field input form-control"> -->
 								<aui:input type="text" name="areasofexpertise2" label="" value="<%=areasofexpertise2 %>" cssClass="field input form-control" />
 							</div>
-						</div>
-						<div id="area-3" class="form-group area">
-							<label>Area of Expertise &ndash; 3</label>
-							<div class="d-flex">
-								<a href="javascript::void(0);" id="remove-area-3" class="color-black font20 mr-1"><i class="fas fa-minus-circle"></i></a>
+						<div id="area-3" class="d-none align-items-end formGroupmb0 mb-2 fullwidth lastFormGroup">
+								<a href="javascript::void(0);" id="remove-area-3" class="d-flex cl-asset-type-d cl-hover-black font20 mr-1">
+									<i class="fas fa-minus-circle invisible mr-1"></i>
+									<i class="fas fa-minus-circle"></i>
+								</a>
 								<!-- <input type="text" name="" value="International Operations Research &#38; Management" class="field input form-control"> -->
 								<aui:input type="text" name="areasofexpertise3" label="" value="<%=areasofexpertise3 %>" cssClass="field input form-control" />
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -521,8 +594,8 @@ long institutionProfileId=0;
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="position-relative">
-							International Experience
-							<i class="fa fa-info-circle icon-info" aria-hidden="true">
+							<span class="icon-regular icon-globe-stand"></span> International Experience
+							<i class="fa fa-info-circle cl-blue icon-info" aria-hidden="true">
 								<span class="info-toltip">Please select the range that most accurately matches your international skills, experience, and studies.</span>
 							</i>
 						</label>
@@ -534,7 +607,7 @@ long institutionProfileId=0;
 							</ul>
 						</div>
 						<div class="wrap-range">
-						 	<input type="range" name="experienceLevelUI" min="1" max="10" value="<%=experienceLevel %>" onchange="updateTextInput(this.value);"> 
+						 	<input type="range" name="experienceLevelUI" min="0" max="3" value="<%=experienceLevel %>" onchange="updateTextInput(this.value);"> 
 						 	<aui:input name="experienceLevel" type="hidden" value="<%=experienceLevel %>" ></aui:input> 
 						</div>
 					</div>
@@ -543,14 +616,14 @@ long institutionProfileId=0;
 					<div class="form-group w-100">
 						<label>Link Your CV</label>
 						<!-- <input type="url" name="" value="http://www.abcdefge/hijk/lmnop/tuvw.xyz" class="field input form-control"> -->
-						<aui:input type="url" name="cvLink" label="" value="<%=cvLink %>" cssClass="field input form-control" />
+						<aui:input type="url" name="cvLink" label="" value="<%=cvLink %>" cssClass="field input form-control inactive-input" />
 					</div>
 				</div>
 			</div>
 			<div class="row row-custom">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label>Bio</label>
+						<label><span class="icon-regular icon-book-user"></span> Bio</label>
 						<!-- <textarea class="field input form-control" style="min-height: 100px;">Divides professional time between teaching undergraduate courses in both classroom and online settings, and providing private consulting specializing in the growth and globalization of small businesses. I also serve on the editorial board of The Academy of Management Journal.</textarea> -->
 						<aui:input type="textarea" name="bioDescription" label="" cssClass="field input form-control" style="min-height: 100px; height: auto;" 
                   		value="<%=bioDescription %>"  />
@@ -563,17 +636,25 @@ long institutionProfileId=0;
 </div>
 	</div>
 	<div class="col-lg-6 mb-3">
-	<div id="interest" class="collaboration box box-border-radius box-shadow bg-white">
+	<div id="interest" class="collaboration box box-border-radius box-shadow bg-white position-relative">
+	<!-- Loader -->
+	<div id="editCollaborationInterestLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
 			<h2 class="box-subhead">
-				<i class="fas fa-user"></i>Collaboration Interests
+				<span class="icon-regular icon-comment-smile"></span>Collaboration Interests
 			</h2>
 		</div>
 		<div class="box-middle">
 			<div class="row row-custom">
 				<div class="col-md-12">
-					<h4 class="mb-3">Areas of Interest</h4>
+					<h4 class="mb-3"><span class="icon-regular icon-s-search pr-3"></span> Areas of Interest
+						<i class="fa fa-info-circle icon-info cl-blue" aria-hidden="true">
+							<span class="info-toltip">Click "Learn More" to learn about CollaboratED Projects in our Resources section.</span>
+						</i>
+					</h4>
 					
 					<div class="clearfix">
 					<div id="area-of-interest-block" class="row row-custom "></div>
@@ -725,7 +806,7 @@ long institutionProfileId=0;
 	 												 <strong>Project Date Range</strong>
 	 												 <div class="top-label-range">
 	 												 	<div class="top-init-range">
-	 												 		<div id="currentday1"></div>
+	 												 		<div><span class="currentMonthStart1 mr-1"></span><span id="currentday1"></span></div>
 	 												 	</div>
 														<div class="year-last-range pickerdata">
 															<input type="text" id="rangerDatepicker1" value="2020" readonly/>
@@ -741,7 +822,7 @@ long institutionProfileId=0;
 											</div>
 											<div class="row text-center">
 												<div class="col-md-12 ac mt-3 text-center">
-													<strong>Created: 2019-10-31 1:03 PM</strong>
+													<strong>Created: <span class="created_date">2019-10-31</span></strong>
 												</div>
 											</div>
 										</div>
@@ -756,18 +837,18 @@ long institutionProfileId=0;
 										<aui:input  name="updateInterestId" value="0" type="hidden"></aui:input>
 										<div class="row mb-2">
 											<div class="col-md-12">
-												<aui:select name="projectTypeEdit" label="What type of project you are interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
+												<aui:select name="projectTypeEdit" label="What type of project are you interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
 													<aui:option value="">Select a Project</aui:option>
-													<aui:option value="Academic Journal">Academic Journal</aui:option>
-													<aui:option value="Best Practices">Best Practices</aui:option>
+													<aui:option value="Academic Journal" disabled="true">Academic Journal</aui:option>
+													<aui:option value="Best Practices" disabled="true">Best Practices</aui:option>
 													<aui:option value="Course Development">Course Development</aui:option>
-													<aui:option value="Curriculum Development">Curriculum Development</aui:option>
-													<aui:option value="General Publication">General Publication</aui:option>
-													<aui:option value="Mentorship">Mentorship</aui:option>
-													<aui:option value="Peer Review">Peer Review</aui:option>
-													<aui:option value="Research">Research</aui:option>
-													<aui:option value="Study Abroad">Study Abroad</aui:option>
-													<aui:option value="Other">Other</aui:option>
+													<aui:option value="Curriculum Development" disabled="true">Curriculum Development</aui:option>
+													<aui:option value="General Publication" disabled="true">General Publication</aui:option>
+													<aui:option value="Mentorship" disabled="true">Mentorship</aui:option>
+													<aui:option value="Peer Review" disabled="true">Peer Review</aui:option>
+													<aui:option value="Research" disabled="true">Research</aui:option>
+													<aui:option value="Study Abroad" disabled="true">Study Abroad</aui:option>
+													<aui:option value="Other" disabled="true">Other</aui:option>
 												</aui:select>
 												<aui:input type="textarea" name="projectDescriptionEdit" label="Description:" value="" cssClass="wrap-input input textarea" style="height: 55px;" required="true"/>
 											</div>
@@ -801,7 +882,7 @@ long institutionProfileId=0;
 													</aui:select>
 												</div>
 												<div class="selectableDR selectableDREdit first active">
-													<aui:select name="disciplineEdit1" label="Discipline 1" cssClass="wrap-input input select mb-0" required="true">
+													<aui:select name="disciplineEdit1" label="Discipline 1" cssClass="wrap-input input select mb-0">
 														<aui:option value=""></aui:option>
 														<aui:option value="Anthropology">Anthropology </aui:option>
 														<aui:option value="Archaeology">Archaeology </aui:option>
@@ -831,7 +912,7 @@ long institutionProfileId=0;
 													</aui:select>
 													<!-- <span class="font-style-italic font11">Hold CTRL for multi-select</span> -->
 												</div>
-												<div class="selectableDR selectableDREdit">
+												<div class="selectableDR selectableDREdit d-block">
 													<aui:select name="disciplineEdit2" label="Discipline 2" cssClass="wrap-input input select mb-0">
 														<aui:option value=""></aui:option>
 														<aui:option value="Anthropology">Anthropology </aui:option>
@@ -861,7 +942,7 @@ long institutionProfileId=0;
 														<aui:option value="Theology">Theology </aui:option>
 													</aui:select>
 												</div>
-												<div class="selectableDR selectableDREdit">
+												<div class="selectableDR selectableDREdit d-block">
 													<aui:select name="disciplineEdit3" label="Discipline 3" cssClass="wrap-input input select mb-0">
 														<aui:option value=""></aui:option>
 														<aui:option value="Anthropology">Anthropology </aui:option>
@@ -894,7 +975,7 @@ long institutionProfileId=0;
 											</div>
 											<div class="col-md-6 mb-2">
 												<div class="selectableDR selectableDREdit first active">
-													<aui:select name="locationEdit1" label="Region 1" cssClass="wrap-input input select" required="true">
+													<aui:select name="locationEdit1" label="Region 1" cssClass="wrap-input input select">
 														<aui:option value=""></aui:option>
 														<aui:option value="All">All</aui:option>
 														<aui:option value="Africa">Africa </aui:option>
@@ -908,51 +989,51 @@ long institutionProfileId=0;
 														<aui:option value="The Caribbean">The Caribbean </aui:option>
 													</aui:select>
 												</div>
-												<div class="selectableDR selectableDREdit">
-													<aui:select name="locationEdit2" label="Region 2" cssClass="wrap-input input select">
-														<aui:option value=""></aui:option>
-														<aui:option value="All">All</aui:option>
-														<aui:option value="Africa">Africa </aui:option>
-														<aui:option value="Asia">Asia </aui:option>
-														<aui:option value="Central America">Central America </aui:option>
-														<aui:option value="Europe">Europe </aui:option>
-														<aui:option value="Middle East">Middle East </aui:option>
-														<aui:option value="North America">North America </aui:option>
-														<aui:option value="Oceania">Oceania </aui:option>
-														<aui:option value="South America">South America </aui:option>
-														<aui:option value="The Caribbean">The Caribbean </aui:option>
-													</aui:select>
-												</div>
-												<div class="selectableDR selectableDREdit">
-													<aui:select name="locationEdit3" label="Region 3" cssClass="wrap-input input select">
-														<aui:option value=""></aui:option>
-														<aui:option value="All">All</aui:option>
-														<aui:option value="Africa">Africa </aui:option>
-														<aui:option value="Asia">Asia </aui:option>
-														<aui:option value="Central America">Central America </aui:option>
-														<aui:option value="Europe">Europe </aui:option>
-														<aui:option value="Middle East">Middle East </aui:option>
-														<aui:option value="North America">North America </aui:option>
-														<aui:option value="Oceania">Oceania </aui:option>
-														<aui:option value="South America">South America </aui:option>
-														<aui:option value="The Caribbean">The Caribbean </aui:option>
-													</aui:select>
-												</div>
-												<div class="selectableDR selectableDREdit">
-													<aui:select name="locationEdit4" label="Region 4" cssClass="wrap-input input select">
-														<aui:option value=""></aui:option>
-														<aui:option value="All">All</aui:option>
-														<aui:option value="Africa">Africa </aui:option>
-														<aui:option value="Asia">Asia </aui:option>
-														<aui:option value="Central America">Central America </aui:option>
-														<aui:option value="Europe">Europe </aui:option>
-														<aui:option value="Middle East">Middle East </aui:option>
-														<aui:option value="North America">North America </aui:option>
-														<aui:option value="Oceania">Oceania </aui:option>
-														<aui:option value="South America">South America </aui:option>
-														<aui:option value="The Caribbean">The Caribbean </aui:option>
-													</aui:select>
-												</div>
+												<div class="selectableDR selectableDREdit showIfNotAll">
+														<aui:select name="locationEdit2" label="Region 2" cssClass="wrap-input input select">
+															<aui:option value=""></aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
+															<aui:option value="Africa">Africa </aui:option>
+															<aui:option value="Asia">Asia </aui:option>
+															<aui:option value="Central America">Central America </aui:option>
+															<aui:option value="Europe">Europe </aui:option>
+															<aui:option value="Middle East">Middle East </aui:option>
+															<aui:option value="North America">North America </aui:option>
+															<aui:option value="Oceania">Oceania </aui:option>
+															<aui:option value="South America">South America </aui:option>
+															<aui:option value="The Caribbean">The Caribbean </aui:option>
+														</aui:select>
+													</div>
+													<div class="selectableDR selectableDREdit showIfNotAll">
+														<aui:select name="locationEdit3" label="Region 3" cssClass="wrap-input input select">
+															<aui:option value=""></aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
+															<aui:option value="Africa">Africa </aui:option>
+															<aui:option value="Asia">Asia </aui:option>
+															<aui:option value="Central America">Central America </aui:option>
+															<aui:option value="Europe">Europe </aui:option>
+															<aui:option value="Middle East">Middle East </aui:option>
+															<aui:option value="North America">North America </aui:option>
+															<aui:option value="Oceania">Oceania </aui:option>
+															<aui:option value="South America">South America </aui:option>
+															<aui:option value="The Caribbean">The Caribbean </aui:option>
+														</aui:select>
+													</div>
+													<div class="selectableDR selectableDREdit showIfNotAll">
+														<aui:select name="locationEdit4" label="Region 4" cssClass="wrap-input input select">
+															<aui:option value=""></aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
+															<aui:option value="Africa">Africa </aui:option>
+															<aui:option value="Asia">Asia </aui:option>
+															<aui:option value="Central America">Central America </aui:option>
+															<aui:option value="Europe">Europe </aui:option>
+															<aui:option value="Middle East">Middle East </aui:option>
+															<aui:option value="North America">North America </aui:option>
+															<aui:option value="Oceania">Oceania </aui:option>
+															<aui:option value="South America">South America </aui:option>
+															<aui:option value="The Caribbean">The Caribbean </aui:option>
+														</aui:select>
+													</div>
 											</div>
 											
 											<div class="col-md-6 programLength showOnourseDevelopment mb-2">
@@ -973,14 +1054,14 @@ long institutionProfileId=0;
 													<aui:option value="Undergraduate">Undergraduate</aui:option>	
 													<aui:option value="Graduate">Graduate</aui:option>	
 													<aui:option value="Doctoral">Doctoral</aui:option>
-													<aui:option value="Post Doctoral">Post Doctoral </aui:option>							
+													<aui:option value="Post Doctoral">Post-Doctoral </aui:option>							
 												</aui:select>
 											</div>
 											<div class="col-md-6 showOnourseDevelopment mb-2">
 												<aui:select name="deliveryMethodEdit" label="Delivery Method:" cssClass="wrap-input input select">
 													<aui:option value="Online">Online</aui:option>	
-													<aui:option value="Blended or Hybrid">Blended or Hybrid</aui:option>	
-													<aui:option value="On-ground">On-ground</aui:option>																																																	
+													<aui:option value="Blended or Hybrid">Blended</aui:option>	
+													<aui:option value="On-ground">On-Ground</aui:option>																																																	
 												</aui:select>
 											</div>
 											<div class="col-md-6 showOnourseDevelopment mb-2">
@@ -1004,7 +1085,7 @@ long institutionProfileId=0;
 	 												 <strong>Project Date Range</strong>
 	 												 <div class="top-label-range">
 	 												 	<div class="top-init-range">
-	 												 		<div id="currentday2"></div>
+	 												 		<div><span class="currentMonthStart2 mr-1"></span><span id="currentday2"></span></div>
 	 												 	</div>
 														<div class="year-last-range pickerdata">
 															<input type="text" id="rangerDatepicker2" value="2020" readonly/>
@@ -1036,7 +1117,9 @@ long institutionProfileId=0;
 					
 					<div class="mb-2">
 						<a href="javascript:void(0);" class="btn btn-blue btn-w-100 cursor-pointer"
-							id="add-interest">Add An Interest</a>
+							id="loadMore-interest">Learn More</a> 
+						<a href="javascript:void(0);" class="btn btn-blue btn-w-100 cursor-pointer"
+							id="add-interest">Add</a>
 					</div>
 					<div id="add-interest-modal" class="modalareainterest color-black font14 modal fade">
 						<aui:input  name="addInterestId" value="" type="hidden"></aui:input>
@@ -1051,18 +1134,18 @@ long institutionProfileId=0;
 											</div>
 											<div class="row mb-2">
 												<div class="col-md-12">
-													<aui:select name="projectType" label="What type of project you are interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
+													<aui:select name="projectType" label="What type of project are you interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
 														<aui:option value="">Select a Project</aui:option>
-														<aui:option value="Academic Journal">Academic Journal</aui:option>
-														<aui:option value="Best Practices">Best Practices</aui:option>
+														<aui:option value="Academic Journal" disabled="true">Academic Journal</aui:option>
+														<aui:option value="Best Practices" disabled="true">Best Practices</aui:option>
 														<aui:option value="Course Development">Course Development</aui:option>
-														<aui:option value="Curriculum Development">Curriculum Development</aui:option>
-														<aui:option value="General Publication">General Publication</aui:option>
-														<aui:option value="Mentorship">Mentorship</aui:option>
-														<aui:option value="Peer Review">Peer Review</aui:option>
-														<aui:option value="Research">Research</aui:option>
-														<aui:option value="Study Abroad">Study Abroad</aui:option>
-														<aui:option value="Other">Other</aui:option>
+														<aui:option value="Curriculum Development" disabled="true">Curriculum Development</aui:option>
+														<aui:option value="General Publication" disabled="true">General Publication</aui:option>
+														<aui:option value="Mentorship" disabled="true">Mentorship</aui:option>
+														<aui:option value="Peer Review" disabled="true">Peer Review</aui:option>
+														<aui:option value="Research" disabled="true">Research</aui:option>
+														<aui:option value="Study Abroad" disabled="true">Study Abroad</aui:option>
+														<aui:option value="Other" disabled="true">Other</aui:option>
 													</aui:select>
 													<aui:input type="textarea" name="projectDescription" label="Description:" value="" cssClass="wrap-input input textarea" style="height: 65px; min-height: auto;" required="true"/>
 												</div>
@@ -1097,7 +1180,7 @@ long institutionProfileId=0;
 														</aui:select>
 													</div>
 													<div class="selectableDR first active">
-														<aui:select name="discipline1" label="Discipline 1" cssClass="wrap-input input select mb-0" required="true">
+														<aui:select name="discipline1" label="Discipline 1" cssClass="wrap-input input select mb-0" >
 															<aui:option value=""></aui:option>
 															<aui:option value="Anthropology">Anthropology </aui:option>
 															<aui:option value="Archaeology">Archaeology </aui:option>
@@ -1127,7 +1210,7 @@ long institutionProfileId=0;
 														</aui:select>
 														<!-- <span class="font-style-italic font11">Hold CTRL for multi-select</span> -->
 													</div>
-													<div class="selectableDR">
+													<div class="selectableDR d-block">
 														<aui:select name="discipline2" label="Discipline 2" cssClass="wrap-input input select mb-0">
 															<aui:option value=""></aui:option>
 															<aui:option value="Anthropology">Anthropology </aui:option>
@@ -1157,7 +1240,7 @@ long institutionProfileId=0;
 															<aui:option value="Theology">Theology </aui:option>
 														</aui:select>
 													</div>
-													<div class="selectableDR">
+													<div class="selectableDR d-block">
 														<aui:select name="discipline3" label="Discipline 3" cssClass="wrap-input input select mb-0">
 															<aui:option value=""></aui:option>
 															<aui:option value="Anthropology">Anthropology </aui:option>
@@ -1190,7 +1273,7 @@ long institutionProfileId=0;
 												</div>
 												<div class="col-md-6">
 													<div class="selectableDR first active">
-														<aui:select name="location1" label="Region 1" cssClass="wrap-input input select" required="true">
+														<aui:select name="location1" label="Region 1" cssClass="wrap-input input select">
 															<aui:option value=""></aui:option>
 															<aui:option value="All">All</aui:option>
 															<aui:option value="Africa">Africa </aui:option>
@@ -1204,10 +1287,10 @@ long institutionProfileId=0;
 															<aui:option value="The Caribbean">The Caribbean </aui:option>
 														</aui:select>
 													</div>
-													<div class="selectableDR">
+													<div class="selectableDR showIfNotAll">
 														<aui:select name="location2" label="Region 2" cssClass="wrap-input input select ">
 															<aui:option value=""></aui:option>
-															<aui:option value="All">All</aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
 															<aui:option value="Africa">Africa </aui:option>
 															<aui:option value="Asia">Asia </aui:option>
 															<aui:option value="Central America">Central America </aui:option>
@@ -1219,10 +1302,10 @@ long institutionProfileId=0;
 															<aui:option value="The Caribbean">The Caribbean </aui:option>
 														</aui:select>
 													</div>
-													<div class="selectableDR">
+													<div class="selectableDR showIfNotAll">
 														<aui:select name="location3" label="Region 3" cssClass="wrap-input input select">
 															<aui:option value=""></aui:option>
-															<aui:option value="All">All</aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
 															<aui:option value="Africa">Africa </aui:option>
 															<aui:option value="Asia">Asia </aui:option>
 															<aui:option value="Central America">Central America </aui:option>
@@ -1234,10 +1317,10 @@ long institutionProfileId=0;
 															<aui:option value="The Caribbean">The Caribbean </aui:option>
 														</aui:select>
 													</div>
-													<div class="selectableDR">
+													<div class="selectableDR showIfNotAll">
 														<aui:select name="location4" label="Region 4" cssClass="wrap-input input select">
 															<aui:option value=""></aui:option>
-															<aui:option value="All">All</aui:option>
+															<!-- <aui:option value="All">All</aui:option> -->
 															<aui:option value="Africa">Africa </aui:option>
 															<aui:option value="Asia">Asia </aui:option>
 															<aui:option value="Central America">Central America </aui:option>
@@ -1268,7 +1351,7 @@ long institutionProfileId=0;
 															<aui:option value="Undergraduate">Undergraduate</aui:option>	
 															<aui:option value="Graduate">Graduate</aui:option>	
 															<aui:option value="Doctoral">Doctoral</aui:option>
-															<aui:option value="Post Doctoral">Post Doctoral </aui:option>									
+															<aui:option value="Post Doctoral">Post-Doctoral</aui:option>									
 														</aui:select>
 													</div>
 													<div class="col-md-6 programLength">
@@ -1286,8 +1369,8 @@ long institutionProfileId=0;
 													<div class="col-md-6">
 														<aui:select name="deliveryMethod" label="Delivery Method" cssClass="wrap-input input select">
 															<aui:option value="Online">Online</aui:option>	
-															<aui:option value="Blended or Hybrid">Blended or Hybrid</aui:option>	
-															<aui:option value="On-ground">On-ground</aui:option>																							
+															<aui:option value="Blended or Hybrid">Blended</aui:option>	
+															<aui:option value="On-ground">On-Ground</aui:option>																							
 														</aui:select>
 													</div>	
 													<div class="col-md-6">
@@ -1306,7 +1389,7 @@ long institutionProfileId=0;
 	 												 <strong>Project Date Range</strong>
 	 												 <div class="top-label-range">
 	 												 	<div class="top-init-range">
-	 												 		<div id="currentday3"></div>
+	 												 		<div><span class="currentMonthStart3 mr-1">Jan</span><span id="currentday3"></span></div>
 	 												 	</div>
 														<div class="year-last-range pickerdata">
 															<input type="text" id="rangerDatepicker3" value="2020" readonly/>
@@ -1329,9 +1412,9 @@ long institutionProfileId=0;
 						</div>
 					</div>
 					<p>
-						<a href="#">Learn More</a><i class="fa fa-info-circle icon-info"
+						<!-- <a href="#">Learn More</a><i class="fa fa-info-circle icon-info"
 							aria-hidden="true"> <span class="info-toltip">Click	"Learn More" to learn about CollaboratED Projects in our Resources section.</span>
-						</i>
+						</i> -->
 					</p>
 				</div>
 				<!-- <div class="col-md-6">
@@ -1357,8 +1440,8 @@ long institutionProfileId=0;
 	</div>
 </div>
 </div>
-	<div class="col-lg-12 mb-4 mt-3 text-right">
-		<aui:button  value="Save Profile" type="submit" onclick="saveProfile()" cssClass="btn btn-blue"></aui:button>
+	<div class="col-lg-12 mb-4 mt-3 text-right"> <!-- onclick="saveProfileTest('profile')" -->
+		<aui:button  value="Save Profile" type="submit" onclick="saveProfile('profile')"  cssClass="btn btn-blue" id="saveProfile"></aui:button>
 	</div>
 	
 </div>
@@ -1373,6 +1456,7 @@ var A= AUI();
 $( document ).ready(function() {
 	initMap();
 	loadUserInfo();
+	$(".profile-status span.control-label").html("<span class='icon-regular icon-user-cog'></span> My Thoughts");
 	$("#<portlet:namespace/>file").change(function() {
 		readURL(this);
 	});
@@ -1386,9 +1470,12 @@ $( document ).ready(function() {
 		  return  monthNames[monthIndex] +  ' ' + year;
 		}
 
-	document.getElementById("currentday1").innerHTML = formatDate(new Date());
+	/* document.getElementById("currentday1").innerHTML = formatDate(new Date());
 	document.getElementById("currentday2").innerHTML = formatDate(new Date());
-	document.getElementById("currentday3").innerHTML = formatDate(new Date());
+	document.getElementById("currentday3").innerHTML = formatDate(new Date()); */
+	//document.getElementById("currentday1").innerHTML = new Date().getFullYear();
+	//document.getElementById("currentday2").innerHTML = new Date().getFullYear();
+	document.getElementById("currentday3").innerHTML = new Date().getFullYear();
 	var lang = "en-US";
     var year = 2018;
     
@@ -1489,18 +1576,38 @@ $( document ).ready(function() {
       });
     
 });
-$( window ).load(function() {
-	initMap();
-	debugger;
-	
-});
-initMap();
+
+var geocoder;
+var map;
+var address = '<%=address1%>'+','+'<%=address2%>'+','+'<%=cityState %>'+','+'<%=postalCode %>';
 function initMap() {
-  var culver = {lat: 34.021122, lng: -118.396469};
-  var map = new google.maps.Map(
-  document.getElementById('map'), {zoom: 14, center: culver});
-  var marker = new google.maps.Marker({position: culver, map: map});
+	debugger;
+  	var map = new google.maps.Map(document.getElementById('profile-map'), {
+    	zoom: 12,
+    	center: {lat: -34.397, lng: 150.644}
+  	});
+  	geocoder = new google.maps.Geocoder();
+  	codeAddress(geocoder, map);
 }
+
+function codeAddress(geocoder, map) {
+  	geocoder.geocode({'address': address}, function(results, status) {
+	    if (status === 'OK') {
+	      	map.setCenter(results[0].geometry.location);
+	      	//map.setZoom(15);
+	      	var marker = new google.maps.Marker({
+	        	map: map,
+	        	position: results[0].geometry.location
+	      	});
+	    } else {
+	      alert('Geocode was not successful for the following reason: ' + status);
+	    }
+  	});
+}
+
+$(window).on('load', function() {
+	initMap()
+});
 
 
 //Edit Collaboration Interests
@@ -1527,8 +1634,10 @@ function getProjectTypeStatus(value){
 
 $(window).on('load', function() { debugger;
 	$(".profile-status").find("textarea").css({"width":"100%","height":"0px"});
-	$(".profile-status").find("span.control-label").text("Status");
+	//$(".profile-status").find("span.control-label").text("");
 	$(".online-status").find("span.control-label").text("Online Status");
+	$(".profile-status span.control-label").html("<span class='icon-regular icon-user-cog'></span>  My Thoughts");
+	//$( ".profile-status span.control-label" ).append( document.createTextNode( "My Thoughts" ) );
 	
 	var url_param = '<%=themeDisplay.getURLPortal()+themeDisplay.getURLCurrent() %>';
 	var current_url = new URL(url_param);
@@ -1543,10 +1652,16 @@ function readURL(input) {
   debugger;
   if (input.files && input.files[0]) {
     var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#userImage').attr('src', e.target.result);
-    }	    
-    reader.readAsDataURL(input.files[0]);
+    var file_size = $("#<portlet:namespace />file")[0].files[0].size;
+	if(file_size>1048576) {
+		showMsg("File size should not exceed 1 MB");
+		return false;
+	} else {
+		reader.onload = function(e) {
+	      $('#userImage').attr('src', e.target.result);
+	    }	    
+	    reader.readAsDataURL(input.files[0]);
+	}
   }
 }
 

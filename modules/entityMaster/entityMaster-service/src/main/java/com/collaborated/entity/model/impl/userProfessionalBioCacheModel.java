@@ -66,7 +66,7 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{PK_userProfessionalBio=");
 		sb.append(PK_userProfessionalBio);
@@ -90,6 +90,8 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 		sb.append(cvlink);
 		sb.append(", biodescription=");
 		sb.append(biodescription);
+		sb.append(", bioDiscipline=");
+		sb.append(bioDiscipline);
 		sb.append("}");
 
 		return sb.toString();
@@ -159,6 +161,13 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 			userProfessionalBioImpl.setBiodescription(biodescription);
 		}
 
+		if (bioDiscipline == null) {
+			userProfessionalBioImpl.setBioDiscipline(StringPool.BLANK);
+		}
+		else {
+			userProfessionalBioImpl.setBioDiscipline(bioDiscipline);
+		}
+
 		userProfessionalBioImpl.resetOriginalValues();
 
 		return userProfessionalBioImpl;
@@ -179,6 +188,7 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 		experienceyears = objectInput.readUTF();
 		cvlink = objectInput.readUTF();
 		biodescription = objectInput.readUTF();
+		bioDiscipline = objectInput.readUTF();
 	}
 
 	@Override
@@ -233,6 +243,13 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 		else {
 			objectOutput.writeUTF(biodescription);
 		}
+
+		if (bioDiscipline == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(bioDiscipline);
+		}
 	}
 
 	public long PK_userProfessionalBio;
@@ -246,4 +263,5 @@ public class userProfessionalBioCacheModel implements CacheModel<userProfessiona
 	public String experienceyears;
 	public String cvlink;
 	public String biodescription;
+	public String bioDiscipline;
 }

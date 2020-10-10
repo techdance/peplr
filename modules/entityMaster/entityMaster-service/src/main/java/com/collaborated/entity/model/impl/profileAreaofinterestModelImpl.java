@@ -94,7 +94,9 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			{ "rangerYearStart", Types.INTEGER },
 			{ "rangerYearEnd", Types.INTEGER },
 			{ "rangerMonthStart", Types.VARCHAR },
-			{ "rangerMonthEnd", Types.VARCHAR }
+			{ "rangerMonthEnd", Types.VARCHAR },
+			{ "universityName", Types.VARCHAR },
+			{ "groupName", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -124,9 +126,11 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		TABLE_COLUMNS_MAP.put("rangerYearEnd", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("rangerMonthStart", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("rangerMonthEnd", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("universityName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("groupName", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_profileAreaofinterest (PK_areaofinterest LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,projectType VARCHAR(75) null,description VARCHAR(75) null,language VARCHAR(75) null,campus VARCHAR(75) null,programLevel VARCHAR(75) null,programLength VARCHAR(75) null,deliveryMethod VARCHAR(75) null,credits VARCHAR(75) null,collaborationType VARCHAR(75) null,discipline1 VARCHAR(75) null,discipline2 VARCHAR(75) null,discipline3 VARCHAR(75) null,location1 VARCHAR(75) null,location2 VARCHAR(75) null,location3 VARCHAR(75) null,location4 VARCHAR(75) null,rangerYearStart INTEGER,rangerYearEnd INTEGER,rangerMonthStart VARCHAR(75) null,rangerMonthEnd VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_profileAreaofinterest (PK_areaofinterest LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,projectType VARCHAR(75) null,description VARCHAR(75) null,language VARCHAR(75) null,campus VARCHAR(75) null,programLevel VARCHAR(75) null,programLength VARCHAR(75) null,deliveryMethod VARCHAR(75) null,credits VARCHAR(75) null,collaborationType VARCHAR(75) null,discipline1 VARCHAR(75) null,discipline2 VARCHAR(75) null,discipline3 VARCHAR(75) null,location1 VARCHAR(75) null,location2 VARCHAR(75) null,location3 VARCHAR(75) null,location4 VARCHAR(75) null,rangerYearStart INTEGER,rangerYearEnd INTEGER,rangerMonthStart VARCHAR(75) null,rangerMonthEnd VARCHAR(75) null,universityName VARCHAR(75) null,groupName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_profileAreaofinterest";
 	public static final String ORDER_BY_JPQL = " ORDER BY profileAreaofinterest.PK_areaofinterest ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_profileAreaofinterest.PK_areaofinterest ASC";
@@ -180,6 +184,8 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		model.setRangerYearEnd(soapModel.getRangerYearEnd());
 		model.setRangerMonthStart(soapModel.getRangerMonthStart());
 		model.setRangerMonthEnd(soapModel.getRangerMonthEnd());
+		model.setUniversityName(soapModel.getUniversityName());
+		model.setGroupName(soapModel.getGroupName());
 
 		return model;
 	}
@@ -270,6 +276,8 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		attributes.put("rangerYearEnd", getRangerYearEnd());
 		attributes.put("rangerMonthStart", getRangerMonthStart());
 		attributes.put("rangerMonthEnd", getRangerMonthEnd());
+		attributes.put("universityName", getUniversityName());
+		attributes.put("groupName", getGroupName());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -427,6 +435,18 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 
 		if (rangerMonthEnd != null) {
 			setRangerMonthEnd(rangerMonthEnd);
+		}
+
+		String universityName = (String)attributes.get("universityName");
+
+		if (universityName != null) {
+			setUniversityName(universityName);
+		}
+
+		String groupName = (String)attributes.get("groupName");
+
+		if (groupName != null) {
+			setGroupName(groupName);
 		}
 	}
 
@@ -817,6 +837,38 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		_rangerMonthEnd = rangerMonthEnd;
 	}
 
+	@JSON
+	@Override
+	public String getUniversityName() {
+		if (_universityName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _universityName;
+		}
+	}
+
+	@Override
+	public void setUniversityName(String universityName) {
+		_universityName = universityName;
+	}
+
+	@JSON
+	@Override
+	public String getGroupName() {
+		if (_groupName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _groupName;
+		}
+	}
+
+	@Override
+	public void setGroupName(String groupName) {
+		_groupName = groupName;
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
@@ -869,6 +921,8 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		profileAreaofinterestImpl.setRangerYearEnd(getRangerYearEnd());
 		profileAreaofinterestImpl.setRangerMonthStart(getRangerMonthStart());
 		profileAreaofinterestImpl.setRangerMonthEnd(getRangerMonthEnd());
+		profileAreaofinterestImpl.setUniversityName(getUniversityName());
+		profileAreaofinterestImpl.setGroupName(getGroupName());
 
 		profileAreaofinterestImpl.resetOriginalValues();
 
@@ -1110,12 +1164,28 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			profileAreaofinterestCacheModel.rangerMonthEnd = null;
 		}
 
+		profileAreaofinterestCacheModel.universityName = getUniversityName();
+
+		String universityName = profileAreaofinterestCacheModel.universityName;
+
+		if ((universityName != null) && (universityName.length() == 0)) {
+			profileAreaofinterestCacheModel.universityName = null;
+		}
+
+		profileAreaofinterestCacheModel.groupName = getGroupName();
+
+		String groupName = profileAreaofinterestCacheModel.groupName;
+
+		if ((groupName != null) && (groupName.length() == 0)) {
+			profileAreaofinterestCacheModel.groupName = null;
+		}
+
 		return profileAreaofinterestCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{PK_areaofinterest=");
 		sb.append(getPK_areaofinterest());
@@ -1167,6 +1237,10 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 		sb.append(getRangerMonthStart());
 		sb.append(", rangerMonthEnd=");
 		sb.append(getRangerMonthEnd());
+		sb.append(", universityName=");
+		sb.append(getUniversityName());
+		sb.append(", groupName=");
+		sb.append(getGroupName());
 		sb.append("}");
 
 		return sb.toString();
@@ -1174,7 +1248,7 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(79);
+		StringBundler sb = new StringBundler(85);
 
 		sb.append("<model><model-name>");
 		sb.append("com.collaborated.entity.model.profileAreaofinterest");
@@ -1280,6 +1354,14 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 			"<column><column-name>rangerMonthEnd</column-name><column-value><![CDATA[");
 		sb.append(getRangerMonthEnd());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>universityName</column-name><column-value><![CDATA[");
+		sb.append(getUniversityName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>groupName</column-name><column-value><![CDATA[");
+		sb.append(getGroupName());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1316,5 +1398,7 @@ public class profileAreaofinterestModelImpl extends BaseModelImpl<profileAreaofi
 	private int _rangerYearEnd;
 	private String _rangerMonthStart;
 	private String _rangerMonthEnd;
+	private String _universityName;
+	private String _groupName;
 	private profileAreaofinterest _escapedModel;
 }

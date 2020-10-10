@@ -12,6 +12,10 @@
 <portlet:defineObjects />
 
 <style>
+.icon-user-friends:before {
+    content: "\f500";
+    font-family: "Font Awesome 5 Light";
+}
 .hover-underline:hover {
     text-decoration: underline !important;
 }
@@ -22,6 +26,20 @@
     color: #000 !important;
     font-weight: 400 !important;
     font-style: italic !important;
+}
+.icon-user-friends::before {
+    content: "\f500";
+}
+.icon-user-friends:before {
+    content: "\f500";
+    font-family: "Font Awesome 5 Light";
+}
+.pl-45 {
+    padding-left: 2rem!important;
+}
+.color-blue-light,
+.recommended .partner-title.color-blue-light {
+	color: #2a9eff !important;
 }
 </style>
 
@@ -48,17 +66,17 @@ function loadRecommenedPartners(){
                     {			                    	
                     	var value=this.get('responseData');
                     	debugger;                    	
-                    	if(value!=null && value!="undefined" && value!=undefined && value=="showmessage"){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null" && value=="showmessage"){
                     		$("#showErrorMessage").show();
                     	}
-                    	if(value!=null && value!="undefined" && value!=undefined && value!="showmessage"){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null" && value!="showmessage"){
                     		$("#showErrorMessage").hide();
                     		$(".dashboardnews").html("");
                     		var data = JSON.parse(value);
                     		if(data.length>0){
                     			for(var i=0;i<data.length;i++){
                     				/* $(".dashboardnews").append("<div class='item'><div class='item-img partner-img position-relative'>"
-                    					+ "<a href='javascript:void(0);''><img  src='"+data[i].imageURL+"' alt=''></a> </div>"
+                    					+ "<a href='javascript:void(0);'><img  src='"+data[i].imageURL+"' alt=''></a> </div>"
                     					+ "<div class='item-text dynamicitemtext'><span class='partner partner-name'>"+data[i].userName+"</span>"
                     					+ "<span class='partner partner-title'>"+data[i].department+"</span>"
                     					+ "<span class='partner partner-university'>"+data[i].institutionName+"</span>"
@@ -70,17 +88,18 @@ function loadRecommenedPartners(){
 	                    						+ "<a href='javascript:void(0);'><img src='"+data[i].imageURL+"' width='59'></a>"
 	                    						+ "<div class='toltip3 any-toltip toltip-bg-black'>"
 	                    							+ "<div class='d-flex'>"
-	                    								+ "<a href='#'><img src='images/contact-partner-1.png' width='50'></a>"
-	                    								+ "<a href='#'><img src='images/contact-partner-2.png' width='50'></a>"
-	                    								+ "<a href='#'><img src='images/contact-partner-3.png' width='50'></a>"
+	                    								+ "<a href='javascript:void(0);'><img src='/o/ahea-theme/images/contact-partner-1.png' width='50'></a>"
+	                    								+ "<a href='javascript:void(0);'><img src='/o/ahea-theme/images/contact-partner-2.png' width='50'></a>"
+	                    								+ "<a href='javascript:void(0);'><img src='/o/ahea-theme/images/contact-partner-3.png' width='50'></a>"
 	                    							+ "</div>"
 	                    						+ "</div>"
 	                    					+ "</div>"
 	                    					+ "<div class='item-text'>"
-	                    						+ "<a href='#' class='partner partner-name color-black hover-underline'>"+data[i].userName+"</a>"
-	                    						+ "<span class='partner partner-title'>Lecturer, Business &amp; Economics </span>"
-	                    						+ "<span class='partner partner-university'>University of Dubai </span>"
-	                    						+ "<span class='partner partner-address'>Dubai, UAE</span>"
+	                    						+ "<a href='javascript:void(0);' class='partner partner-name color-black hover-underline'>"+data[i].userName+"</a>"
+	                    						+ "<span class='partner partner-title'>"+data[i].jobTitle+"</span>"
+	                    						+ "<span class='partner partner-title'>"+data[i].department+" </span>"
+	                    						+ "<span class='partner partner-university'>"+data[i].institutionName+" </span>"
+	                    						+ "<span class='partner partner-address'>"+data[i].institutionLocation+"</span>"
 	                    						/* + "<span class='partner partner-title'>"+data[i].department+"</span>"
 	                    						+ "<span class='partner partner-university'>"+data[i].institutionName+"</span>"
 	                    						+ "<span class='partner partner-address'>"+data[i].institutionLocation+"</span>" */
@@ -90,6 +109,7 @@ function loadRecommenedPartners(){
                     			}
                     		}
                     	}
+                    	$("#dashboardRecommentedPartnersLoader").fadeOut();
                     	
                     },error: function(){	             
                     }

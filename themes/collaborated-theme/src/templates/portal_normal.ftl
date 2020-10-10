@@ -58,7 +58,7 @@
 	<section class="container">
 		<div id="container">
 		<header id="wrap-logo" class="ac">
-			<a href="#"><img src="/o/collaborated-theme/images/logo-ahea.png"></a>
+			<a href="#"><img src="" id="collaborated_logo"></a>
 		</header>
 		<h1 class="sr-only">${the_title}</h1>
 
@@ -80,6 +80,28 @@
 		<img src="/o/collaborated-theme/images/logo-tower-register.png" class="block">
 	</footer>
 </div>
+
+<script>
+$(document).ready(function(){
+	//getLoginApplicationLogo();
+});
+function getLoginApplicationLogo(){
+	$.ajax({
+		url:'${propsUtil.get("LOGO_API_URL")}',
+		type: "get",
+		dataType: "json",
+		contentType:"application/json",
+		success: function(data){
+		debugger;
+			if(data!=null && data!=undefined && data!="undefined" && data!="null"){	
+				if(data.collaborated_direct_login_logo!=null && data.collaborated_direct_login_logo!="" && data.collaborated_direct_login_logo!=undefined){
+					$("#collaborated_logo").attr("src",data.collaborated_direct_login_logo);
+				}
+			}	
+		}
+	});
+}
+</script>
 
 <@liferay_util["include"] page=body_bottom_include />
 

@@ -10,3 +10,29 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<style>
+.icon-sun-haze-light:before {
+    content: "\f765";
+    font-family: "Font Awesome 5 Light" !important;
+}
+.icon-sun-haze-regular:before {
+    content: "\f765";
+    font-family: "Font Awesome 5 Solid";
+}
+.icon-fa-box:before {
+    font-size: 18px;
+    height: auto;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+}
+.view-more::after {
+	top: 7px;
+}
+</style>
+<script>
+$(document).ready(function(){
+	$("#dashboardOpertunitiesLoader").fadeOut();
+});
+</script>

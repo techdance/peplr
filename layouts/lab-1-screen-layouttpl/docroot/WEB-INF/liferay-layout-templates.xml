@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE layout-templates PUBLIC "-//Liferay//DTD Layout Templates 7.1.0//EN" "http://www.liferay.com/dtd/liferay-layout-templates_7_1_0.dtd">
+
+<layout-templates>
+	<custom>
+		<layout-template id="lab-1-screen" name="lab1screen">
+			<template-path>/lab_1_screen.ftl</template-path>
+			<thumbnail-path>/lab_1_screen.png</thumbnail-path>
+		</layout-template>
+	</custom>
+</layout-templates>

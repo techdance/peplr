@@ -1,0 +1,4 @@
+Bundle-Name: ProjectCreation
+Bundle-SymbolicName: com.collaborated.interest.project.creation
+Bundle-Version: 1.0.0
+Include-Resource:@opencsv-3.7.jar,@commons-lang3-3.3.2.jar

@@ -59,15 +59,20 @@
 </div> -->
 
 <div class="profesional box box-border-radius box-shadow bg-white">
+	<!-- Loader -->
+	<div id="professionalBioLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
-			<h2 class="box-subhead"><i class="fas fa-user"></i>Professional Bio</h2>
+			<h2 class="box-subhead"><span class="icon-regular icon-user-secret"></span>Professional Bio</h2>
 
 		</div>
-		<div class="box-middle">
+		<div id="professionalBioData"></div>
+		<!-- <div class="box-middle">
 			<div class="row row-custom mb-4">
 				<div class="col-md-12">
-					<h4 class="mb-3"><i class="fab fa-youtube"></i> Introduction Video</h4>
+					<div class="mb-3"><span class="icon-regular icon-camcorder"></span> <strong>Introduction Video</strong></div>
 				</div>
 				<div class="col-md-6">
 
@@ -77,8 +82,15 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="content-icon position-relative">
-				<div><i class="fas fa-binoculars"></i><strong>Areas of Expertise</strong></div>
+				<div><span class="icon-regular icon-shield-check"></span><strong>Discipline</strong></div>
+				<p class="blue-color ml20">
+					<a href="#">Business</a>
+				</p>
+			</div>
+			<div class="content-icon position-relative">
+				<div><span class="icon-regular icon-user-ninja"></span><strong>Areas of Expertise</strong></div>
 				<p class="blue-color ml20">
 					<a href="#">Business Analytics & Intelligence</a><br>
 					<a href="#">Business Ethics</a><br>
@@ -86,16 +98,18 @@
 				</p>
 			</div>
 			<div class="content-icon plane">
-				<p><i class="fas fa-plane rotate320deg"></i>1-2 Years of International Experience</p>
+				<p><span class="icon-regular icon-globe-stand"></span> 1-2 Years of International Experience</p>
 			</div>
 			<div class="content-icon">
-				<div><i class="fas fa-address-book"></i><strong>Bio</strong></div>
+				<div><span class="icon-regular icon-book-user"></span><strong>Bio</strong></div>
 				<div class="text">
 					<p>Divides professional time between teaching undergraduate courses in both classroom and online settings, and providing private consulting specializing in the growth and globalization of small businesses. I also serve on the editorial board of<em> The Academy of Management Journal</em>.</p>
 				</div>
 			</div>
-
 			<a href="#" class="btn btn-blue view-cv">View CV</a>
-		</div>
+			<div class="ac mt-4 pt-2">
+				<a href="#" class="btn btn-blue view-cv">View CV</a>
+			</div>
+		</div> -->
 	</div>
 </div>

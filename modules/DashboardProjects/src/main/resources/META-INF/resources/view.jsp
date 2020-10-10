@@ -4,7 +4,7 @@
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
 			<h2 class="box-subhead"><i class="fas fa-address-card"></i> My Projects</h2>
-			<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
+			<a href="javascript:void(0);" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 		</div>
 		<div class="box-middle">
 			<div class="table-wrapper-scroll-x my-custom-scrollbar table-responsive">
@@ -71,7 +71,7 @@
 	</div>
 </div> -->
 
-<div class="box box-border-radius box-shadow bg-white">
+<!-- <div class="box box-border-radius box-shadow bg-white">
 	<div class="inner-wrap">
 		<div class="box-top position-relative">
 			<h2 class="box-subhead"><i class="fas fa-address-card"></i> My Projects</h2>
@@ -79,8 +79,8 @@
 
 			<div class="toltip2 menu-toltip toltip-overlay any-toltip">
 				<ul>
-					<li><a href="#">Create New Project</a></li>
-					<li><a href="#">Go to My Projects</a></li>
+					<li><a href="javascript:void(0);">Create New Project</a></li>
+					<li><a href="javascript:void(0);">Go to My Projects</a></li>
 					<li><a href="javascript:void(0);" class="btn-remove">Remove</a></li>
 				</ul>
 			</div>
@@ -157,6 +157,49 @@
 								</div>
 							</td>
 						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+
+
+
+<div class="dashboardMyProjects box box-border-radius box-shadow bg-white">
+	<!-- Loader -->
+	<div id="dashboardMyProjectsLoader" class="sectionloader"> 
+		<div class="loader"></div>
+	</div>
+	<div class="inner-wrap">
+		<div class="box-top position-relative">
+			<a href="/my-projects"><h2 class="box-subhead icon-fa-box icon-book-alt-light2 pl-4">My Projects</h2></a>
+			<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog"></i></a>
+
+			<div class="toltip2 menu-toltip toltip-overlay any-toltip">
+				<ul>
+					<li><a href="javascript:void(0);">Create New Project</a></li>
+					<li><a href="javascript:void(0);">Go to My Projects</a></li>
+					<li><a href="javascript:void(0);" class="btn-remove">Remove</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="box-middle">
+			<div class="table-wrapper-scroll-x my-custom-scrollbar">
+				<table id="projectTable" class="table table-sm">
+					<thead>
+						<th align="left">Project Title</th>
+						<th align="center">Start and End</th>
+						<th align="center">Type</th>
+						<th align="center">Organizer</th>
+						<th align="center">Files</th>
+						<th align="center">Partners</th>
+						<th align="center">Status</th>
+					</thead>
+					<tbody id="templateData">
+						
 					</tbody>
 				</table>
 			</div>

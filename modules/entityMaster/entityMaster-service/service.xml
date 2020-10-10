@@ -45,6 +45,7 @@
 		<column name="tertiaryLanguageName" type="String" />
 		<column name="emailAddress" type="String" />
 		<column name="phoneNumber" type="String" />
+		<column name="mobileNumber" type="String" />
 		<column name="website" type="String" />
 	</entity>
 	
@@ -89,6 +90,10 @@
 		<column name="rangerYearEnd" type="int" />	
 		<column name="rangerMonthStart" type="String" />	
 		<column name="rangerMonthEnd" type="String" />			
+		
+		<column name="universityName" type="String" />
+		<column name="groupName" type="String" />
+		
 	</entity>
 	
 	<entity local-service="true" name="userCredential" remote-service="true" json-enabled="true">
@@ -142,6 +147,7 @@
 		<column name="experienceyears" type="String" />
 		<column name="cvlink" type="String" />
 		<column name="biodescription" type="String" />
+		<column name="bioDiscipline" type="String" />
 	</entity>
 	
 	<entity local-service="true" name="userInstitutionProfileDetails" remote-service="true" json-enabled="true">
@@ -191,6 +197,523 @@
 	
 	<entity name="commonWebsserviceAPI" local-service="true" remote-service="true" json-enabled="true">
 		<column name="commonAPIId" type="long" primary="true" />	
+	</entity>
+	
+	<!-- Lab screen tables start -->
+	
+	<entity name="labScreenProjectOverview" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_projectId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="projectOwnerId" type="long" />
+		<column name="projectName" type="String" />
+		<column name="projectType" type="String" />
+		<column name="projectDescription" type="String" />
+		<column name="projectDiscipline1" type="String" />
+		<column name="projectDiscipline2" type="String" />
+		<column name="projectDiscipline3" type="String" />
+		<column name="role" type="String" />
+		<column name="projectStartDate" type="String" />
+		<column name="projectEndDate" type="String" />
+		<column name="projectDocumentId" type="long" />
+		<column name="percentage" type="long" />
+		<column name="interestId" type="long" />
+		<column name="projectStatus" type="String" />
+	</entity>
+	
+	<entity name="labScreenProjectPartners" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_projectPartnerId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="projectPartnerId" type="long" />
+		<column name="isActive" type="long" />
+			
+	</entity>
+	
+	<entity local-service="true" name="labScreenTask" remote-service="true" json-enabled="true">
+
+		<!-- PK fields -->
+
+		<column name="PK_taskId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="milestoneName" type="String" />
+		<column name="taskName" type="String" />
+		<column name="projectAssignedTo" type="long" />
+		<column name="taskDescription" type="String" />
+		<column name="taskStatus" type="String" />
+		<column name="dueDate" type="String" />
+	</entity>
+	
+	<entity name="labDetailedCourseIdentification" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="courseTitle" type="String" />
+		<column name="courseNumber" type="String" />
+		<column name="prerequisites" type="String" />
+		<column name="courseDescription" type="String" />
+		
+		<finder name="fetchCourseIdentificationbyProjectId" return-type="labDetailedCourseIdentification" unique="true">
+			<finder-column name="PK_projectId"/>
+		</finder>
+			
+	</entity>
+	
+	<entity name="labDetailedCourseHours" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseHoursId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="numberOfCredits" type="long" />
+		<column name="numberOfCourseWeeks" type="long" />
+		<column name="courseHoursPerWeek" type="long" />
+		<column name="lectureHoursPerWeek" type="long" />
+		<column name="labHoursPerWeek" type="long" />
+		<column name="independentStudyHoursPerWeek" type="long" />
+		
+		<finder name="getCourseHoursbyCourseId" return-type="labDetailedCourseHours" unique="true">
+			<finder-column name="PK_courseId"/>
+		</finder>
+			
+	</entity>
+	
+	<entity name="labDetailedCourseResources" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseResourceId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+	
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="textbokTitle" type="String" />
+		<column name="publisherName" type="String" />
+		<column name="author" type="String" />
+		<column name="isbn" type="String" />
+		
+		<finder name="getCourseResourcesbyCourseId" return-type="labDetailedCourseResources" unique="true">
+			<finder-column name="PK_courseId"/>
+		</finder>
+			
+	</entity>
+	
+	<entity name="labDetailedInstructorQualification" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseInstructorQualificationId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="instructor1Qualification" type="String" />
+		<column name="instructor2Qualification" type="String" />
+		
+		<finder name="getCourseInstructorQualificationbyCourseId" return-type="labDetailedInstructorQualification" unique="true">
+			<finder-column name="PK_courseId"/>
+		</finder>
+
+	</entity>
+	
+	<entity name="labDetailedCourseTopics" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseTopicsId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="courseTopic" type="String" />
+		
+	</entity>
+	
+	<entity name="labDetailedCourseObjectives" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_courseObjectivesId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="courseObjective" type="String" />
+		
+	</entity>
+	
+	<entity name="labDetailedLearningEnvironments" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_learningEnvironmentId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="learningEnvironment" type="String" />
+		
+	</entity>
+	
+	<entity name="labDetailedActivityTable" local-service="true" remote-service="true" json-enabled="true">
+		<column name="PK_activityTableId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectId" type="long" />
+		<column name="PK_courseId" type="long" />
+		<column name="week" type="long" />
+		<column name="courseObjective" type="String" />
+		<column name="learningEnvironmentDesign" type="String" />
+		<column name="activity" type="String" />
+		<column name="content" type="String" />
+		
+	</entity>
+	
+	<!-- Lab screen tables end -->
+	
+	<!-- Custom Workflow Tables -->
+
+	<!-- Custom Workflowlog  -->
+	<entity local-service="true" name="Custom_WorkflowLog" remote-service="true" uuid="false" json-enabled="true">
+	  
+	  <!-- PK fields -->
+	
+	   <column name="logId" primary="true" type="long"/>   
+	  
+	  	<!-- Audit fields -->
+	  		<column name="trackingId" type="long" />  
+	  		<column name="workflowId" type="long" />
+	  	    <column name="workflowTaskId" type="String" />
+	  		<column name="trasitionId" type="long" />  	  	
+	  		<column name="logDescription" type="String" />
+	  		<column name="comments" type="String" /> 
+	  		<column name="assigneeClassPK" type="long" />
+	 	    <column name="className" type="String" />
+	  		<column name="assignedDate" type="Date" />
+	  		<column name="completedDate" type="Date" />
+	  		<column name="createdBy" type="long" />
+	  		<column name="createdDate" type="Date" />
+	</entity>
+		
+	<!-- Custom_Workflow_Completed -->	
+	<entity local-service="true" name="Custom_Workflow_Completed" remote-service="true" uuid="false" json-enabled="true">
+	  
+	  <!-- PK fields -->
+	
+	   <column name="cId" primary="true" type="long"/>   
+	  
+	  	<!-- Audit fields -->
+	  		<column name="trackingId" type="long" />  
+	  		<column name="workflowId" type="long" />
+	  	    <column name="workflowTaskId" type="String" />
+	  		<column name="trasitionId" type="long" />  	  	
+	  		<column name="logDescription" type="String" />
+	  		<column name="comments" type="String" />  
+	  		<column name="completedDate" type="Date" />
+	  		<column name="userId" type="long" />
+	  		<column name="createdDate" type="Date" />
+	</entity>
+	
+	<!-- Custom_Workflow -->
+	<entity local-service="true" name="Custom_Workflow" remote-service="true" uuid="false" json-enabled="true">
+	  
+	  <!-- PK fields -->
+	
+	   <column name="workFlowId" primary="true" type="long"/>   
+	  
+	  	<!-- Audit fields -->
+	  	
+	  		<column name="workFlowName" type="String" />
+	  		<column name="startWorkflowTaskId" type="String" />  	
+	  		<column name="comments" type="String" />  
+	  		<column name="isActive" type="long" />
+	  	 	<column name="createdDate" type="Date" />
+	  		<column name="createdBy" type="long" />
+	  	
+	</entity>
+	
+	<!-- Custom_Workflow_Task -->
+	<entity local-service="true" name="Custom_Workflow_Task" remote-service="true" uuid="false" json-enabled="true">
+	  
+	  <!-- PK fields -->
+	
+	   <column name="workFlowTaskId" primary="true" type="String"/>   
+	  
+	  	<!-- Audit fields -->
+	  		<column name="workFlowId" type="long" />
+	  		<column name="taskName" type="String" />
+	  		<column name="roleId" type="long" />  	
+	  		<column name="roleName" type="String" />
+	  		<column name="comments" type="String" />    	
+	  	 	<column name="createdDate" type="Date" />
+	  		<column name="createdBy" type="long" />
+	  	
+	</entity>
+	
+	<!-- Custom_Workflow_Transition -->
+	<entity local-service="true" name="Custom_Workflow_Transition" remote-service="true" uuid="false" json-enabled="true">
+	  
+	  <!-- PK fields -->
+	
+	   <column name="transitionId" primary="true" type="long"/>   
+	  
+	  	<!-- Audit fields -->
+	  		<column name="workFlowId" type="long" />
+	  		<column name="workFlowTaskId" type="String" />
+	  		<column name="transitionName" type="String" />
+	  		<column name="logDescription" type="String" />
+	  		<column name="next_WorkFlowTaskId" type="String" />  	
+	  		<column name="isEnd" type="long" />  	  		
+	  		<column name="comments" type="String" />    	
+	  	 	<column name="createdDate" type="Date" />
+	</entity>
+	
+	<!-- Custom_Calendar_Events -->
+	
+	<entity local-service="true" name="Custom_Calendar" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_calendarEventId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="calendarResourceId" type="long" />
+		<column name="timeZoneId" type="String" />
+		<column name="startDate" type="String" />
+		<column name="endDate" type="String" />
+		<column name="startTime" type="String" />
+		<column name="endTime" type="String" />
+		<column name="eventTitle" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="projectInviteTracking" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_projectInvitationId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="projectId" type="long" />
+		<column name="inviteFrom" type="long" />
+		<column name="inviteTo" type="long" />
+		<column name="invitationStatus" type="String" />
+		<column name="isRead" type="long" />
+		<column name="isRemoved" type="long" />
+		<column name="messageTitle" type="String" />
+		<column name="messageContent" type="String" />
+		<column name="emailContent" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="projectDiscussion" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_projectDiscussionId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createdOn" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="interestId" type="long" />
+		<column name="projectId" type="long" />
+		<column name="senderId" type="long" />
+		<column name="description" type="String" />
+		<column name="fileEntryId" type="long" />		
+		<column name="imageUrl" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="projectFolderUpload" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_projectFolderId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createdOn" type="Date" />
+		<column name="deletedOn" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="interestId" type="long" />
+		<column name="projectId" type="long" />
+		<column name="userId" type="long" />
+		<column name="deletedBy" type="long" />
+		<column name="parentFolderId" type="long" />
+		<column name="folderId" type="long" />
+		<column name="folderName" type="String" />
+		<column name="description" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="projectFilesUpload" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_projectFileId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createdOn" type="Date" />
+		<column name="deletedOn" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="userId" type="long" />
+		<column name="deletedBy" type="long" />
+		<column name="PK_projectFolderId" type="long" />
+		<column name="fileName" type="String" />
+		<column name="fileEntryId" type="String" />
+		<column name="description" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="userProfileImage" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_profileImageId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createdOn" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="userId" type="long" />
+		<column name="fileEntryId" type="String" />
+		<column name="fileEntryUrl" type="String" />
+		<column name="blobData" type="Blob" />
 	</entity>
 	
 </service-builder>

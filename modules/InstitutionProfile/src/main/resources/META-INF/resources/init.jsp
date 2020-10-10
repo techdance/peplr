@@ -10,7 +10,7 @@
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTB30uKJgKRGvIVHavUEPKACPZkqkkifg&sensor=false"></script>
 <style>
 .list-style-custom{
 	padding-left: 0px;
@@ -30,12 +30,36 @@
 .headingresource{
     font-size: 16px !important;
 }
+.icon-regular {
+    margin-right: 5px;
+}
+.icon-user-shield::before {
+    content: "\f505";
+}
+.icon-calendar-check::before {
+    content: "\f274";
+}
+.icon-globe::before {
+    content: "\f0ac";
+}
+.icon-globe-americas::before {
+    content: "\f57d";
+}
+.icon-calendar-week::before {
+    content: "\f784";
+}
+.icon-business-time::before {
+    content: "\f64a";
+}
+.icon-hospital-user::before {
+    content: "\f80d";
+}
 </style>
 
 <script>
 
 jQuery(function() {
-    loadInstituteProfile();
+    //loadInstituteProfile();
 });
 
 function loadInstituteProfile(){
@@ -54,7 +78,7 @@ function loadInstituteProfile(){
                     {			                    	
                     	var value=this.get('responseData');	
                     	debugger;
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		$("#institutionProfileData").html("");
                     		$("#institutionProfileData").html(value);
                  	   }

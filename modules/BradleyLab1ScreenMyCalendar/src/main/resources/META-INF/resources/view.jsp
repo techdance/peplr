@@ -15,7 +15,7 @@
 	<div class="calendar box box-border-radius box-shadow bg-white height-auto">
 		<div class="inner-wrap">
 			<div class="box-top position-relative">
-					<h2 class="box-subhead"><i class="far fa-calendar-alt"></i>My Calendar</h2>
+					<h2 class="box-subhead"><i class="icon-regular fa-calendar-alt"></i>My Calendar</h2>
 				<a href="#" class="icon-setting icon-box"><i class="fas fa-cog"></i></a>
 			</div>
 		</div>

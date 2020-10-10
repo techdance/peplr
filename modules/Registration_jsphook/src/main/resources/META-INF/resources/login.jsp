@@ -186,7 +186,7 @@
 						</c:if>
 						<div class="forgot mb-3">
 							<a href="<%=themeDisplay.getURLPortal() %>/web/guest/home?p_p_id=com_liferay_login_web_portlet_LoginPortlet&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;_com_liferay_login_web_portlet_LoginPortlet_mvcRenderCommandName=%2Flogin%2Fforgot_password">
-								Forgot password?
+								Forgot Password?
 							</a>
 						</div>
 					</div>

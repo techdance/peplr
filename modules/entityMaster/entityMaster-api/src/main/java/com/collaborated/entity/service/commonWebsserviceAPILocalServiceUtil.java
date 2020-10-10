@@ -129,15 +129,6 @@ public class commonWebsserviceAPILocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static com.liferay.portal.kernel.json.JSONArray createUser(
-		java.lang.String prefix, java.lang.String firstName,
-		java.lang.String lastName, java.lang.String institutionEmail,
-		java.lang.String institutionName, java.lang.String password) {
-		return getService()
-				   .createUser(prefix, firstName, lastName, institutionEmail,
-			institutionName, password);
-	}
-
 	/**
 	* @throws PortalException
 	*/

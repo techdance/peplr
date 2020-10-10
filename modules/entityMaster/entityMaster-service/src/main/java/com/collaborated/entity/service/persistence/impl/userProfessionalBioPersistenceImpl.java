@@ -361,6 +361,7 @@ public class userProfessionalBioPersistenceImpl extends BasePersistenceImpl<user
 		userProfessionalBioImpl.setExperienceyears(userProfessionalBio.getExperienceyears());
 		userProfessionalBioImpl.setCvlink(userProfessionalBio.getCvlink());
 		userProfessionalBioImpl.setBiodescription(userProfessionalBio.getBiodescription());
+		userProfessionalBioImpl.setBioDiscipline(userProfessionalBio.getBioDiscipline());
 
 		return userProfessionalBioImpl;
 	}

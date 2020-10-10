@@ -9,12 +9,15 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -28,8 +31,12 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Component(
 	immediate = true,
@@ -39,6 +46,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.display-name=InstitutionProfile Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
+		"com.liferay.portlet.private-session-attributes=false",
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
@@ -46,19 +54,31 @@ import org.osgi.service.component.annotations.Component;
 )
 public class InstitutionProfilePortlet extends MVCPortlet {
 	
-	public static long selectedProfileMatching = 0;
-	
 	@Override
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		JSONObject data=null;
+		JSONObject responseJSONInstitute = null;
 		PortletSession ps = request.getPortletSession();
-		Object obj = ps.getAttribute("LIFERAY_SHARED_MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
+		/*Object obj = ps.getAttribute("MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
 		selectedProfileMatching = 0;
 		if (obj == null) {
 			System.out.println("PortletSession attribute NOT found");
 		} else {
 			selectedProfileMatching = Long.valueOf(obj.toString());
 			System.out.println("PortletSession attribute found"+selectedProfileMatching);
-		}
+		}*/
+		
+		String apiURL = PropsUtil.get("INSTITUTION_PROFILE_API_URL");
+        String institutionProfileResonse = getMethodAPI(apiURL); 
+	    try {
+	    	responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
+		    data = responseJSONInstitute.getJSONObject("data");
+		    ps.setAttribute("INSTITUTE_PROFILE", data, PortletSession.APPLICATION_SCOPE);
+	    } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	    }
+		
 		super.render(request, response);
 	}
 	
@@ -82,6 +102,16 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 			out = resourceResponse.getWriter();
 			
 			long userId = themeDisplay.getUserId();
+			long selectedProfileMatching = 0;
+			HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(resourceRequest);
+			httprequest = PortalUtil.getOriginalServletRequest(httprequest);
+
+			HttpSession httpsession = httprequest.getSession();
+			String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
+			long currentUser = (Long)httpsession.getAttribute("currentUser");	
+			if(currentUser==themeDisplay.getUserId()){
+				selectedProfileMatching = new Long(sessionuserID);	
+			}
 			if(selectedProfileMatching>0){
 				userId = selectedProfileMatching;
 			}
@@ -116,12 +146,14 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 				jsonObject.put("subDetails", jsonArray);
 				
 				template = "<div class=\"box-middle\"> "
-								+ "<div class=\"content-icon\">  <i class=\"fas fa-shield-alt\"></i><a href=\"#\">"+listData.get(0).getInstitutionName()+"</a></div>"
+								+ "<div class=\"content-icon\">  <span class=\"icon-regular icon-user-shield\"></span>><a href=\"#\">"+listData.get(0).getInstitutionName()+"</a></div>"
 								+ "<div class=\"content-icon\">  <i class=\"fas fa-map\"></i><a href=\"#\">Google Maps</a></div>"
-								+ "<div class=\"content-icon\">  <i class=\"far fa-calendar-check\"></i><a href=\"#\">"+listData.get(0).getAcadeCalendar()+"</a></div>"
-								+ "<div class=\"content-icon\">  <i class=\"fas fa-address-card\"></i><a href=\"#\">"+listData.get(0).getDepartmentdescription()+"</a></div>"
-								+ "<div id=\"file-nameapnd\" class=\"list-group list-group-flush\">" + subTemplate 
-								+ "</div>"
+								+ "<div class=\"content-icon\"> <span class=\"icon-regular icon-calendar-check\"></span> 4-year Institution </div>"
+								+ "<div class=\"content-icon\"> <span class=\"icon-regular icon-globe\"></span><a href=\"#\">Iowa City, IA USA</a> </div>"
+								+ "<div class=\"content-icon\"> <span class=\"icon-regular icon-globe-americas\"></span> North America </div>"
+								+ "<div class=\"content-icon\">  <span class=\"icon-regular icon-calendar-week\"></span><a href=\"#\">"+listData.get(0).getAcadeCalendar()+"</a></div>"
+								+ "<div class=\"content-icon\">  <span class=\"icon-regular icon-business-time\"></span><a href=\"#\">"+listData.get(0).getDepartmentdescription()+"</a></div>"
+								//+ "<div id=\"file-nameapnd\" class=\"list-group list-group-flush\">" + subTemplate </div>"
 							+"	</div>";
 				
 			}
@@ -133,5 +165,20 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 				out.close();
 			}
 		}
+	}
+	
+	public String getMethodAPI(String apiURL) {
+		String returnData ="";
+		ResponseEntity<String> returnObject= null;		
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			returnObject=restTemplate.getForEntity(apiURL,String.class);
+			if(returnObject!=null){
+				returnData = returnObject.getBody();
+			}
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return returnData;
 	}
 }

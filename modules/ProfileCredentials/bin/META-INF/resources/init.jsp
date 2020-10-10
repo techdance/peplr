@@ -11,6 +11,20 @@
 
 <portlet:defineObjects />
 
+<style>
+.icon-id-card::before {
+    content: "\f2c2";
+}
+.icon-user-graduate::before {
+    content: "\f501";
+}
+.icon-trophy-alt::before {
+    content: "\f2eb";
+}
+.icon-file-certificate::before {
+    content: "\f5f3";
+}
+</style>
 
 <script>
 
@@ -35,9 +49,10 @@ function loadProfessionalCredentials(){
                     	var value=this.get('responseData');	
                     	debugger;
                     	$("#profileCredentials").html("");
-                    	if(value!=null && value!="undefined" && value!=undefined){
+                    	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		$("#profileCredentials").html(value);
                  	   }
+                    	$("#profileCredentialsLoader").fadeOut();
                     },error: function(){	             
                     }
 				},

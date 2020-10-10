@@ -48,6 +48,7 @@ public class communicationPreferencesSoap implements Serializable {
 		soapModel.setTertiaryLanguageName(model.getTertiaryLanguageName());
 		soapModel.setEmailAddress(model.getEmailAddress());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
+		soapModel.setMobileNumber(model.getMobileNumber());
 		soapModel.setWebsite(model.getWebsite());
 
 		return soapModel;
@@ -208,6 +209,14 @@ public class communicationPreferencesSoap implements Serializable {
 		_phoneNumber = phoneNumber;
 	}
 
+	public String getMobileNumber() {
+		return _mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		_mobileNumber = mobileNumber;
+	}
+
 	public String getWebsite() {
 		return _website;
 	}
@@ -229,5 +238,6 @@ public class communicationPreferencesSoap implements Serializable {
 	private String _tertiaryLanguageName;
 	private String _emailAddress;
 	private String _phoneNumber;
+	private String _mobileNumber;
 	private String _website;
 }
