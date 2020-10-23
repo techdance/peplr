@@ -165,7 +165,7 @@ public class TopMenuPortlet extends MVCPortlet{
 					template1 = template1 + " <div id='toltip-item-1' class='toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5'> "+
 							" <a href='#' class='close-times' data-id='1' onclick='closeActionMessage("+singleProjectInviteTracking.getPK_projectInvitationId()+")'><i class='fas fa-times-circle'></i></a> "+
 							" <div class='status-email'></div> "+
-							" <div class='toltip-text p-2 pl-4'> "+
+							" <div class='toltip-text p-2 pl-4 w-100'> "+
 							" <div class='toltip-header'> "+
 							" <div class='toltip-header-left p0'> "+
 							" <p>"+name+"</p> "+

@@ -200,6 +200,10 @@ body .toltip-overlay:hover {
     -moz-border-radius: 5px;
     top: 0px;
 }
+#sign-out-logo-image {
+	max-width: 150px;
+    max-height: 130px;
+}
 </style>
 <%
 long selectedProfileMatching = 0;long userId = 0;User selectedUser = null;String selectedUserName = "";
@@ -278,7 +282,7 @@ $(document).ready(function() {
 		<%-- $(".breadcrumb").html("");
 		$(".breadcrumb").append("<li class='breadcrumb-item'><a href='/home1'>Home</a></li><li class='breadcrumb-item'><a href='/profile'>Profile</a></li><li class='breadcrumb-item'><a href='/resources'>Matches</a></li><li class='breadcrumb-item active' aria-current='page'><%=selectedUserName %></li>"); --%>
 		$(".breadcrumb").html("");
-		$(".breadcrumb").html("<li class='breadcrumb-item'><a href='/home1'>Home</a></li><li class='breadcrumb-item'><a href='/profile'>Profile</a></li><li class='breadcrumb-item'><a href='/resources'>Matches</a></li><li class='breadcrumb-item active' aria-current='page'><%=selectedUserName %></li>");
+		$(".breadcrumb").html("<li class='breadcrumb-item'><a href='/home1'>Home</a></li><li class='breadcrumb-item'><a href='/profile'>Profile</a></li><li class='breadcrumb-item'><a href='/matching-screen'>Matches</a></li><li class='breadcrumb-item active' aria-current='page'><%=selectedUserName %></li>");
 	}
 });
 

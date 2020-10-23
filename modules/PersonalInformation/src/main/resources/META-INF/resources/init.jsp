@@ -223,6 +223,12 @@
     object-fit: cover;
     object-position: top;
 }
+.profileinvitesection{
+	border: 1px solid #d6d5d5;
+    border-radius: 4px;
+    padding: 5px 10px;
+       background: white;
+}
 </style>
 <script>
 var A=AUI();
@@ -394,7 +400,7 @@ function getViewMoreDataInvite(id){
                     		$("#inviteProfileName").text(data.fullName);
                     		$("#inviteProfileTitle").text(data.jobTitle);
                     		$("#inviteProfileUniversity").text(data.instituteName);
-                    		//$("#inviteProfileCity").text(data.discipline3);
+                    		$("#inviteProfileCity").text(data.instituteState);
                     		$("#projectTitle").text(data.projectType);
                     		$("#description").text(data.description);
                     		$("#discipline").text(data.discipline1);

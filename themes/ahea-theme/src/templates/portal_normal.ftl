@@ -14,7 +14,7 @@
 	<#assign course_url = "#" />
 </#if>
 <head>
-	<title>${the_title} - ${company_name}</title>
+	<title>${the_title} - </title>
 
 	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
 
@@ -116,7 +116,7 @@
 	    <div class="modal-content">
 	      <div class="modal-body">
 	        <div class="sign-out-logo">
-	        	<img src="/o/ahea-theme/images/logo.png">
+	        	<img src="/o/ahea-theme/images/logo.png" id="sign-out-logo-image">
 	        </div>
 	        <h2>Sign Out</h2>
 	        <p>Are you sure you would like to Sign Out of your account?</p>
@@ -141,6 +141,7 @@
 $(document).ready(function(){
 	Plugins.init();
 	getApplicationLogo();
+	getApplicationTitle();
 });
 
 function getApplicationLogo(){
@@ -154,6 +155,7 @@ function getApplicationLogo(){
 			if(data!=null && data!=undefined && data!="undefined" && data!="null"){	
 				if(data.side_navigation_menu_logo!=null && data.side_navigation_menu_logo!="" && data.side_navigation_menu_logo!=undefined){
 					$("#nav_logo").attr("src",data.side_navigation_menu_logo);
+					$("#sign-out-logo-image").attr("src",data.side_navigation_menu_logo);
 				}
 				if(data.side_navigation_menu_collapsed_logo!=null && data.side_navigation_menu_collapsed_logo!="" && data.side_navigation_menu_collapsed_logo!=undefined){
 					$("#nav_collapse_logo").attr("src",data.side_navigation_menu_collapsed_logo);
@@ -162,7 +164,26 @@ function getApplicationLogo(){
 		}
 	});
 }
-
+function getApplicationTitle(){
+	$.ajax({
+		url:'${propsUtil.get("INSTITUTION_PROFILE_API_URL")}',
+		type: "get",
+		dataType: "json",
+		contentType:"application/json",
+		success: function(data){
+		debugger;
+			if(data!=null && data!=undefined && data!="undefined" && data!="null"){	
+				if(data.data!=null && data.data!="" && data.data!=undefined){
+					$("title").append(data.data.institutionName);
+				}
+			}	
+		}
+	});
+}
+$("#sign-out-hit").click(function(){
+    location.href="${themeDisplay.getURLSignOut()}";
+    window.location.href="http://sfu.toweredtech.com/";
+});
 </script>
 
 <@liferay_util["include"] page=body_bottom_include />

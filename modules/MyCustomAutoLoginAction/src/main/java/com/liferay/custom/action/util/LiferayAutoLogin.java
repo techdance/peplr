@@ -77,7 +77,7 @@ public class LiferayAutoLogin implements AutoLogin{
 		String accessToken=null;
 		int expirationTime = 0;
 		
-		String instituteName="", insDepartment="", insCity = "", insState="", insCountry="";
+		String instituteName="", insDepartment="", insCity = "", insState="", insCountry="", insTimezone="";
 		
 		if(paramNames.contains("access_token")){
 			accessToken = request.getParameter("access_token")+"";
@@ -118,6 +118,7 @@ public class LiferayAutoLogin implements AutoLogin{
 						insCity = instituteProfileContact.getString("city");
 						insState = instituteProfileContact.getString("state");		
 						insCountry = instituteProfileContact.getString("country");
+						insTimezone = instituteProfileContact.getString("timezone");
 					}
 				}
 		        
@@ -221,12 +222,14 @@ public class LiferayAutoLogin implements AutoLogin{
 				        ExpandoColumn columnCity = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteCity");
 				        ExpandoColumn columnState = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteState");
 				        ExpandoColumn columnCountry = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteCountry");
+				        ExpandoColumn columnTimezone = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteTimezone");
 						
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), column.getName(),user.getUserId(), instituteName);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnDepartment.getName(),user.getUserId(), insDepartment);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCity.getName(),user.getUserId(), insCity);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnState.getName(),user.getUserId(), insState);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCountry.getName(),user.getUserId(), insCountry);
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
 						
 						DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ListType.class, PortalClassLoaderUtil.getClassLoader());
 						dynamicQuery.add(PropertyFactoryUtil.forName("type").eq("com.liferay.portal.kernel.model.Contact.address")); 
@@ -317,6 +320,17 @@ public class LiferayAutoLogin implements AutoLogin{
 			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCountry.getName(),user.getUserId(), insCountry);
 			        }
 			        
+			        
+			        ExpandoColumn columnTimezone = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteTimezone");
+			        ExpandoValue expTimezoneValue = null;
+			        expCountryValue = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnTimezone.getColumnId(), user.getUserId());
+			        if(expTimezoneValue!=null){
+			        	expTimezoneValue.setData(insTimezone);
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expTimezoneValue);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
+			        }
+			        
 					List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");
 					for(ListType l:listType){
 						if(l.getName().toLowerCase().equals(userJSON.getString("prefix").trim())){
@@ -334,7 +348,7 @@ public class LiferayAutoLogin implements AutoLogin{
 				}
 				
 				System.out.println("==>> Redirecting to Login page with success Loign!");
-				request.setAttribute(AUTO_LOGIN_REDIRECT_AND_CONTINUE, "/web/guest/profile?sso=true&user="+accessToken);
+				request.setAttribute(AUTO_LOGIN_REDIRECT_AND_CONTINUE, "/web/guest/home1?sso=true&user="+accessToken);
 				
 				
 				String[] credentials = new String[3];

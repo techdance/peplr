@@ -179,6 +179,9 @@
 	top: 65%!important;
     left: 70%!important;
 }
+.box-middle .form-group .form-control {
+	font-family: 'Merriweather Sans',sans-serif;
+}
 </style>
 
 <%

@@ -36,4 +36,7 @@ h2.color-blue-light-hover:hover a {
     color: #2a9eff !important;
     text-decoration: underline;
 }
+div#my-calendar-container .ui-widget.ui-widget-content .ui-datepicker-header .ui-datepicker-title {
+	line-height: inherit;
+}
 </style>

@@ -377,16 +377,41 @@ public class PersonalInformationPortlet extends MVCPortlet {
 				prefixValue = listType.getName();
 			}
 			
-			ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
-			 ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
-			 String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
+			//ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(user.getCompanyId(),User.class.getName(), ExpandoTableConstants.DEFAULT_TABLE_NAME);
+			//ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(user.getCompanyId(),User.class.getName(), table.getName(), "instituteName" );
+			//String instituteName =  ExpandoValueLocalServiceUtil.getData(user.getCompanyId(),User.class.getName(), table.getName(), column.getName(), user.getUserId(), StringPool.BLANK);
+			
+			String instituteName = (String) user.getExpandoBridge().getAttribute("instituteName");
+			String instituteDepartment = (String) user.getExpandoBridge().getAttribute("instituteDepartment");
+			String instituteCity = (String) user.getExpandoBridge().getAttribute("instituteCity");
+			String instituteState = (String) user.getExpandoBridge().getAttribute("instituteState");
+			String instituteCountry = (String) user.getExpandoBridge().getAttribute("instituteCountry");
+			
+			String imageURL = "",imgSRC="";boolean isBase64 = false;
+			DynamicQuery dynamicQueryProfileImage = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+			dynamicQueryProfileImage.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+			List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQueryProfileImage);
+			if(values.size()>0){
+				imageURL = values.get(0).getFileEntryUrl();					
+			    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(user.getUserId());	               
+			    imageURL = jsonObject2.getString("byteArray");
+			    imgSRC = "data:image/png;base64,"+imageURL;
+			    isBase64 = true;
+			}else{
+				imageURL = "/o/ahea-theme/images/user.png";
+				imgSRC = imageURL;
+				isBase64 = false;
+			}
 			
 			jsonObject = JSONFactoryUtil.createJSONObject();
 			jsonObject.put("prefixValue", prefixValue);
 			jsonObject.put("fullName", user.getFullName());
 			jsonObject.put("jobTitle", user.getJobTitle());
-			jsonObject.put("profileImage", user.getPortraitURL(themeDisplay));
+			jsonObject.put("profileImage", imgSRC);
 			jsonObject.put("instituteName",instituteName);
+			jsonObject.put("instituteDepartment",instituteDepartment);
+			jsonObject.put("instituteState",instituteCity+","+instituteState+" "+instituteCountry);
+			
 			
 			singleData = profileAreaofinterestLocalServiceUtil.fetchprofileAreaofinterest(key);
 			if(singleData!=null){

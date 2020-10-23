@@ -21,9 +21,11 @@ String returnURL = "";
 	returnURL = "Profile";
 } else if (currentUrl.contains("resources")) {
 	returnURL = "Resources";
-} else if (currentUrl.contains("matching-screen")) {
+}
+/*else if (currentUrl.contains("matching-screen")) {
 	returnURL = "Matching Screen";
-} else if (currentUrl.contains("course-development")) {
+}*/
+else if (currentUrl.contains("course-development")) {
 	returnURL = "Course Development";
 }
 
@@ -400,7 +402,7 @@ if(values.size()>0){
 			 <div id="email-toltip" class="toltip any-toltip">
 				<div class="toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5">
 					<div class="status-email"></div>
-					<div class="toltip-text p-2 pl-4">
+					<div class="toltip-text p-2 pl-4 w-100">
 						<div class="toltip-header">
 							<div class="toltip-header-left p0">
 								<p>Clinton Harris</p>
@@ -419,7 +421,7 @@ if(values.size()>0){
 				</div>
 				<div class="toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5">
 					<div class="status-email"></div>
-					<div class="toltip-text p-2 pl-4">
+					<div class="toltip-text p-2 pl-4 w-100">
 						<div class="toltip-header">
 							<div class="toltip-header-left p0">
 								<p>Clinton Harris</p>
@@ -438,7 +440,7 @@ if(values.size()>0){
 				</div>
 				<div class="toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5">
 					<div class="status-email"></div>
-					<div class="toltip-text p-2 pl-4">
+					<div class="toltip-text p-2 pl-4 w-100">
 						<div class="toltip-header">
 							<div class="toltip-header-left p0">
 								<p>Inez Campos </p>
@@ -456,7 +458,7 @@ if(values.size()>0){
 					</div>
 				</div>
 				<div class="toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5">
-					<div class="toltip-text p-2 pl-4">
+					<div class="toltip-text p-2 pl-4 w-100">
 						<div class="toltip-header">
 							<div class="toltip-header-left p0">
 								<p>Brittany Simms</p>
@@ -474,7 +476,7 @@ if(values.size()>0){
 					</div>
 				</div>
 				<div class="toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5">
-					<div class="toltip-text p-2 pl-4">
+					<div class="toltip-text p-2 pl-4 w-100">
 						<div class="toltip-header">
 							<div class="toltip-header-left p0">
 								<p>Inez Campos </p>

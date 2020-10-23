@@ -5,7 +5,7 @@
 <html class="${root_css_class}" dir="<@liferay.language key="lang.dir" />" lang="${w3c_language_id}">
 
 <head>
-	<title>${the_title} - ${company_name}</title>
+	<title>${the_title} - </title>
 
 	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
 
@@ -83,7 +83,8 @@
 
 <script>
 $(document).ready(function(){
-	//getLoginApplicationLogo();
+	getLoginApplicationLogo();
+	getUniversityNameAsTitle();
 });
 function getLoginApplicationLogo(){
 	$.ajax({
@@ -96,6 +97,22 @@ function getLoginApplicationLogo(){
 			if(data!=null && data!=undefined && data!="undefined" && data!="null"){	
 				if(data.collaborated_direct_login_logo!=null && data.collaborated_direct_login_logo!="" && data.collaborated_direct_login_logo!=undefined){
 					$("#collaborated_logo").attr("src",data.collaborated_direct_login_logo);
+				}
+			}	
+		}
+	});
+}
+function getUniversityNameAsTitle(){
+	$.ajax({
+		url:'${propsUtil.get("INSTITUTION_PROFILE_API_URL")}',
+		type: "get",
+		dataType: "json",
+		contentType:"application/json",
+		success: function(data){
+		debugger;
+			if(data!=null && data!=undefined && data!="undefined" && data!="null"){	
+				if(data.data!=null && data.data!="" && data.data!=undefined){
+					$("title").append(data.data.institutionName);
 				}
 			}	
 		}

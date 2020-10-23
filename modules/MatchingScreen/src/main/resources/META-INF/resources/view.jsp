@@ -1,5 +1,12 @@
 <%@ include file="/init.jsp" %>
 
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+	  <li class="breadcrumb-item"><a href="/home1">Home</a></li>
+	  <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Matches</li>
+	</ol>
+</nav>
 <section class="wrap-collaborated">
 	<div class="row row-custom sortable" id="card-section">
 	</div>

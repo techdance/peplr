@@ -72,8 +72,8 @@
     <div class="modal-content">
     	<div class="modal-header position-relative">
     		<div class="toltip-close3"><a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a></div>
-    		<div class="d-flex justify-content-between align-items-center w-100 mr-4">
-    			<div class="text-left font15"><strong>Project Invite</strong></div>
+    		<div class="d-flex justify-content-end align-items-center w-100 mr-4">
+    			<div class="text-left font15 pr-5 mr-5"><strong>Project Invite</strong></div>
     			<div class="d-flex mr-2">
     				<a href="#" class="btn btn-grey mr-2" data-dismiss="modal">Cancel</a> <a href="#" class="btn btn-blue" data-dismiss="modal" onclick="sendInvite()">Send</a>
     			</div>
@@ -83,9 +83,9 @@
 			<div class="interest-modal">
 				<div class="box-grey-light m-2 p-3 color-black">
 					<div class="row no-gutters justify-content-between align-items-center">
-						<div class="col-md-4 text-to">TO:</div>
+						<div class="col-md-4 text-to text-center">TO:</div>
 						<div class="col-md-8">
-							<div class="box-middle d-flex align-items-center box-border-radius mb-0">
+							<div class="box-middle d-flex align-items-center box-border-radius mb-0 profileinvitesection">
 								<div class="content-left">
 									<div class="mr-4">
 										<img src="" width="90" id="user-profile-new" class="rounded-circle">

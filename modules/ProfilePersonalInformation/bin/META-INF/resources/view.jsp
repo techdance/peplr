@@ -7,7 +7,7 @@
 	<div class="inner-wrap">
 		<aui:form name="updateProfileForm" onSubmit="event.preventDefault();updateProfileInformation();">
 			<div class="box-top position-relative">
-				<h2 class="box-subhead"><i class="fas fa-user"></i>Personal Information</h2>
+				<h2 class="box-subhead"><i class="fas fa-user"></i>Personal Information ss</h2>
 			</div>
 			<div class="box-middle">
 				<div class="row row-custom">

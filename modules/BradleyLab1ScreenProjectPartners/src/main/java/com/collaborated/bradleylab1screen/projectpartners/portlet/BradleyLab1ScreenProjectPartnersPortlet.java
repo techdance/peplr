@@ -163,8 +163,7 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 			partnersList = getPartnerList(resourceRequest);
 			
 			SimpleDateFormat dateTimeFormat = new SimpleDateFormat("hh:mm a");
-	        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-	        String estDateTimeString = dateTimeFormat.format(new Date()); //(EST)
+	        
 	        
 			if(partnersList.size()>0){		
 				/*DynamicQuery dynamicQueryResources = DynamicQueryFactoryUtil.forClass(labScreenProjectOverview.class, PortalClassLoaderUtil.getClassLoader());
@@ -199,6 +198,13 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 						String instituteCity = (String) user.getExpandoBridge().getAttribute("instituteCity");
 						String instituteState = (String) user.getExpandoBridge().getAttribute("instituteState");
 						String instituteCountry = (String) user.getExpandoBridge().getAttribute("instituteCountry");
+						String insTimezone = (String)user.getExpandoBridge().getAttribute("instituteTimezone");
+						
+						String estDateTimeString = "";
+						if(insTimezone!=""){
+							dateTimeFormat.setTimeZone(TimeZone.getTimeZone(insTimezone));
+					        estDateTimeString = dateTimeFormat.format(new Date()); //(EST)
+						}
 						
 						template = template + "<div class='col-md-4'>"
 								+ "<div class='item item-flex'>"
@@ -208,7 +214,7 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 								+ "</div>"
 								+ "<div class='item-text'>"
 								+ "<div class='partner partner-name position-relative'><a href='#' onClick='goToProfile("+ user.getUserId() +")'>"
-								+ " "+ user.getFullName() + "- "+estDateTimeString+" WEST (+3 Hours)</a>"
+								+ " "+ user.getFullName() + "- "+estDateTimeString+"</a>"
 								+ "<div class='toltip-phone'>"
 								+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-1.png'></a>"
 								+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-3.png'></a>"
@@ -249,6 +255,13 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 					String instituteCity = (String) user.getExpandoBridge().getAttribute("instituteCity");
 					String instituteState = (String) user.getExpandoBridge().getAttribute("instituteState");
 					String instituteCountry = (String) user.getExpandoBridge().getAttribute("instituteCountry");
+					String insTimezone = (String)user.getExpandoBridge().getAttribute("instituteTimezone");
+					
+					String estDateTimeString = "";
+					if(insTimezone!=""){
+						dateTimeFormat.setTimeZone(TimeZone.getTimeZone(insTimezone));
+						estDateTimeString = dateTimeFormat.format(new Date()); //(EST)
+					}
 					
 					//imageUrl = user.getPortraitURL(themeDisplay);
 					String url = themeDisplay.getURLPortal()+"/edit-profile?param=interest";
@@ -260,7 +273,7 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 							+ "</div>"
 							+ "<div class='item-text'>"
 							+ "<div class='partner partner-name position-relative'><a href='#' onClick='goToProfile("+ user.getUserId() +")'>"
-							+ " "+ user.getFullName() + "- "+estDateTimeString+" WEST (+3 Hours)</a>"
+							+ " "+ user.getFullName() + "- "+estDateTimeString+" </a>"
 							+ "<div class='toltip-phone'>"
 							+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-1.png'></a>"
 							+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-3.png'></a>"

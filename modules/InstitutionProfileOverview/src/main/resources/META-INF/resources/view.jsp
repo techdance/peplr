@@ -122,7 +122,7 @@ if(instituteProfile!=null){
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb">
 	  <li class="breadcrumb-item"><a href="/home1">Home</a></li>
-	  <li class="breadcrumb-item"><a href="#">Institution Profiles</a></li>
+	  <li class="breadcrumb-item"><a href="#">Institution Profile</a></li>
 		<li class="breadcrumb-item active" aria-current="page">Institution</li>
 	</ol>
 </nav>

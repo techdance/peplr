@@ -279,16 +279,15 @@ jQuery(function() {
 	/* setInterval(function() {
 	    showDiscussionMessage();
 	}, 60 * 1000); */
+	setInterval(function() { 
+		showDiscussionLoadMessage();
+	}, 1000);
 });
 
 $(document).ready(function(){
 	showDiscussionMessage();
 	getFolders();
 	getFilesByFolderSelection();
-	setInterval(function(){ 
-	    //this code runs every second 
-		showDiscussionMessage();
-	}, 45*1000);
 });
 
 
@@ -551,6 +550,36 @@ function showDiscussionMessage(){
                    			$("#dynamicDiscussion").html(value);
                    		}
                    		$("#<portlet:namespace/>discussionMessage").val("");
+                   		$("#bradleyLabDiscussionScreenLoader").fadeOut();
+                   },error: function(){	             
+                   }
+			},
+
+         });
+	});
+}
+
+function showDiscussionLoadMessage(){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='showDiscussionMessage'/>"
+		,{
+              method: 'post',
+              data:{ 	
+            	  
+              },
+              sync : true, 
+              on:{
+           	  complete:function()
+            		{		            		   
+            		},
+                   success:function()
+                   {			       
+                   		var value=this.get('responseData');	
+                   		debugger;
+                   		$("#dynamicDiscussion").html("");  
+                   		if(value!=null && value!="undefined" && value!=undefined && value!="null"){
+                   			$("#dynamicDiscussion").html(value);
+                   		}
                    		$("#bradleyLabDiscussionScreenLoader").fadeOut();
                    },error: function(){	             
                    }

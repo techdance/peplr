@@ -2809,10 +2809,10 @@ section.portlet {
 .sidebar-fixed {
 	#wrap-logo {
 		#nav_logo {
-			max-height: 150px;
+			max-width: 150px;
 		}
 		#nav_collapse_logo, #nav_logo {
-			max-height: 50px;
+			max-height: 130px;
 		}
 	}
 	&:not(.hidden) #wrap-logo #nav_collapse_logo {

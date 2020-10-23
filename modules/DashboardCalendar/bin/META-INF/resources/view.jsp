@@ -14,6 +14,14 @@
 	    color: #fff !important;
 	    border-radius: 30px;
 	}
+	div#my-calendar-container .ui-widget.ui-widget-content .ui-datepicker-header .ui-datepicker-title .ui-datepicker-year{
+		    display: inline-block;
+	}
+	div#my-calendar-container .ui-widget.ui-widget-content .ui-datepicker-header .ui-datepicker-title {
+	   
+	    font-size: 22px;
+	    margin: 0 0.6em;
+	}
 </style>
 <script type="text/javascript">
 	var A = AUI();

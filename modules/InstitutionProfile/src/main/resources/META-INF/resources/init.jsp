@@ -54,6 +54,19 @@
 .icon-hospital-user::before {
     content: "\f80d";
 }
+.gm-style-mtc > div:first-child {
+    font-size: .75rem!important;
+    padding: .5rem!important;
+    height: auto!important;
+}
+#profile-map {
+	position: relative;
+	right: 0;
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 200px;
+    flex: 0 0 200px;
+    max-width: 200px;
+}
 </style>
 
 <script>

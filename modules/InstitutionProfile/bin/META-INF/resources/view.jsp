@@ -40,31 +40,35 @@ if(instituteProfile!=null){
 				<h2 class="box-subhead"><span class="icon-regular icon-hospital-user"></span>Institution Profile</h2>
 				<a href="javascript:void(0);" class="icon-setting icon-box btn-menu"><i class="fas fa-cog" aria-hidden="true"></i></a>
 			</div>	
-			<div id="profile-map" style="height:200px;"></div>
-			<div id="institutionProfileData">
-				<div class="box-middle">
-				   <div class="content-icon">
-				      <span class="icon-regular icon-user-shield"></span><a href="/institution-profile-overview"><%=instituteName %></a>
-				   </div>
-				   <!-- <div class="content-icon">
-				      <i class="fas fa-map"></i><a href="#">Google Maps</a>
-				   </div> -->
-				   <div class="content-icon">
-				      <span class="icon-regular icon-calendar-check"></span><%=year %>
-				   </div>
-				   <div class="content-icon">
-				      <span class="icon-regular icon-globe"></span><a href="#"><%=cityState %></a>
-				   </div>
-				   <div class="content-icon">
-				      <span class="icon-regular icon-globe-americas"></span><%=region %>
-				   </div>
-				   <div class="content-icon">
-				      <span class="icon-regular icon-calendar-week"></span><%=academicCalendar %>
-				   </div>
-				   <div class="content-icon">
-				      <span class="icon-regular icon-business-time"></span><%=department %>
-				   </div>
+			<div class="d-flex">
+				<div id="institutionProfileData" class="w-100">
+					<div class="box-middle">
+					   <div class="content-icon">
+					      <span class="icon-regular icon-user-shield"></span><a href="/institution-profile-overview"><%=instituteName %></a>
+					   </div>
+					   <!-- <div class="content-icon">
+					      <i class="fas fa-map"></i><a href="#">Google Maps</a>
+					   </div> -->
+					   <div class="content-icon">
+					      <span class="icon-regular icon-calendar-check"></span><%=year %>
+					   </div>
+					   <div class="content-icon">
+					      <span class="icon-regular icon-globe"></span><a href="#"><%=cityState %></a>
+					   </div>
+					   <div class="content-icon">
+					      <span class="icon-regular icon-globe-americas"></span><%=region %>
+					   </div>
+					   <div class="content-icon">
+					      <span class="icon-regular icon-calendar-week"></span><%=academicCalendar %>
+					   </div>
+					   <div class="content-icon">
+					      <span class="icon-regular icon-business-time"></span><%=department %>
+					   </div>
+					</div>
 				</div>
+				<div id="profile-map" style="height:200px;"></div>
+			</div>
+				
 			 	<!-- <div class="box-middle">
 	                <div class="content-icon">
 	                    <i class="fas fa-shield-alt"></i><a href="#">AHEA Institution</a>
@@ -89,7 +93,6 @@ if(instituteProfile!=null){
 	                    <i class="far fa-file-pdf"></i><a href="#">Foundation of Empathy in Establishing Clinical Best Practices</a>
 	                </div>
 				</div>  -->
-			</div>
 		</div>
 	</div>
 </section>
