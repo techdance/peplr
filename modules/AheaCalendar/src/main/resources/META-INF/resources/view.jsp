@@ -45,10 +45,10 @@
 								<aui:input type="text" name="eventTitle" label="Event Name" value="" required="true" class="form-control"></aui:input>
 							</div>
 							<div class="col-md-6 mb-2">
-								<aui:input type="text" name="startDate" label="Start Date" class="form-control" value="" placeholder="yyyy-mm-dd" autocomplete="off" onkeydown='return false' />
+								<aui:input type="text" name="startDate" label="Start Date" class="form-control" value="" required="true" placeholder="yyyy-mm-dd" autocomplete="off" onkeydown='return false' />
 							</div>
 							<div class="col-md-6 mb-2">
-								<aui:input type="text" name="endDate" label="End Date" class="form-control" value="" placeholder="yyyy-mm-dd" autocomplete="off" onkeydown='return false' />
+								<aui:input type="text" name="endDate" label="End Date" class="form-control" value="" required="true" placeholder="yyyy-mm-dd" autocomplete="off" onkeydown='return false' />
 							</div>
 							<div class="col-md-6 mb-2">
 								<aui:input type="text" name="startTime" label="Start Time" class="form-control" value="" placeholder="10:00 AM" autocomplete="off" onkeydown='return false' />

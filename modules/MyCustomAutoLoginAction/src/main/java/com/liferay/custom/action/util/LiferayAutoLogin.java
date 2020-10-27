@@ -1,26 +1,15 @@
 package com.liferay.custom.action.util;
 
-import java.io.IOException;
-import java.time.Instant;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import javax.portlet.PortletException;
-import javax.portlet.PortletSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
-
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.liferay.expando.kernel.model.ExpandoColumn;
@@ -33,8 +22,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Contact;
@@ -49,7 +36,6 @@ import com.liferay.portal.kernel.service.ListTypeLocalServiceUtil;
 import com.liferay.portal.kernel.service.ListTypeServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -77,7 +63,7 @@ public class LiferayAutoLogin implements AutoLogin{
 		String accessToken=null;
 		int expirationTime = 0;
 		
-		String instituteName="", insDepartment="", insCity = "", insState="", insCountry="", insTimezone="";
+		String instituteName="", insyear = "", insCampusName = "", insacademicCalendar = "", insDepartment="", insCity = "", insState="", insCountry="",insregion="", insTimezone="";
 		
 		if(paramNames.contains("access_token")){
 			accessToken = request.getParameter("access_token")+"";
@@ -109,6 +95,12 @@ public class LiferayAutoLogin implements AutoLogin{
 				institutionProfileJSON = responseJSONInstitute.getJSONObject("data");
 				if(institutionProfileJSON!=null){
 					instituteName = institutionProfileJSON.getString("institutionName");
+					
+					/*added newfields for university details*/
+					insCampusName = institutionProfileJSON.getString("campusName");
+					insacademicCalendar = institutionProfileJSON.getString("academicCalendar");					
+					insyear = institutionProfileJSON.getString("founded");
+					
 					JSONObject institutionContact = institutionProfileJSON.getJSONObject("institutionContact");
 					if(institutionContact!=null){
 						insDepartment = institutionContact.getString("department");
@@ -119,6 +111,9 @@ public class LiferayAutoLogin implements AutoLogin{
 						insState = instituteProfileContact.getString("state");		
 						insCountry = instituteProfileContact.getString("country");
 						insTimezone = instituteProfileContact.getString("timezone");
+						
+						/*added newfields for university details*/
+						insregion = instituteProfileContact.getString("region");
 					}
 				}
 		        
@@ -223,6 +218,13 @@ public class LiferayAutoLogin implements AutoLogin{
 				        ExpandoColumn columnState = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteState");
 				        ExpandoColumn columnCountry = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteCountry");
 				        ExpandoColumn columnTimezone = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteTimezone");
+				        
+				        /*adding new column for university table*/
+				        
+				        ExpandoColumn columnCampusName = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteCampusName");
+				        ExpandoColumn columnAcedemicCalender = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteAcedemicCalendar");
+				        ExpandoColumn columnFounded = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteFounded");
+				        ExpandoColumn columnRegion = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteRegion");
 						
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), column.getName(),user.getUserId(), instituteName);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnDepartment.getName(),user.getUserId(), insDepartment);
@@ -230,6 +232,12 @@ public class LiferayAutoLogin implements AutoLogin{
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnState.getName(),user.getUserId(), insState);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCountry.getName(),user.getUserId(), insCountry);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
+						
+						/*adding values for new columns*/
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCampusName.getName(),user.getUserId(), insCampusName);
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnAcedemicCalender.getName(),user.getUserId(), insacademicCalendar);
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnFounded.getName(),user.getUserId(), insyear);
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnRegion.getName(),user.getUserId(), insregion);
 						
 						DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ListType.class, PortalClassLoaderUtil.getClassLoader());
 						dynamicQuery.add(PropertyFactoryUtil.forName("type").eq("com.liferay.portal.kernel.model.Contact.address")); 
@@ -329,6 +337,44 @@ public class LiferayAutoLogin implements AutoLogin{
 			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expTimezoneValue);
 			        }else{
 			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
+			        }
+			        
+			        /*update new custom fields values*/
+			        
+			        ExpandoColumn columnCampusName = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteCampusName");
+			        ExpandoValue expCampusValue = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnCampusName.getColumnId(), user.getUserId());
+			        if(expCampusValue!=null){
+			        	expCampusValue.setData(insCampusName);
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expCampusValue);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCampusName.getName(),user.getUserId(), insCampusName);
+			        }
+			        
+			        ExpandoColumn columnAcdemicCalendar = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteAcedemicCalendar");
+			        ExpandoValue expAcedemicValue = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnAcdemicCalendar.getColumnId(), user.getUserId());
+			        if(expAcedemicValue!=null){
+			        	expAcedemicValue.setData(insacademicCalendar);
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expAcedemicValue);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnAcdemicCalendar.getName(),user.getUserId(), insacademicCalendar);
+			        }
+			        
+			        ExpandoColumn columnFounded = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteFounded");
+			        ExpandoValue expFoundedValue = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnFounded.getColumnId(), user.getUserId());
+			        if(expFoundedValue!=null){
+			        	expFoundedValue.setData(insyear);
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expFoundedValue);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnFounded.getName(),user.getUserId(), insyear);
+			        }
+			        
+			        ExpandoColumn columnRegion = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteRegion");
+			        ExpandoValue expRegionValue = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnRegion.getColumnId(), user.getUserId());
+			        if(expRegionValue!=null){
+			        	expRegionValue.setData(insregion);
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expRegionValue);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnRegion.getName(),user.getUserId(), insregion);
 			        }
 			        
 					List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");

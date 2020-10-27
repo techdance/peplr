@@ -17,12 +17,12 @@ if(instituteProfile!=null){
 	instituteProfileContact = instituteProfile.getJSONObject("institutionLocation");
 	instituteContact = instituteProfile.getJSONObject("institutionContact");
 	if(instituteProfileContact!=null){
-		cityState = instituteProfileContact.getString("city")+", "+instituteProfileContact.getString("state");
+		country = instituteProfileContact.getString("country");
+		cityState = instituteProfileContact.getString("city")+", "+instituteProfileContact.getString("state")+"  "+country;
 		address1 = instituteProfileContact.getString("address1");
 		address2 = instituteProfileContact.getString("address2");
 		postalCode = instituteProfileContact.getString("postalCode");
 		region = instituteProfileContact.getString("region");
-		country = instituteProfileContact.getString("country");
 	}
 	if(instituteContact!=null){
 		department = instituteContact.getString("department");
