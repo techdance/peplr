@@ -261,7 +261,7 @@
 		var endDate = $('#<portlet:namespace/>endDate').val();
 		var startTime = $('#<portlet:namespace/>startTime').val();
 		var endTime = $('#<portlet:namespace/>endTime').val();
-		if (startDate != "" && startTime !=""  && endTime !="") {
+		if (startDate != "") {
 			saveCalendarEvent();
 		}else{
 			return false;
@@ -392,7 +392,7 @@ function saveCalendarEvent(){
 	var endDate = $('#<portlet:namespace/>endDate').val();
 	var startTime = $('#<portlet:namespace/>startTime').val();
 	var endTime = $('#<portlet:namespace/>endTime').val();
-	if (startDate != "" && endDate!="" && startTime !=""  && endTime !="") {
+	if (startDate != "" && endDate!="") {
 		AUI().use('aui-io-request-deprecated', function(A){
 	        A.io.request('<%=saveCalendarEvent.toString()%>', {
 	               method: 'post',

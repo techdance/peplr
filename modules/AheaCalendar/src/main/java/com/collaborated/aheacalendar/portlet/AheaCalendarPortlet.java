@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class AheaCalendarPortlet extends MVCPortlet {
 		}
 	}
 	
-	public void saveCalendarEvent(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws PortletException{
+	public void saveCalendarEvent(ResourceRequest resourceRequest, ResourceResponse resourceResponse){
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		String eventTitle = ParamUtil.getString(resourceRequest, "eventTitle");
 		String startDate = ParamUtil.getString(resourceRequest, "startDate");
@@ -79,6 +80,11 @@ public class AheaCalendarPortlet extends MVCPortlet {
 		
 		try{
 			out = resourceResponse.getWriter();
+			if(Validator.isNull(startTime) || startTime.isEmpty()){
+				startTime = "12:00 AM";
+			}if(Validator.isNull(endTime) || endTime.isEmpty()){
+				endTime = "12:00 PM";
+			}
 			Date startDateTime = parseFormat.parse(startTime);
 			Date endDateTime = parseFormat.parse(endTime);
 			if(eventId>0){
@@ -105,7 +111,6 @@ public class AheaCalendarPortlet extends MVCPortlet {
 				out.print("add");
 			}
 		}catch(Exception e){
-			LOG.info(e.getMessage());
 			e.printStackTrace();
 		}finally{
 			if (out != null) {
