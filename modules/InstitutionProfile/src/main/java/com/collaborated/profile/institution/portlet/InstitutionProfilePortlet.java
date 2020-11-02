@@ -8,16 +8,20 @@ import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -59,6 +63,9 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 		JSONObject data=null;
 		JSONObject responseJSONInstitute = null;
 		PortletSession ps = request.getPortletSession();
+		HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(request);
+		httprequest = PortalUtil.getOriginalServletRequest(httprequest);
+		HttpSession httpsession = httprequest.getSession();
 		/*Object obj = ps.getAttribute("MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
 		selectedProfileMatching = 0;
 		if (obj == null) {
@@ -69,6 +76,18 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 		}*/
 		
 		String apiURL = PropsUtil.get("INSTITUTION_PROFILE_API_URL");
+		
+		/*Displaying match profile's university details*/		
+		String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
+		if(Validator.isNotNull(sessionuserID) && !sessionuserID.isEmpty()){
+			long matchProfileUserId = new Long(sessionuserID);
+			try {
+				User matchProfileUser = UserLocalServiceUtil.getUser(matchProfileUserId);
+				apiURL = (String) matchProfileUser.getExpandoBridge().getAttribute("universityURL");
+			} catch (PortalException e) {
+				e.printStackTrace();
+			}
+		}
         String institutionProfileResonse = getMethodAPI(apiURL); 
 	    try {
 	    	responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
