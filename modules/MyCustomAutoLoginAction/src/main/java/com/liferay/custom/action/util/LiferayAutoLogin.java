@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.model.ExpandoTable;
 import com.liferay.expando.kernel.model.ExpandoValue;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
@@ -40,6 +41,7 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 @Component(immediate = true)
 public class LiferayAutoLogin implements AutoLogin{
@@ -195,7 +197,7 @@ public class LiferayAutoLogin implements AutoLogin{
 						ExpandoTable table = ExpandoTableLocalServiceUtil.getDefaultTable(user.getCompanyId(), User.class.getName());
 				        ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteName");
 				        /*Storing universityURL in custom fields*/
-				        ExpandoColumn columnUniversityURL = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "universityURL");
+				        ExpandoColumn columnUniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL");
 						
 						//instituteName = userJSON.getString("institutionName");
 						String address1 = userJSON.getString("address1");
@@ -326,7 +328,7 @@ public class LiferayAutoLogin implements AutoLogin{
 			        }
 			        
 			        /*Storing universityURL in custom fields*/
-			        ExpandoColumn columnuniversityURL = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "universityURL");
+			        ExpandoColumn columnuniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL");
 			        ExpandoValue expUniversityURLVal = null;
 			        expUniversityURLVal = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnuniversityURL.getColumnId(), user.getUserId());
 			        if(expUniversityURLVal!=null){
@@ -381,5 +383,20 @@ public class LiferayAutoLogin implements AutoLogin{
 		    e.printStackTrace();
 		}
 		return returnData;
+	}
+	
+	
+	public ExpandoColumn getOrAddExpandoColumn(long tableId, String columnName) {
+	    ExpandoColumn exandoColumn = ExpandoColumnLocalServiceUtil.getColumn(tableId, columnName);
+	        if (exandoColumn == null) {
+	            try {
+					exandoColumn = ExpandoColumnLocalServiceUtil.addColumn(tableId, columnName,
+					        ExpandoColumnConstants.STRING, StringPool.BLANK);
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
+	        }
+	 
+	    return exandoColumn;
 	}
 }
