@@ -62,7 +62,8 @@ public class ProjectPartnerPortlet extends MVCPortlet {
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws PortletException, IOException {
 		PortletSession session = renderRequest.getPortletSession();
-		String apiURL = "http://23.99.141.44:3000/api/institution-profile";
+		/*"http://23.99.141.44:3000/api/institution-profile" -- assinged previously to apiURL*/
+		String apiURL = PropsUtil.get("INSTITUTION_PROFILE_API_URL");
         String institutionProfileResonse = getMethodAPI(apiURL); 
 	    try {
 	    	JSONObject responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
