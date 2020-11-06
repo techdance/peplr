@@ -90,7 +90,7 @@ public class MyprojectsPortlet extends MVCPortlet {
 		try{			
 			out = resourceResponse.getWriter();
 			jsonObject = JSONFactoryUtil.createJSONObject();			
-			
+			long showProjectCount = 0;
 			/*DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(labScreenProjectOverview.class, PortalClassLoaderUtil.getClassLoader());
 			dynamicQuery.add(RestrictionsFactoryUtil.eq("projectOwnerId",themeDisplay.getUserId()));
 			List<labScreenProjectOverview> projectList = labScreenProjectOverviewLocalServiceUtil.dynamicQuery(dynamicQuery);*/
@@ -126,15 +126,34 @@ public class MyprojectsPortlet extends MVCPortlet {
 					}
 					
 					if(showProjects==true){
-						String projectColor = "";long percentageValue = 0;
+						showProjectCount = showProjectCount + 1;
+						String projectColor = "", dataBarcolor = "";long percentageValue = 0;
 						if(singleData.getProjectType().equalsIgnoreCase("Academic Journal") || singleData.getProjectType().equalsIgnoreCase("Best Practices") || singleData.getProjectType().equalsIgnoreCase("Course Development")){				
 							projectColor = "box-project-progress-blue";
+							dataBarcolor = "#084265";
 						}else if(singleData.getProjectType().equalsIgnoreCase("Curriculum Development") || singleData.getProjectType().equalsIgnoreCase("General Publication") || singleData.getProjectType().equalsIgnoreCase("Mentorship")){					
 							projectColor = "box-project-progress-green";
+							dataBarcolor = "#339937";
 						}else if(singleData.getProjectType().equalsIgnoreCase("Peer Review") || singleData.getProjectType().equalsIgnoreCase("Research") || singleData.getProjectType().equalsIgnoreCase("Study Abroad") || singleData.getProjectType().equalsIgnoreCase("Other")){					
 							projectColor = "box-project-progress-orange";
+							dataBarcolor = "#ff993e";
 						}
+						
 						percentageValue = getProjectPercentage(singleData.getPK_projectId());
+						if(singleData.getProjectType().equalsIgnoreCase("Course Development") ){
+							if(showProjectCount==0){
+								projectColor = "box-project-progress-blue";
+								dataBarcolor = "#084265";
+							}
+							if(showProjectCount==1){
+								projectColor = "box-project-progress-green";
+								dataBarcolor = "#339937";
+							}
+							if(showProjectCount==2){
+								projectColor = "box-project-progress-orange";
+								dataBarcolor = "#ff993e";
+							}
+						}
 						if(percentageValue<100){
 							templateProgress = templateProgress + "<div class=\"col-md-6 mb-3\">"
 									+ "<div class=\"box-project-progress h-100 "+projectColor+"\">"
@@ -143,7 +162,7 @@ public class MyprojectsPortlet extends MVCPortlet {
 									+ "<h4>"+singleData.getProjectName()+"</h4></a>"
 									/*+ "<div class=\"modal fade modalToltip modalareainterest \" id=\"popup-"+singleData.getPK_projectId()+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\"></div>"*/
 									+ "<div class=\"d-flex\"><div class=\"box-donnut pr-4\">"
-									+ "<div class=\"chart-donnut easyPieChart\" data-percent=\""+percentageValue+"\" data-size=\"150\" data-bar-color=\"#339937\">"+percentageValue+"%"+"</div></div>"
+									+ "<div class=\"chart-donnut easyPieChart\" data-percent=\""+percentageValue+"\" data-size=\"150\" data-bar-color=\""+dataBarcolor+"\" >"+percentageValue+"%"+"</div></div>"
 									+ "<div class=\"box-text\">"+singleData.getProjectDescription()+"</div>"
 									+ "</div></div></div></div>"
 									;

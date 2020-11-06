@@ -78,7 +78,7 @@
 		<div id="sidebar" class="sidebar-fixed">
 			<div id="sidebar-wrap">
 				<div id="wrap-logo">
-					<a href="#" #logo=""><img src="" id="nav_collapse_logo"><img class="group-hide" src="" id="nav_logo"></a>
+					<a href="#" #logo=""><img src="" id="nav_collapse_logo" style="display:none"><img class="group-hide" src="" id="nav_logo"></a>
 				</div>
 				<#--  <div class="wrap-menu-button px-3"><a href="#" id="menu-button-hide-show"><i class="fas fa-arrow-circle-left" aria-hidden="true"></i></a></div>   -->
 				<div class="top-icon icon-1">

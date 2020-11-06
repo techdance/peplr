@@ -42,6 +42,7 @@ jQuery(document).ready(function(){
 			else
 				jQuery(this).html("<i class='fas fa-arrow-circle-right'></i>");
 			jQuery(".group-hide").toggle();
+			jQuery("#nav_collapse_logo").toggle();
 			jQuery("#sidebar").toggleClass("hidden");
 		});
 

@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.User;
@@ -62,10 +63,13 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		JSONObject data=null;
 		JSONObject responseJSONInstitute = null;
+		JSONObject matchProfileJSONObject = null;
 		PortletSession ps = request.getPortletSession();
+		ps.removeAttribute("MATCH_INSTITUTE_PROFILE", PortletSession.APPLICATION_SCOPE);
 		HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(request);
 		httprequest = PortalUtil.getOriginalServletRequest(httprequest);
 		HttpSession httpsession = httprequest.getSession();
+		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		/*Object obj = ps.getAttribute("MATCHING_KEY", PortletSession.APPLICATION_SCOPE);
 		selectedProfileMatching = 0;
 		if (obj == null) {
@@ -78,16 +82,26 @@ public class InstitutionProfilePortlet extends MVCPortlet {
 		String apiURL = PropsUtil.get("INSTITUTION_PROFILE_API_URL");
 		
 		/*Displaying match profile's university details*/		
-		String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
-		if(Validator.isNotNull(sessionuserID) && !sessionuserID.isEmpty()){
-			long matchProfileUserId = new Long(sessionuserID);
-			try {
-				User matchProfileUser = UserLocalServiceUtil.getUser(matchProfileUserId);
-				apiURL = (String) matchProfileUser.getExpandoBridge().getAttribute("universityURL");
-			} catch (PortalException e) {
-				e.printStackTrace();
-			}
-		}
+		
+				String sessionuserID = (String)httpsession.getAttribute("MATCHING_KEY");
+				if(Validator.isNotNull(sessionuserID)){
+				long selectedProfileMatching = new Long(sessionuserID);
+				try {
+					User matchProfileUser = UserLocalServiceUtil.getUser(selectedProfileMatching);
+					matchProfileJSONObject = JSONFactoryUtil.createJSONObject();
+					matchProfileJSONObject.put("matchUniversityName", (String) matchProfileUser.getExpandoBridge().getAttribute("instituteName"));
+					matchProfileJSONObject.put("matchLocation", (String) matchProfileUser.getExpandoBridge().getAttribute("instituteCity")+", "+
+					(String) matchProfileUser.getExpandoBridge().getAttribute("instituteState")+" "+(String) matchProfileUser.getExpandoBridge().getAttribute("instituteCountry"));
+					matchProfileJSONObject.put("matchDepartment", (String) matchProfileUser.getExpandoBridge().getAttribute("instituteDepartment"));
+					ps.setAttribute("MATCH_INSTITUTE_PROFILE", matchProfileJSONObject, PortletSession.APPLICATION_SCOPE);
+					String profileUniversityURL = (String) matchProfileUser.getExpandoBridge().getAttribute("universityURL");
+					if(Validator.isNotNull(profileUniversityURL) && !profileUniversityURL.isEmpty()){
+						apiURL = profileUniversityURL;
+					}
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
+				}
         String institutionProfileResonse = getMethodAPI(apiURL); 
 	    try {
 	    	responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);

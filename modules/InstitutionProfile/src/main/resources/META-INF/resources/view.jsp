@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.util.Validator"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@page import="javax.portlet.PortletSession"%>
@@ -8,6 +9,7 @@ String instituteName = "",year = "",academicCalendar="",department="",insType=""
 long currentYear = Calendar.getInstance().get(Calendar.YEAR);
 PortletSession sessionObj = renderRequest.getPortletSession();
 instituteProfile = (JSONObject)sessionObj.getAttribute("INSTITUTE_PROFILE",PortletSession.APPLICATION_SCOPE);
+JSONObject matchingInstituteProfile = (JSONObject)sessionObj.getAttribute("MATCH_INSTITUTE_PROFILE",PortletSession.APPLICATION_SCOPE);
 if(instituteProfile!=null){
 	instituteName = instituteProfile.getString("institutionName")+","+instituteProfile.getString("campusName");
 	insName = instituteProfile.getString("institutionName");
@@ -27,8 +29,14 @@ if(instituteProfile!=null){
 	if(instituteContact!=null){
 		department = instituteContact.getString("department");
 	}
+	if(Validator.isNotNull(matchingInstituteProfile)){
+		instituteName = matchingInstituteProfile.getString("matchUniversityName");
+		cityState = matchingInstituteProfile.getString("matchLocation");
+		department =  matchingInstituteProfile.getString("matchDepartment");
+	}
 }
 %>
+
 <section class="wrap-profile">	
 	<div class="comunication box box-border-radius box-shadow bg-white">
 		<!-- Loader -->

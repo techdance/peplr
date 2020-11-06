@@ -60,10 +60,10 @@
 	margin-bottom: 20px;
 }
 .box-project-progress-green .box-project-progress-header{
-	background-color:#339937;
+	background-color:#339900;
 }
 .box-project-progress-green h4{
-	color:#339937;
+	color:#339900;
 	margin-bottom: 20px;
 }
 .box-project-progress-brown .box-project-progress-header{
