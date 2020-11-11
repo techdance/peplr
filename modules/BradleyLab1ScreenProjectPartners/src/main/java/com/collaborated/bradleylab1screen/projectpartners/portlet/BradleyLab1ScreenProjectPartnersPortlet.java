@@ -1,40 +1,8 @@
 package com.collaborated.bradleylab1screen.projectpartners.portlet;
 
-import com.collaborated.entity.model.labDetailedCourseResources;
-import com.collaborated.entity.model.labScreenProjectOverview;
-import com.collaborated.entity.model.labScreenProjectPartners;
-import com.collaborated.entity.model.labScreenTask;
-import com.collaborated.entity.model.userProfileImage;
-import com.collaborated.entity.service.labDetailedCourseResourcesLocalServiceUtil;
-import com.collaborated.entity.service.labScreenProjectOverviewLocalServiceUtil;
-import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
-import com.collaborated.entity.service.labScreenTaskLocalServiceUtil;
-import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
-import com.liferay.portal.kernel.dao.orm.Criterion;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.Blob;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -52,6 +20,27 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import com.collaborated.entity.model.labScreenProjectOverview;
+import com.collaborated.entity.model.labScreenProjectPartners;
+import com.collaborated.entity.model.userProfileImage;
+import com.collaborated.entity.service.labScreenProjectOverviewLocalServiceUtil;
+import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
+import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 @Component(
 	immediate = true,
@@ -273,7 +262,7 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 							+ "</div>"
 							+ "<div class='item-text'>"
 							+ "<div class='partner partner-name position-relative'><a href='#' onClick='goToProfile("+ user.getUserId() +")'>"
-							+ " "+ user.getFullName() + "- "+estDateTimeString+" </a>"
+							+ " "+ user.getFullName() + "- "+estDateTimeString+" Local Time</a>"
 							+ "<div class='toltip-phone'>"
 							+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-1.png'></a>"
 							+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-3.png'></a>"

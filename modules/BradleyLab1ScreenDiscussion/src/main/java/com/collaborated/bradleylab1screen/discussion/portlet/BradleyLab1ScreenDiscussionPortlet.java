@@ -23,6 +23,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactory;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -42,9 +45,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
@@ -455,6 +460,19 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 	public void saveMessage(ResourceRequest resourceRequest, ResourceResponse resourceResponse){
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		String discussionMessage = ParamUtil.getString(resourceRequest, "discussionMessage");
+		SimpleDateFormat sdfDestination = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+		Date createdOn = new Date();
+		String userTimeZone = "";
+		try {
+			User sendUser = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
+			userTimeZone = (String)sendUser.getExpandoBridge().getAttribute("instituteTimezone");
+			if(userTimeZone!=""){
+				sdfDestination.setTimeZone(TimeZone.getTimeZone(userTimeZone));
+				createdOn = sdfDestination.parse(sdfDestination.format(new Date()));
+			}
+		} catch (PortalException | ParseException e1) {
+			_log.error("Couldn't find the user details");
+		}
 		PrintWriter out = null;
 		try{
 			out = resourceResponse.getWriter();
@@ -474,7 +492,7 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			}
 			
 			projectDiscussion projectDiscussion = projectDiscussionLocalServiceUtil.createprojectDiscussion(CounterLocalServiceUtil.increment());
-			projectDiscussion.setCreatedOn(new Date());
+			projectDiscussion.setCreatedOn(createdOn);
 			projectDiscussion.setInterestId(PK_interestId);
 			projectDiscussion.setProjectId(PK_projectId);
 			projectDiscussion.setSenderId(themeDisplay.getUserId());
@@ -516,10 +534,15 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			List<projectDiscussion> projectDiscussion = projectDiscussionLocalServiceUtil.dynamicQuery(dynamicQueryDiscussion);
 			if(projectDiscussion.size()>0){
 				for(projectDiscussion singleData:projectDiscussion){
+					String userTimeZone = "";
 					if(singleData.getSenderId() == themeDisplay.getUserId()){
 						User user = UserLocalServiceUtil.getUser(singleData.getSenderId());
 						SimpleDateFormat sdfDestination = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-						
+						User sendUser = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
+						userTimeZone = (String)sendUser.getExpandoBridge().getAttribute("instituteTimezone");
+						if(userTimeZone!=""){
+							sdfDestination.setTimeZone(TimeZone.getTimeZone(userTimeZone));
+						}
 						DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
 						dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
 						List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
@@ -602,4 +625,5 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			}
 		}
 	}
+	private static final Log _log = LogFactoryUtil.getLog(BradleyLab1ScreenDiscussionPortlet.class.getName());
 }

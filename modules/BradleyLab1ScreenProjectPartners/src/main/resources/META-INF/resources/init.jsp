@@ -32,9 +32,22 @@
     content: "\f0c0";
     font-family: 'Font Awesome 5 Regular';
 }
-div.item span {
-	color: #000000 !important;
+
+.partner-title {
+    color: #09f !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
 }
+.partner {
+    font-size: 12px;
+    line-height: 16px;
+}
+.partner-university, .partner-address {
+    color: #000 !important;
+    font-weight: bold !important;
+    font-style: normal !important;
+}
+
 </style>
 <script>
 var A=AUI();
