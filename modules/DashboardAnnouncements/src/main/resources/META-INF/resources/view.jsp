@@ -50,16 +50,16 @@
 	<div id="wrap-owl-announcement">
 		<div id="owl-announcement" class="owl-carousel owl-theme">
 			<div class="item">
-				<p>Fall Term registration is open Wednesday, April 1 through Friday, May 1, 2020.<br> <a href="#">Learn More</a> </p>
+				<p>We are pleased to welcome our AHEA Faculty Fellows to InspirED. Thank you for your partnership, participation, and feedback.<br> <a href="https://www.ahealliance.org/virtualexchangefellowship/">Learn More</a> </p>
 			</div>
 			<div class="item">
-				<p>AHEA Conference Grant Deadline is August 28, 2020.<br> <a href="#">Learn More</a> </p>
+				<p>Discover tips and techniques to help you optimize InspirED. Download how-to guides, best practices, and templates from the platform's Resources library.<br> <a href="/resources">Learn More</a> </p>
 			</div>
 			<div class="item">
-				<p>Help us welcome our newest CollaboratED members: Georgia International University; &#8203;Ballsbridge University, Dominica; and Edinburgh Institute for Global Affairs. <a href="https://en.wikipedia.org/w/index.php?title=Ballsbridge_University,_Dominica&action=edit&redlink=1">Learn More</a> </p>
+				<p>Join CONAHEC and AMPEI for the Virtual North American International Education Conference: Rebuilding the Global Village. December 1-5, 2020.<br>  <a href="https://elnet.org">Learn More</a> </p>
 			</div>
 			<div class="item">
-				<p>Dr. Smith from Dominican University is looking for 6 students for a faculty-led study &#8203;abroad program to Singapore.  <a href="https://en.wikipedia.org/w/index.php?title=Ballsbridge_University,_Dominica&action=edit&redlink=1">Learn More</a> </p>
+				<p>ISEP celebrates 40 years of collaboration and partnership. With over 350 member institutions, ISEP has provided cross-cultural experiences for over 60K students. <br> <a href="https://www.isepstudyabroad.org/">Learn More</a> </p>
 			</div>
 		</div>
 	</div>

@@ -203,7 +203,7 @@ public class BradleyLab1ScreenProjectPartnersPortlet extends MVCPortlet {
 								+ "</div>"
 								+ "<div class='item-text'>"
 								+ "<div class='partner partner-name position-relative'><a href='#' onClick='goToProfile("+ user.getUserId() +")'>"
-								+ " "+ user.getFullName() + "- "+estDateTimeString+"</a>"
+								+ " "+ user.getFullName() + "- "+estDateTimeString+" Local Time"+"</a>"
 								+ "<div class='toltip-phone'>"
 								+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-1.png'></a>"
 								+ "<a href='#'><img src='/o/ahea-theme/images/contact-partner-3.png'></a>"
