@@ -374,6 +374,7 @@ function deleteEvent(){
                     		loadCalendarEvent();
                     		showMsg("Removed successfully");   
                     		cancelEvent();
+                    		
                  	    }else{
                  	    	showMsg("Error!");
                  	    }                    	
@@ -490,7 +491,8 @@ Liferay.provide(window,'showMsg',function(msg){
     	            label: 'OK',
     	            on: {
     	              click: function() {
-    	            	  modal.hide();    	            	  
+    	            	  modal.hide(); 
+    	            	  location.reload();
     	              }    	               
     	              }
     	            }

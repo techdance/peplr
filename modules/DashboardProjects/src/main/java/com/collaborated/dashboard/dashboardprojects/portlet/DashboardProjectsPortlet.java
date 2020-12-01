@@ -1,5 +1,27 @@
 package com.collaborated.dashboard.dashboardprojects.portlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
+
+import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.osgi.service.component.annotations.Component;
+
 import com.collaborated.entity.model.labScreenProjectOverview;
 import com.collaborated.entity.model.labScreenProjectPartners;
 import com.collaborated.entity.model.labScreenTask;
@@ -21,22 +43,8 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.PortletSession;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.osgi.service.component.annotations.Component;
 
 @Component(
 	immediate = true,
@@ -68,7 +76,8 @@ public class DashboardProjectsPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		PrintWriter out = null;
 		String template = "";
-		String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+		List<labScreenProjectPartners> partnerList = null;
+		Map<String, Integer> projectsPercentage = new HashMap<String, Integer>();
 		try{
 			out = resourceResponse.getWriter();
 			long showProjectCount = 0;
@@ -80,19 +89,19 @@ public class DashboardProjectsPortlet extends MVCPortlet {
 			
 			//List<labScreenProjectOverview> projectListAll = labScreenProjectOverviewLocalServiceUtil.getlabScreenProjectOverviews(-1, -1);
 			DynamicQuery projectListQuery = DynamicQueryFactoryUtil.forClass(labScreenProjectOverview.class, "labScreenProjectOverview",PortalClassLoaderUtil.getClassLoader());
-			projectListQuery.addOrder(OrderFactoryUtil.desc("labScreenProjectOverview.createDate"));
+			/*projectListQuery.addOrder(OrderFactoryUtil.desc("labScreenProjectOverview.createDate"));*/
 			List<labScreenProjectOverview> projectListAll = labScreenProjectOverviewLocalServiceUtil.dynamicQuery(projectListQuery);
 			System.out.println("projectListAll==="+projectListAll.size());
 			if(projectListAll.size()>0){
 				int i = 0;
 				for(labScreenProjectOverview singleData:projectListAll){
 					
-					boolean showProjects = false;long percentageValue = 0;
-					String startDate = "", endDate = "ongoing";String organizerName = "";String organizerProfileImage = "";String projectTypeIcons = "";String projectColor = "";String percentageColor = "";
+					boolean showProjects = false;
+					
 					//Get projects created by current user
 					DynamicQuery dynamicQueryPartners = DynamicQueryFactoryUtil.forClass(labScreenProjectPartners.class, PortalClassLoaderUtil.getClassLoader());
 					dynamicQueryPartners.add(RestrictionsFactoryUtil.eq("PK_projectId",singleData.getInterestId()));
-					List<labScreenProjectPartners> partnerList = labScreenProjectPartnersLocalServiceUtil.dynamicQuery(dynamicQueryPartners); 
+					partnerList = labScreenProjectPartnersLocalServiceUtil.dynamicQuery(dynamicQueryPartners); 
 					
 					System.out.println("partnerList==="+partnerList);
 					
@@ -120,76 +129,106 @@ public class DashboardProjectsPortlet extends MVCPortlet {
 						showProjects = true;						
 					}
 					
-					if(showProjects==true){	
+					if(showProjects==true){
 						showProjectCount = showProjectCount + 1;
-						startDate = singleData.getProjectStartDate();
-						if(singleData.getProjectEndDate()!=""){
-							endDate = singleData.getProjectEndDate();
+						projectsPercentage.put(String.valueOf(singleData.getPK_projectId()), getProjectPercentage(singleData.getPK_projectId()));
+					}
+					i++;
+				}
+				int n = 3;
+				if(showProjectCount < 3){
+					n = Integer.parseInt(String.valueOf(showProjectCount));
+				}
+				List<Entry<String, Integer>> greatest = findGreatest(projectsPercentage, n);
+				if(Validator.isNotNull(greatest) && greatest.size() > 1){
+				Collections.sort(greatest, new Comparator<Entry<String, Integer>>()   
+				{  
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2)   
+				{  
+				 
+				return o2.getValue().compareTo(o1.getValue());  
+				
+				}  
+				}); 
+				}
+				
+		        for (Entry<String, Integer> entry : greatest)
+		        {
+		        	String startDate = "", endDate = "ongoing";String organizerName = "";String organizerProfileImage = "";String projectTypeIcons = "";String projectColor = "";String percentageColor = "";
+		        	long percentageValue = 0;
+		        	labScreenProjectOverview singleData = labScreenProjectOverviewLocalServiceUtil.getlabScreenProjectOverview(Long.parseLong(entry.getKey()));
+		        	startDate = singleData.getProjectStartDate();
+
+					if(singleData.getProjectEndDate()!=""){
+						endDate = singleData.getProjectEndDate();
+					}
+					if(singleData.getProjectType().equalsIgnoreCase("Academic Journal") || singleData.getProjectType().equalsIgnoreCase("Best Practices") || singleData.getProjectType().equalsIgnoreCase("Course Development")){
+						projectTypeIcons = "fa-hands-helping";
+						projectColor = "row-color-blue";
+						percentageColor = "#084265";
+					}else if(singleData.getProjectType().equalsIgnoreCase("Curriculum Development") || singleData.getProjectType().equalsIgnoreCase("General Publication") || singleData.getProjectType().equalsIgnoreCase("Mentorship")){
+						projectTypeIcons = "fa-user-friends";
+						projectColor = "row-color-green";
+						percentageColor = "#339900";
+					}else if(singleData.getProjectType().equalsIgnoreCase("Peer Review") || singleData.getProjectType().equalsIgnoreCase("Research") || singleData.getProjectType().equalsIgnoreCase("Study Abroad") || singleData.getProjectType().equalsIgnoreCase("Other")){
+						projectTypeIcons = "fa-microscope";
+						projectColor = "row-color-orange";
+						percentageColor = "#ff993e";
+					}
+					String imageURL = "",imgSRC="";boolean isBase64 = false;
+					if(Validator.isNotNull(partnerList) && partnerList.size()>0){
+						User user = UserLocalServiceUtil.getUser(singleData.getProjectOwnerId());
+						organizerName = user.getFullName();
+						imageURL = "";imgSRC="";isBase64 = false;
+						DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+						dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
+						List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
+						if(values.size()>0){
+							imageURL = values.get(0).getFileEntryUrl();					
+						    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(user.getUserId());	               
+						    imageURL = jsonObject2.getString("byteArray");
+						    imgSRC = "data:image/png;base64,"+imageURL;
+						    isBase64 = true;
+						}else{
+							imageURL = "/o/ahea-theme/images/user.png";
+							imgSRC = imageURL;
+							isBase64 = false;
 						}
-						
-						if(singleData.getProjectType().equalsIgnoreCase("Academic Journal") || singleData.getProjectType().equalsIgnoreCase("Best Practices") || singleData.getProjectType().equalsIgnoreCase("Course Development")){
+						//organizerProfileImage = user.getPortraitURL(themeDisplay);
+					}
+					
+					percentageValue = getProjectPercentage(singleData.getPK_projectId());
+					if(singleData.getProjectType().equalsIgnoreCase("Course Development") ){
+						if(greatest.indexOf(entry)==0){
 							projectTypeIcons = "fa-hands-helping";
 							projectColor = "row-color-blue";
 							percentageColor = "#084265";
-						}else if(singleData.getProjectType().equalsIgnoreCase("Curriculum Development") || singleData.getProjectType().equalsIgnoreCase("General Publication") || singleData.getProjectType().equalsIgnoreCase("Mentorship")){
+						}
+						if(greatest.indexOf(entry)==1){
 							projectTypeIcons = "fa-user-friends";
 							projectColor = "row-color-green";
 							percentageColor = "#339900";
-						}else if(singleData.getProjectType().equalsIgnoreCase("Peer Review") || singleData.getProjectType().equalsIgnoreCase("Research") || singleData.getProjectType().equalsIgnoreCase("Study Abroad") || singleData.getProjectType().equalsIgnoreCase("Other")){
+						}
+						if(greatest.indexOf(entry)==2){
 							projectTypeIcons = "fa-microscope";
 							projectColor = "row-color-orange";
 							percentageColor = "#ff993e";
 						}
-						
-						String imageURL = "",imgSRC="";boolean isBase64 = false;
-						if(partnerList.size()>0){
-							User user = UserLocalServiceUtil.getUser(singleData.getProjectOwnerId());
-							organizerName = user.getFullName();
-							imageURL = "";imgSRC="";isBase64 = false;
-							DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
-							dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(user.getUserId()));
-							List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
-							if(values.size()>0){
-								imageURL = values.get(0).getFileEntryUrl();					
-							    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(user.getUserId());	               
-							    imageURL = jsonObject2.getString("byteArray");
-							    imgSRC = "data:image/png;base64,"+imageURL;
-							    isBase64 = true;
-							}else{
-								imageURL = "/o/ahea-theme/images/user.png";
-								imgSRC = imageURL;
-								isBase64 = false;
-							}
-							//organizerProfileImage = user.getPortraitURL(themeDisplay);
-						}
-						
-						percentageValue = getProjectPercentage(singleData.getPK_projectId());
-						if(singleData.getProjectType().equalsIgnoreCase("Course Development") ){
-							if(showProjectCount==0){
-								projectTypeIcons = "fa-hands-helping";
-								projectColor = "row-color-blue";
-								percentageColor = "#084265";
-							}
-							if(showProjectCount==1){
-								projectTypeIcons = "fa-user-friends";
-								projectColor = "row-color-green";
-								percentageColor = "#339900";
-							}
-							if(showProjectCount==2){
-								projectTypeIcons = "fa-microscope";
-								projectColor = "row-color-orange";
-								percentageColor = "#ff993e";
-							}
-						}
-						
-						if(showProjectCount<=3){
-		//				template = template + "<a href='' onclick='goToLabScreen("+singleData.getPK_projectId()+")'>" + singleData.getProjectName() + singleData.getProjectDescription()+startDate+endDate+organizerName+organizerProfileImage+"</a>";
-							template = template + "<tr class="+projectColor+"><td><a href='' onclick='goToLabScreen("+singleData.getPK_projectId()+")'>" + singleData.getProjectName() + "</a></td><td class='align-center'>"+startDate+ " to " +endDate+ "</td><td class='align-center'><i class='fad icon-size-40 "+projectTypeIcons+"'></i></td><td class='align-center'><span class='wrap-image'><img src="+imgSRC+" width='36' alt=''><span class='user-active'></span></span><div class='org-name'>" + organizerName + "</div></td><td class='align-center'><i class='fad fa-paste icon-size-40'></i></td><td class='align-center'><i class='fad fa-ball-pile icon-size-40'></i></td><td class='align-center'><div class='circular-chart' data-percent='"+percentageValue+"' data-size='60' data-bar-color='"+percentageColor+"'>"+percentageValue+"%</div></td></tr>";
-						}
-						
 					}
-					i++;
-				}
+					
+					template = template + "<a href='' onclick='goToLabScreen("+singleData.getPK_projectId()+")'>" + singleData.getProjectName() + singleData.getProjectDescription()+startDate+endDate+organizerName+organizerProfileImage+"</a>";
+					template = template + "<tr class=" + projectColor + "><td><a href='' onclick='goToLabScreen("
+							+ singleData.getPK_projectId() + ")'>" + singleData.getProjectName()
+							+ "</a></td><td class='align-center'>" + startDate + " to " + endDate
+							+ "</td><td class='align-center'><i class='fad icon-size-40 " + projectTypeIcons
+							+ "'></i></td><td class='align-center'><span class='wrap-image'><img src=" + imgSRC
+							+ " width='36' alt=''><span class='user-active'></span></span><div class='org-name'>"
+							+ organizerName
+							+ "</div></td><td class='align-center'><i class='fad fa-paste icon-size-40'></i></td><td class='align-center'><i class='fad fa-ball-pile icon-size-40'></i></td><td class='align-center'><div class='circular-chart' data-percent='"
+							+ percentageValue + "' data-size='60' data-bar-color='" + percentageColor + "'>"
+							+ percentageValue + "%</div></td></tr>";
+		        }
+				
 			}
 			System.out.println("is organizer==="+showProjectCount);
 			out.print(template);
@@ -247,8 +286,8 @@ public class DashboardProjectsPortlet extends MVCPortlet {
 		}
 	}
 	
-	public long getProjectPercentage(long PK_projectId) {
-		List<labScreenTask> listData = null;long percentage = 0;
+	public int getProjectPercentage(long PK_projectId) {
+		List<labScreenTask> listData = null;int percentage = 0;
 		try{
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(labScreenTask.class, PortalClassLoaderUtil.getClassLoader());
 			dynamicQuery.add(PropertyFactoryUtil.forName("PK_projectId").eq(Long.valueOf(PK_projectId)));
@@ -319,5 +358,37 @@ public class DashboardProjectsPortlet extends MVCPortlet {
 			e.printStackTrace();
 		}
 		return value;
+	}
+	
+	private static <K, V extends Comparable<? super V>> List<Entry<K, V>> findGreatest(Map<K, V> map, int n){
+    
+		Comparator<? super Entry<K, V>> comparator = new Comparator<Entry<K, V>>()
+		{
+	        @Override
+	        public int compare(Entry<K, V> e0, Entry<K, V> e1)
+	        {
+	            V v0 = e0.getValue();
+	            V v1 = e1.getValue();
+	            return v0.compareTo(v1);
+	        }
+		};
+		
+		PriorityQueue<Entry<K, V>> highest = new PriorityQueue<Entry<K,V>>(n, comparator);
+		    for (Entry<K, V> entry : map.entrySet())
+		    {
+		        highest.offer(entry);
+		        while (highest.size() > n)
+		        {
+		            highest.poll();
+		        }
+		    }
+
+		List<Entry<K, V>> result = new LinkedList<Map.Entry<K,V>>();
+		
+	    while (highest.size() > 0)
+	    {
+	        result.add(highest.poll());
+	    }
+	    return result;
 	}
 }

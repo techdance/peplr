@@ -37,7 +37,7 @@
 			<li><a href="<%=bestPracticesLibraryDashboard.toString() %>">Best Practices</a></li>
 			<li><a href="<%=templatesLibraryDashboard.toString() %>">Templates</a></li>
 			<li><a href="javascript:void(0);">Tutorials</a></li>
-			<li><a href="<%=themeDisplay.getURLPortal() %>/resources">More Resources</a></li>
+			<%-- <li><a href="<%=themeDisplay.getURLPortal() %>/resources">More Resources</a></li> --%>
 		</ul>
 	</div>
 </div>
