@@ -10,19 +10,19 @@
 	
 			<li class="active">
 				<a href="/home1" class="icon-fa icon-home home">
-					<span class="group-hide">Home</span>
+					<span class="group-hide" style="overflow:visible">Home</span>
 				</a>
 			</li>
-			<li><a href="/calendar" class="icon-fa icon-calendar myCalendar"><span class="group-hide">My Calendar</span></a></li>
-			<li class="not-active"><a href="/committees-teams" class="icon-fa icon-user-group committeesTeams"><span class="group-hide">Committees & Teams</span></a></li>
-			<li class="not-active"><a href="/my-advisees" class="icon-fa icon-book-reader myAdvisees"><span class="group-hide">My Advisees</span></a></li>
-			<li><a href="${course_url}" class="icon-fa icon-book myCourses"><span class="group-hide">My Courses</span></a></li>
-			<li><a href="/my-projects" class="icon-fa icon-book-title myProjects"><span class="group-hide"> My Projects</span></a></li>
-			<li class="not-active"><a href="/my-files" class="icon-fa icon-copy myFiles"><span class="group-hide"> My Files</span></a></li>
-			<li><a href="/resources" class="icon-fa icon-th-large resources"><span class="group-hide">Resources</span></a></li>
-			<li class="not-active"><a href="/opportunities" class="icon-fa icon-sun-haze opportunities"><span class="group-hide">Opportunities</span></a></li>
-			<li class="not-active"><a href="/recommended-partners" class="icon-fa icon-user-friends recommenedePartners"><span class="group-hide">Recommended Partners</span></a></li>
-			<li class="not-active"><a href="/settings1" class="icon-fa icon-settings settings"><span class="group-hide">Settings</span></a></li>
+			<li><a href="/calendar" class="icon-fa icon-calendar myCalendar"><span class="group-hide" style="overflow:visible">My Calendar</span></a></li>
+			<li class="not-active"><a href="/committees-teams" class="icon-fa icon-user-group committeesTeams"><span class="group-hide" style="overflow:visible">Committees & Teams</span></a></li>
+			<li class="not-active"><a href="/my-advisees" class="icon-fa icon-book-reader myAdvisees"><span class="group-hide" style="overflow:visible">My Advisees</span></a></li>
+			<li><a href="${course_url}" class="icon-fa icon-book myCourses"><span class="group-hide" style="overflow:visible">My Courses</span></a></li>
+			<li><a href="/my-projects" class="icon-fa icon-book-title myProjects"><span class="group-hide" style="overflow:visible"> My Projects</span></a></li>
+			<li class="not-active"><a href="/my-files" class="icon-fa icon-copy myFiles"><span class="group-hide" style="overflow:visible"> My Files</span></a></li>
+			<li><a href="/resources" class="icon-fa icon-th-large resources"><span class="group-hide" style="overflow:visible">Resources</span></a></li>
+			<li class="not-active"><a href="/opportunities" class="icon-fa icon-sun-haze opportunities"><span class="group-hide" style="overflow:visible">Opportunities</span></a></li>
+			<li class="not-active"><a href="/recommended-partners" class="icon-fa icon-user-friends recommenedePartners"><span class="group-hide" style="overflow:visible">Recommended Partners</span></a></li>
+			<li class="not-active"><a href="/settings1" class="icon-fa icon-settings settings"><span class="group-hide" style="overflow:visible">Settings</span></a></li>
 	
 		<#list nav_items as nav_item>
 			<#assign

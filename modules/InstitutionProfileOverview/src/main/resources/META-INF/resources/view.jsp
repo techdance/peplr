@@ -15,11 +15,11 @@ long founded = 0,totalEmployees=0,alumini=0;
 String facebookUrl="",twitterUrl="",instagramUrl="",linkedInUrl="",youtubeUrl = "";
 long currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-String officeNumber = "", phoneNumber = "", emailAddress = "", website="";
+String officeNumber = "", phoneNumber = "", emailAddress = "", website="", studentFacultyRatio = "";
 String address1="",address2="",postalCode="",studentTermYear = "",facultyTermYear="", academicYear = "", academicTermYear="", country="";
 float totalStudents = 0, femaleStudents = 0, maleStudents = 0, undergradStudents = 0, gradStudents = 0, otherStudents = 0;
 long fullTimeStudents = 0, partTimeStudents =0, inStateStudents = 0, outOfStateStudents = 0, interNationalStudents = 0; 
-long fullTimeFaculty = 0, studentFacultyRatio = 0, facultyHigherDegree = 0, avgUGClassSize = 0;
+long fullTimeFaculty = 0, facultyHigherDegree = 0, avgUGClassSize = 0;
 long associateDegrees = 0, bachelorsDegrees = 0, masterDegrees = 0, doctorateDegrees = 0, underGraduate = 0, graduate = 0;
 float femalePercentage = 0, malePercentage = 0, othersPercentage = 0;
 DecimalFormat df = new DecimalFormat("0.00");
@@ -101,7 +101,8 @@ if(instituteProfile!=null){
 	if(facultyDetails!=null){
 		facultyTermYear = facultyDetails.getString("term") + " " + facultyDetails.getString("year");
 		fullTimeFaculty = facultyDetails.getLong("fullTimeFaculty");
-		studentFacultyRatio = facultyDetails.getLong("studentFacultyRatio");
+		/* changed long to string to display ratio value */
+		studentFacultyRatio = facultyDetails.getString("studentFacultyRatio");
 		facultyHigherDegree = facultyDetails.getLong("facultyHigherDegree");
 		avgUGClassSize = facultyDetails.getLong("avgUGClassSize");
 	}

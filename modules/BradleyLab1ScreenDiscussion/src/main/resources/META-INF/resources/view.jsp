@@ -188,14 +188,16 @@
                               <li><a href="#"><i class="fas fa-trash"></i> Recycle Bin</a></li>
                           </ul> -->
                           
-                          <div class="wrap-tree-button text-center mt-4 mb-3">                          
-	                          <a href="#" class="btn btn-blue btn-w-100 d-inline-block" id="add-folder">Add Folder<i class="fas fa-cloud-upload-alt"></i></a>	                          
+                          <div class="wrap-tree-button text-center mt-4 mb-3">  
+                          	  <!-- Removed href="#" to avoild scrolling top -->                        
+	                          <a class="btn btn-blue btn-w-100 d-inline-block" id="add-folder">Add Folder<i class="fas fa-cloud-upload-alt"></i></a>	                          
                           </div>
                           
                           <div id="dynamicfolderStructure"></div>
                           
-                          <div class="wrap-tree-button text-center mt-4 mb-3">                          
-	                          <a href="#" class="btn btn-blue btn-w-100 d-inline-block" id="add-files">File Upload <i class="fas fa-cloud-upload-alt"></i></a>
+                          <div class="wrap-tree-button text-center mt-4 mb-3">  
+                          	  <!-- Removed href="#" to avoild scrolling top -->                         
+	                          <a class="btn btn-blue btn-w-100 d-inline-block" id="add-files">File Upload <i class="fas fa-cloud-upload-alt"></i></a>
                           </div>
                           
                           <div id="add-folder-modal" class="modalareainterest color-black font14 modal fade">
