@@ -123,7 +123,7 @@
 	      </div>
 	      <div class="modal-footer ac">
 	        <button type="button" class="btn-footer" data-dismiss="modal" aria-label="Close">Cancel</button>
-	        <a href="/c/portal/logout" class="btn-footer">Sign Out</a>
+	        <a href="#" class="btn-footer" id="sign-out-redirect">Sign Out</a>
 	      </div>
 	    </div>
 	  </div>
@@ -180,9 +180,9 @@ function getApplicationTitle(){
 		}
 	});
 }
-$("#sign-out-hit").click(function(){
+$("#sign-out-hit, #sign-out-redirect").click(function(){
     location.href="${themeDisplay.getURLSignOut()}";
-    window.location.href="http://sfu.toweredtech.com/";
+    window.location.href='${propsUtil.get("GLOBAL_API_URL")}';
 });
 </script>
 

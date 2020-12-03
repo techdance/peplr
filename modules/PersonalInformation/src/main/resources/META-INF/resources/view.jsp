@@ -39,6 +39,11 @@
                     <div class="title"><span class="icon-regular icon-user-tie"></span> Position</div>
                     <div class="text color-black" id="jobTitle"></div>
                 </div>
+                <!-- Added department to profile -->
+                <div class="profile-info profile-department">
+                    <div class="title"><span class="icon-regular icon-user-tie"></span> Department</div>
+                    <div class="text color-black profiled" id="profileDep"></div>
+                </div>
                 
                 <div id="btn-invite" class="mt-2 d-none">
 					<div class="d-flex">

@@ -1,47 +1,5 @@
 package com.collaborated.profile.personalinformation.portlet;
 
-import com.collaborated.entity.model.communicationPreferences;
-import com.collaborated.entity.model.labScreenProjectPartners;
-import com.collaborated.entity.model.profileAreaofinterest;
-import com.collaborated.entity.model.projectInviteTracking;
-import com.collaborated.entity.model.userCredential;
-import com.collaborated.entity.model.userInstitutionProfileDetails;
-import com.collaborated.entity.model.userProfessionalBio;
-import com.collaborated.entity.model.userProfileImage;
-import com.collaborated.entity.service.communicationPreferencesLocalServiceUtil;
-import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
-import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
-import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
-import com.collaborated.entity.service.userCredentialLocalServiceUtil;
-import com.collaborated.entity.service.userProfessionalBioLocalServiceUtil;
-import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
-import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
-import com.liferay.expando.kernel.model.ExpandoColumn;
-import com.liferay.expando.kernel.model.ExpandoTable;
-import com.liferay.expando.kernel.model.ExpandoTableConstants;
-import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
-import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
-import com.liferay.expando.kernel.service.ExpandoValueLocalServiceUtil;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.model.ListType;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
-import com.liferay.portal.kernel.service.ListTypeServiceUtil;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.WebKeys;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -60,6 +18,39 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import com.collaborated.entity.model.communicationPreferences;
+import com.collaborated.entity.model.labScreenProjectPartners;
+import com.collaborated.entity.model.profileAreaofinterest;
+import com.collaborated.entity.model.projectInviteTracking;
+import com.collaborated.entity.model.userCredential;
+import com.collaborated.entity.model.userProfessionalBio;
+import com.collaborated.entity.model.userProfileImage;
+import com.collaborated.entity.service.communicationPreferencesLocalServiceUtil;
+import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
+import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
+import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
+import com.collaborated.entity.service.userCredentialLocalServiceUtil;
+import com.collaborated.entity.service.userProfessionalBioLocalServiceUtil;
+import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
+import com.liferay.portal.kernel.service.ListTypeServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 @Component(
 	immediate = true,
@@ -157,7 +148,7 @@ public class PersonalInformationPortlet extends MVCPortlet {
 		List<userProfessionalBio> userProfessionalBio = null;
 		List<userCredential> userCredential = null;
 		String firstName = "",lastName = "",position = "",institution = "AHEA University",department = "Test",primaryLanguage = "",email = "",discipline = "",
-				bio = "",highestEducation = "",userToken = "";
+				bio = "",highestEducation = "",userToken = "", userDepartment="";
 		
 		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		long interestId = ParamUtil.getLong(resourceRequest, "interestId");
@@ -249,11 +240,13 @@ public class PersonalInformationPortlet extends MVCPortlet {
 			if(selectedProfileMatching>0){
 				firstName = user.getFullName();
 				position = user.getJobTitle();
+				userDepartment = (String) user.getExpandoBridge().getAttribute("userDepartment");
 			}else{
 				UserLocalServiceUtil.getUser(themeDisplay.getUserId());
 				firstName = user.getFullName();
 				lastName = user.getLastName();
 				position = user.getJobTitle();
+				userDepartment = (String) user.getExpandoBridge().getAttribute("userDepartment");
 			}
 			
 			
@@ -322,6 +315,7 @@ public class PersonalInformationPortlet extends MVCPortlet {
 			jsonObject.put("prefixValue", prefixValue);
 			jsonObject.put("fullName", firstName);
 			jsonObject.put("jobTitle", position);
+			jsonObject.put("profileDep", userDepartment);
 			jsonObject.put("profileImage", imgSRC);
 			jsonObject.put("profileStatus", profileStatus);
 			jsonObject.put("onlineStatus", onlineStatus);

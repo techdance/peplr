@@ -69,9 +69,10 @@ if(instituteProfile!=null){
 					   <div class="content-icon">
 					      <span class="icon-regular icon-calendar-week"></span><%=academicCalendar %>
 					   </div>
+					   <%-- Removed department from profile page
 					   <div class="content-icon">
 					      <span class="icon-regular icon-business-time"></span><%=department %>
-					   </div>
+					   </div> --%>
 					</div>
 				</div>
 				<div id="profile-map" style="height:200px;"></div>
@@ -145,4 +146,3 @@ $(document).ready(function(){
 	$("#institutionalProfileLoader").fadeOut();
 });
 </script>
-

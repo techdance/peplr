@@ -27,14 +27,18 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auto.login.AutoLogin;
 import com.liferay.portal.kernel.security.auto.login.AutoLoginException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.AddressLocalServiceUtil;
 import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
 import com.liferay.portal.kernel.service.ListTypeLocalServiceUtil;
 import com.liferay.portal.kernel.service.ListTypeServiceUtil;
+import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
@@ -59,13 +63,12 @@ public class LiferayAutoLogin implements AutoLogin{
 		// TODO Auto-generated method stub
 		//System.out.println("==================================================================");
 		//System.out.println("==>> AutoLogin > login method started.");
-		
+		System.out.println("Inside login");
 		boolean allowLogin=false;
 		List<String> paramNames = Collections.list(request.getParameterNames());
 		String accessToken=null;
 		int expirationTime = 0;
-		
-		String instituteName="", insDepartment="", insCity = "", insState="", insCountry="",insregion="", insTimezone="";
+		String instituteName="", insDepartment="", insCity = "", insState="", insCountry="",insregion="", insTimezone="", userDepartment="";
 		
 		if(paramNames.contains("access_token")){
 			accessToken = request.getParameter("access_token")+"";
@@ -91,12 +94,13 @@ public class LiferayAutoLogin implements AutoLogin{
 				
 				responseJSON = JSONFactoryUtil.createJSONObject(userJSONString);
 				userJSON = responseJSON.getJSONObject("user");
-				
+				/*Added department for user*/
+				userDepartment = userJSON.getString("department");
 				String institutionProfileResonse = getMethodAPI(PropsUtil.get("INSTITUTION_PROFILE_API_URL")); 
 				responseJSONInstitute = JSONFactoryUtil.createJSONObject(institutionProfileResonse);
 				institutionProfileJSON = responseJSONInstitute.getJSONObject("data");
 				if(institutionProfileJSON!=null){
-					instituteName = institutionProfileJSON.getString("institutionName");					
+					instituteName = institutionProfileJSON.getString("institutionName");
 					JSONObject institutionContact = institutionProfileJSON.getJSONObject("institutionContact");
 					if(institutionContact!=null){
 						insDepartment = institutionContact.getString("department");
@@ -196,8 +200,9 @@ public class LiferayAutoLogin implements AutoLogin{
 						
 						ExpandoTable table = ExpandoTableLocalServiceUtil.getDefaultTable(user.getCompanyId(), User.class.getName());
 				        ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "instituteName");
-				        /*Storing universityURL in custom fields*/
-				        ExpandoColumn columnUniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL");
+				        /*Added additional custom fields*/
+				        ExpandoColumn columnUniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL", user.getCompanyId());
+				        ExpandoColumn columnUserDepartment = getOrAddExpandoColumn(table.getTableId(), "userDepartment", user.getCompanyId());
 						
 						//instituteName = userJSON.getString("institutionName");
 						String address1 = userJSON.getString("address1");
@@ -223,9 +228,11 @@ public class LiferayAutoLogin implements AutoLogin{
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnCountry.getName(),user.getUserId(), insCountry);
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
 						
-						/*Storing universityURL in custom fields*/
+						/*Added additional custom fields*/
 						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), 
 								columnUniversityURL.getName(),user.getUserId(), PropsUtil.get("INSTITUTION_PROFILE_API_URL"));
+						ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), 
+								columnUserDepartment.getName(),user.getUserId(), userDepartment);
 						
 						DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(ListType.class, PortalClassLoaderUtil.getClassLoader());
 						dynamicQuery.add(PropertyFactoryUtil.forName("type").eq("com.liferay.portal.kernel.model.Contact.address")); 
@@ -327,8 +334,8 @@ public class LiferayAutoLogin implements AutoLogin{
 			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnTimezone.getName(),user.getUserId(), insTimezone);
 			        }
 			        
-			        /*Storing universityURL in custom fields*/
-			        ExpandoColumn columnuniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL");
+			        /*Added additional custom fields*/
+			        ExpandoColumn columnuniversityURL = getOrAddExpandoColumn(table.getTableId(), "universityURL", user.getCompanyId());
 			        ExpandoValue expUniversityURLVal = null;
 			        expUniversityURLVal = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnuniversityURL.getColumnId(), user.getUserId());
 			        if(expUniversityURLVal!=null){
@@ -336,6 +343,16 @@ public class LiferayAutoLogin implements AutoLogin{
 			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expUniversityURLVal);
 			        }else{
 			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnuniversityURL.getName(),user.getUserId(), PropsUtil.get("INSTITUTION_PROFILE_API_URL"));
+			        }
+			        
+			        ExpandoColumn columnUserDepartment = getOrAddExpandoColumn(table.getTableId(), "userDepartment", user.getCompanyId());
+			        ExpandoValue expUserDepartmentVal = null;
+			        expUserDepartmentVal = ExpandoValueLocalServiceUtil.getValue(table.getTableId(), columnUserDepartment.getColumnId(), user.getUserId());
+			        if(expUserDepartmentVal!=null){
+			        	expUserDepartmentVal.setData(userJSON.getString("department"));
+			        	ExpandoValueLocalServiceUtil.updateExpandoValue(expUserDepartmentVal);
+			        }else{
+			        	ExpandoValueLocalServiceUtil.addValue(user.getCompanyId(), User.class.getName(), table.getName(), columnUserDepartment.getName(),user.getUserId(), userJSON.getString("department"));
 			        }
 			        
 					List<ListType> listType=ListTypeServiceUtil.getListTypes("com.liferay.portal.kernel.model.Contact.prefix");
@@ -386,7 +403,7 @@ public class LiferayAutoLogin implements AutoLogin{
 	}
 	
 	
-	public ExpandoColumn getOrAddExpandoColumn(long tableId, String columnName) {
+	public ExpandoColumn getOrAddExpandoColumn(long tableId, String columnName, long companyId) {
 	    ExpandoColumn exandoColumn = ExpandoColumnLocalServiceUtil.getColumn(tableId, columnName);
 	        if (exandoColumn == null) {
 	            try {
@@ -396,7 +413,14 @@ public class LiferayAutoLogin implements AutoLogin{
 					e.printStackTrace();
 				}
 	        }
-	 
+		try {
+			Role role = RoleLocalServiceUtil.getRole(companyId, "User");
+			ResourcePermissionLocalServiceUtil.setResourcePermissions(companyId, ExpandoColumn.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL, String.valueOf(exandoColumn.getColumnId()), role.getRoleId(), new String[]{ActionKeys.VIEW});
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    return exandoColumn;
 	}
 }

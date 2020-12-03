@@ -3,7 +3,6 @@ package com.collaborated.profile.edit.editprofilecombined.portlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,7 +37,6 @@ import com.collaborated.entity.model.userProfessionalBio;
 import com.collaborated.entity.model.userProfileImage;
 import com.collaborated.entity.service.communicationPreferencesLocalServiceUtil;
 import com.collaborated.entity.service.profileAreaofinterestLocalServiceUtil;
-import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
 import com.collaborated.entity.service.userCredentialLocalServiceUtil;
 import com.collaborated.entity.service.userInstitutionProfileDetailsLocalServiceUtil;
 import com.collaborated.entity.service.userInstitutionProfileSubDetailsLocalServiceUtil;
@@ -56,7 +54,6 @@ import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -72,20 +69,17 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
-import com.liferay.portal.kernel.service.ListTypeLocalServiceUtil;
 import com.liferay.portal.kernel.service.ListTypeServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
-import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 @Component(
@@ -850,7 +844,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 		User user = null;
 		JSONObject jsonObject = null;
 		PrintWriter out = null;OutputStream o = null;Blob blob = null;
-		String firstName = "",lastName="",jobTitle="",prefixValue="",imageURL="";
+		String firstName = "",lastName="",jobTitle="",prefixValue="",imageURL="", userDepartment="";
 		boolean isBase64=false;
 		try{
 			out = resourceResponse.getWriter();
@@ -881,10 +875,12 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 					if(userJSON.getString("position").trim()!=null && userJSON.getString("position").trim()!=""){
 						jobTitle = userJSON.getString("position");
 					}
+					userDepartment = userJSON.getString("department");
 				}else{
 					firstName = user.getFirstName();
 					lastName = user.getLastName();
 					jobTitle = user.getJobTitle();
+					userDepartment = (String) user.getExpandoBridge().getAttribute("userDepartment");
 				}
 				
 				/*FileEntry dlFileEntry = null;String imageURL = "";
@@ -914,6 +910,7 @@ public class EditProfileCombinedPortlet extends MVCPortlet {
 				jsonObject.put("isBase64",isBase64);
 				jsonObject.put("profileImage",imageURL);
 				jsonObject.put("jobTitle", jobTitle);
+				jsonObject.put("profileDep", userDepartment);
 				jsonObject.put("profileStatus", profileStatus);
 				jsonObject.put("onlineStatus", onlineStatus);
 				jsonObject.put("instituteName", instituteName);

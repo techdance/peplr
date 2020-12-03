@@ -327,7 +327,8 @@ function loadUserInfo(interestId){
                     	if(value!=null && value!="undefined" && value!=undefined && value!="null"){
                     		var data = JSON.parse(value);
                     		$("#fullName").text(data.fullName);
-                    		$("#jobTitle").text(data.jobTitle);      	                
+                    		$("#jobTitle").text(data.jobTitle);
+                    		$("#profileDep").text(data.profileDep);
                     		$("#prefixValue").text(data.prefixValue+". ").addClass("text-capitalize");
          	               // $("#<portlet:namespace/>status").val(data.status);
          	                $("#user-profile").attr("src",data.profileImage);

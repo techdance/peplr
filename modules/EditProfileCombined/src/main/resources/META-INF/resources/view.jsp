@@ -155,7 +155,9 @@ if(bioList.size()>0){
 						<aui:input name="lastName" id="lastName" label="Last Name" placeholder="" cssClass="wrap-input" disabled="true">							
 						</aui:input>
 						
-						<aui:input name="jobTitle" id="jobTitle" label="Position" placeholder="" cssClass="wrap-input" disabled="true">							
+						<aui:input name="jobTitle" id="jobTitle" label="Position" placeholder="" cssClass="wrap-input" disabled="true">
+						</aui:input>
+						<aui:input name="userDepartment" id="userDep" label="Department" placeholder="" cssClass="wrap-input" disabled="true">							
 						</aui:input>
 					</div>
 				</div>
@@ -203,7 +205,7 @@ if(bioList.size()>0){
 	                                                	<aui:input type="hidden" name="institutionProfileId" label="" value="<%=institutionProfileId %>" cssClass="input" />
 	                                               		<aui:input type="text" name="institutionName" label="Institution Name" value="<%=instituteName %>" cssClass="input" disabled="true"/>
 	                                               		<aui:input type="text" name="academCalendar" label="Academic Calendar" value="<%=academicCalendar %>" cssClass="input" disabled="true"/>
-	                                               		<aui:input type="textarea" name="departamentDescription" label="Department" value="<%=department %>" cssClass="input" style="min-height: 120px;" disabled="true"/>
+	                                               		<%-- <aui:input type="textarea" name="departamentDescription" label="Department" value="<%=department %>" cssClass="input" style="min-height: 120px;" disabled="true"/> --%>
 	                                                </div>
 	                                            </div>
 											</div>

@@ -136,7 +136,8 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 						String receiveActions = "";
 						String imgUrl = "";
 						String educationLevel = "";
-						String instituteDepartment = "";
+						/*String instituteDepartment = "";*/
+						String userDepartment= "";
 						String imageURL = "",imgSRC="";boolean isBase64 = false;
 						
 						if(key.equalsIgnoreCase("sent")){
@@ -152,7 +153,8 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 							userNameDegree = inviteDetail.getFullName();
 							if(inviteDetail.getJobTitle()!=""){userPosition = ", "; }
 							userPosition = inviteDetail.getJobTitle()+userPosition;
-							instituteDepartment = (String) inviteDetail.getExpandoBridge().getAttribute("instituteDepartment");
+							userDepartment = (String) inviteDetail.getExpandoBridge().getAttribute("userDepartment");
+							/*instituteDepartment = (String) inviteDetail.getExpandoBridge().getAttribute("instituteDepartment");*/
 							userCollege = (String) inviteDetail.getExpandoBridge().getAttribute("instituteName");	
 					
 							sentReceiveDate = formatter.format(singleTrackingData.getCreateDate());
@@ -219,7 +221,7 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 						
 						template = template + "<tr id=\"Project_Invites_"+i+"\">"
 								+ "<td width='180px' class=\"border-bottom-none\"> <div class=\"person-img\"> <img src="+imgSRC+" width=\"95\"> </div> </td>" 
-								+ "<td><p class=\"invites-head\">"+userNameDegree+educationLevel+"</p><p class=\"invites-content\">"+userPosition+instituteDepartment+"</p>"
+								+ "<td><p class=\"invites-head\">"+userNameDegree+educationLevel+"</p><p class=\"invites-content\">"+userPosition+userDepartment+"</p>"
 								+ "<p class=\"font-style-italic\"><a href=\"#\">"+userCollege+"</a></p> <p class=\"invites-date\">"+sentReceiveDate+"</p> </td>"
 								+ "<td><p class=\"mb-2\"><strong>Project</strong><br>"+projectType+"</p><p><strong>Discipline</strong><br>"+disipline+"</p></td>"
 								+ "<td><p class=\"mb-2\"><strong>Preferred Language</strong><br>"+preferredLanguage+"</p><p><strong>Region</strong><br>"+region+"</p></td>"

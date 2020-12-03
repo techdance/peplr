@@ -708,6 +708,7 @@ function loadUserInfo(){
          	        		$("#<portlet:namespace/>firstName").val(data.firstName);
          	                $("#<portlet:namespace/>lastName").val(data.lastName);
          	                $("#<portlet:namespace/>jobTitle").val(data.jobTitle);
+         	                $("#<portlet:namespace/>userDep").val(data.profileDep);
          	                $("#<portlet:namespace/>prefixValue").val(data.prefixValue);
          	                // $("#<portlet:namespace/>status").val(data.status);
          	                if(data.isBase64==true){
