@@ -44,7 +44,7 @@
 }
 .partner-university, .partner-address {
     color: #000 !important;
-    font-weight: bold !important;
+    /* font-weight: bold !important; */
     font-style: normal !important;
 }
 

@@ -138,7 +138,7 @@
 }
 .tree-folder ul ul li a {
     padding: 0 10px;
-    color: #09f;
+    color: #fff;
 }
 .tree-sidebar ul li.active > a {
 	background: #2a9eff;

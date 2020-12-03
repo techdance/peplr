@@ -64,7 +64,7 @@ if(instituteProfile!=null){
 					      <span class="icon-regular icon-globe"></span><a href="#"><%=cityState %></a>
 					   </div>
 					   <div class="content-icon">
-					      <span class="icon-regular icon-globe-americas"></span><%=region %>
+					      <span class="icon-regular icon-globe-americas"></span><a href="#"><%=region %></a>
 					   </div>
 					   <div class="content-icon">
 					      <span class="icon-regular icon-calendar-week"></span><%=academicCalendar %>

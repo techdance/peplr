@@ -146,4 +146,7 @@ select.select {
     max-width: 100%;
     max-height: 100%;
 }
+.section-academics .list-bullet li a:hover{
+	color: #007bff;
+}
 </style>

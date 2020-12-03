@@ -39,4 +39,10 @@ h2.color-blue-light-hover:hover a {
 div#my-calendar-container .ui-widget.ui-widget-content .ui-datepicker-header .ui-datepicker-title {
 	line-height: inherit;
 }
+.mb-4, .my-4{
+	padding-right: 0px;
+}
+.calendar.box{
+	padding: 10px 10px 20px;
+}
 </style>

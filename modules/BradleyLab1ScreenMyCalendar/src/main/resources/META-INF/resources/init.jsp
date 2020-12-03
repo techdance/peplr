@@ -20,4 +20,11 @@
     content: "\f073";
     font-family: 'Font Awesome 5 Regular';
 }
+.mb-4, .my-4{
+	padding-left:11px;
+	padding-right:11px;
+}
+.calendar.box{
+	padding: 10px 10px 20px;
+}
 </style>

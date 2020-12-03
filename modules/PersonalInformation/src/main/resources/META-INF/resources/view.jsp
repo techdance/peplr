@@ -35,13 +35,13 @@
                     <div class="title"><span class="icon-regular icon-user-alt"></span> Name</div>
                     <div class="text color-black"><span id="prefixValue"></span> <span id="fullName"></span></div>
                 </div>
-                <div class="profile-info profile-title">
+                <div class="profile-info profile-name profile-title">
                     <div class="title"><span class="icon-regular icon-user-tie"></span> Position</div>
                     <div class="text color-black" id="jobTitle"></div>
                 </div>
                 <!-- Added department to profile -->
-                <div class="profile-info profile-department">
-                    <div class="title"><span class="icon-regular icon-user-tie"></span> Department</div>
+                <div class="profile-info profile-name profile-department">
+                    <div class="title"><span class="icon-regular icon-business-time"></span> Department</div>
                     <div class="text color-black profiled" id="profileDep"></div>
                 </div>
                 
@@ -196,4 +196,3 @@
     </div>
   </div>
 </div>
-
