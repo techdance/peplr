@@ -160,4 +160,7 @@ public interface Custom_CalendarPersistence extends BasePersistence<Custom_Calen
 	* @return the number of custom_ calendars
 	*/
 	public int countAll();
+
+	@Override
+	public java.util.Set<java.lang.String> getBadColumnNames();
 }

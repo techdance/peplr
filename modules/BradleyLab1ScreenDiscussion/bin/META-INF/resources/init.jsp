@@ -138,7 +138,7 @@
 }
 .tree-folder ul ul li a {
     padding: 0 10px;
-    color: #09f;
+    color: #fff;
 }
 .tree-sidebar ul li.active > a {
 	background: #2a9eff;
@@ -241,7 +241,7 @@
     position: relative;
 }
 #dynamicDiscussion .odd .person-bottom {
-    background: #c7e6fb;
+    background: #dcebfe;
 }
 .toltip-close3 {
     position: absolute;
@@ -250,6 +250,10 @@
 .toltip-close3 a {
     color: #333;
     font-size: 16px;
+}
+div#dynamicDiscussion {
+    max-height: 33vw !important;
+    overflow-y: scroll;
 }
 </style>
 

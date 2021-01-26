@@ -46,6 +46,14 @@ public class Custom_CalendarSoap implements Serializable {
 		soapModel.setStartTime(model.getStartTime());
 		soapModel.setEndTime(model.getEndTime());
 		soapModel.setEventTitle(model.getEventTitle());
+		soapModel.setEventLocation(model.getEventLocation());
+		soapModel.setAllDay(model.getAllDay());
+		soapModel.setRepeat(model.getRepeat());
+		soapModel.setEndRepeat(model.getEndRepeat());
+		soapModel.setEndRepeatDate(model.getEndRepeatDate());
+		soapModel.setAlert(model.getAlert());
+		soapModel.setUrl(model.getUrl());
+		soapModel.setNotes(model.getNotes());
 
 		return soapModel;
 	}
@@ -196,6 +204,70 @@ public class Custom_CalendarSoap implements Serializable {
 		_eventTitle = eventTitle;
 	}
 
+	public String getEventLocation() {
+		return _eventLocation;
+	}
+
+	public void setEventLocation(String eventLocation) {
+		_eventLocation = eventLocation;
+	}
+
+	public int getAllDay() {
+		return _allDay;
+	}
+
+	public void setAllDay(int allDay) {
+		_allDay = allDay;
+	}
+
+	public String getRepeat() {
+		return _repeat;
+	}
+
+	public void setRepeat(String repeat) {
+		_repeat = repeat;
+	}
+
+	public String getEndRepeat() {
+		return _endRepeat;
+	}
+
+	public void setEndRepeat(String endRepeat) {
+		_endRepeat = endRepeat;
+	}
+
+	public String getEndRepeatDate() {
+		return _endRepeatDate;
+	}
+
+	public void setEndRepeatDate(String endRepeatDate) {
+		_endRepeatDate = endRepeatDate;
+	}
+
+	public String getAlert() {
+		return _alert;
+	}
+
+	public void setAlert(String alert) {
+		_alert = alert;
+	}
+
+	public String getUrl() {
+		return _url;
+	}
+
+	public void setUrl(String url) {
+		_url = url;
+	}
+
+	public String getNotes() {
+		return _notes;
+	}
+
+	public void setNotes(String notes) {
+		_notes = notes;
+	}
+
 	private long _PK_calendarEventId;
 	private long _groupId;
 	private long _userId;
@@ -208,4 +280,12 @@ public class Custom_CalendarSoap implements Serializable {
 	private String _startTime;
 	private String _endTime;
 	private String _eventTitle;
+	private String _eventLocation;
+	private int _allDay;
+	private String _repeat;
+	private String _endRepeat;
+	private String _endRepeatDate;
+	private String _alert;
+	private String _url;
+	private String _notes;
 }

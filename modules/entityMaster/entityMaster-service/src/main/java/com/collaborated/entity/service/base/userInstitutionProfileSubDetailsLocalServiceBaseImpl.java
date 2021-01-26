@@ -17,6 +17,7 @@ package com.collaborated.entity.service.base;
 import aQute.bnd.annotation.ProviderType;
 
 import com.collaborated.entity.model.userInstitutionProfileSubDetails;
+import com.collaborated.entity.service.persistence.Custom_CalendarInviteesPersistence;
 import com.collaborated.entity.service.persistence.Custom_CalendarPersistence;
 import com.collaborated.entity.service.persistence.Custom_WorkflowLogPersistence;
 import com.collaborated.entity.service.persistence.Custom_WorkflowPersistence;
@@ -25,6 +26,7 @@ import com.collaborated.entity.service.persistence.Custom_Workflow_TaskPersisten
 import com.collaborated.entity.service.persistence.Custom_Workflow_TransitionPersistence;
 import com.collaborated.entity.service.persistence.commonWebsserviceAPIPersistence;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
+import com.collaborated.entity.service.persistence.discussionMessageNotificationPersistence;
 import com.collaborated.entity.service.persistence.labDetailedActivityTablePersistence;
 import com.collaborated.entity.service.persistence.labDetailedCourseHoursPersistence;
 import com.collaborated.entity.service.persistence.labDetailedCourseIdentificationPersistence;
@@ -465,6 +467,44 @@ public abstract class userInstitutionProfileSubDetailsLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the custom_ calendar invitees local service.
+	 *
+	 * @return the custom_ calendar invitees local service
+	 */
+	public com.collaborated.entity.service.Custom_CalendarInviteesLocalService getCustom_CalendarInviteesLocalService() {
+		return custom_CalendarInviteesLocalService;
+	}
+
+	/**
+	 * Sets the custom_ calendar invitees local service.
+	 *
+	 * @param custom_CalendarInviteesLocalService the custom_ calendar invitees local service
+	 */
+	public void setCustom_CalendarInviteesLocalService(
+		com.collaborated.entity.service.Custom_CalendarInviteesLocalService custom_CalendarInviteesLocalService) {
+		this.custom_CalendarInviteesLocalService = custom_CalendarInviteesLocalService;
+	}
+
+	/**
+	 * Returns the custom_ calendar invitees persistence.
+	 *
+	 * @return the custom_ calendar invitees persistence
+	 */
+	public Custom_CalendarInviteesPersistence getCustom_CalendarInviteesPersistence() {
+		return custom_CalendarInviteesPersistence;
+	}
+
+	/**
+	 * Sets the custom_ calendar invitees persistence.
+	 *
+	 * @param custom_CalendarInviteesPersistence the custom_ calendar invitees persistence
+	 */
+	public void setCustom_CalendarInviteesPersistence(
+		Custom_CalendarInviteesPersistence custom_CalendarInviteesPersistence) {
+		this.custom_CalendarInviteesPersistence = custom_CalendarInviteesPersistence;
+	}
+
+	/**
 	 * Returns the custom_ workflow local service.
 	 *
 	 * @return the custom_ workflow local service
@@ -652,6 +692,44 @@ public abstract class userInstitutionProfileSubDetailsLocalServiceBaseImpl
 	public void setCustom_WorkflowLogPersistence(
 		Custom_WorkflowLogPersistence custom_WorkflowLogPersistence) {
 		this.custom_WorkflowLogPersistence = custom_WorkflowLogPersistence;
+	}
+
+	/**
+	 * Returns the discussion message notification local service.
+	 *
+	 * @return the discussion message notification local service
+	 */
+	public com.collaborated.entity.service.discussionMessageNotificationLocalService getdiscussionMessageNotificationLocalService() {
+		return discussionMessageNotificationLocalService;
+	}
+
+	/**
+	 * Sets the discussion message notification local service.
+	 *
+	 * @param discussionMessageNotificationLocalService the discussion message notification local service
+	 */
+	public void setdiscussionMessageNotificationLocalService(
+		com.collaborated.entity.service.discussionMessageNotificationLocalService discussionMessageNotificationLocalService) {
+		this.discussionMessageNotificationLocalService = discussionMessageNotificationLocalService;
+	}
+
+	/**
+	 * Returns the discussion message notification persistence.
+	 *
+	 * @return the discussion message notification persistence
+	 */
+	public discussionMessageNotificationPersistence getdiscussionMessageNotificationPersistence() {
+		return discussionMessageNotificationPersistence;
+	}
+
+	/**
+	 * Sets the discussion message notification persistence.
+	 *
+	 * @param discussionMessageNotificationPersistence the discussion message notification persistence
+	 */
+	public void setdiscussionMessageNotificationPersistence(
+		discussionMessageNotificationPersistence discussionMessageNotificationPersistence) {
+		this.discussionMessageNotificationPersistence = discussionMessageNotificationPersistence;
 	}
 
 	/**
@@ -1667,6 +1745,10 @@ public abstract class userInstitutionProfileSubDetailsLocalServiceBaseImpl
 	protected com.collaborated.entity.service.Custom_CalendarLocalService custom_CalendarLocalService;
 	@BeanReference(type = Custom_CalendarPersistence.class)
 	protected Custom_CalendarPersistence custom_CalendarPersistence;
+	@BeanReference(type = com.collaborated.entity.service.Custom_CalendarInviteesLocalService.class)
+	protected com.collaborated.entity.service.Custom_CalendarInviteesLocalService custom_CalendarInviteesLocalService;
+	@BeanReference(type = Custom_CalendarInviteesPersistence.class)
+	protected Custom_CalendarInviteesPersistence custom_CalendarInviteesPersistence;
 	@BeanReference(type = com.collaborated.entity.service.Custom_WorkflowLocalService.class)
 	protected com.collaborated.entity.service.Custom_WorkflowLocalService custom_WorkflowLocalService;
 	@BeanReference(type = Custom_WorkflowPersistence.class)
@@ -1687,6 +1769,10 @@ public abstract class userInstitutionProfileSubDetailsLocalServiceBaseImpl
 	protected com.collaborated.entity.service.Custom_WorkflowLogLocalService custom_WorkflowLogLocalService;
 	@BeanReference(type = Custom_WorkflowLogPersistence.class)
 	protected Custom_WorkflowLogPersistence custom_WorkflowLogPersistence;
+	@BeanReference(type = com.collaborated.entity.service.discussionMessageNotificationLocalService.class)
+	protected com.collaborated.entity.service.discussionMessageNotificationLocalService discussionMessageNotificationLocalService;
+	@BeanReference(type = discussionMessageNotificationPersistence.class)
+	protected discussionMessageNotificationPersistence discussionMessageNotificationPersistence;
 	@BeanReference(type = com.collaborated.entity.service.labDetailedActivityTableLocalService.class)
 	protected com.collaborated.entity.service.labDetailedActivityTableLocalService labDetailedActivityTableLocalService;
 	@BeanReference(type = labDetailedActivityTablePersistence.class)

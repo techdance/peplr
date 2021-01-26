@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -357,6 +358,14 @@ public class Custom_CalendarPersistenceImpl extends BasePersistenceImpl<Custom_C
 		custom_CalendarImpl.setStartTime(custom_Calendar.getStartTime());
 		custom_CalendarImpl.setEndTime(custom_Calendar.getEndTime());
 		custom_CalendarImpl.setEventTitle(custom_Calendar.getEventTitle());
+		custom_CalendarImpl.setEventLocation(custom_Calendar.getEventLocation());
+		custom_CalendarImpl.setAllDay(custom_Calendar.getAllDay());
+		custom_CalendarImpl.setRepeat(custom_Calendar.getRepeat());
+		custom_CalendarImpl.setEndRepeat(custom_Calendar.getEndRepeat());
+		custom_CalendarImpl.setEndRepeatDate(custom_Calendar.getEndRepeatDate());
+		custom_CalendarImpl.setAlert(custom_Calendar.getAlert());
+		custom_CalendarImpl.setUrl(custom_Calendar.getUrl());
+		custom_CalendarImpl.setNotes(custom_Calendar.getNotes());
 
 		return custom_CalendarImpl;
 	}
@@ -743,6 +752,11 @@ public class Custom_CalendarPersistenceImpl extends BasePersistenceImpl<Custom_C
 	}
 
 	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return Custom_CalendarModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -770,4 +784,7 @@ public class Custom_CalendarPersistenceImpl extends BasePersistenceImpl<Custom_C
 	private static final String _ORDER_BY_ENTITY_ALIAS = "custom_Calendar.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Custom_Calendar exists with the primary key ";
 	private static final Log _log = LogFactoryUtil.getLog(Custom_CalendarPersistenceImpl.class);
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+				"repeat"
+			});
 }

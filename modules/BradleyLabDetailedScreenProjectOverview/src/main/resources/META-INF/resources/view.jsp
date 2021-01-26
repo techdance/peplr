@@ -247,21 +247,67 @@
                         			<table class="w-100">
                         				<thead>
                         					<tr>
-				                                <th class="title-row-th text-center" scope="row">Course Objective</th>
-				                                <th class="title-row-th text-center" scope="row">Learning Environment Design</th>
-				                                <th class="title-row-th text-center" scope="row">Activity</th>
-				                                <th class="title-row-th text-center" scope="row">Content</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Course Objective</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Learning Environment Design</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Activity</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Content</th>
 				                            </tr>
                         				</thead>
-                        				<tbody id="week1CLAC">
-                        				
+                        				<!-- <tbody id="week1CLAC"></tbody> -->
+                        				<tbody>
+                        					<tr>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-course-objectives-content-week-1"></div>
+												</td>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-learning-content-week-1"></div>
+												</td>
+												<td class="text-center" align='left' valign="top">
+													<div class="td-activity-1"></div>
+													<div class="td-activity-1-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', '1')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, '1', this.value)">
+														</div>
+													</div>
+												</td>
+												<td class="text-center" align='center' valign="top">
+													<div class="td-content-1"></div>
+													<div class="td-content-1-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','1')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, '1', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</td>
+											</tr>
                         				</tbody>
                         				<tfoot>
                         					 <tr>
-				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="1" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a></td>
-				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="1" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a></td>
-				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="1" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></td>
-				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="1" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></td>
+				                                <td class="text-center">
+				                                	<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="1" data-param-name="courseObjective"></a> -->
+				                                	<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="1" id="CourseObjective1Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjective1Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+					                                <!-- <a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="1" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a> -->
+					                                <div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="1" id="LearningEnvironment1Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironment1Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+				                                	<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="1" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a> -->
+				                                	<a href="javascript:void(0)" class="add-activity" data-activity="1"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                                <td class="text-center">
+				                                	<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="1" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a> -->
+				                                	<a href="javascript:void(0)" class="add-content" data-content="1"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
 				                            </tr>
                         				</tfoot>
                         			</table>
@@ -284,13 +330,13 @@
 									<table class="w-100">
 										<thead>
 											<tr>
-				                                <th class="title-row-th text-center" scope="row">Course Objective</th>
-				                                <th class="title-row-th text-center" scope="row">Learning Environment Design</th>
-				                                <th class="title-row-th text-center" scope="row">Activity</th>
-				                                <th class="title-row-th text-center" scope="row">Content</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Course Objective</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Learning Environment Design</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Activity</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Content</th>
 				                            </tr>
 										</thead>
-										<tbody id="week2CLAC">
+										<!-- <tbody id="week2CLAC">
 										
 										</tbody>
 										<tfoot>
@@ -300,7 +346,59 @@
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="2" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="2" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                            </tr>
-										</tfoot>
+										</tfoot> -->
+										<tbody>
+                        					<tr>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-course-objectives-content-week-2"></div>
+												</td>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-learning-content-week-2"></div>
+												</td>
+												<td class="text-center" align='left' valign="top">
+													<div class="td-activity-2"></div>
+													<div class="td-activity-2-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', '2')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, '2', this.value)">
+														</div>
+													</div>
+												</td>
+												<td class="text-center" align='center' valign="top">
+													<div class="td-content-2"></div>
+													<div class="td-content-2-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','2')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, '2', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</td>
+											</tr>
+                        				</tbody>
+                        				<tfoot>
+                        					 <tr>
+				                                <td class="text-center">
+				                                	<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="2" id="CourseObjective2Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjective2Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+					                                <div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="2" id="LearningEnvironment2Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironment2Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-activity" data-activity="2"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-content" data-content="2"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                            </tr>
+                        				</tfoot>
 									</table>
 								</td>
 							</tr>
@@ -321,13 +419,13 @@
 									<table class="w-100">
 										<thead>
 											<tr>
-				                                <th class="title-row-th text-center" scope="row">Course Objective</th>
-				                                <th class="title-row-th text-center" scope="row">Learning Environment Design</th>
-				                                <th class="title-row-th text-center" scope="row">Activity</th>
-				                                <th class="title-row-th text-center" scope="row">Content</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Course Objective</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Learning Environment Design</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Activity</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Content</th>
 				                            </tr>
 										</thead>
-										<tbody id="week3CLAC">
+										<!-- <tbody id="week3CLAC">
 										
 										</tbody>
 										<tfoot>
@@ -337,7 +435,59 @@
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="3" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="3" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                            </tr>
-										</tfoot>
+										</tfoot> -->
+										<tbody>
+                        					<tr>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-course-objectives-content-week-3"></div>
+												</td>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-learning-content-week-3"></div>
+												</td>
+												<td class="text-center" align='left' valign="top">
+													<div class="td-activity-3"></div>
+													<div class="td-activity-3-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', '3')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, '3', this.value)">
+														</div>
+													</div>
+												</td>
+												<td class="text-center" align='center' valign="top">
+													<div class="td-content-3"></div>
+													<div class="td-content-3-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','3')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, '3', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</td>
+											</tr>
+                        				</tbody>
+                        				<tfoot>
+                        					 <tr>
+				                                <td class="text-center">
+				                                	<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="3" id="CourseObjective3Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjective3Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+					                                <div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="3" id="LearningEnvironment3Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironment3Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-activity" data-activity="3"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-content" data-content="3"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                            </tr>
+                        				</tfoot>
 									</table>
 								</td>
 							</tr>
@@ -358,13 +508,13 @@
 									<table class="w-100">
 										<thead>
 											<tr>
-				                                <th class="title-row-th text-center" scope="row">Course Objective</th>
-				                                <th class="title-row-th text-center" scope="row">Learning Environment Design</th>
-				                                <th class="title-row-th text-center" scope="row">Activity</th>
-				                                <th class="title-row-th text-center" scope="row">Content</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Course Objective</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Learning Environment Design</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Activity</th>
+				                                <th class="title-row-th text-center" scope="row" width="25%">Content</th>
 				                            </tr>
 										</thead>
-										<tbody id="week4CLAC">
+										<!-- <tbody id="week4CLAC">
 										
 										</tbody>
 										<tfoot>
@@ -374,7 +524,59 @@
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="4" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                                <td class="text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="4" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></td>
 				                            </tr>
-										</tfoot>
+										</tfoot> -->
+										<tbody>
+                        					<tr>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-course-objectives-content-week-4"></div>
+												</td>
+												<td class="text-center" valign="top">
+													<div class="text-left wrap-learning-content-week-4"></div>
+												</td>
+												<td class="text-center" align='left' valign="top">
+													<div class="td-activity-4"></div>
+													<div class="td-activity-4-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', '4')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, '4', this.value)">
+														</div>
+													</div>
+												</td>
+												<td class="text-center" align='center' valign="top">
+													<div class="td-content-4"></div>
+													<div class="td-content-4-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','4')"><i class='fas fa-minus-circle fas-16'></i></a>
+
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, '4', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</td>
+											</tr>
+                        				</tbody>
+                        				<tfoot>
+                        					 <tr>
+				                                <td class="text-center">
+				                                	<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="4" id="CourseObjective4Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjective4Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+					                                <div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="4" id="LearningEnvironment4Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironment4Link"></div>
+													</div>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-activity" data-activity="4"><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                                <td class="text-center">
+				                                	<a href="javascript:void(0)" class="add-content" data-content=""><i class="fas fa-plus-circle color-orange"></i></a>
+				                                </td>
+				                            </tr>
+                        				</tfoot>
 									</table>
 								</td>
 							</tr>
@@ -525,7 +727,13 @@
 														<p>Connect with a partner in another country and engage in conversations that result in a joint project that enhances student's intercultural competency skills and knowledge</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="1" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="1" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="1" id="CourseObjectivepopup1Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjectivepopup1Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -545,7 +753,13 @@
 														<p>Independent Assignments</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="1" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="1" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="1" id="LearningEnvironmentpopup1Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironmentpopup1Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -559,7 +773,19 @@
 														<p>Syllabus Review</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="1" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-activity-popupActivity1"></div>
+													<div class="td-activity-popupActivity1-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', 'popupActivity1')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, 'popupActivity1', this.value)">
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="1" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-activity" data-activity="popupActivity1"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -579,7 +805,19 @@
 														<p>Video: Introduction to COIL</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="1" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-content-popupContent1"></div>
+													<div class="td-content-popupContent1-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','popupContent1')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, 'popupContent1', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="1" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-content" data-content="popupContent1"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -599,7 +837,13 @@
 														<p>Connect with a partner in another country and engage in conversations that result in a joint project that enhances student's intercultural competency skills and knowledge</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="2" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="2" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="2" id="CourseObjectivepopup2Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjectivepopup2Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -619,7 +863,13 @@
 														<p>Independent Assignments</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="2" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="2" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="2" id="LearningEnvironmentpopup2Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironmentpopup2Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -639,7 +889,19 @@
 														<p>Respond to Online Discussion Forum</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="2" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-activity-popupActivity2"></div>
+													<div class="td-activity-popupActivity2-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', 'popupActivity2')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, 'popupActivity2', this.value)">
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="2" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-activity" data-activity="popupActivity2"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -653,7 +915,19 @@
 														<p><strong>Text Book:</strong> Global Marketing, Chapter 2</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="2" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-content-popupContent2"></div>
+													<div class="td-content-popupContent2-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','popupContent2')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, 'popupContent2', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="2" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a>	 -->
+													<a href="javascript:void(0)" class="add-content" data-content="popupContent2"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -673,7 +947,13 @@
 														<p>Use online tools to develop business communication skills in a cross-cultural virtual team environment.</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="3" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="3" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="3" id="CourseObjectivepopup3Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjectivepopup3Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -693,7 +973,13 @@
 														<p>Discussion Forum</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="3" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="3" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="3" id="LearningEnvironmentpopup3Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironmentpopup3Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -713,7 +999,19 @@
 														<p>Respond to Online Discussion Forum</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="3" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-activity-popupActivity3"></div>
+													<div class="td-activity-popupActivity3-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', 'popupActivity3')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, 'popupActivity3', this.value)">
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+														<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="3" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a> -->
+														<a href="javascript:void(0)" class="add-activity" data-activity="popupActivity3"><i class="fas fa-plus-circle color-orange"></i></a>
+													</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -727,7 +1025,19 @@
 														<p><strong>Text Book:</strong> Global Marketing, Chapter 3</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="3" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-content-popupContent3"></div>
+													<div class="td-content-popupContent3-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','popupContent3')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, 'popupContent3', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="3" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-content" data-content="popupContent3"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -747,7 +1057,13 @@
 														<p>Use online tools to develop business communication skills in a cross-cultural virtual team environment.</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="4" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Course Objective" data-param="4" data-param-name="courseObjective"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="4" id="CourseObjectivepopup4Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu CourseObjectiveValue" aria-labelledby="CourseObjectivepopup4Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -767,7 +1083,13 @@
 														<p>Discussion Forum</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="4" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Learning Environment Design" data-param="4" data-param-name="learningEnvironment"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<div class="dropdown tableDropdown">
+													  <a class="dropdown-toggle" href="#" role="button" data-week="4" id="LearningEnvironmentpopup4Link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+													  <div class="dropdown-menu LearningEnvironmentValue" aria-labelledby="LearningEnvironmentpopup4Link"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -781,7 +1103,19 @@
 														<p>Respond to Online Discussion Forum</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="4" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-activity-popupActivity4"></div>
+													<div class="td-activity-popupActivity4-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('activity', 'popupActivity4')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<input type='text' value='Syllabus Review' class='input2 bg-grey-light border-none' onkeypress="return keyPressActivity(event, 'popupActivity4', this.value)">
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Activity" data-param="4" data-param-name="activity"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-activity" data-activity="popupActivity4"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -795,7 +1129,19 @@
 														<p><strong>Text Book:</strong> Global Marketing, Chapter 4</p>
 													</div> -->
 												</div>
-												<div class="courses-box-footer text-center"><a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="4" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a></div>
+												<div>
+													<div class="td-content-popupContent4"></div>
+													<div class="td-content-popupContent4-input" style="display:none;">
+														<div class='d-flex align-items-center form-group mb-1'>
+															<a href='javascript::void(0);' class='color-orange font20 mr-1' onclick="hideInput('content','popupContent4')"><i class='fas fa-minus-circle fas-16'></i></a>
+															<textarea class='input2 bg-grey-light border-none' onkeypress="return keyPressContent(event, 'popupContent4', this.value)"> Text Book: Global Ethics: An Introduction, Chapter 1</textarea>
+														</div>
+													</div>
+												</div>
+												<div class="courses-box-footer text-center">
+													<!-- <a href="javascript:void(0);" class="weekPopup" data-title="Content" data-param="4" data-param-name="content"><i class="fas fa-plus-circle color-orange"></i></a> -->
+													<a href="javascript:void(0)" class="add-content" data-content="popupContent4"><i class="fas fa-plus-circle color-orange"></i></a>
+												</div>
 											</div>
 										</div>
 									</div>

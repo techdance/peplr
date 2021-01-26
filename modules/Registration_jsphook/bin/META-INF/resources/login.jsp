@@ -15,6 +15,7 @@
 --%>
 
 
+<%@page import="com.liferay.portal.kernel.util.PropsUtil"%>
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
 <%@page import="com.liferay.portal.kernel.service.UserLocalServiceUtil"%>
@@ -244,6 +245,7 @@ $(window).on('load', function() {
 	$(".taglib-text").text(function () {
 	    return $(this).text().replace("Create Account", "Sign Up"); 
 	});
+	window.location.href="<%=PropsUtil.get("REDIRECT_REACT_URL") %>"; 
 });
 
 jQuery(document).ready(function(){

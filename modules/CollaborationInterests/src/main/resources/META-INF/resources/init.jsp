@@ -64,9 +64,6 @@ section.wrap-profile .content-icon {
 .maxheight80{
     height: 80px !important; 
 }
-#view-more-interest-modal{
-	display:none;
-}
 
 .modal.show .viewmoredetail{
 	display:block;
@@ -448,6 +445,48 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
 	pointer-events: none;
 	cursor: not-allowed;
 }
+
+/* Modal */
+#view-more-interest-modal{
+	display:none;
+}
+.interestModal .modal-header {
+	justify-content: center;
+	border-radius: 0;
+	background: #f1f3f7;
+	font-size: 20px;
+    line-height: 1.5;
+    padding: 8px;
+    text-align: center;
+}
+.interestModal .modal-header a i {
+	width: auto;
+	color: inherit;
+	font-size: inherit;
+}
+.interestModal .modal-dialog {
+	position: relative;
+	max-width: 500px;
+}
+.interestModal .modal-content {
+	border-radius: 0;
+	background: transparent;
+    border: 0;
+}
+.interestModal .modal-body {
+	background: rgba(129,140,147,0.9);
+    border: none;
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Ranger */
+.irs--round .irs-grid-text {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+}
 </style>
 
 <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Year-Picker-Text-Input/yearpicker.css" />
@@ -724,7 +763,7 @@ function getViewMoreData(id){
                     		$(".view-find-matches").html("");
                     		$("#datePickerCI2").val(data.endYear);
                     		$("#projectRangeCI2").ionRangeSlider({
-                    	    	skin: "big",
+                    	    	skin: "round",
                     	    	type: "single",
                     	        grid: true,
                     	        values: [

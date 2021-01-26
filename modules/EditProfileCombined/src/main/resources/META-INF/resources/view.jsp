@@ -1,3 +1,5 @@
+
+
 <%@page import="javax.portlet.PortletSession"%>
 <%@page import="com.collaborated.entity.service.userProfessionalBioLocalServiceUtil"%>
 <%@page import="com.collaborated.entity.model.userProfessionalBio"%>
@@ -744,369 +746,363 @@ if(bioList.size()>0){
 						</div>
 					</div> -->
 					
-					<div class="modal modalToltip modalareainterest" id="view-more-interest-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+					<div class="modal interestModal" id="view-more-interest-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 					  <div class="modal-dialog" role="document">
 						<div class="modal-content">
-							
-							<div class="modal-body p-0">
 								
-								<div class="interest-modal p-0">
-									<!-- Static Section -->
-									<div class="view-more-interest-modal-inner">
-										<div class="modal-header position-relative">
-											<div class="toltip-close3"><a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a></div>
-											<div class="text-left font15"><strong>Project</strong><br><span class="view-project-type"></span></div>
+							<!-- Static Section -->
+							<div class="modal-body view-more-interest-modal-inner">
+													<div class="modal-header position-relative">
+									<div class="toltip-close3"><a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a></div>
+									<div class="text-left font15"><strong>Project Test</strong><br><span class="view-project-type"></span></div>
+								</div>
+									<div class="row mb-2">
+										<div class="col-md-12">
+											<strong>Description</strong><br>
+											<span class="view-description"></span>
 										</div>
-										<div class="view-more-interest-modal-inner-content text-left p-3">
-					
-											<div class="row mb-2">
-												<div class="col-md-12">
-													<strong>Description</strong><br>
-													<span class="view-description"></span>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-12 mb-2 order-md-1">
+											<strong>Preferred Language</strong><br><span class="view-language"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-2">
+											<strong>Collaboration Type</strong><br><span class="view-collaboration-type"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-4">
+											<strong>Discipline 1</strong><br><span class="view-discipline1"></span>
+										</div> 
+										<div class="col-md-6 mb-2 order-md-6">
+											<strong>Discipline 2</strong><br><span class="view-discipline2"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-8">
+											<strong>Discipline 3</strong><br><span class="view-discipline3"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-3">
+											<strong>Region 1</strong><br><span class="view-location1"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-5">
+											<strong>Region 2</strong><br><span class="view-location2"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-7">
+											<strong>Region 3</strong><br><span class="view-location3"></span>
+										</div>
+										<div class="col-md-6 mb-2 order-md-9">
+											<strong>Region 4</strong><br><span class="view-location4"></span>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-6 mb-2"><strong>Program Level</strong><br><span class="view-program-level"></span></div>
+										<div class="col-md-6 mb-2"><strong>Program Length</strong><br><span class="view-program-length"></span></div>
+										<div class="col-md-6 mb-2"><strong>Delivery Method</strong><br><span class="view-delivery-type"></span></div>
+										<div class="col-md-6 mb-2"><strong>Credits</strong><br><span class="view-credits"></span></div>
+									</div>
+									
+									<div class="row mb-2">
+										<div class="col-md-12 rangerDisabled">
+												 <strong>Project Date Range</strong>
+												 <div class="top-label-range">
+												 	<div class="top-init-range">
+												 		<div><span class="currentMonthStart1 mr-1"></span><span id="currentday1"></span></div>
+												 	</div>
+												<div class="year-last-range pickerdata">
+													<input type="text" id="rangerDatepicker1" value="2020" readonly/>
 												</div>
 											</div>
-											
-											<div class="row">
-												<div class="col-md-12 mb-2 order-md-1">
-													<strong>Preferred Language</strong><br><span class="view-language"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-2">
-													<strong>Collaboration Type</strong><br><span class="view-collaboration-type"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-4">
-													<strong>Discipline 1</strong><br><span class="view-discipline1"></span>
-												</div> 
-												<div class="col-md-6 mb-2 order-md-6">
-													<strong>Discipline 2</strong><br><span class="view-discipline2"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-8">
-													<strong>Discipline 3</strong><br><span class="view-discipline3"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-3">
-													<strong>Region 1</strong><br><span class="view-location1"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-5">
-													<strong>Region 2</strong><br><span class="view-location2"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-7">
-													<strong>Region 3</strong><br><span class="view-location3"></span>
-												</div>
-												<div class="col-md-6 mb-2 order-md-9">
-													<strong>Region 4</strong><br><span class="view-location4"></span>
-												</div>
-											</div>
-											
-											<div class="row">
-												<div class="col-md-6 mb-2"><strong>Program Level</strong><br><span class="view-program-level"></span></div>
-												<div class="col-md-6 mb-2"><strong>Program Length</strong><br><span class="view-program-length"></span></div>
-												<div class="col-md-6 mb-2"><strong>Delivery Method</strong><br><span class="view-delivery-type"></span></div>
-												<div class="col-md-6 mb-2"><strong>Credits</strong><br><span class="view-credits"></span></div>
-											</div>
-											
-											<div class="row mb-2">
-												<div class="col-md-12 rangerDisabled">
-	 												 <strong>Project Date Range</strong>
-	 												 <div class="top-label-range">
-	 												 	<div class="top-init-range">
-	 												 		<div><span class="currentMonthStart1 mr-1"></span><span id="currentday1"></span></div>
-	 												 	</div>
-														<div class="year-last-range pickerdata">
-															<input type="text" id="rangerDatepicker1" value="2020" readonly/>
-														</div>
-													</div>
-	 												 <input type="text" class="js-range-slider" id="projectRange1" name="my_range1" value="" />
-	 												  
-	 												 
-												</div>
-											</div>
-											<div class="text-center pt-2 mt-3 view-find-matches justify-content-around d-flex">
-												
-											</div>
-											<div class="row text-center">
-												<div class="col-md-12 ac mt-3 text-center">
-													<strong>Created: <span class="created_date">2019-10-31</span></strong>
-												</div>
-											</div>
+												 <input type="text" class="js-range-slider" id="projectRange1" name="my_range1" value="" />
+												  
+												 
+										</div>
+									</div>
+									<div class="text-center pt-2 mt-3 view-find-matches justify-content-around d-flex">
+										
+									</div>
+									<div class="row text-center">
+										<div class="col-md-12 ac mt-3 text-center">
+											<strong>Created: <span class="created_date">2019-10-31</span></strong>
 										</div>
 									</div>
 								
-								
-									<!-- Edit Section -->
-									<div class="edit-section p-3 poition-relative d-none">
-										<div class="toltip-close2">
-											<a href="javascript:void(0);" data-dismiss="modal"><i class="fa fa-times-circle"></i></a>
-										</div>
-										<aui:input  name="updateInterestId" value="0" type="hidden"></aui:input>
-										<div class="row mb-2">
-											<div class="col-md-12">
-												<aui:select name="projectTypeEdit" label="What type of project are you interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
-													<aui:option value="">Select a Project</aui:option>
-													<aui:option value="Academic Journal" disabled="true">Academic Journal</aui:option>
-													<aui:option value="Best Practices" disabled="true">Best Practices</aui:option>
-													<aui:option value="Course Development">Course Development</aui:option>
-													<aui:option value="Curriculum Development" disabled="true">Curriculum Development</aui:option>
-													<aui:option value="General Publication" disabled="true">General Publication</aui:option>
-													<aui:option value="Mentorship" disabled="true">Mentorship</aui:option>
-													<aui:option value="Peer Review" disabled="true">Peer Review</aui:option>
-													<aui:option value="Research" disabled="true">Research</aui:option>
-													<aui:option value="Study Abroad" disabled="true">Study Abroad</aui:option>
-													<aui:option value="Other" disabled="true">Other</aui:option>
-												</aui:select>
-												<aui:input type="textarea" name="projectDescriptionEdit" label="Description:" value="" cssClass="wrap-input input textarea" style="height: 55px;" required="true"/>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 mb-2">
-												<aui:select name="preferredLanguageEdit" label="Preferred Language" cssClass="wrap-input input select" required="true">
-													<aui:option value=""></aui:option>
-													<aui:option value="Arabic">Arabic </aui:option>
-													<aui:option value="Bengali">Bengali </aui:option>
-													<aui:option value="English">English </aui:option>
-													<aui:option value="French">French </aui:option>
-													<aui:option value="Hindi">Hindi </aui:option>
-													<aui:option value="Japanese">Japanese </aui:option>
-													<aui:option value="Mandarin">Mandarin </aui:option>
-													<aui:option value="Norwegian">Norwegian </aui:option>
-													<aui:option value="Punjabi">Punjabi </aui:option>
-													<aui:option value="Russian">Russian </aui:option>
-													<aui:option value="Spanish">Spanish</aui:option>
-												</aui:select>
-											</div>
-											<div class="col-md-6 input-multiselect  mb-2">&nbsp;</div>
-											<div class="col-md-6 mb-2">
-												<div class="collaborationShow">
-													<aui:select name="collaborationTypeEdit" label="Collaboration Type" cssClass="wrap-input input select">
-														<aui:option value=""></aui:option>													
-														<aui:option value="Departmental">Departmental </aui:option>
-														<aui:option value="Institutional">Institutional </aui:option>
-														<aui:option value="Regional">Regional </aui:option>	
-														<aui:option value="Global">Global</aui:option>																																
-													</aui:select>
-												</div>
-												<div class="selectableDR selectableDREdit first active">
-													<aui:select name="disciplineEdit1" label="Discipline 1" cssClass="wrap-input input select mb-0">
-														<aui:option value=""></aui:option>
-														<aui:option value="Anthropology">Anthropology </aui:option>
-														<aui:option value="Archaeology">Archaeology </aui:option>
-														<aui:option value="Arts">Arts </aui:option>
-														<aui:option value="Biology">Biology </aui:option>
-														<aui:option value="Business">Business </aui:option>
-														<aui:option value="Chemistry">Chemistry </aui:option>
-														<aui:option value="Computer Science">Computer Science </aui:option>
-														<aui:option value="Earth Science">Earth Science </aui:option>
-														<aui:option value="Economics">Economics </aui:option>
-														<aui:option value="Engineering">Engineering </aui:option>
-														<aui:option value="History">History </aui:option>
-														<aui:option value="Human Geography">Human Geography </aui:option>
-														<aui:option value="Languages">Languages </aui:option>
-														<aui:option value="Law">Law </aui:option>
-														<aui:option value="Literature">Literature </aui:option>
-														<aui:option value="Mathematics">Mathematics </aui:option>
-														<aui:option value="Medicine and Health">Medicine and Health </aui:option>
-														<aui:option value="Philosophy">Philosophy </aui:option>
-														<aui:option value="Physics">Physics </aui:option>
-														<aui:option value="Political Science">Political Science </aui:option>
-														<aui:option value="Psychology">Psychology </aui:option>
-														<aui:option value="Sociology">Sociology </aui:option>
-														<aui:option value="Space Sciences">Space Sciences </aui:option>
-														<aui:option value="Statistics">Statistics </aui:option>
-														<aui:option value="Theology">Theology </aui:option>
-													</aui:select>
-													<!-- <span class="font-style-italic font11">Hold CTRL for multi-select</span> -->
-												</div>
-												<div class="selectableDR selectableDREdit d-block">
-													<aui:select name="disciplineEdit2" label="Discipline 2" cssClass="wrap-input input select mb-0">
-														<aui:option value=""></aui:option>
-														<aui:option value="Anthropology">Anthropology </aui:option>
-														<aui:option value="Archaeology">Archaeology </aui:option>
-														<aui:option value="Arts">Arts </aui:option>
-														<aui:option value="Biology">Biology </aui:option>
-														<aui:option value="Business">Business </aui:option>
-														<aui:option value="Chemistry">Chemistry </aui:option>
-														<aui:option value="Computer Science">Computer Science </aui:option>
-														<aui:option value="Earth Science">Earth Science </aui:option>
-														<aui:option value="Economics">Economics </aui:option>
-														<aui:option value="Engineering">Engineering </aui:option>
-														<aui:option value="History">History </aui:option>
-														<aui:option value="Human Geography">Human Geography </aui:option>
-														<aui:option value="Languages">Languages </aui:option>
-														<aui:option value="Law">Law </aui:option>
-														<aui:option value="Literature">Literature </aui:option>
-														<aui:option value="Mathematics">Mathematics </aui:option>
-														<aui:option value="Medicine and Health">Medicine and Health </aui:option>
-														<aui:option value="Philosophy">Philosophy </aui:option>
-														<aui:option value="Physics">Physics </aui:option>
-														<aui:option value="Political Science">Political Science </aui:option>
-														<aui:option value="Psychology">Psychology </aui:option>
-														<aui:option value="Sociology">Sociology </aui:option>
-														<aui:option value="Space Sciences">Space Sciences </aui:option>
-														<aui:option value="Statistics">Statistics </aui:option>
-														<aui:option value="Theology">Theology </aui:option>
-													</aui:select>
-												</div>
-												<div class="selectableDR selectableDREdit d-block">
-													<aui:select name="disciplineEdit3" label="Discipline 3" cssClass="wrap-input input select mb-0">
-														<aui:option value=""></aui:option>
-														<aui:option value="Anthropology">Anthropology </aui:option>
-														<aui:option value="Archaeology">Archaeology </aui:option>
-														<aui:option value="Arts">Arts </aui:option>
-														<aui:option value="Biology">Biology </aui:option>
-														<aui:option value="Business">Business </aui:option>
-														<aui:option value="Chemistry">Chemistry </aui:option>
-														<aui:option value="Computer Science">Computer Science </aui:option>
-														<aui:option value="Earth Science">Earth Science </aui:option>
-														<aui:option value="Economics">Economics </aui:option>
-														<aui:option value="Engineering">Engineering </aui:option>
-														<aui:option value="History">History </aui:option>
-														<aui:option value="Human Geography">Human Geography </aui:option>
-														<aui:option value="Languages">Languages </aui:option>
-														<aui:option value="Law">Law </aui:option>
-														<aui:option value="Literature">Literature </aui:option>
-														<aui:option value="Mathematics">Mathematics </aui:option>
-														<aui:option value="Medicine and Health">Medicine and Health </aui:option>
-														<aui:option value="Philosophy">Philosophy </aui:option>
-														<aui:option value="Physics">Physics </aui:option>
-														<aui:option value="Political Science">Political Science </aui:option>
-														<aui:option value="Psychology">Psychology </aui:option>
-														<aui:option value="Sociology">Sociology </aui:option>
-														<aui:option value="Space Sciences">Space Sciences </aui:option>
-														<aui:option value="Statistics">Statistics </aui:option>
-														<aui:option value="Theology">Theology </aui:option>
-													</aui:select>
-												</div>
-											</div>
-											<div class="col-md-6 mb-2">
-												<div class="selectableDR selectableDREdit first active">
-													<aui:select name="locationEdit1" label="Region 1" cssClass="wrap-input input select">
-														<aui:option value=""></aui:option>
-														<aui:option value="All">All</aui:option>
-														<aui:option value="Africa">Africa </aui:option>
-														<aui:option value="Asia">Asia </aui:option>
-														<aui:option value="Central America">Central America </aui:option>
-														<aui:option value="Europe">Europe </aui:option>
-														<aui:option value="Middle East">Middle East </aui:option>
-														<aui:option value="North America">North America </aui:option>
-														<aui:option value="Oceania">Oceania </aui:option>
-														<aui:option value="South America">South America </aui:option>
-														<aui:option value="The Caribbean">The Caribbean </aui:option>
-													</aui:select>
-												</div>
-												<div class="selectableDR selectableDREdit showIfNotAll">
-														<aui:select name="locationEdit2" label="Region 2" cssClass="wrap-input input select">
-															<aui:option value=""></aui:option>
-															<!-- <aui:option value="All">All</aui:option> -->
-															<aui:option value="Africa">Africa </aui:option>
-															<aui:option value="Asia">Asia </aui:option>
-															<aui:option value="Central America">Central America </aui:option>
-															<aui:option value="Europe">Europe </aui:option>
-															<aui:option value="Middle East">Middle East </aui:option>
-															<aui:option value="North America">North America </aui:option>
-															<aui:option value="Oceania">Oceania </aui:option>
-															<aui:option value="South America">South America </aui:option>
-															<aui:option value="The Caribbean">The Caribbean </aui:option>
-														</aui:select>
-													</div>
-													<div class="selectableDR selectableDREdit showIfNotAll">
-														<aui:select name="locationEdit3" label="Region 3" cssClass="wrap-input input select">
-															<aui:option value=""></aui:option>
-															<!-- <aui:option value="All">All</aui:option> -->
-															<aui:option value="Africa">Africa </aui:option>
-															<aui:option value="Asia">Asia </aui:option>
-															<aui:option value="Central America">Central America </aui:option>
-															<aui:option value="Europe">Europe </aui:option>
-															<aui:option value="Middle East">Middle East </aui:option>
-															<aui:option value="North America">North America </aui:option>
-															<aui:option value="Oceania">Oceania </aui:option>
-															<aui:option value="South America">South America </aui:option>
-															<aui:option value="The Caribbean">The Caribbean </aui:option>
-														</aui:select>
-													</div>
-													<div class="selectableDR selectableDREdit showIfNotAll">
-														<aui:select name="locationEdit4" label="Region 4" cssClass="wrap-input input select">
-															<aui:option value=""></aui:option>
-															<!-- <aui:option value="All">All</aui:option> -->
-															<aui:option value="Africa">Africa </aui:option>
-															<aui:option value="Asia">Asia </aui:option>
-															<aui:option value="Central America">Central America </aui:option>
-															<aui:option value="Europe">Europe </aui:option>
-															<aui:option value="Middle East">Middle East </aui:option>
-															<aui:option value="North America">North America </aui:option>
-															<aui:option value="Oceania">Oceania </aui:option>
-															<aui:option value="South America">South America </aui:option>
-															<aui:option value="The Caribbean">The Caribbean </aui:option>
-														</aui:select>
-													</div>
-											</div>
-											
-											<div class="col-md-6 programLength showOnourseDevelopment mb-2">
-												<aui:select name="programLengthEdit" label="Program Length:" cssClass="wrap-input input select">
-													<aui:option value="Mini Term">Mini Term</aui:option>
-													<aui:option value="Ongoing">Ongoing</aui:option>
-													<aui:option value="Quarter">Quarter </aui:option>
-													<aui:option value="Semester">Semester </aui:option>
-													<aui:option value="Summer">Summer </aui:option>
-													<aui:option value="Trimester">Trimester </aui:option>										
-												</aui:select>
-											</div>
-											<div class="col-md-6 showOnourseDevelopment mb-2">
-												<aui:select name="programLevelEdit" label="Program Level:" cssClass="wrap-input input select">		
-													<aui:option value=""></aui:option>
-													<aui:option value="Certificate">Certificate</aui:option>					
-													<aui:option value="Associate">Associate</aui:option>	
-													<aui:option value="Undergraduate">Undergraduate</aui:option>	
-													<aui:option value="Graduate">Graduate</aui:option>	
-													<aui:option value="Doctoral">Doctoral</aui:option>
-													<aui:option value="Post Doctoral">Post-Doctoral </aui:option>							
-												</aui:select>
-											</div>
-											<div class="col-md-6 showOnourseDevelopment mb-2">
-												<aui:select name="deliveryMethodEdit" label="Delivery Method:" cssClass="wrap-input input select">
-													<aui:option value="Online">Online</aui:option>	
-													<aui:option value="Blended or Hybrid">Blended</aui:option>	
-													<aui:option value="On-ground">On-Ground</aui:option>																																																	
-												</aui:select>
-											</div>
-											<div class="col-md-6 showOnourseDevelopment mb-2">
-												<aui:select name="creditsEdit" label="Credits" cssClass="wrap-input input select">													
-													<aui:option value="1">1</aui:option>
-													<aui:option value="2">2 </aui:option>
-													<aui:option value="3">3 </aui:option>
-													<aui:option value="4">4 </aui:option>	
-													<aui:option value="Other">Other </aui:option>											
-											</aui:select>
-											</div>		
-											<!-- <div class="col-md-6">
-												<aui:field-wrapper cssClass="d-flex flex-column radio-button-container">
-													<aui:input name="intracampus" type="radio" value="1" label="Intracampus" checked="true"/>
-													<aui:input name="intracampus" type="radio" value="2" label="Intercampus" />
-												</aui:field-wrapper>
-											</div> -->
-										</div>
-										<div class="row mb-2">
-												<div class="col-md-12">
-	 												 <strong>Project Date Range</strong>
-	 												 <div class="top-label-range">
-	 												 	<div class="top-init-range">
-	 												 		<div><span class="currentMonthStart2 mr-1"></span><span id="currentday2"></span></div>
-	 												 	</div>
-														<div class="year-last-range pickerdata">
-															<input type="text" id="rangerDatepicker2" value="2020" readonly/>
-															<aui:input name="endYearRangeEdit" type="hidden" value="" ></aui:input>
-														</div>
-													</div>
-	 												 <input type="text" class="js-range-slider" id="projectRange2" name="my_range2" value="" />
-	 												  
-	 												 <aui:input name="endMonthRangeEdit" type="hidden" value="" ></aui:input>
-	 												 <aui:input name="startMonthRange" type="hidden" value="" ></aui:input>
-	 												 <aui:input name="startYearRange" type="hidden" value="" ></aui:input>
-												</div>
-											</div>
-										<div class="row text-center pt-2 justify-content-center">
-											<aui:button value="Save" type="button" id="updateInterest"  cssClass="btn btn-blue btn-w-100 m-auto" onclick="updateAreaofInterest()"></aui:button>
-										</div>
+							</div>
+						
+						
+							<!-- Edit Section -->
+							<div class="modal-body edit-section d-none">
+								<div class="toltip-close3">
+									<a href="javascript:void(0);" data-dismiss="modal" class="text-white"><i class="fa fa-times-circle"></i></a>
+								</div>
+								<aui:input  name="updateInterestId" value="0" type="hidden"></aui:input>
+								<div class="row mb-2">
+									<div class="col-md-12">
+										<aui:select name="projectTypeEdit" label="What type of project are you interested in?" cssClass="wrap-input input select" required="true" onChange="getProjectTypeStatus(this.value)">
+											<aui:option value="">Select a Project</aui:option>
+											<aui:option value="Academic Journal" disabled="true">Academic Journal</aui:option>
+											<aui:option value="Best Practices" disabled="true">Best Practices</aui:option>
+											<aui:option value="Course Development">Course Development</aui:option>
+											<aui:option value="Curriculum Development" disabled="true">Curriculum Development</aui:option>
+											<aui:option value="General Publication" disabled="true">General Publication</aui:option>
+											<aui:option value="Mentorship" disabled="true">Mentorship</aui:option>
+											<aui:option value="Peer Review" disabled="true">Peer Review</aui:option>
+											<aui:option value="Research" disabled="true">Research</aui:option>
+											<aui:option value="Study Abroad" disabled="true">Study Abroad</aui:option>
+											<aui:option value="Other" disabled="true">Other</aui:option>
+										</aui:select>
+										<aui:input type="textarea" name="projectDescriptionEdit" label="Description:" value="" cssClass="wrap-input input textarea" style="height: 55px;" required="true"/>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-md-6 mb-2">
+										<aui:select name="preferredLanguageEdit" label="Preferred Language" cssClass="wrap-input input select" required="true">
+											<aui:option value=""></aui:option>
+											<aui:option value="Arabic">Arabic </aui:option>
+											<aui:option value="Bengali">Bengali </aui:option>
+											<aui:option value="English">English </aui:option>
+											<aui:option value="French">French </aui:option>
+											<aui:option value="Hindi">Hindi </aui:option>
+											<aui:option value="Japanese">Japanese </aui:option>
+											<aui:option value="Mandarin">Mandarin </aui:option>
+											<aui:option value="Norwegian">Norwegian </aui:option>
+											<aui:option value="Punjabi">Punjabi </aui:option>
+											<aui:option value="Russian">Russian </aui:option>
+											<aui:option value="Spanish">Spanish</aui:option>
+										</aui:select>
+									</div>
+									<div class="col-md-6 input-multiselect  mb-2">&nbsp;</div>
+									<div class="col-md-6 mb-2">
+										<div class="collaborationShow">
+											<aui:select name="collaborationTypeEdit" label="Collaboration Type" cssClass="wrap-input input select">
+												<aui:option value=""></aui:option>													
+												<aui:option value="Departmental">Departmental </aui:option>
+												<aui:option value="Institutional">Institutional </aui:option>
+												<aui:option value="Regional">Regional </aui:option>	
+												<aui:option value="Global">Global</aui:option>																																
+											</aui:select>
+										</div>
+										<div class="selectableDR selectableDREdit first active">
+											<aui:select name="disciplineEdit1" label="Discipline 1" cssClass="wrap-input input select mb-0">
+												<aui:option value=""></aui:option>
+												<aui:option value="Anthropology">Anthropology </aui:option>
+												<aui:option value="Archaeology">Archaeology </aui:option>
+												<aui:option value="Arts">Arts </aui:option>
+												<aui:option value="Biology">Biology </aui:option>
+												<aui:option value="Business">Business </aui:option>
+												<aui:option value="Chemistry">Chemistry </aui:option>
+												<aui:option value="Computer Science">Computer Science </aui:option>
+												<aui:option value="Earth Science">Earth Science </aui:option>
+												<aui:option value="Economics">Economics </aui:option>
+												<aui:option value="Engineering">Engineering </aui:option>
+												<aui:option value="History">History </aui:option>
+												<aui:option value="Human Geography">Human Geography </aui:option>
+												<aui:option value="Languages">Languages </aui:option>
+												<aui:option value="Law">Law </aui:option>
+												<aui:option value="Literature">Literature </aui:option>
+												<aui:option value="Mathematics">Mathematics </aui:option>
+												<aui:option value="Medicine and Health">Medicine and Health </aui:option>
+												<aui:option value="Philosophy">Philosophy </aui:option>
+												<aui:option value="Physics">Physics </aui:option>
+												<aui:option value="Political Science">Political Science </aui:option>
+												<aui:option value="Psychology">Psychology </aui:option>
+												<aui:option value="Sociology">Sociology </aui:option>
+												<aui:option value="Space Sciences">Space Sciences </aui:option>
+												<aui:option value="Statistics">Statistics </aui:option>
+												<aui:option value="Theology">Theology </aui:option>
+											</aui:select>
+											<!-- <span class="font-style-italic font11">Hold CTRL for multi-select</span> -->
+										</div>
+										<div class="selectableDR selectableDREdit d-block">
+											<aui:select name="disciplineEdit2" label="Discipline 2" cssClass="wrap-input input select mb-0">
+												<aui:option value=""></aui:option>
+												<aui:option value="Anthropology">Anthropology </aui:option>
+												<aui:option value="Archaeology">Archaeology </aui:option>
+												<aui:option value="Arts">Arts </aui:option>
+												<aui:option value="Biology">Biology </aui:option>
+												<aui:option value="Business">Business </aui:option>
+												<aui:option value="Chemistry">Chemistry </aui:option>
+												<aui:option value="Computer Science">Computer Science </aui:option>
+												<aui:option value="Earth Science">Earth Science </aui:option>
+												<aui:option value="Economics">Economics </aui:option>
+												<aui:option value="Engineering">Engineering </aui:option>
+												<aui:option value="History">History </aui:option>
+												<aui:option value="Human Geography">Human Geography </aui:option>
+												<aui:option value="Languages">Languages </aui:option>
+												<aui:option value="Law">Law </aui:option>
+												<aui:option value="Literature">Literature </aui:option>
+												<aui:option value="Mathematics">Mathematics </aui:option>
+												<aui:option value="Medicine and Health">Medicine and Health </aui:option>
+												<aui:option value="Philosophy">Philosophy </aui:option>
+												<aui:option value="Physics">Physics </aui:option>
+												<aui:option value="Political Science">Political Science </aui:option>
+												<aui:option value="Psychology">Psychology </aui:option>
+												<aui:option value="Sociology">Sociology </aui:option>
+												<aui:option value="Space Sciences">Space Sciences </aui:option>
+												<aui:option value="Statistics">Statistics </aui:option>
+												<aui:option value="Theology">Theology </aui:option>
+											</aui:select>
+										</div>
+										<div class="selectableDR selectableDREdit d-block">
+											<aui:select name="disciplineEdit3" label="Discipline 3" cssClass="wrap-input input select mb-0">
+												<aui:option value=""></aui:option>
+												<aui:option value="Anthropology">Anthropology </aui:option>
+												<aui:option value="Archaeology">Archaeology </aui:option>
+												<aui:option value="Arts">Arts </aui:option>
+												<aui:option value="Biology">Biology </aui:option>
+												<aui:option value="Business">Business </aui:option>
+												<aui:option value="Chemistry">Chemistry </aui:option>
+												<aui:option value="Computer Science">Computer Science </aui:option>
+												<aui:option value="Earth Science">Earth Science </aui:option>
+												<aui:option value="Economics">Economics </aui:option>
+												<aui:option value="Engineering">Engineering </aui:option>
+												<aui:option value="History">History </aui:option>
+												<aui:option value="Human Geography">Human Geography </aui:option>
+												<aui:option value="Languages">Languages </aui:option>
+												<aui:option value="Law">Law </aui:option>
+												<aui:option value="Literature">Literature </aui:option>
+												<aui:option value="Mathematics">Mathematics </aui:option>
+												<aui:option value="Medicine and Health">Medicine and Health </aui:option>
+												<aui:option value="Philosophy">Philosophy </aui:option>
+												<aui:option value="Physics">Physics </aui:option>
+												<aui:option value="Political Science">Political Science </aui:option>
+												<aui:option value="Psychology">Psychology </aui:option>
+												<aui:option value="Sociology">Sociology </aui:option>
+												<aui:option value="Space Sciences">Space Sciences </aui:option>
+												<aui:option value="Statistics">Statistics </aui:option>
+												<aui:option value="Theology">Theology </aui:option>
+											</aui:select>
+										</div>
+									</div>
+									<div class="col-md-6 mb-2">
+										<div class="selectableDR selectableDREdit first active">
+											<aui:select name="locationEdit1" label="Region 1" cssClass="wrap-input input select">
+												<aui:option value=""></aui:option>
+												<aui:option value="All">All</aui:option>
+												<aui:option value="Africa">Africa </aui:option>
+												<aui:option value="Asia">Asia </aui:option>
+												<aui:option value="Central America">Central America </aui:option>
+												<aui:option value="Europe">Europe </aui:option>
+												<aui:option value="Middle East">Middle East </aui:option>
+												<aui:option value="North America">North America </aui:option>
+												<aui:option value="Oceania">Oceania </aui:option>
+												<aui:option value="South America">South America </aui:option>
+												<aui:option value="The Caribbean">The Caribbean </aui:option>
+											</aui:select>
+										</div>
+										<div class="selectableDR selectableDREdit showIfNotAll">
+												<aui:select name="locationEdit2" label="Region 2" cssClass="wrap-input input select">
+													<aui:option value=""></aui:option>
+													<!-- <aui:option value="All">All</aui:option> -->
+													<aui:option value="Africa">Africa </aui:option>
+													<aui:option value="Asia">Asia </aui:option>
+													<aui:option value="Central America">Central America </aui:option>
+													<aui:option value="Europe">Europe </aui:option>
+													<aui:option value="Middle East">Middle East </aui:option>
+													<aui:option value="North America">North America </aui:option>
+													<aui:option value="Oceania">Oceania </aui:option>
+													<aui:option value="South America">South America </aui:option>
+													<aui:option value="The Caribbean">The Caribbean </aui:option>
+												</aui:select>
+											</div>
+											<div class="selectableDR selectableDREdit showIfNotAll">
+												<aui:select name="locationEdit3" label="Region 3" cssClass="wrap-input input select">
+													<aui:option value=""></aui:option>
+													<!-- <aui:option value="All">All</aui:option> -->
+													<aui:option value="Africa">Africa </aui:option>
+													<aui:option value="Asia">Asia </aui:option>
+													<aui:option value="Central America">Central America </aui:option>
+													<aui:option value="Europe">Europe </aui:option>
+													<aui:option value="Middle East">Middle East </aui:option>
+													<aui:option value="North America">North America </aui:option>
+													<aui:option value="Oceania">Oceania </aui:option>
+													<aui:option value="South America">South America </aui:option>
+													<aui:option value="The Caribbean">The Caribbean </aui:option>
+												</aui:select>
+											</div>
+											<div class="selectableDR selectableDREdit showIfNotAll">
+												<aui:select name="locationEdit4" label="Region 4" cssClass="wrap-input input select">
+													<aui:option value=""></aui:option>
+													<!-- <aui:option value="All">All</aui:option> -->
+													<aui:option value="Africa">Africa </aui:option>
+													<aui:option value="Asia">Asia </aui:option>
+													<aui:option value="Central America">Central America </aui:option>
+													<aui:option value="Europe">Europe </aui:option>
+													<aui:option value="Middle East">Middle East </aui:option>
+													<aui:option value="North America">North America </aui:option>
+													<aui:option value="Oceania">Oceania </aui:option>
+													<aui:option value="South America">South America </aui:option>
+													<aui:option value="The Caribbean">The Caribbean </aui:option>
+												</aui:select>
+											</div>
+									</div>
+									
+									<div class="col-md-6 programLength showOnourseDevelopment mb-2">
+										<aui:select name="programLengthEdit" label="Program Length:" cssClass="wrap-input input select">
+											<aui:option value="Mini Term">Mini Term</aui:option>
+											<aui:option value="Ongoing">Ongoing</aui:option>
+											<aui:option value="Quarter">Quarter </aui:option>
+											<aui:option value="Semester">Semester </aui:option>
+											<aui:option value="Summer">Summer </aui:option>
+											<aui:option value="Trimester">Trimester </aui:option>										
+										</aui:select>
+									</div>
+									<div class="col-md-6 showOnourseDevelopment mb-2">
+										<aui:select name="programLevelEdit" label="Program Level:" cssClass="wrap-input input select">		
+											<aui:option value=""></aui:option>
+											<aui:option value="Certificate">Certificate</aui:option>					
+											<aui:option value="Associate">Associate</aui:option>	
+											<aui:option value="Undergraduate">Undergraduate</aui:option>	
+											<aui:option value="Graduate">Graduate</aui:option>	
+											<aui:option value="Doctoral">Doctoral</aui:option>
+											<aui:option value="Post Doctoral">Post-Doctoral </aui:option>							
+										</aui:select>
+									</div>
+									<div class="col-md-6 showOnourseDevelopment mb-2">
+										<aui:select name="deliveryMethodEdit" label="Delivery Method:" cssClass="wrap-input input select">
+											<aui:option value="Online">Online</aui:option>	
+											<aui:option value="Blended or Hybrid">Blended</aui:option>	
+											<aui:option value="On-ground">On-Ground</aui:option>																																																	
+										</aui:select>
+									</div>
+									<div class="col-md-6 showOnourseDevelopment mb-2">
+										<aui:select name="creditsEdit" label="Credits" cssClass="wrap-input input select">													
+											<aui:option value="1">1</aui:option>
+											<aui:option value="2">2 </aui:option>
+											<aui:option value="3">3 </aui:option>
+											<aui:option value="4">4 </aui:option>	
+											<aui:option value="Other">Other </aui:option>											
+									</aui:select>
+									</div>		
+									<!-- <div class="col-md-6">
+										<aui:field-wrapper cssClass="d-flex flex-column radio-button-container">
+											<aui:input name="intracampus" type="radio" value="1" label="Intracampus" checked="true"/>
+											<aui:input name="intracampus" type="radio" value="2" label="Intercampus" />
+										</aui:field-wrapper>
+									</div> -->
+								</div>
+								<div class="row mb-2">
+										<div class="col-md-12">
+												 <strong>Project Date Range</strong>
+												 <div class="top-label-range">
+												 	<div class="top-init-range">
+												 		<div><span class="currentMonthStart2 mr-1"></span><span id="currentday2"></span></div>
+												 	</div>
+												<div class="year-last-range pickerdata">
+													<input type="text" id="rangerDatepicker2" value="2020" readonly/>
+													<aui:input name="endYearRangeEdit" type="hidden" value="" ></aui:input>
+												</div>
+											</div>
+												 <input type="text" class="js-range-slider" id="projectRange2" name="my_range2" value="" />
+												  
+												 <aui:input name="endMonthRangeEdit" type="hidden" value="" ></aui:input>
+												 <aui:input name="startMonthRange" type="hidden" value="" ></aui:input>
+												 <aui:input name="startYearRange" type="hidden" value="" ></aui:input>
+										</div>
+									</div>
+								<div class="row text-center pt-2 justify-content-center">
+									<aui:button value="Save" type="button" id="updateInterest"  cssClass="btn btn-blue btn-w-100 m-auto" onclick="updateAreaofInterest()"></aui:button>
+								</div>
 							</div>
+				
 						</div>
 					  </div>
 					</div>
@@ -1502,7 +1498,7 @@ $( document ).ready(function() {
     }
     
     $("[id^='projectRange']").ionRangeSlider({
-    	skin: "big",
+    	skin: "round",
     	type: "single",
         grid: true,
         grid_num: 11,

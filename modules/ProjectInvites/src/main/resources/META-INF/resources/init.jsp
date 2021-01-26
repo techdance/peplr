@@ -206,6 +206,42 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
     object-fit: cover;
     border-radius: 50%;
 }
+
+/* Modal */
+#view-more-interest-modal{
+	display:none;
+}
+.interestModal .modal-header {
+	justify-content: center;
+	border-radius: 0;
+	background: #f1f3f7;
+	font-size: 20px;
+    line-height: 1.5;
+    padding: 8px;
+    text-align: center;
+}
+.interestModal .modal-header a i {
+	width: auto;
+	color: inherit;
+	font-size: inherit;
+}
+.interestModal .modal-dialog {
+	position: relative;
+	max-width: 500px;
+}
+.interestModal .modal-content {
+	border-radius: 0;
+	background: transparent;
+    border: 0;
+}
+.interestModal .modal-body {
+	background: rgba(129,140,147,0.9);
+    border: none;
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 </style>
 
 <script>
@@ -275,7 +311,7 @@ function ranger() {
   
   
   $(".js-range-slider").ionRangeSlider({
-  	skin: "big",
+  	skin: "round",
   	type: "single",
       grid: true,
       grid_num: 11,
@@ -557,7 +593,7 @@ function getViewMoreData(id){
                     		setTimeout(function(){ 
                     			
                     			  $(".js-range-slider").ionRangeSlider({
-                    				    skin: "big",
+                    				    skin: "round",
                     				    grid: true,
                       			  		type: "single",
                     			        values: [

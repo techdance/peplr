@@ -101,7 +101,7 @@
 	-ms-border-radius: 5px !important;
 	-o-border-radius: 5px !important;
 
-	overflow: hidden !important;
+	/* overflow: hidden !important; */
 }
 
 .table.table-color-black  td{
@@ -392,6 +392,81 @@
     border-radius: 0;
     height: auto;
 }
+
+.tableDropdown .dropdown-menu {
+    width: 280px;
+    min-width: 280px;
+    background: white;
+    transform: none!important;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 4px;
+    top: 25px!important;
+    padding: 0;
+}
+.tableDropdown .dropdown-menu a.dropdown-item {
+    border-bottom: 1px solid rgb(192, 192, 192);
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 7px;
+    text-align: left;
+}
+.tableDropdown .dropdown-menu a.dropdown-item:hover {
+	background: #ebebeb;
+}
+.tableDropdown .dropdown-toggle:before {
+	content: "\f067";
+	font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
+        width: 18px;
+    height: 18px;
+    background: #ff993f;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    line-height: 1.5;
+    font-size: 12px;
+}
+.tableDropdown.show .dropdown-toggle:before {
+	content: "\f0d8";
+}
+
+
+.pl-25 {
+    padding-left: 25px !important;
+}
+.font14 {
+    font-size: 14px !important;
+    line-height: 1.5;
+}
+.wrap-fontawesome .fas {
+    font-size: 16px;
+}
+.wrap-fontawesome i {
+    margin-right: 6px;
+}
+.ml--25 {
+    margin-left: -25px !important;
+}
+.font20 {
+    font-size: 20px !important;
+    line-height: 1.5;
+}
+.form-group .input2 {
+    font-size: 14px;
+    padding: 3px 5px;
+}
+.border-none {
+    border: none !important;
+}
+.bg-grey-light {
+    background: #ececec !important;
+}
+.table.table3 td {
+	vertical-align: top;
+}
+.modal-dialog {
+	position: relative!important;
+}
 </style>
 
 <%
@@ -448,7 +523,8 @@ $(document).ready(function(){
 		$("#<portlet:namespace/>input-dynamic-name").attr("name",'<portlet:namespace/>'+$(this).attr("data-param-name"));
 		$("#<portlet:namespace/>selectedParam").val($(this).attr("data-param-name"));
 		$("#weekPopup").modal("show");
-	});
+	});+
+	
 	
 	$("#modalWeek").on('show.bs.modal', function () {
 		loadWeekWiseData();
@@ -514,6 +590,41 @@ $(document).ready(function(){
 		}, 3500);
 	}
 	
+	$(".add-activity").click(function(){
+		var id=$(this).data('activity');
+		$('.td-activity-'+id+'-input').toggle();
+	});
+
+	$(".add-content").click(function(){
+		var id=$(this).data('content');
+		$('.td-content-'+id+'-input').toggle();
+	})
+	
+	function keyPressActivity(e, week_id, value){
+		if (e.keyCode == 13) {
+			var code = 1000 + Math.floor(Math.random() * 6000000);
+			hideInput('activity',week_id);
+	        jQuery('.td-activity-'+week_id).append("<div class='font14 wrap-fontawesome activity-"+week_id+"-"+code+"'><i class='fas fa-chevron-circle-right color-orange fa-2x'></i> "+value+"</div>");
+	        jQuery('.td-activity-modal-'+week_id).append("<div class='d-flex align-items-center form-group mb-1 activity-"+week_id+"-"+code+"'><a href='javascript::void(0);' class='color-orange font20 mr-1' onclick=\"removeInput('activity-"+week_id+"-"+code+"')\"><i class='fas fa-minus-circle fas-16'></i></a><input type='text' value='"+value+"' class='input2 bg-grey-light border-none'></div>");
+	    }
+	}
+
+	function keyPressContent(e, week_id, value){
+		if (e.keyCode == 13) {
+			var code = 1000 + Math.floor(Math.random() * 6000000);
+			hideInput('content',week_id);
+	        jQuery('.td-content-'+week_id).append("<div class='font14 wrap-fontawesome content-"+week_id+"-"+code+"'><i class='fas fa-chevron-circle-right color-orange fa-2x'></i> "+value+"</div>");
+	        jQuery('.td-content-modal-'+week_id).append("<div class='d-flex align-items-center form-group mb-1 content-"+week_id+"-"+code+"'><a href='javascript::void(0);' class='color-orange font20 mr-1' onclick=\"removeInput('content-"+week_id+"-"+code+"')\"><i class='fas fa-minus-circle fas-16'></i></a><input type='text' value='"+value+"' class='input2 bg-grey-light border-none'></div>");
+	    }
+	}
+
+	function removeInput(code){
+		jQuery("."+code).remove();
+	}
+	function hideInput(type, code){
+		jQuery(".td-"+type+"-"+code+"-input").hide();
+	}
+	
 });
 
 function numberMax(maxVal) { debugger;
@@ -526,7 +637,50 @@ function numberMax(maxVal) { debugger;
 
 $(document).on("click", ".editCourseDesign a", function(){
 	$(this).parent("li").toggleClass("enableEdit");
+});
+$(document).on("click", ".tableDropdown .dropdown-toggle", function(){
+	var weekAppendData = $(this).data('week');
+})
+$(document).on("click", ".btn-course-objetive-week", function(){
+	var btn, week, content;
+	btn = $(this).data('btn');
+	week_id = $(this).data('week');
+	content = $(this).html();
 	
+	/* $(".wrap-modal-course-objectives-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-course-objetives-"+week_id+"-"+btn+"'><a href='javascript::void(0);' class='color-orange font20 mr-1 ml--25' onclick=\"removeInput('content-course-objetives-"+week_id+"-"+btn+"')\"><i class='fas fa-minus-circle fas-16'></i></a> "+content+"</div>");
+	$(".wrap-course-objectives-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-course-objetives-"+week_id+"-"+btn+"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> "+content+"</div>"); */ 
+	
+});
+$(document).on("click", ".btn-learning-week", function(){
+	var btn, week, content;
+	btn = $(this).data('btn');
+	week_id = $(this).data('week');
+	content = $(this).html();
+
+	/* $(".wrap-modal-learning-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><a href='javascript::void(0);' class='color-orange font20 mr-1 ml--25' onclick=\"removeInput('content-learning-"+week_id+"-"+btn+"')\"><i class='fas fa-minus-circle fas-16'></i></a> "+content+"</div>");
+	$(".wrap-learning-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> "+content+"</div>"); */
+	
+	
+});
+$(document).on("click", ".btn-activity-week", function(){
+	var btn, week, content;
+	btn = $(this).data('btn');
+	week_id = $(this).data('week');
+	content = $(this).html();
+
+	$(".wrap-modal-activity-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><a href='javascript::void(0);' class='color-orange font20 mr-1 ml--25' onclick=\"removeInput('content-learning-"+week_id+"-"+btn+"')\"><i class='fas fa-minus-circle fas-16'></i></a> "+content+"</div>");
+
+	/*$(".wrap-modal-activity-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> "+content+"</div>");*/
+});
+$(document).on("click", ".btn-content-week", function(){
+	var btn, week, content;
+	btn = $(this).data('btn');
+	week_id = $(this).data('week');
+	content = $(this).html();
+
+	$(".wrap-modal-content-box-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><a href='javascript::void(0);' class='color-orange font20 mr-1 ml--25' onclick=\"removeInput('content-learning-"+week_id+"-"+btn+"')\"><i class='fas fa-minus-circle fas-16'></i></a> "+content+"</div>");
+
+	/*$(".wrap-modal-activity-content-week-" + week_id).append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-"+week_id+"-"+btn+"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> "+content+"</div>");*/
 });
 
 function totalHours(){
@@ -1607,9 +1761,9 @@ function saveActivityTable(){
 	       				$("#<portlet:namespace/>input-dynamic-name").val("");
 	       				loadWeekWiseData();
 	       				loadWeekWiseDataMain();
-	       			    showMsg("Saved successfully");	       			 	
+	       			   // showMsg("Saved successfully");	       			 	
 	       		   }else{
-	       			   showMsg("Not saved");
+	       			//   showMsg("Not saved");
 	       		   }
 	              },
 	              failure:function(data){
@@ -1661,7 +1815,7 @@ function loadWeekWiseData(){
                     				if(data[i].courseObjective!=null && data[i].courseObjective!="null" && data[i].courseObjective!=undefined && data[i].courseObjective!="undefined"  && data[i].courseObjective!=""){
 	                        			$("#week1CourseObjectives .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].courseObjective +"</p> "+
 	    		            			" </div>");
@@ -1669,7 +1823,7 @@ function loadWeekWiseData(){
                     				if(data[i].learningEnvironment!=null && data[i].learningEnvironment!="null" && data[i].learningEnvironment!=undefined && data[i].learningEnvironment!="undefined"  && data[i].learningEnvironment!=""){                   				
 	                    				$("#week1LearningEnvironmentDesign .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].learningEnvironment +"</p> "+
 	    		            			" </div>");
@@ -1677,7 +1831,7 @@ function loadWeekWiseData(){
 									if(data[i].activity!=null && data[i].activity!="null" && data[i].activity!=undefined && data[i].activity!="undefined"  && data[i].activity!=""){
 										$("#week1Activity .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].activity +"</p> "+
 	    		            			" </div>");
@@ -1685,7 +1839,7 @@ function loadWeekWiseData(){
 									if(data[i].content!=null && data[i].content!="null" && data[i].content!=undefined && data[i].content!="undefined"  && data[i].content!=""){
 										$("#week1Content .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].content +"</p> "+
 	    		            			" </div>");
@@ -1696,7 +1850,7 @@ function loadWeekWiseData(){
                     				if(data[i].courseObjective!=null && data[i].courseObjective!="null" && data[i].courseObjective!=undefined && data[i].courseObjective!="undefined"  && data[i].courseObjective!=""){
 	                        			$("#week2CourseObjectives .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].courseObjective +"</p> "+
 	    		            			" </div>");
@@ -1704,7 +1858,7 @@ function loadWeekWiseData(){
                     				if(data[i].learningEnvironment!=null && data[i].learningEnvironment!="null" && data[i].learningEnvironment!=undefined && data[i].learningEnvironment!="undefined"  && data[i].learningEnvironment!=""){                   				
 	                    				$("#week2LearningEnvironmentDesign .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].learningEnvironment +"</p> "+
 	    		            			" </div>");
@@ -1712,7 +1866,7 @@ function loadWeekWiseData(){
 									if(data[i].activity!=null && data[i].activity!="null" && data[i].activity!=undefined && data[i].activity!="undefined"  && data[i].activity!=""){
 										$("#week2Activity .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].activity +"</p> "+
 	    		            			" </div>");
@@ -1720,7 +1874,7 @@ function loadWeekWiseData(){
 									if(data[i].content!=null && data[i].content!="null" && data[i].content!=undefined && data[i].content!="undefined"  && data[i].content!=""){
 										$("#week2Content .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].content +"</p> "+
 	    		            			" </div>");
@@ -1731,7 +1885,7 @@ function loadWeekWiseData(){
                     				if(data[i].courseObjective!=null && data[i].courseObjective!="null" && data[i].courseObjective!=undefined && data[i].courseObjective!="undefined"  && data[i].courseObjective!=""){
 	                        			$("#week3CourseObjectives .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].courseObjective +"</p> "+
 	    		            			" </div>");
@@ -1739,7 +1893,7 @@ function loadWeekWiseData(){
                     				if(data[i].learningEnvironment!=null && data[i].learningEnvironment!="null" && data[i].learningEnvironment!=undefined && data[i].learningEnvironment!="undefined"  && data[i].learningEnvironment!=""){                   				
 	                    				$("#week3LearningEnvironmentDesign .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].learningEnvironment +"</p> "+
 	    		            			" </div>");
@@ -1747,7 +1901,7 @@ function loadWeekWiseData(){
 									if(data[i].activity!=null && data[i].activity!="null" && data[i].activity!=undefined && data[i].activity!="undefined"  && data[i].activity!=""){
 										$("#week3Activity .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].activity +"</p> "+
 	    		            			" </div>");
@@ -1755,7 +1909,7 @@ function loadWeekWiseData(){
 									if(data[i].content!=null && data[i].content!="null" && data[i].content!=undefined && data[i].content!="undefined"  && data[i].content!=""){
 										$("#week3Content .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].content +"</p> "+
 	    		            			" </div>");
@@ -1766,7 +1920,7 @@ function loadWeekWiseData(){
                     				if(data[i].courseObjective!=null && data[i].courseObjective!="null" && data[i].courseObjective!=undefined && data[i].courseObjective!="undefined"  && data[i].courseObjective!=""){
 	                        			$("#week4CourseObjectives .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].courseObjective +"</p> "+
 	    		            			" </div>");
@@ -1774,7 +1928,7 @@ function loadWeekWiseData(){
                     				if(data[i].learningEnvironment!=null && data[i].learningEnvironment!="null" && data[i].learningEnvironment!=undefined && data[i].learningEnvironment!="undefined"  && data[i].learningEnvironment!=""){                   				
 	                    				$("#week4LearningEnvironmentDesign .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].learningEnvironment +"</p> "+
 	    		            			" </div>");
@@ -1782,7 +1936,7 @@ function loadWeekWiseData(){
 									if(data[i].activity!=null && data[i].activity!="null" && data[i].activity!=undefined && data[i].activity!="undefined"  && data[i].activity!=""){
 										$("#week4Activity .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].activity +"</p> "+
 	    		            			" </div>");
@@ -1790,7 +1944,7 @@ function loadWeekWiseData(){
 									if(data[i].content!=null && data[i].content!="null" && data[i].content!=undefined && data[i].content!="undefined"  && data[i].content!=""){
 										$("#week4Content .courses-box-body").append("<div class='courses-box-content'>"+
 	    		            					" <div class='btn-remove'> "+
-	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-minus-circle color-orange'></i></a> "+
+	    		            					" <a href='javascript:void(0);' onclick='getDataRemove("+ data[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false'><i class='fas fa-chevron-circle-right color-orange'></i></a> "+
 	    		            				" </div> "+
 	    		            				" <p id='"+ data[i].id +"'>"+ data[i].content +"</p> "+
 	    		            			" </div>");
@@ -1848,22 +2002,24 @@ function loadWeekWiseDataMain(){
 	                    			/* if(running==true){ */
 		                    			if(data.week1.courseObjective.length>0){		                    				
 		                    				if(data.week1.courseObjective[i]!=undefined){
-		                    					$("#week1CourseObjective"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1CO'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week1.courseObjective[i].courseObjective);
+		                    					/* $("#week1CourseObjective"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1CO'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week1.courseObjective[i].courseObjective); */
+		                    					$(".wrap-course-objectives-content-week-1").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week1.courseObjective[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week1.courseObjective[i].courseObjective +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week1.learningEnv.length>0){
 		                    				if(data.week1.learningEnv[i]!=undefined){
-		                    					$("#week1LearningEnv"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1LE'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week1.learningEnv[i].learningEnvironment);
+		                    					/* $("#week1LearningEnv"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1LE'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week1.learningEnv[i].learningEnvironment); */
+		                    					$(".wrap-learning-content-week-1").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week1.learningEnv[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week1.learningEnv[i].learningEnvironment +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week1.activity.length>0){
 		                    				if(data.week1.activity[i]!=undefined){
-		                    					$("#week1Activity"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1ACT'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week1.activity[i].activity);
+		                    					$("#week1Activity"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1ACT'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week1.activity[i].activity);
 		                    				}
 		                        		}
 		                    			if(data.week1.content.length>0){
 		                    				if(data.week1.content[i]!=undefined){
-		                    					$("#week1Content"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1CON'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week1.content[i].content);
+		                    					$("#week1Content"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week1.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek1CON'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week1.content[i].content);
 		                    				}
 		                        		} 
 		                    			/* if(i==(maxNumber1-1)){ running = false; } */
@@ -1888,22 +2044,24 @@ function loadWeekWiseDataMain(){
 		                    			
 		                    			if(data.week2.courseObjective.length>0){
 		                    				if(data.week2.courseObjective[i]!=undefined){
-		                    					$("#week2CourseObjective"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2CO'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week2.courseObjective[i].courseObjective);
+		                    					/* $("#week2CourseObjective"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2CO'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week2.courseObjective[i].courseObjective); */
+		                    					$(".wrap-course-objectives-content-week-2").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week2.courseObjective[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week2.courseObjective[i].courseObjective +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week2.learningEnv.length>0){
 		                    				if(data.week2.learningEnv[i]!=undefined){
-		                    					$("#week2LearningEnv"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2LE'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week2.learningEnv[i].learningEnvironment);
+		                    					/* $("#week2LearningEnv"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2LE'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week2.learningEnv[i].learningEnvironment); */
+		                    					$(".wrap-learning-content-week-2").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week2.learningEnv[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week2.learningEnv[i].learningEnvironment +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week2.activity.length>0){
 		                    				if(data.week2.activity[i]!=undefined){
-		                    					$("#week2Activity"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2ACT'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week2.activity[i].activity);
+		                    					$("#week2Activity"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2ACT'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week2.activity[i].activity);
 		                    				}
 		                        		}
 		                    			if(data.week2.content.length>0){
 		                    				if(data.week2.content[i]!=undefined){
-		                    					$("#week2Content"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2CON'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week2.content[i].content);
+		                    					$("#week2Content"+i).html("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week2.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek2CON'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week2.content[i].content);
 		                    				}
 		                        		} 
 		                    			/* if(i==(maxNumber2-1)){ running = false; } */
@@ -1926,22 +2084,24 @@ function loadWeekWiseDataMain(){
 		                    			
 		                    			if(data.week3.courseObjective.length>0){
 		                    				if(data.week3.courseObjective[i]!=undefined){
-		                    					$("#week3CourseObjective"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3CO'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week3.courseObjective[i].courseObjective);
+		                    					/* $("#week3CourseObjective"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3CO'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week3.courseObjective[i].courseObjective); */
+		                    					$(".wrap-course-objectives-content-week-3").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week3.courseObjective[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week3.courseObjective[i].courseObjective +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week3.learningEnv.length>0){
 		                    				if(data.week3.learningEnv[i]!=undefined){
-		                    					$("#week3LearningEnv"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3LE'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week3.learningEnv[i].learningEnvironment);
+		                    					/* $("#week3LearningEnv"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3LE'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week3.learningEnv[i].learningEnvironment); */
+		                    					$(".wrap-learning-content-week-3").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week3.learningEnv[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week3.learningEnv[i].learningEnvironment +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week3.activity.length>0){
 		                    				if(data.week3.activity[i]!=undefined){
-		                    					$("#week3Activity"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3ACT'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week3.activity[i].activity);
+		                    					$("#week3Activity"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3ACT'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week3.activity[i].activity);
 		                    				}
 		                        		}
 		                    			if(data.week3.content.length>0){
 		                    				if(data.week3.content[i]!=undefined){
-		                    					$("#week3Content"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3CON'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week3.content[i].content);
+		                    					$("#week3Content"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week3.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek3CON'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week3.content[i].content);
 		                    				}
 		                        		} 
 		                    			/* if(i==(maxNumber3-1)){ running = false; } */
@@ -1964,22 +2124,24 @@ function loadWeekWiseDataMain(){
 		                    			
 		                    			if(data.week4.courseObjective.length>0){
 		                    				if(data.week4.courseObjective[i]!=undefined){
-		                    					$("#week4CourseObjective"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4CO'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week4.courseObjective[i].courseObjective);
+		                    					/* $("#week4CourseObjective"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.courseObjective[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4CO'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week4.courseObjective[i].courseObjective); */
+		                    					$(".wrap-course-objectives-content-week-4").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week4.courseObjective[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week4.courseObjective[i].courseObjective +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week4.learningEnv.length>0){
 		                    				if(data.week4.learningEnv[i]!=undefined){
-		                    					$("#week4LearningEnv"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4LE'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week4.learningEnv[i].learningEnvironment);
+		                    					/* $("#week4LearningEnv"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.learningEnv[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4LE'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week4.learningEnv[i].learningEnvironment); */
+		                    					$(".wrap-learning-content-week-4").append("<div class='pl-25 mb-2 font14 wrap-fontawesome content-learning-" + data.week4.learningEnv[i].id +"'><i class='fas fa-chevron-circle-right color-orange ml--25'></i> " + data.week4.learningEnv[i].learningEnvironment +"</div>");
 		                    				}
 		                        		}
 		                    			if(data.week4.activity.length>0){
 		                    				if(data.week4.activity[i]!=undefined){
-		                    					$("#week4Activity"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4ACT'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week4.activity[i].activity);
+		                    					$("#week4Activity"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.activity[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4ACT'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week4.activity[i].activity);
 		                    				}
 		                        		}
 		                    			if(data.week4.content.length>0){
 		                    				if(data.week4.content[i]!=undefined){
-		                    					$("#week4Content"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4CON'><i class='fas fa-minus-circle color-orange' aria-hidden='true'></i></a>" + data.week4.content[i].content);
+		                    					$("#week4Content"+i).append("<a href='javascript:void(0);' onclick='getDataRemove("+ data.week4.content[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' class='mr-2 removeWeek4CON'><i class='fas fa-chevron-circle-right color-orange' aria-hidden='true'></i></a>" + data.week4.content[i].content);
 		                    				}
 		                        		} 
 		                    			/* if(i==(maxNumber4-1)){ running = false; } */
@@ -2072,7 +2234,7 @@ function loadCourseTopics(){
 	});
 }
 
-function loadCourseObjectives(){
+function loadCourseObjectives(){ debugger;
 	AUI().use('aui-io-request-deprecated', function(A){
 		A.io.request("<portlet:resourceURL id='loadCourseObjectives'/>"
 		,{
@@ -2088,15 +2250,18 @@ function loadCourseObjectives(){
                    {			                    	
                    	var value=this.get('responseData');	
                    	debugger;
-               		//$("#modalCourseDesignContent").html("<div class='modal-header position-relative text-center'><div class='text-left font15 m-auto'><strong>Course Objectives</strong></div></div><div class='modal-body'><div class='interest-modal color-black'><div class='row'><div class='col-md-12'><h5 class='bold mb-3 text-white'>Course Objectives</h5><ol class='pl-15'><li class='editCourseDesign text-white'><span>Connect With A Partner In Another Country And Engage In Conversations That Result In A Joint Project That Enhances Student's Intercultural Competency Skills And Knowledge</span> <input class='form-control' id='courseObjectives1' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Use Online Tools To Develop Global Business Communication Skills In A Cross-Cultural Virtual Team Environment</span> <input class='form-control' id='courseObjectives2' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Use Case Studies To Understand Similarities And Differences In How Management Issues May Be Handled Different Cultures</span> <input class='form-control' id='courseObjectives3' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li></ol><div id='courseObjectiveDiableField'><input class='form-control mb-3' placeholder='Goes Here'><div><a href='#' class='btn btn-blue btn-w-100'>Add</a></div></div></div></div><div class='row mt-5'><div class='col-md-12'><div class='float-left'><a href='#' class='btn btn-blue'>Learn more</a></div><div class='float-right d-flex'><a href='#' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</a><a href='#' class='btn btn-blue' onclick='courseObjectiveSave()'>Save</a></div></div></div></div></div>"); 
-               		var content = "";var mainContent = "";
+               		$("#modalCourseDesignContent").html("<div class='modal-header position-relative text-center'><div class='text-left font15 m-auto'><strong>Course Objectives</strong></div></div><div class='modal-body'><div class='interest-modal color-black'><div class='row'><div class='col-md-12'><h5 class='bold mb-3 text-white'>Course Objectives</h5><ol class='pl-15'><li class='editCourseDesign text-white'><span>Connect With A Partner In Another Country And Engage In Conversations That Result In A Joint Project That Enhances Student's Intercultural Competency Skills And Knowledge</span> <input class='form-control' id='courseObjectives1' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Use Online Tools To Develop Global Business Communication Skills In A Cross-Cultural Virtual Team Environment</span> <input class='form-control' id='courseObjectives2' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Use Case Studies To Understand Similarities And Differences In How Management Issues May Be Handled Different Cultures</span> <input class='form-control' id='courseObjectives3' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li></ol><div id='courseObjectiveDiableField'><input class='form-control mb-3' placeholder='Goes Here'><div><a href='#' class='btn btn-blue btn-w-100'>Add</a></div></div></div></div><div class='row mt-5'><div class='col-md-12'><div class='float-left'><a href='#' class='btn btn-blue'>Learn more</a></div><div class='float-right d-flex'><a href='#' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</a><a href='#' class='btn btn-blue' onclick='courseObjectiveSave()'>Save</a></div></div></div></div></div>"); 
+               		var content = "";var mainContent = "";var activityContent = "";
                    	if(value!=null && value!="null" && value!=undefined && value!="undefined"){
                    		var j = JSON.parse(value);
-                   		for(var i=0;i<j.length;i++){
+                   		for(var i=0;i<j.length;i++){ debugger;
                    			/* content = content + "<li class='editCourseDesign text-white'><span>"+j[i].courseObjectives+"</span> <input class='form-control' name='courseObjectives"+i+"' id='courseObjectives"+i+"' value='"+j[i].courseObjectives+"'> <input type='hidden' class='form-control' id='courseObjectives"+i+"Id' name='courseObjectives"+i+"Id' value='"+j[i].id+"'> <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit' aria-hidden='true'></i></a></li>"; */
                    			content = content + "<div class='form-group text-white d-flex mb-2'><a href='javascript:void(0);' onclick='getDataRemove("+ j[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' id='remove-course-objective-"+i+"' class='cl-asset-type-d cl-hover-black font20 mr-1'><i class='fas fa-minus-circle'></i></a><input class='form-control' name='courseObjectives"+i+"' id='courseObjectives"+i+"' value='"+j[i].courseObjectives+"'><input type='hidden' class='form-control' id='courseObjectives"+i+"Id' name='courseObjectives"+i+"Id' value='"+j[i].id+"'></div>";
                    			mainContent = mainContent + "<tr><th class='title-row-th-1' scope='row'></th><td>"+(i+1)+". "+j[i].courseObjectives+"</td></tr>";
-                   		}                   		
+                   			
+                   			activityContent = activityContent + "<a class='dropdown-item btn-course-objetive-week' href='javascript:void(0)' data-btn='"+i+"' onclick='saveActivityDataTable(this)' data-param-name='courseObjective'>" + j[i].courseObjectives + "</a>";
+                   		}    
+                   		
                    	}           		                  	
                		$("#modalCourseDesignContent").html("<div class='modal-header position-relative text-center'><div class='text-left font15 m-auto'><strong>Course Objectives</strong></div></div><div class='modal-body'><div class='interest-modal color-black'><div class='row'><div class='col-md-12'><h5 class='bold mb-3 text-white'>Course Objectives</h5><form name='courseTopicForm' id='courseObjectiveForm'>"+content+"</form><div id='courseObjectiveDiableField'><input class='form-control mb-3' id='courseObjectiveAdd' name='courseObjectiveAdd' value='' placeholder='Goes Here'><div><button type='button' type='button' class='btn btn-blue btn-w-100' onclick='courseObjectiveSave()'>Add</button></div></div></div></div><div class='row mt-5'><div class='col-md-12'><div class='float-left'><a href='#' class='btn btn-blue'>Learn more</a></div><div class='float-right d-flex'><a href='#' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</a> <input class='form-control' type='hidden' id='courseObjectiveId' value='0'><button type='button' class='btn btn-blue' onclick='courseObjectiveUpdate()'>Save</button></div></div></div></div></div>");
                		if(value!=null && value!="null" && value!=undefined && value!="undefined"){
@@ -2109,6 +2274,7 @@ function loadCourseObjectives(){
                    		}
                		}
                    	$(".courseObjectiveDynamicValue").html(mainContent);
+                   	$(".CourseObjectiveValue").html(activityContent);
                    	
                    },error: function(){	             
                    }
@@ -2134,14 +2300,15 @@ function loadCourseLearningEnvironment(){
                    {			                    	
                    	var value=this.get('responseData');	
                    	debugger;
-               		//$("#modalCourseDesignContent").html("<div class='modal-header position-relative text-center'><div class='text-left font15 m-auto'><strong>Learning Environment</strong></div></div><div class='modal-body'><div class='interest-modal color-black'><div class='row'><div class='col-md-12'><h5 class='bold mb-3 text-white'>Learning Environment</h5><ol class='pl-15'><li class='editCourseDesign text-white'><span>Synchronous Video Lecture</span> <input class='form-control' id='learningEnvironment1' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Independent Assignments</span><input class='form-control' id='learningEnvironment2' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Group Assignments</span><input class='form-control' id='learningEnvironment3' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li></ol><div id='courseLearningEnvironmentDiableField'><input class='form-control mb-3' placeholder='Goes Here'><div><a href='#' class='btn btn-blue btn-w-100'>SLO</a></div></div></div></div><div class='row mt-5'><div class='col-md-12'><div class='float-left'><a href='#' class='btn btn-blue'>Learn more</a></div><div class='float-right d-flex'><a href='#' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</a> <a href='#' class='btn btn-blue' onclick='courseLearningEnvironmentSave()'>Save</a></div></div></div></div></div>");
-               		var content = "";var mainContent = "";
+               		$("#modalCourseDesignContent").html("<div class='modal-header position-relative text-center'><div class='text-left font15 m-auto'><strong>Learning Environment</strong></div></div><div class='modal-body'><div class='interest-modal color-black'><div class='row'><div class='col-md-12'><h5 class='bold mb-3 text-white'>Learning Environment</h5><ol class='pl-15'><li class='editCourseDesign text-white'><span>Synchronous Video Lecture</span> <input class='form-control' id='learningEnvironment1' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Independent Assignments</span><input class='form-control' id='learningEnvironment2' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li><li class='editCourseDesign text-white'><span>Group Assignments</span><input class='form-control' id='learningEnvironment3' > <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit'></i></a></li></ol><div id='courseLearningEnvironmentDiableField'><input class='form-control mb-3' placeholder='Goes Here'><div><a href='#' class='btn btn-blue btn-w-100'>SLO</a></div></div></div></div><div class='row mt-5'><div class='col-md-12'><div class='float-left'><a href='#' class='btn btn-blue'>Learn more</a></div><div class='float-right d-flex'><a href='#' class='btn btn-grey mr-2' data-dismiss='modal'>Cancel</a> <a href='#' class='btn btn-blue' onclick='courseLearningEnvironmentSave()'>Save</a></div></div></div></div></div>");
+               		var content = "";var mainContent = "",activityContent="";
                    	if(value!=null && value!="null" && value!=undefined && value!="undefined"){
                    		var j = JSON.parse(value);
                    		for(var i=0;i<j.length;i++){
                    			/* content = content + "<li class='editCourseDesign text-white'><span>"+j[i].learningEnvironment+"</span> <input class='form-control' name='learningEnvironment"+i+"' id='learningEnvironment"+i+"' value='"+j[i].learningEnvironment+"'> <input type='hidden' class='form-control' id='learningEnvironment"+i+"Id' name='learningEnvironment"+i+"Id' value='"+j[i].id+"'> <a href='javascript:void(0);' class='color-white'><i class='fas fa-edit' aria-hidden='true'></i></a></li>"; */
                    			content = content + "<div class='form-group text-white d-flex mb-2'><a href='javascript:void(0);' onclick='getDataRemove("+ j[i].id +")' data-toggle='modal' data-target='#weekContentRemovePopup' data-backdrop='static' data-keyboard='false' id='remove-course-le-"+i+"' class='cl-asset-type-d cl-hover-black font20 mr-1'><i class='fas fa-minus-circle'></i></a><input class='form-control' name='learningEnvironment"+i+"' id='learningEnvironment"+i+"' value='"+j[i].learningEnvironment+"'><input type='hidden' class='form-control' id='learningEnvironment"+i+"Id' name='learningEnvironment"+i+"Id' value='"+j[i].id+"'></div>";
                    			mainContent = mainContent + "<tr><th class='title-row-th-1' scope='row'></th><td>"+(i+1)+". "+j[i].learningEnvironment+"</td></tr>";
+                   			activityContent = activityContent + "<a class='dropdown-item btn-learning-week' href='javascript::void(0);' data-btn='"+i+"' onclick='saveActivityDataTable(this)' data-param-name='learningEnvironment'>" + j[i].learningEnvironment + "</a>";
                    		}                   		
                    	}              		
                    	
@@ -2156,6 +2323,7 @@ function loadCourseLearningEnvironment(){
                    		}
                		}
                    	$(".learningEnvironmentDynamicValue").html(mainContent);
+                   	$(".LearningEnvironmentValue").html(activityContent);
 
                    },error: function(){	             
                    }
@@ -2438,6 +2606,14 @@ function cancelContent(){
 	$("#contentRemovePopup").val("0");
 }
 
-
+function saveActivityDataTable(thisObj){
+	debugger;
+	thisObj.setAttribute("data-week",($("#"+thisObj.parentNode.getAttribute("aria-labelledby")).attr("data-week")));
+	$("#<portlet:namespace/>selectedWeek").val(thisObj.getAttribute("data-week"));
+	$("#<portlet:namespace/>input-dynamic-name").attr("name",'<portlet:namespace/>'+thisObj.getAttribute("data-param-name"));
+	$("#<portlet:namespace/>selectedParam").val(thisObj.getAttribute("data-param-name"));
+	$("#<portlet:namespace/>input-dynamic-name").val(thisObj.text);
+	saveActivityTable();
+}
 
 </script>

@@ -1,3 +1,4 @@
+
 <%@page import="javax.portlet.PortletSession"%>
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -605,6 +606,52 @@ span.irs-max,.irs-from ,.irs-to ,.irs-single {
     -o-border-radius: 8px;
     z-index: 100;
 }
+
+/* Modal */
+.interestModal .modal-header {
+	margin: -1rem -1rem 1rem;
+	color: black;
+}
+.interestModal .toltip-close3 {
+	font-size: 20px;
+}
+.interestModal .modal-body .form-group label {
+	color: #fff;
+}
+#view-more-interest-modal{
+	display:none;
+}
+.interestModal .modal-header {
+	justify-content: center;
+	border-radius: 0;
+	background: #f1f3f7;
+	font-size: 20px;
+    line-height: 1.5;
+    padding: 8px;
+    text-align: center;
+}
+.interestModal .modal-header a i {
+	width: auto;
+	color: inherit;
+	font-size: inherit;
+}
+.interestModal .modal-dialog {
+	position: relative;
+	max-width: 500px;
+}
+.interestModal .modal-content {
+	border-radius: 0;
+	background: transparent;
+    border: 0;
+}
+.interestModal .modal-body {
+	background: rgba(129,140,147,0.9);
+    border: none;
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 </style>
 <link rel="stylesheet" href="/o/ahea-theme/css/yearpicker.css" />
 <link rel="stylesheet" href="/o/ahea-theme/css/bootstrap-datepicker.css">

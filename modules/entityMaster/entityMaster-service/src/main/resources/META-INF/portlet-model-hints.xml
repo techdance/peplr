@@ -34,6 +34,25 @@
 		<field name="startTime" type="String" />
 		<field name="endTime" type="String" />
 		<field name="eventTitle" type="String" />
+		<field name="eventLocation" type="String" />
+		<field name="allDay" type="int" />
+		<field name="repeat" type="String" />
+		<field name="endRepeat" type="String" />
+		<field name="endRepeatDate" type="String" />
+		<field name="alert" type="String" />
+		<field name="url" type="String" />
+		<field name="notes" type="String" />
+	</model>
+	<model name="com.collaborated.entity.model.Custom_CalendarInvitees">
+		<field name="PK_calendarEventSubId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_calendarEventId" type="long" />
+		<field name="inviteeEmailAddress" type="String" />
+		<field name="invitee" type="long" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.collaborated.entity.model.Custom_Workflow">
 		<field name="workFlowId" type="long" />
@@ -91,6 +110,20 @@
 		<field name="completedDate" type="Date" />
 		<field name="createdBy" type="long" />
 		<field name="createdDate" type="Date" />
+	</model>
+	<model name="com.collaborated.entity.model.discussionMessageNotification">
+		<field name="PK_discussionNotificationId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="PK_projectDiscussionId" type="long" />
+		<field name="messageFrom" type="long" />
+		<field name="messageTo" type="long" />
+		<field name="isRead" type="long" />
+		<field name="isRemoved" type="long" />
+		<field name="messageTitle" type="String" />
+		<field name="messageContent" type="String" />
+		<field name="emailContent" type="String" />
 	</model>
 	<model name="com.collaborated.entity.model.labDetailedActivityTable">
 		<field name="PK_activityTableId" type="long" />

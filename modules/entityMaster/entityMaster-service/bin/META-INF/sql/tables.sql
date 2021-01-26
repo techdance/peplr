@@ -10,7 +10,27 @@ create table collaborated_Custom_Calendar (
 	endDate VARCHAR(75) null,
 	startTime VARCHAR(75) null,
 	endTime VARCHAR(75) null,
-	eventTitle VARCHAR(75) null
+	eventTitle VARCHAR(75) null,
+	eventLocation VARCHAR(75) null,
+	allDay INTEGER,
+	repeat_ VARCHAR(75) null,
+	endRepeat VARCHAR(75) null,
+	endRepeatDate VARCHAR(75) null,
+	alert VARCHAR(75) null,
+	url VARCHAR(75) null,
+	notes VARCHAR(75) null
+);
+
+create table collaborated_Custom_CalendarInvitees (
+	PK_calendarEventSubId LONG not null primary key,
+	groupId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	PK_calendarEventId LONG,
+	inviteeEmailAddress VARCHAR(75) null,
+	invitee LONG,
+	status INTEGER
 );
 
 create table collaborated_Custom_Workflow (
@@ -95,6 +115,21 @@ create table collaborated_communicationPreferences (
 	phoneNumber VARCHAR(75) null,
 	mobileNumber VARCHAR(75) null,
 	website VARCHAR(75) null
+);
+
+create table collaborated_discussionMessageNotification (
+	PK_discussionNotificationId LONG not null primary key,
+	groupId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	PK_projectDiscussionId LONG,
+	messageFrom LONG,
+	messageTo LONG,
+	isRead LONG,
+	isRemoved LONG,
+	messageTitle VARCHAR(75) null,
+	messageContent VARCHAR(75) null,
+	emailContent VARCHAR(75) null
 );
 
 create table collaborated_labDetailedActivityTable (

@@ -81,7 +81,15 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 			{ "endDate", Types.VARCHAR },
 			{ "startTime", Types.VARCHAR },
 			{ "endTime", Types.VARCHAR },
-			{ "eventTitle", Types.VARCHAR }
+			{ "eventTitle", Types.VARCHAR },
+			{ "eventLocation", Types.VARCHAR },
+			{ "allDay", Types.INTEGER },
+			{ "repeat_", Types.VARCHAR },
+			{ "endRepeat", Types.VARCHAR },
+			{ "endRepeatDate", Types.VARCHAR },
+			{ "alert", Types.VARCHAR },
+			{ "url", Types.VARCHAR },
+			{ "notes", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -98,9 +106,17 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		TABLE_COLUMNS_MAP.put("startTime", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("endTime", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("eventTitle", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("eventLocation", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("allDay", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("repeat_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("endRepeat", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("endRepeatDate", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("alert", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("url", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("notes", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table collaborated_Custom_Calendar (PK_calendarEventId LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,calendarResourceId LONG,timeZoneId VARCHAR(75) null,startDate VARCHAR(75) null,endDate VARCHAR(75) null,startTime VARCHAR(75) null,endTime VARCHAR(75) null,eventTitle VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table collaborated_Custom_Calendar (PK_calendarEventId LONG not null primary key,groupId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,calendarResourceId LONG,timeZoneId VARCHAR(75) null,startDate VARCHAR(75) null,endDate VARCHAR(75) null,startTime VARCHAR(75) null,endTime VARCHAR(75) null,eventTitle VARCHAR(75) null,eventLocation VARCHAR(75) null,allDay INTEGER,repeat_ VARCHAR(75) null,endRepeat VARCHAR(75) null,endRepeatDate VARCHAR(75) null,alert VARCHAR(75) null,url VARCHAR(75) null,notes VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table collaborated_Custom_Calendar";
 	public static final String ORDER_BY_JPQL = " ORDER BY custom_Calendar.PK_calendarEventId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY collaborated_Custom_Calendar.PK_calendarEventId ASC";
@@ -140,6 +156,14 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		model.setStartTime(soapModel.getStartTime());
 		model.setEndTime(soapModel.getEndTime());
 		model.setEventTitle(soapModel.getEventTitle());
+		model.setEventLocation(soapModel.getEventLocation());
+		model.setAllDay(soapModel.getAllDay());
+		model.setRepeat(soapModel.getRepeat());
+		model.setEndRepeat(soapModel.getEndRepeat());
+		model.setEndRepeatDate(soapModel.getEndRepeatDate());
+		model.setAlert(soapModel.getAlert());
+		model.setUrl(soapModel.getUrl());
+		model.setNotes(soapModel.getNotes());
 
 		return model;
 	}
@@ -217,6 +241,14 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		attributes.put("startTime", getStartTime());
 		attributes.put("endTime", getEndTime());
 		attributes.put("eventTitle", getEventTitle());
+		attributes.put("eventLocation", getEventLocation());
+		attributes.put("allDay", getAllDay());
+		attributes.put("repeat", getRepeat());
+		attributes.put("endRepeat", getEndRepeat());
+		attributes.put("endRepeatDate", getEndRepeatDate());
+		attributes.put("alert", getAlert());
+		attributes.put("url", getUrl());
+		attributes.put("notes", getNotes());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -296,6 +328,54 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 
 		if (eventTitle != null) {
 			setEventTitle(eventTitle);
+		}
+
+		String eventLocation = (String)attributes.get("eventLocation");
+
+		if (eventLocation != null) {
+			setEventLocation(eventLocation);
+		}
+
+		Integer allDay = (Integer)attributes.get("allDay");
+
+		if (allDay != null) {
+			setAllDay(allDay);
+		}
+
+		String repeat = (String)attributes.get("repeat");
+
+		if (repeat != null) {
+			setRepeat(repeat);
+		}
+
+		String endRepeat = (String)attributes.get("endRepeat");
+
+		if (endRepeat != null) {
+			setEndRepeat(endRepeat);
+		}
+
+		String endRepeatDate = (String)attributes.get("endRepeatDate");
+
+		if (endRepeatDate != null) {
+			setEndRepeatDate(endRepeatDate);
+		}
+
+		String alert = (String)attributes.get("alert");
+
+		if (alert != null) {
+			setAlert(alert);
+		}
+
+		String url = (String)attributes.get("url");
+
+		if (url != null) {
+			setUrl(url);
+		}
+
+		String notes = (String)attributes.get("notes");
+
+		if (notes != null) {
+			setNotes(notes);
 		}
 	}
 
@@ -483,6 +563,129 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		_eventTitle = eventTitle;
 	}
 
+	@JSON
+	@Override
+	public String getEventLocation() {
+		if (_eventLocation == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _eventLocation;
+		}
+	}
+
+	@Override
+	public void setEventLocation(String eventLocation) {
+		_eventLocation = eventLocation;
+	}
+
+	@JSON
+	@Override
+	public int getAllDay() {
+		return _allDay;
+	}
+
+	@Override
+	public void setAllDay(int allDay) {
+		_allDay = allDay;
+	}
+
+	@JSON
+	@Override
+	public String getRepeat() {
+		if (_repeat == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _repeat;
+		}
+	}
+
+	@Override
+	public void setRepeat(String repeat) {
+		_repeat = repeat;
+	}
+
+	@JSON
+	@Override
+	public String getEndRepeat() {
+		if (_endRepeat == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _endRepeat;
+		}
+	}
+
+	@Override
+	public void setEndRepeat(String endRepeat) {
+		_endRepeat = endRepeat;
+	}
+
+	@JSON
+	@Override
+	public String getEndRepeatDate() {
+		if (_endRepeatDate == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _endRepeatDate;
+		}
+	}
+
+	@Override
+	public void setEndRepeatDate(String endRepeatDate) {
+		_endRepeatDate = endRepeatDate;
+	}
+
+	@JSON
+	@Override
+	public String getAlert() {
+		if (_alert == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _alert;
+		}
+	}
+
+	@Override
+	public void setAlert(String alert) {
+		_alert = alert;
+	}
+
+	@JSON
+	@Override
+	public String getUrl() {
+		if (_url == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _url;
+		}
+	}
+
+	@Override
+	public void setUrl(String url) {
+		_url = url;
+	}
+
+	@JSON
+	@Override
+	public String getNotes() {
+		if (_notes == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _notes;
+		}
+	}
+
+	@Override
+	public void setNotes(String notes) {
+		_notes = notes;
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
@@ -522,6 +725,14 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		custom_CalendarImpl.setStartTime(getStartTime());
 		custom_CalendarImpl.setEndTime(getEndTime());
 		custom_CalendarImpl.setEventTitle(getEventTitle());
+		custom_CalendarImpl.setEventLocation(getEventLocation());
+		custom_CalendarImpl.setAllDay(getAllDay());
+		custom_CalendarImpl.setRepeat(getRepeat());
+		custom_CalendarImpl.setEndRepeat(getEndRepeat());
+		custom_CalendarImpl.setEndRepeatDate(getEndRepeatDate());
+		custom_CalendarImpl.setAlert(getAlert());
+		custom_CalendarImpl.setUrl(getUrl());
+		custom_CalendarImpl.setNotes(getNotes());
 
 		custom_CalendarImpl.resetOriginalValues();
 
@@ -665,12 +876,70 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 			custom_CalendarCacheModel.eventTitle = null;
 		}
 
+		custom_CalendarCacheModel.eventLocation = getEventLocation();
+
+		String eventLocation = custom_CalendarCacheModel.eventLocation;
+
+		if ((eventLocation != null) && (eventLocation.length() == 0)) {
+			custom_CalendarCacheModel.eventLocation = null;
+		}
+
+		custom_CalendarCacheModel.allDay = getAllDay();
+
+		custom_CalendarCacheModel.repeat = getRepeat();
+
+		String repeat = custom_CalendarCacheModel.repeat;
+
+		if ((repeat != null) && (repeat.length() == 0)) {
+			custom_CalendarCacheModel.repeat = null;
+		}
+
+		custom_CalendarCacheModel.endRepeat = getEndRepeat();
+
+		String endRepeat = custom_CalendarCacheModel.endRepeat;
+
+		if ((endRepeat != null) && (endRepeat.length() == 0)) {
+			custom_CalendarCacheModel.endRepeat = null;
+		}
+
+		custom_CalendarCacheModel.endRepeatDate = getEndRepeatDate();
+
+		String endRepeatDate = custom_CalendarCacheModel.endRepeatDate;
+
+		if ((endRepeatDate != null) && (endRepeatDate.length() == 0)) {
+			custom_CalendarCacheModel.endRepeatDate = null;
+		}
+
+		custom_CalendarCacheModel.alert = getAlert();
+
+		String alert = custom_CalendarCacheModel.alert;
+
+		if ((alert != null) && (alert.length() == 0)) {
+			custom_CalendarCacheModel.alert = null;
+		}
+
+		custom_CalendarCacheModel.url = getUrl();
+
+		String url = custom_CalendarCacheModel.url;
+
+		if ((url != null) && (url.length() == 0)) {
+			custom_CalendarCacheModel.url = null;
+		}
+
+		custom_CalendarCacheModel.notes = getNotes();
+
+		String notes = custom_CalendarCacheModel.notes;
+
+		if ((notes != null) && (notes.length() == 0)) {
+			custom_CalendarCacheModel.notes = null;
+		}
+
 		return custom_CalendarCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{PK_calendarEventId=");
 		sb.append(getPK_calendarEventId());
@@ -696,6 +965,22 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 		sb.append(getEndTime());
 		sb.append(", eventTitle=");
 		sb.append(getEventTitle());
+		sb.append(", eventLocation=");
+		sb.append(getEventLocation());
+		sb.append(", allDay=");
+		sb.append(getAllDay());
+		sb.append(", repeat=");
+		sb.append(getRepeat());
+		sb.append(", endRepeat=");
+		sb.append(getEndRepeat());
+		sb.append(", endRepeatDate=");
+		sb.append(getEndRepeatDate());
+		sb.append(", alert=");
+		sb.append(getAlert());
+		sb.append(", url=");
+		sb.append(getUrl());
+		sb.append(", notes=");
+		sb.append(getNotes());
 		sb.append("}");
 
 		return sb.toString();
@@ -703,7 +988,7 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(64);
 
 		sb.append("<model><model-name>");
 		sb.append("com.collaborated.entity.model.Custom_Calendar");
@@ -757,6 +1042,38 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 			"<column><column-name>eventTitle</column-name><column-value><![CDATA[");
 		sb.append(getEventTitle());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>eventLocation</column-name><column-value><![CDATA[");
+		sb.append(getEventLocation());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>allDay</column-name><column-value><![CDATA[");
+		sb.append(getAllDay());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>repeat</column-name><column-value><![CDATA[");
+		sb.append(getRepeat());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>endRepeat</column-name><column-value><![CDATA[");
+		sb.append(getEndRepeat());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>endRepeatDate</column-name><column-value><![CDATA[");
+		sb.append(getEndRepeatDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>alert</column-name><column-value><![CDATA[");
+		sb.append(getAlert());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>url</column-name><column-value><![CDATA[");
+		sb.append(getUrl());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>notes</column-name><column-value><![CDATA[");
+		sb.append(getNotes());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -780,5 +1097,13 @@ public class Custom_CalendarModelImpl extends BaseModelImpl<Custom_Calendar>
 	private String _startTime;
 	private String _endTime;
 	private String _eventTitle;
+	private String _eventLocation;
+	private int _allDay;
+	private String _repeat;
+	private String _endRepeat;
+	private String _endRepeatDate;
+	private String _alert;
+	private String _url;
+	private String _notes;
 	private Custom_Calendar _escapedModel;
 }

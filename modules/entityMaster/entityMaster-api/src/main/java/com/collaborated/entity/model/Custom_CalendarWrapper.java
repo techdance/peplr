@@ -70,6 +70,14 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 		attributes.put("startTime", getStartTime());
 		attributes.put("endTime", getEndTime());
 		attributes.put("eventTitle", getEventTitle());
+		attributes.put("eventLocation", getEventLocation());
+		attributes.put("allDay", getAllDay());
+		attributes.put("repeat", getRepeat());
+		attributes.put("endRepeat", getEndRepeat());
+		attributes.put("endRepeatDate", getEndRepeatDate());
+		attributes.put("alert", getAlert());
+		attributes.put("url", getUrl());
+		attributes.put("notes", getNotes());
 
 		return attributes;
 	}
@@ -147,6 +155,54 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 		if (eventTitle != null) {
 			setEventTitle(eventTitle);
 		}
+
+		String eventLocation = (String)attributes.get("eventLocation");
+
+		if (eventLocation != null) {
+			setEventLocation(eventLocation);
+		}
+
+		Integer allDay = (Integer)attributes.get("allDay");
+
+		if (allDay != null) {
+			setAllDay(allDay);
+		}
+
+		String repeat = (String)attributes.get("repeat");
+
+		if (repeat != null) {
+			setRepeat(repeat);
+		}
+
+		String endRepeat = (String)attributes.get("endRepeat");
+
+		if (endRepeat != null) {
+			setEndRepeat(endRepeat);
+		}
+
+		String endRepeatDate = (String)attributes.get("endRepeatDate");
+
+		if (endRepeatDate != null) {
+			setEndRepeatDate(endRepeatDate);
+		}
+
+		String alert = (String)attributes.get("alert");
+
+		if (alert != null) {
+			setAlert(alert);
+		}
+
+		String url = (String)attributes.get("url");
+
+		if (url != null) {
+			setUrl(url);
+		}
+
+		String notes = (String)attributes.get("notes");
+
+		if (notes != null) {
+			setNotes(notes);
+		}
 	}
 
 	@Override
@@ -189,6 +245,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 		return _custom_Calendar.compareTo(custom_Calendar);
 	}
 
+	/**
+	* Returns the all day of this custom_ calendar.
+	*
+	* @return the all day of this custom_ calendar
+	*/
+	@Override
+	public int getAllDay() {
+		return _custom_Calendar.getAllDay();
+	}
+
 	@Override
 	public int hashCode() {
 		return _custom_Calendar.hashCode();
@@ -205,6 +271,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	}
 
 	/**
+	* Returns the alert of this custom_ calendar.
+	*
+	* @return the alert of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getAlert() {
+		return _custom_Calendar.getAlert();
+	}
+
+	/**
 	* Returns the end date of this custom_ calendar.
 	*
 	* @return the end date of this custom_ calendar
@@ -212,6 +288,26 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public java.lang.String getEndDate() {
 		return _custom_Calendar.getEndDate();
+	}
+
+	/**
+	* Returns the end repeat of this custom_ calendar.
+	*
+	* @return the end repeat of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getEndRepeat() {
+		return _custom_Calendar.getEndRepeat();
+	}
+
+	/**
+	* Returns the end repeat date of this custom_ calendar.
+	*
+	* @return the end repeat date of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getEndRepeatDate() {
+		return _custom_Calendar.getEndRepeatDate();
 	}
 
 	/**
@@ -225,6 +321,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	}
 
 	/**
+	* Returns the event location of this custom_ calendar.
+	*
+	* @return the event location of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getEventLocation() {
+		return _custom_Calendar.getEventLocation();
+	}
+
+	/**
 	* Returns the event title of this custom_ calendar.
 	*
 	* @return the event title of this custom_ calendar
@@ -232,6 +338,26 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public java.lang.String getEventTitle() {
 		return _custom_Calendar.getEventTitle();
+	}
+
+	/**
+	* Returns the notes of this custom_ calendar.
+	*
+	* @return the notes of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getNotes() {
+		return _custom_Calendar.getNotes();
+	}
+
+	/**
+	* Returns the repeat of this custom_ calendar.
+	*
+	* @return the repeat of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getRepeat() {
+		return _custom_Calendar.getRepeat();
 	}
 
 	/**
@@ -262,6 +388,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public java.lang.String getTimeZoneId() {
 		return _custom_Calendar.getTimeZoneId();
+	}
+
+	/**
+	* Returns the url of this custom_ calendar.
+	*
+	* @return the url of this custom_ calendar
+	*/
+	@Override
+	public java.lang.String getUrl() {
+		return _custom_Calendar.getUrl();
 	}
 
 	/**
@@ -359,6 +495,26 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 		_custom_Calendar.persist();
 	}
 
+	/**
+	* Sets the alert of this custom_ calendar.
+	*
+	* @param alert the alert of this custom_ calendar
+	*/
+	@Override
+	public void setAlert(java.lang.String alert) {
+		_custom_Calendar.setAlert(alert);
+	}
+
+	/**
+	* Sets the all day of this custom_ calendar.
+	*
+	* @param allDay the all day of this custom_ calendar
+	*/
+	@Override
+	public void setAllDay(int allDay) {
+		_custom_Calendar.setAllDay(allDay);
+	}
+
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_custom_Calendar.setCachedModel(cachedModel);
@@ -395,6 +551,26 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	}
 
 	/**
+	* Sets the end repeat of this custom_ calendar.
+	*
+	* @param endRepeat the end repeat of this custom_ calendar
+	*/
+	@Override
+	public void setEndRepeat(java.lang.String endRepeat) {
+		_custom_Calendar.setEndRepeat(endRepeat);
+	}
+
+	/**
+	* Sets the end repeat date of this custom_ calendar.
+	*
+	* @param endRepeatDate the end repeat date of this custom_ calendar
+	*/
+	@Override
+	public void setEndRepeatDate(java.lang.String endRepeatDate) {
+		_custom_Calendar.setEndRepeatDate(endRepeatDate);
+	}
+
+	/**
 	* Sets the end time of this custom_ calendar.
 	*
 	* @param endTime the end time of this custom_ calendar
@@ -402,6 +578,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public void setEndTime(java.lang.String endTime) {
 		_custom_Calendar.setEndTime(endTime);
+	}
+
+	/**
+	* Sets the event location of this custom_ calendar.
+	*
+	* @param eventLocation the event location of this custom_ calendar
+	*/
+	@Override
+	public void setEventLocation(java.lang.String eventLocation) {
+		_custom_Calendar.setEventLocation(eventLocation);
 	}
 
 	/**
@@ -456,6 +642,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	}
 
 	/**
+	* Sets the notes of this custom_ calendar.
+	*
+	* @param notes the notes of this custom_ calendar
+	*/
+	@Override
+	public void setNotes(java.lang.String notes) {
+		_custom_Calendar.setNotes(notes);
+	}
+
+	/**
 	* Sets the p k_calendar event ID of this custom_ calendar.
 	*
 	* @param PK_calendarEventId the p k_calendar event ID of this custom_ calendar
@@ -478,6 +674,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_custom_Calendar.setPrimaryKeyObj(primaryKeyObj);
+	}
+
+	/**
+	* Sets the repeat of this custom_ calendar.
+	*
+	* @param repeat the repeat of this custom_ calendar
+	*/
+	@Override
+	public void setRepeat(java.lang.String repeat) {
+		_custom_Calendar.setRepeat(repeat);
 	}
 
 	/**
@@ -508,6 +714,16 @@ public class Custom_CalendarWrapper implements Custom_Calendar,
 	@Override
 	public void setTimeZoneId(java.lang.String timeZoneId) {
 		_custom_Calendar.setTimeZoneId(timeZoneId);
+	}
+
+	/**
+	* Sets the url of this custom_ calendar.
+	*
+	* @param url the url of this custom_ calendar
+	*/
+	@Override
+	public void setUrl(java.lang.String url) {
+		_custom_Calendar.setUrl(url);
 	}
 
 	/**

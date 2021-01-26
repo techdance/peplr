@@ -250,6 +250,125 @@ public interface Custom_CalendarModel extends BaseModel<Custom_Calendar> {
 	 */
 	public void setEventTitle(String eventTitle);
 
+	/**
+	 * Returns the event location of this custom_ calendar.
+	 *
+	 * @return the event location of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getEventLocation();
+
+	/**
+	 * Sets the event location of this custom_ calendar.
+	 *
+	 * @param eventLocation the event location of this custom_ calendar
+	 */
+	public void setEventLocation(String eventLocation);
+
+	/**
+	 * Returns the all day of this custom_ calendar.
+	 *
+	 * @return the all day of this custom_ calendar
+	 */
+	public int getAllDay();
+
+	/**
+	 * Sets the all day of this custom_ calendar.
+	 *
+	 * @param allDay the all day of this custom_ calendar
+	 */
+	public void setAllDay(int allDay);
+
+	/**
+	 * Returns the repeat of this custom_ calendar.
+	 *
+	 * @return the repeat of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getRepeat();
+
+	/**
+	 * Sets the repeat of this custom_ calendar.
+	 *
+	 * @param repeat the repeat of this custom_ calendar
+	 */
+	public void setRepeat(String repeat);
+
+	/**
+	 * Returns the end repeat of this custom_ calendar.
+	 *
+	 * @return the end repeat of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getEndRepeat();
+
+	/**
+	 * Sets the end repeat of this custom_ calendar.
+	 *
+	 * @param endRepeat the end repeat of this custom_ calendar
+	 */
+	public void setEndRepeat(String endRepeat);
+
+	/**
+	 * Returns the end repeat date of this custom_ calendar.
+	 *
+	 * @return the end repeat date of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getEndRepeatDate();
+
+	/**
+	 * Sets the end repeat date of this custom_ calendar.
+	 *
+	 * @param endRepeatDate the end repeat date of this custom_ calendar
+	 */
+	public void setEndRepeatDate(String endRepeatDate);
+
+	/**
+	 * Returns the alert of this custom_ calendar.
+	 *
+	 * @return the alert of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getAlert();
+
+	/**
+	 * Sets the alert of this custom_ calendar.
+	 *
+	 * @param alert the alert of this custom_ calendar
+	 */
+	public void setAlert(String alert);
+
+	/**
+	 * Returns the url of this custom_ calendar.
+	 *
+	 * @return the url of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getUrl();
+
+	/**
+	 * Sets the url of this custom_ calendar.
+	 *
+	 * @param url the url of this custom_ calendar
+	 */
+	public void setUrl(String url);
+
+	/**
+	 * Returns the notes of this custom_ calendar.
+	 *
+	 * @return the notes of this custom_ calendar
+	 */
+	@AutoEscape
+	public String getNotes();
+
+	/**
+	 * Sets the notes of this custom_ calendar.
+	 *
+	 * @param notes the notes of this custom_ calendar
+	 */
+	public void setNotes(String notes);
+
 	@Override
 	public boolean isNew();
 

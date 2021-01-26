@@ -59,6 +59,136 @@
 .fc-button {
 	text-transform: capitalize;
 }
+.fc-button.fc-button-active {
+    color: rgb(153, 153, 153) !important;
+    background-color: rgb(236, 236, 236) !important;
+    border-color: rgb(236, 236, 236) !important;
+}
+.fc-button-primary {
+    background-color: rgb(153, 153, 153) !important;
+    border-color: rgb(153, 153, 153) !important;
+}
+.fc-toolbar.fc-header-toolbar .fc-left {
+    display: flex;
+    flex-flow: row-reverse;
+}
+.fc-toolbar>*>:not(:first-child) {
+	margin: 0 .75em 0 0;
+}
+.fc-day-grid-event .fc-content {
+	white-space: normal;
+}
+.bg-grey {
+    background: rgba(129,140,147,0.9) !important;
+    color: white !important;
+}
+#eventModal .form-group {
+	display: flex;
+	align-items: center;
+}
+#eventModal .form-group .control-label {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+    color: #fff;
+    margin: 0;
+}
+.form-group + .form-group .control-label {
+    display: none;
+}
+.multiColumn {
+    display: flex;
+}
+.multiColumn .form-group:first-child {
+    width: 60%;
+}
+.multiColumn .form-group:last-child {
+    width: 40%;
+    padding-left: 10px;
+}
+#eventModal .multiColumn .form-group .control-label {
+	-webkit-box-flex: 0;
+    -ms-flex: 0 0 42%;
+    flex: 0 0 42%;
+    max-width: 42%;
+}
+#eventModal .has-error .help-block {
+    color: #dc3545;
+    position: absolute;
+    bottom: -15px;
+    margin: 0;
+    line-height: 1;
+    text-align: right;
+    right: 0;
+}
+#eventModal textarea.form-control {
+    height: 65px;
+}
+#eventModal .modal-header {
+    background: #f1f3f7;
+    border-radius: 0 !important;
+    color: black;
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 8px;
+}
+#eventModal .modal-header h4 {
+	font-size: 15px;
+}
+#eventModal .modal-content {
+	border: 0;
+    border-radius: 0;
+}
+#eventModal .toltip-close2 a {
+    color: #818c93;
+    font-size: 20px;
+}
+.modal-open #eventModal.modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.form-group.form-inline.input-checkbox-wrapper label {
+    display: flex;
+    flex-flow: row-reverse;
+    color: #fff;
+}
+.form-group.form-inline.input-checkbox-wrapper label .field {
+    margin-left: 65px;
+}
+.orange-event {
+	background-color: #ff993e;
+    border-color: #ff993e;
+}
+.green-event {
+	background-color: #339900;
+    border-color: #339900;
+}
+.blue-event {
+	background-color: #ff993e;
+    border-color: #ff993e;
+}
+/* .form-group .ui-timepicker-input,
+.form-group select.form-group {
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #fff;
+    -webkit-appearance: none;
+    background-position-x: 98%;
+} */
+.datePickerFirst .form-group:first-child:after,
+.datePickerLast .form-group:last-child:after {
+    color: #414142;
+    content: "\f073";
+    font-family: "Font Awesome 5 Solid";
+    font-size: 20px;
+    height: 25px;
+    right: 2px;
+    position: absolute;
+    top: 5px;
+    width: 25px;
+}
+#eventModal .modal-dialog {
+	position: relative;
+}
 </style>
 
 
@@ -108,6 +238,17 @@
 		      }
 		});
 		
+		$( "#<portlet:namespace/>endRepeat" ).datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+			minDate: 0,
+			onClose:function(selectedDate) {
+				$(this).removeClass("error-field");
+				$(this).parent(".form-group").removeClass("has-error");
+				$(this).siblings(".help-block").remove();
+		      }
+		});
 		
 		$('#<portlet:namespace/>startTime').timepicker({ 
 			'scrollDefault': 'now',
@@ -132,6 +273,41 @@
 			$("#ui-datepicker-div").remove();
 			$("#FullpageCalendarLoader").fadeOut();
 		}, 500);
+		
+		
+		
+		/* var availableTags = userNames();
+		$( "#<portlet:namespace/>eventInvitees" )
+		// don't navigate away from the field on tab when selecting an item
+		.on( "keydown", function( event ) {
+			if ( event.keyCode === $.ui.keyCode.TAB &&
+					$( this ).autocomplete( "instance" ).menu.active ) {
+				event.preventDefault();
+			}
+		})
+		.autocomplete({
+			minLength: 0,
+			source: function( request, response ) {
+				// delegate back to autocomplete, but extract the last term
+				response( $.ui.autocomplete.filter(
+					availableTags, extractLast( request.term ) ) );
+			},
+			focus: function() {
+				// prevent value inserted on focus
+				return false;
+			},
+			select: function( event, ui ) {
+				var terms = split( this.value );
+				// remove the current input
+				terms.pop();
+				// add the selected item
+				terms.push( ui.item.value );
+				// add placeholder to get the comma-and-space at the end
+				terms.push( "" );
+				this.value = terms.join( ", " );
+				return false;
+			}
+		}); */
 		
 	});
 	
@@ -261,7 +437,7 @@
 		var endDate = $('#<portlet:namespace/>endDate').val();
 		var startTime = $('#<portlet:namespace/>startTime').val();
 		var endTime = $('#<portlet:namespace/>endTime').val();
-		if (startDate != "" && startTime !=""  && endTime !="") {
+		if (startDate != "") {
 			saveCalendarEvent();
 		}else{
 			return false;
@@ -374,6 +550,7 @@ function deleteEvent(){
                     		loadCalendarEvent();
                     		showMsg("Removed successfully");   
                     		cancelEvent();
+                    		
                  	    }else{
                  	    	showMsg("Error!");
                  	    }                    	
@@ -392,7 +569,14 @@ function saveCalendarEvent(){
 	var endDate = $('#<portlet:namespace/>endDate').val();
 	var startTime = $('#<portlet:namespace/>startTime').val();
 	var endTime = $('#<portlet:namespace/>endTime').val();
-	if (startDate != "" && endDate!="" && startTime !=""  && endTime !="") {
+	var isPriority = $('input[name="eventAllDay"]:checked').val();
+  	if(isPriority=="on"){
+		$("#<portlet:namespace />iseventAllDay").val(1);	
+	}else{
+		$("#<portlet:namespace />iseventAllDay").val(0);
+	}
+  	var eventInvitees = $('#<portlet:namespace/>eventInvitees').val();
+	if (startDate != "" && endDate!="" && startTime!="" && endTime!="" && eventInvitees!="") {
 		AUI().use('aui-io-request-deprecated', function(A){
 	        A.io.request('<%=saveCalendarEvent.toString()%>', {
 	               method: 'post',
@@ -456,6 +640,21 @@ function  loadSignleEvent(id){
          	                $("#<portlet:namespace/>endDate").val(data.endDate);
          	                $("#<portlet:namespace/>startTime").val(data.startTime);
          	                $("#<portlet:namespace/>endTime").val(data.endTime); 
+         	                $("#<portlet:namespace/>eventLocation").val(data.eventLocation); 
+         	                $("#<portlet:namespace/>iseventAllDay").val(data.iseventAllDay); 
+         	                if(data.iseventAllDay==1){
+         	                	$('input[name="eventAllDay"]').prop("checked",true);
+         	          		}else if(data.iseventAllDay==0){
+         	          			$('input[name="eventAllDay"]').prop("checked",false);
+         	          		}         	                
+         	                $("#<portlet:namespace/>eventTimeZone").val(data.eventTimeZone); 
+         	                $("#<portlet:namespace/>eventRepeat1").val(data.eventRepeat1); 
+         	                $("#<portlet:namespace/>eventRepeat2").val(data.eventRepeat2); 
+         	                $("#<portlet:namespace/>endRepeat").val(data.endRepeat); 
+         	                $("#<portlet:namespace/>eventInvitees").val(data.eventInvitee); 
+         	                $("#<portlet:namespace/>eventAlert").val(data.eventAlert);
+         	               	$("#<portlet:namespace/>eventURL").val(data.eventURL); 
+         	                $("#<portlet:namespace/>eventNotes").val(data.eventNotes); 
          	                $("#<portlet:namespace/>eventId").val(data.eventId);
                  	   }                    	
                     },error: function(){	             
@@ -490,7 +689,8 @@ Liferay.provide(window,'showMsg',function(msg){
     	            label: 'OK',
     	            on: {
     	              click: function() {
-    	            	  modal.hide();    	            	  
+    	            	  modal.hide(); 
+    	            	  location.reload();
     	              }    	               
     	              }
     	            }
@@ -507,8 +707,113 @@ function cancelEvent(){
      $("#<portlet:namespace/>startTime").val("");
      $("#<portlet:namespace/>endTime").val("");
      $("#<portlet:namespace/>eventId").val("0");
+     $("#<portlet:namespace/>eventLocation").val(""); 
+     $("#<portlet:namespace/>iseventAllDay").val("");  
+     $("#<portlet:namespace/>eventTimeZone").val("");
+     $("#<portlet:namespace/>eventRepeat1").val(""); 
+     $("#<portlet:namespace/>eventRepeat2").val("");
+     $("#<portlet:namespace/>endRepeat").val(""); 
+     $("#<portlet:namespace/>eventInvitees").val("");
+     $("#<portlet:namespace/>eventAlert").val("");
+     $("#<portlet:namespace/>eventURL").val("");
+     $("#<portlet:namespace/>eventNotes").val("");
      $("#eventHeader").text("Add Event");
 	 $("#<portlet:namespace/>saveEvent").text("Save");
 	 $("#<portlet:namespace/>deleteEvent").addClass("d-none");
 }
+function userNames(){
+	var userList = null;
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='getUserNamesData'/>"
+			,{
+               method: 'get',
+               data:{ 		            	   
+               },
+               sync : true, 
+               on:{
+            	   complete:function()
+             		{		            		   
+             		},
+                    success:function()
+                    {			                    	
+                    	var value=this.get('responseData');	  
+                    	userList = value;
+                    },error: function(){	             
+                    }
+				},
+
+	         });
+	});
+	return userList;
+}
+
+ 
+function split( val ) {
+	return val.split( /,\s*/ );
+}
+function extractLast( term ) {
+	return split( term ).pop();
+}
+
+
+/* var testData=[];
+AUI().use('aui-io-request-deprecated','aui-modal', function(A){
+	AUI().ready('aui-io-request', function(A){
+		var jsonArray = [];
+	 	AUI().use('autocomplete-list','aui-base','aui-io-request-deprecated','autocomplete-filters','autocomplete-highlighters',function (A) {
+	 	new A.AutoCompleteList({
+	 	allowBrowserAutocomplete: 'true',
+	 	activateFirstItem: 'true',
+	 	inputNode: '#<portlet:namespace />eventInvitees',
+	 	resultTextLocator:'emailAddress',
+	 	render: 'true',
+	 	resultHighlighter: 'phraseMatch',
+	 	resultFilters:['phraseMatch'],
+	 	on: {
+		    select: function(event) {
+			debugger;
+		    var data = event.result.raw;		    
+		    var terms = split( data.emailAddress );
+		 	// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push( data.emailAddress );
+			// add placeholder to get the comma-and-space at the end
+			terms.push( "" );
+			this.value = terms.join( ", " );
+			//$("#<portlet:namespace />eventInvitees").val(data.emailAddress);
+			$("#<portlet:namespace />eventInvitees").val(this.value);
+			return false;
+
+		    }
+		   },
+		   focus: function() {
+				// prevent value inserted on focus
+				return false;
+			},
+	 	source:function(request, response){
+	 		var myAjaxRequest=A.io.request("<portlet:resourceURL id='getUserNamesData'/>",{
+			 	dataType: 'json',
+			 	method:'get',
+			 	autoLoad:false,
+			 	sync:false,
+			 	on: {
+			 	success:function(){
+			 	var doctorName=this.get('responseData');
+			 	var doctorName1=JSON.stringify(doctorName);
+			 	var data=JSON.parse(doctorName1);
+			 	if(data.length>0)
+			 		testData=data;
+			 		$(".form-validator-stack").show();
+			 	}}
+			 	}); 
+			 	myAjaxRequest.start();
+			 	
+	 		return testData;
+	 	},
+	 	});
+	 	});
+	});
+}); */
+
 </script>

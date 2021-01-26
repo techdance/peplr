@@ -602,6 +602,35 @@
 		<column name="startTime" type="String" />
 		<column name="endTime" type="String" />
 		<column name="eventTitle" type="String" />
+		<column name="eventLocation" type="String" />
+		<column name="allDay" type="int" />
+		<column name="repeat" type="String" />
+		<column name="endRepeat" type="String" />
+		<column name="endRepeatDate" type="String" />
+		<column name="alert" type="String" />
+		<column name="url" type="String" />
+		<column name="notes" type="String" />
+	</entity>
+	
+	<entity local-service="true" name="Custom_CalendarInvitees" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_calendarEventSubId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_calendarEventId" type="long" />
+		<column name="inviteeEmailAddress" type="String" />
+		<column name="invitee" type="long" />
+		<column name="status" type="int" />
 	</entity>
 	
 	<entity local-service="true" name="projectInviteTracking" remote-service="true" uuid="false" json-enabled="true">
@@ -714,6 +743,32 @@
 		<column name="fileEntryId" type="String" />
 		<column name="fileEntryUrl" type="String" />
 		<column name="blobData" type="Blob" />
+	</entity>
+	
+	<!-- Discussion message notification -->
+
+	<entity local-service="true" name="discussionMessageNotification" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_discussionNotificationId" type="long" primary="true" />
+		
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="PK_projectDiscussionId" type="long" />
+		<column name="messageFrom" type="long" />
+		<column name="messageTo" type="long" />
+		<column name="isRead" type="long" />
+		<column name="isRemoved" type="long" />
+		<column name="messageTitle" type="String" />
+		<column name="messageContent" type="String" />
+		<column name="emailContent" type="String" />
 	</entity>
 	
 </service-builder>

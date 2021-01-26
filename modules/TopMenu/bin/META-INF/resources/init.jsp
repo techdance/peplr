@@ -422,6 +422,35 @@ function closeActionMessage(actionId,type){
 	});
 }
 
+function closeActionMessageDiscussion(actionId,type){
+	AUI().use('aui-io-request-deprecated', function(A){
+		A.io.request("<portlet:resourceURL id='closeActionMessageDiscussion'/>"
+		,{
+              method: 'post',
+              data:{
+            	  '<portlet:namespace/>actionId':actionId,
+            	  '<portlet:namespace/>type':'message'
+              },
+              sync : true, 
+              on:{
+           	   complete:function()
+            		{		            		   
+            		},
+                   success:function()
+                   {	
+                	   debugger;
+                	   var value=this.get('responseData');	
+                	   if(value !=undefined && value!="undefined" &&  value!=null && value!="null"){
+                		   getMyNotificationCount();
+                	   }               	                  	   
+                   },error: function(){	             
+                   }
+			},
+
+         });
+	});
+}
+
 /* function projectComplete(){
 	AUI().use('aui-io-request-deprecated', function(A){
 		A.io.request("<portlet:resourceURL id='projectComplete'/>"

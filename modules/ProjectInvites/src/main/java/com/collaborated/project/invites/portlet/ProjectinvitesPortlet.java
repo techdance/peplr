@@ -206,17 +206,17 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 									+ "<a href=\"#\" class=\"btn btn-blue btn-sm mr-2 color-white\" onclick=\"updateProjectInviteStatusDeclined(1,"+singleTrackingData.getPK_projectInvitationId()+")\">DECLINE</a>"
 									+ "<a href=\"#\" class=\"btn btn-blue btn-sm color-white\" onclick=\"updateProjectInviteStatus(0,"+singleTrackingData.getPK_projectInvitationId()+")\">ACCEPT</a> </div>"
 									+ "<div class=\"text-center\"><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#popup-"+singleTrackingData.getProjectId()+"\" onclick=\"getViewMoreData("+singleTrackingData.getProjectId()+")\">View More <i class=\"far fa-arrow-alt-circle-right\"></i></a>"
-											+ "<div class=\"modal fade modalToltip modalareainterest \" id=\"popup-"+singleTrackingData.getProjectId()+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\"></div></div>"
+											+ "<div class=\"modal fade interestModal \" id=\"popup-"+singleTrackingData.getProjectId()+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\"></div></div>"
 									+ "</td>";
 						}else if(key.equalsIgnoreCase("sent")){
 							receiveActions = "<td><p>"+projectInviteStatus+"</p>"
 									+  "<div class=\"text-left\"><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#popup-"+singleTrackingData.getProjectId()+"\" onclick=\"getViewMoreData("+singleTrackingData.getProjectId()+")\">View More <i class=\"far fa-arrow-alt-circle-right\"></i></a>"
-									+ "<div class=\"modal fade modalToltip modalareainterest \" id=\"popup-"+singleTrackingData.getProjectId()+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\"></div></div>"
+									+ "<div class=\"modal fade interestModal \" id=\"popup-"+singleTrackingData.getProjectId()+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\"></div></div>"
 						+"</td>";
 						}else if(key.equalsIgnoreCase("receive") && (!projectInviteStatus.equalsIgnoreCase("Pending"))){
 							receiveActions = "<td><p>"+projectInviteStatus+"</p><br><div class=\"d-flex mb-4\"><div class=\"text-center\">"
 									+ "<a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#popup-"+singleTrackingData.getProjectId()+"\" onclick=\"getViewMoreData("+singleTrackingData.getProjectId()+")\">View More <i class=\"far fa-arrow-alt-circle-right\"></i></a>"
-											+ "<div class=\"modal fade modalToltip modalareainterest \" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\" id=\"popup-"+singleTrackingData.getProjectId()+"\"></div></div></div></td>";
+											+ "<div class=\"modal fade interestModal \" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalLabel\" aria-hidden=\"true\" id=\"popup-"+singleTrackingData.getProjectId()+"\"></div></div></div></td>";
 						}
 						
 						template = template + "<tr id=\"Project_Invites_"+i+"\">"
@@ -339,10 +339,7 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 							" <div class='font15 my-auto text-center d-flex flex-column w-100'><strong>Project</strong><span>"+singleData.getProjectType()+"</span></div> " +
 							" <div class='toltip-close3'><a href='javascript:void(0);' data-dismiss='modal'><i class='fa fa-times-circle'></i></a></div> " +
 							" </div> " +
-							" <div class='modal-body'> " +
-							" <div class='interest-modal'> "+
-							" <div class='view-more-interest-modal-inner'> "+
-							" <div class='view-more-interest-modal-inner-content'> "+
+							" <div class='modal-body text-left'> " +
 							" <div class='row mb-2'> <div class='col-md-12 d-flex flex-column'> "+
 							" <strong>Description</strong> "+
 							" <span id='description'>"+ singleData.getDescription() +"</span> "+
@@ -375,7 +372,7 @@ public class ProjectinvitesPortlet extends MVCPortlet {
 							" <div class='top-label-range'><div class='top-init-range'><div><span class='projectInviteStartDay mr-1'>"+ singleData.getRangerMonthStart() + "</span><span id='projectInviteDay'>" + singleData.getRangerYearStart() +"</span></div></div> "+
 							" <div class='year-last-range pickerdata'><input type='text' class='rangerDatepickerPID' id='rangerDatepickerPID' value='"+ singleData.getRangerYearEnd() +"' readonly/></div></div> "+
 							" <input type='text' class='js-range-slider' id='projectRangePID' name='my_range' value='"+singleData.getRangerMonthEnd()+"' /> "+
-							" </div></div></div></div></div> "+
+							" </div></div> "+
 							" </div> " +
 							" </div> " +
 							" </div>";

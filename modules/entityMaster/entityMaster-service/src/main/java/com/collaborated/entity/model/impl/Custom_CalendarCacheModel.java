@@ -66,7 +66,7 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{PK_calendarEventId=");
 		sb.append(PK_calendarEventId);
@@ -92,6 +92,22 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 		sb.append(endTime);
 		sb.append(", eventTitle=");
 		sb.append(eventTitle);
+		sb.append(", eventLocation=");
+		sb.append(eventLocation);
+		sb.append(", allDay=");
+		sb.append(allDay);
+		sb.append(", repeat=");
+		sb.append(repeat);
+		sb.append(", endRepeat=");
+		sb.append(endRepeat);
+		sb.append(", endRepeatDate=");
+		sb.append(endRepeatDate);
+		sb.append(", alert=");
+		sb.append(alert);
+		sb.append(", url=");
+		sb.append(url);
+		sb.append(", notes=");
+		sb.append(notes);
 		sb.append("}");
 
 		return sb.toString();
@@ -163,6 +179,57 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 			custom_CalendarImpl.setEventTitle(eventTitle);
 		}
 
+		if (eventLocation == null) {
+			custom_CalendarImpl.setEventLocation(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setEventLocation(eventLocation);
+		}
+
+		custom_CalendarImpl.setAllDay(allDay);
+
+		if (repeat == null) {
+			custom_CalendarImpl.setRepeat(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setRepeat(repeat);
+		}
+
+		if (endRepeat == null) {
+			custom_CalendarImpl.setEndRepeat(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setEndRepeat(endRepeat);
+		}
+
+		if (endRepeatDate == null) {
+			custom_CalendarImpl.setEndRepeatDate(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setEndRepeatDate(endRepeatDate);
+		}
+
+		if (alert == null) {
+			custom_CalendarImpl.setAlert(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setAlert(alert);
+		}
+
+		if (url == null) {
+			custom_CalendarImpl.setUrl(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setUrl(url);
+		}
+
+		if (notes == null) {
+			custom_CalendarImpl.setNotes(StringPool.BLANK);
+		}
+		else {
+			custom_CalendarImpl.setNotes(notes);
+		}
+
 		custom_CalendarImpl.resetOriginalValues();
 
 		return custom_CalendarImpl;
@@ -185,6 +252,15 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 		startTime = objectInput.readUTF();
 		endTime = objectInput.readUTF();
 		eventTitle = objectInput.readUTF();
+		eventLocation = objectInput.readUTF();
+
+		allDay = objectInput.readInt();
+		repeat = objectInput.readUTF();
+		endRepeat = objectInput.readUTF();
+		endRepeatDate = objectInput.readUTF();
+		alert = objectInput.readUTF();
+		url = objectInput.readUTF();
+		notes = objectInput.readUTF();
 	}
 
 	@Override
@@ -241,6 +317,57 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 		else {
 			objectOutput.writeUTF(eventTitle);
 		}
+
+		if (eventLocation == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(eventLocation);
+		}
+
+		objectOutput.writeInt(allDay);
+
+		if (repeat == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(repeat);
+		}
+
+		if (endRepeat == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(endRepeat);
+		}
+
+		if (endRepeatDate == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(endRepeatDate);
+		}
+
+		if (alert == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(alert);
+		}
+
+		if (url == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(url);
+		}
+
+		if (notes == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(notes);
+		}
 	}
 
 	public long PK_calendarEventId;
@@ -255,4 +382,12 @@ public class Custom_CalendarCacheModel implements CacheModel<Custom_Calendar>,
 	public String startTime;
 	public String endTime;
 	public String eventTitle;
+	public String eventLocation;
+	public int allDay;
+	public String repeat;
+	public String endRepeat;
+	public String endRepeatDate;
+	public String alert;
+	public String url;
+	public String notes;
 }

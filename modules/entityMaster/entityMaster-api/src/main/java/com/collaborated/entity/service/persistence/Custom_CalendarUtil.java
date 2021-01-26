@@ -259,6 +259,10 @@ public class Custom_CalendarUtil {
 		return getPersistence().countAll();
 	}
 
+	public static java.util.Set<java.lang.String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
+	}
+
 	public static Custom_CalendarPersistence getPersistence() {
 		return _serviceTracker.getService();
 	}

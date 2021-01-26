@@ -1,20 +1,27 @@
 package com.collaborated.bradleylab1screen.discussion.portlet;
 
+import com.collaborated.entity.model.discussionMessageNotification;
 import com.collaborated.entity.model.labScreenProjectOverview;
+import com.collaborated.entity.model.labScreenProjectPartners;
 import com.collaborated.entity.model.projectDiscussion;
 import com.collaborated.entity.model.projectFilesUpload;
 import com.collaborated.entity.model.projectFolderUpload;
+import com.collaborated.entity.model.projectInviteTracking;
 import com.collaborated.entity.model.userProfileImage;
+import com.collaborated.entity.service.discussionMessageNotificationLocalServiceUtil;
 import com.collaborated.entity.service.labScreenProjectOverviewLocalServiceUtil;
+import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
 import com.collaborated.entity.service.projectDiscussionLocalServiceUtil;
 import com.collaborated.entity.service.projectFilesUploadLocalServiceUtil;
 import com.collaborated.entity.service.projectFolderUploadLocalServiceUtil;
+import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
 import com.collaborated.entity.service.userProfileImageLocalServiceUtil;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolder;
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.document.library.kernel.service.DLAppServiceUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
@@ -498,6 +505,24 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			projectDiscussion.setSenderId(themeDisplay.getUserId());
 			projectDiscussion.setDescription(discussionMessage);
 			projectDiscussionLocalServiceUtil.addprojectDiscussion(projectDiscussion);
+			
+			List<labScreenProjectPartners> partnersList = getPartnerList(resourceRequest);
+			if(partnersList.size()>0){
+				for(labScreenProjectPartners singleData:partnersList){
+					if(singleData.getProjectPartnerId()!=themeDisplay.getUserId()){
+						discussionMessageNotification discussionMessageNotification = discussionMessageNotificationLocalServiceUtil.creatediscussionMessageNotification(CounterLocalServiceUtil.increment());
+						discussionMessageNotification.setPK_projectDiscussionId(projectDiscussion.getPK_projectDiscussionId());
+						discussionMessageNotification.setMessageFrom(themeDisplay.getUserId());
+						discussionMessageNotification.setMessageTo(singleData.getProjectPartnerId());
+						discussionMessageNotification.setIsRead(1);
+						discussionMessageNotification.setIsRemoved(4);
+						discussionMessageNotification.setMessageContent(discussionMessage);
+						discussionMessageNotification.setCreateDate(new Date());						
+						discussionMessageNotificationLocalServiceUtil.adddiscussionMessageNotification(discussionMessageNotification);
+					}
+				}
+			}
+			
 			out.print("add");
 		}catch(Exception e){
 			
@@ -625,5 +650,44 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			}
 		}
 	}
+	
+	public List<labScreenProjectPartners> getPartnerList(ResourceRequest resourceRequest){
+		List<labScreenProjectPartners> partnersList = null;
+		labScreenProjectOverview labScreenProjectOverview = null;
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpServletRequest httprequest = PortalUtil.getHttpServletRequest(resourceRequest);
+		httprequest = PortalUtil.getOriginalServletRequest(httprequest);
+
+		HttpSession httpsession = httprequest.getSession();
+		String sessionProjectID = (String)httpsession.getAttribute("PROJECT_KEY");
+		String sessionInterestID = (String)httpsession.getAttribute("PROJECT_INTEREST_KEY");
+		long PK_projectId = new Long(0);
+		long PK_interestId = new Long(0);
+		long currentUser = (Long)httpsession.getAttribute("currentUser");		
+		if(currentUser==themeDisplay.getUserId()){
+			PK_projectId = new Long(sessionProjectID);	
+			PK_interestId = new Long(sessionInterestID);
+		}
+		
+		labScreenProjectOverview = labScreenProjectOverviewLocalServiceUtil.fetchlabScreenProjectOverview(PK_projectId);
+		if(labScreenProjectOverview!=null){
+			PK_interestId = labScreenProjectOverview.getInterestId();
+		}
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(labScreenProjectPartners.class, PortalClassLoaderUtil.getClassLoader());
+		 
+		Criterion criterion = null;
+		criterion = RestrictionsFactoryUtil.eq("PK_projectId", new Long(PK_interestId));
+		 
+		criterion = RestrictionsFactoryUtil.and(criterion, RestrictionsFactoryUtil.eq("isActive", new Long(0)));
+		dynamicQuery.add(criterion);
+		 
+		partnersList = labScreenProjectPartnersLocalServiceUtil.dynamicQuery(dynamicQuery);
+		
+		resourceRequest.setAttribute("projectPartnersList", partnersList);
+		
+		return partnersList;
+	}
+	
 	private static final Log _log = LogFactoryUtil.getLog(BradleyLab1ScreenDiscussionPortlet.class.getName());
 }

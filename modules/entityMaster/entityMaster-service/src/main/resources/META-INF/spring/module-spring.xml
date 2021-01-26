@@ -10,6 +10,9 @@
 	<bean class="com.collaborated.entity.service.impl.Custom_CalendarLocalServiceImpl" id="com.collaborated.entity.service.Custom_CalendarLocalService" />
 	<bean class="com.collaborated.entity.service.impl.Custom_CalendarServiceImpl" id="com.collaborated.entity.service.Custom_CalendarService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.Custom_CalendarPersistenceImpl" id="com.collaborated.entity.service.persistence.Custom_CalendarPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.Custom_CalendarInviteesLocalServiceImpl" id="com.collaborated.entity.service.Custom_CalendarInviteesLocalService" />
+	<bean class="com.collaborated.entity.service.impl.Custom_CalendarInviteesServiceImpl" id="com.collaborated.entity.service.Custom_CalendarInviteesService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.Custom_CalendarInviteesPersistenceImpl" id="com.collaborated.entity.service.persistence.Custom_CalendarInviteesPersistence" parent="basePersistence" />
 	<bean class="com.collaborated.entity.service.impl.Custom_WorkflowLocalServiceImpl" id="com.collaborated.entity.service.Custom_WorkflowLocalService" />
 	<bean class="com.collaborated.entity.service.impl.Custom_WorkflowServiceImpl" id="com.collaborated.entity.service.Custom_WorkflowService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.Custom_WorkflowPersistenceImpl" id="com.collaborated.entity.service.persistence.Custom_WorkflowPersistence" parent="basePersistence" />
@@ -25,6 +28,9 @@
 	<bean class="com.collaborated.entity.service.impl.Custom_WorkflowLogLocalServiceImpl" id="com.collaborated.entity.service.Custom_WorkflowLogLocalService" />
 	<bean class="com.collaborated.entity.service.impl.Custom_WorkflowLogServiceImpl" id="com.collaborated.entity.service.Custom_WorkflowLogService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.Custom_WorkflowLogPersistenceImpl" id="com.collaborated.entity.service.persistence.Custom_WorkflowLogPersistence" parent="basePersistence" />
+	<bean class="com.collaborated.entity.service.impl.discussionMessageNotificationLocalServiceImpl" id="com.collaborated.entity.service.discussionMessageNotificationLocalService" />
+	<bean class="com.collaborated.entity.service.impl.discussionMessageNotificationServiceImpl" id="com.collaborated.entity.service.discussionMessageNotificationService" />
+	<bean class="com.collaborated.entity.service.persistence.impl.discussionMessageNotificationPersistenceImpl" id="com.collaborated.entity.service.persistence.discussionMessageNotificationPersistence" parent="basePersistence" />
 	<bean class="com.collaborated.entity.service.impl.labDetailedActivityTableLocalServiceImpl" id="com.collaborated.entity.service.labDetailedActivityTableLocalService" />
 	<bean class="com.collaborated.entity.service.impl.labDetailedActivityTableServiceImpl" id="com.collaborated.entity.service.labDetailedActivityTableService" />
 	<bean class="com.collaborated.entity.service.persistence.impl.labDetailedActivityTablePersistenceImpl" id="com.collaborated.entity.service.persistence.labDetailedActivityTablePersistence" parent="basePersistence" />

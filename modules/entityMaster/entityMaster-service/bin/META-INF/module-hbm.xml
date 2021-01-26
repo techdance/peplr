@@ -5,11 +5,13 @@
 	<import class="com.collaborated.entity.model.commonWebsserviceAPI" />
 	<import class="com.collaborated.entity.model.communicationPreferences" />
 	<import class="com.collaborated.entity.model.Custom_Calendar" />
+	<import class="com.collaborated.entity.model.Custom_CalendarInvitees" />
 	<import class="com.collaborated.entity.model.Custom_Workflow" />
 	<import class="com.collaborated.entity.model.Custom_Workflow_Completed" />
 	<import class="com.collaborated.entity.model.Custom_Workflow_Task" />
 	<import class="com.collaborated.entity.model.Custom_Workflow_Transition" />
 	<import class="com.collaborated.entity.model.Custom_WorkflowLog" />
+	<import class="com.collaborated.entity.model.discussionMessageNotification" />
 	<import class="com.collaborated.entity.model.labDetailedActivityTable" />
 	<import class="com.collaborated.entity.model.labDetailedCourseHours" />
 	<import class="com.collaborated.entity.model.labDetailedCourseIdentification" />
@@ -71,6 +73,27 @@
 		<property name="startTime" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="endTime" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="eventTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="eventLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="allDay" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property column="repeat_" name="repeat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="endRepeat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="endRepeatDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="alert" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="notes" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.Custom_CalendarInviteesImpl" table="collaborated_Custom_CalendarInvitees">
+		<id name="PK_calendarEventSubId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_calendarEventId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="inviteeEmailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="invitee" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.Custom_WorkflowImpl" table="collaborated_Custom_Workflow">
 		<id name="workFlowId" type="long">
@@ -138,6 +161,22 @@
 		<property name="completedDate" type="org.hibernate.type.TimestampType" />
 		<property name="createdBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.collaborated.entity.model.impl.discussionMessageNotificationImpl" table="collaborated_discussionMessageNotification">
+		<id name="PK_discussionNotificationId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="PK_projectDiscussionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="messageFrom" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="messageTo" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="isRead" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="isRemoved" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="messageTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="messageContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="emailContent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.collaborated.entity.model.impl.labDetailedActivityTableImpl" table="collaborated_labDetailedActivityTable">
 		<id name="PK_activityTableId" type="long">

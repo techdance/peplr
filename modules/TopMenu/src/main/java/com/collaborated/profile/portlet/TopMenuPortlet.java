@@ -1,10 +1,12 @@
 package com.collaborated.profile.portlet;
 
+import com.collaborated.entity.model.discussionMessageNotification;
 import com.collaborated.entity.model.labScreenProjectOverview;
 import com.collaborated.entity.model.labScreenProjectPartners;
 import com.collaborated.entity.model.projectInviteTracking;
 import com.collaborated.entity.model.userCredential;
 import com.collaborated.entity.model.userProfileImage;
+import com.collaborated.entity.service.discussionMessageNotificationLocalServiceUtil;
 import com.collaborated.entity.service.labScreenProjectOverviewLocalServiceUtil;
 import com.collaborated.entity.service.labScreenProjectPartnersLocalServiceUtil;
 import com.collaborated.entity.service.projectInviteTrackingLocalServiceUtil;
@@ -82,6 +84,8 @@ public class TopMenuPortlet extends MVCPortlet{
 			getMyNotificationCount(resourceRequest,resourceResponse);
 		}else if(resourceID != null && resourceID.equals("closeAction")) {
 			closeAction(resourceRequest,resourceResponse);
+		}else if(resourceID != null && resourceID.equals("closeActionMessageDiscussion")) {
+			closeActionMessageDiscussion(resourceRequest,resourceResponse);
 		}else if(resourceID != null && resourceID.equals("projectApproved")) {
 			projectApproved(resourceRequest,resourceResponse);
 		}
@@ -145,6 +149,11 @@ public class TopMenuPortlet extends MVCPortlet{
 			dynamicQueryTask.add(RestrictionsFactoryUtil.and(RestrictionsFactoryUtil.eq("inviteTo",themeDisplay.getUserId()),RestrictionsFactoryUtil.eq("isRemoved", new Long(4))));
 			List<projectInviteTracking> trackNotificationCountTask = projectInviteTrackingLocalServiceUtil.dynamicQuery(dynamicQueryTask);
 			
+			DynamicQuery dynamicQueryReadDiscussion = DynamicQueryFactoryUtil.forClass(discussionMessageNotification.class, "discussionMessageNotification",PortalClassLoaderUtil.getClassLoader());
+			dynamicQueryReadDiscussion.addOrder(OrderFactoryUtil.desc("discussionMessageNotification.createDate"));
+			dynamicQueryReadDiscussion.add(RestrictionsFactoryUtil.and(RestrictionsFactoryUtil.eq("messageTo",themeDisplay.getUserId()),RestrictionsFactoryUtil.eq("isRead", new Long(1))));
+			List<discussionMessageNotification> trackNotificationCountDiscussion = discussionMessageNotificationLocalServiceUtil.dynamicQuery(dynamicQueryReadDiscussion);
+			
 			
 			//int totalCount = trackNotificationCount.size() + trackNotificationCountRemoved.size();
 			
@@ -164,6 +173,42 @@ public class TopMenuPortlet extends MVCPortlet{
 				  
 					template1 = template1 + " <div id='toltip-item-1' class='toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5'> "+
 							" <a href='#' class='close-times' data-id='1' onclick='closeActionMessage("+singleProjectInviteTracking.getPK_projectInvitationId()+")'><i class='fas fa-times-circle'></i></a> "+
+							" <div class='status-email'></div> "+
+							" <div class='toltip-text p-2 pl-4 w-100'> "+
+							" <div class='toltip-header'> "+
+							" <div class='toltip-header-left p0'> "+
+							" <p>"+name+"</p> "+
+							" </div> "+
+							" <div class='toltip-header-right text-right p0'> "+
+							" <p>"+dateString+" </p> "+
+							" </div> "+
+							" </div> "+
+							" <div class='toltip-subhead p0'> "+
+							" <p>"+singleProjectInviteTracking.getMessageTitle()+"</p> "+
+							" </div> "+
+							" <div class='toltip-content p0'> "+
+							" <p>"+message+"</p> "+
+							" </div> "+
+							" </div> "+
+							" </div> ";
+				}
+			}
+			
+			if(trackNotificationCountDiscussion.size()>0){
+				for(discussionMessageNotification singleProjectInviteTracking:trackNotificationCountDiscussion){
+					int showChar = 140;
+					String message = "";String imgUrl = "";String name = "";String type = "message";
+					String dateString = dateFormat.format(singleProjectInviteTracking.getCreateDate()).toString();
+					long portraitId = UserLocalServiceUtil.getUser(singleProjectInviteTracking.getMessageFrom()).getPortraitId();
+					name =  UserLocalServiceUtil.getUser(singleProjectInviteTracking.getMessageFrom()).getFullName();
+					imgUrl = themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId;
+					message = singleProjectInviteTracking.getMessageContent();
+					if(message.length() > showChar) {
+						message = message.substring(0, showChar) + "...";
+					}
+				  
+					template1 = template1 + " <div id='toltip-item-1' class='toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5'> "+
+							" <a href='#' class='close-times' data-id='1' onclick='closeActionMessageDiscussion("+singleProjectInviteTracking.getPK_discussionNotificationId()+")'><i class='fas fa-times-circle'></i></a> "+
 							" <div class='status-email'></div> "+
 							" <div class='toltip-text p-2 pl-4 w-100'> "+
 							" <div class='toltip-header'> "+
@@ -259,7 +304,7 @@ public class TopMenuPortlet extends MVCPortlet{
 			
 			jsonObject.put("template1", template1);
 			jsonObject.put("template2", template2);
-			jsonObject.put("messageCount", trackNotificationCount.size());
+			jsonObject.put("messageCount", trackNotificationCount.size()+trackNotificationCountDiscussion.size());
 			jsonObject.put("notificationCount", trackNotificationCountRemoved.size()+trackNotificationCountTask.size());
 			//jsonObject.put("notificationCount", trackNotificationCountRemoved.size()+trackNotificationCountTask.size());
 			out.print(jsonObject);
@@ -287,6 +332,30 @@ public class TopMenuPortlet extends MVCPortlet{
 					projectInviteTracking.setIsRead(0);					
 				}
 				projectInviteTrackingLocalServiceUtil.updateprojectInviteTracking(projectInviteTracking);
+				out.print("updated");
+			}
+		}catch(Exception e){
+			
+		}finally{
+			if(out!=null){
+				out.close();
+			}
+		}
+	}public void closeActionMessageDiscussion(ResourceRequest resourceRequest,ResourceResponse resourceResponse){
+		long actionId = ParamUtil.getLong(resourceRequest, "actionId");
+		String type = ParamUtil.getString(resourceRequest, "type");
+		PrintWriter out = null;long inviteFrom = 0;String inviteFromName = "";String projectName = "";
+		discussionMessageNotification discussionMessageNotification = null;
+		try{
+			out = resourceResponse.getWriter();
+			discussionMessageNotification = discussionMessageNotificationLocalServiceUtil.getdiscussionMessageNotification(actionId);
+			if(discussionMessageNotification!=null){
+				if(type.equalsIgnoreCase("notification")){
+					discussionMessageNotification.setIsRemoved(2);					
+				}else if(type.equalsIgnoreCase("message")){					
+					discussionMessageNotification.setIsRead(0);					
+				}
+				discussionMessageNotificationLocalServiceUtil.updatediscussionMessageNotification(discussionMessageNotification);
 				out.print("updated");
 			}
 		}catch(Exception e){
