@@ -16,9 +16,16 @@ package com.collaborated.entity.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.collaborated.entity.service.commonWebsserviceAPIServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.collaborated.entity.service.commonWebsserviceAPIServiceUtil} service utility. The
+ * {@link commonWebsserviceAPIServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,25 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  * @see commonWebsserviceAPIServiceHttp
  * @see com.collaborated.entity.model.commonWebsserviceAPISoap
- * @see com.collaborated.entity.service.commonWebsserviceAPIServiceUtil
+ * @see commonWebsserviceAPIServiceUtil
  * @generated
  */
 @ProviderType
 public class commonWebsserviceAPIServiceSoap {
+	public static boolean logEntry(
+		com.liferay.portal.kernel.json.JSONObject jsonObject)
+		throws RemoteException {
+		try {
+			boolean returnValue = commonWebsserviceAPIServiceUtil.logEntry(jsonObject);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(commonWebsserviceAPIServiceSoap.class);
 }

@@ -1,6 +1,18 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="com.collaborated.entity.model.applicationLog">
+		<field name="PK_logId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="pageName" type="String" />
+		<field name="moduleName" type="String" />
+		<field name="buttonName" type="String" />
+		<field name="projectId" type="long" />
+		<field name="interestId" type="long" />
+		<field name="comments" type="String" />
+	</model>
 	<model name="com.collaborated.entity.model.commonWebsserviceAPI">
 		<field name="commonAPIId" type="long" />
 	</model>

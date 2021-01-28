@@ -1154,7 +1154,7 @@
 				<div class="row mt-5">
 					<div class="col-md-12">
 						<div class="float-left">
-							<a href='javascript:void(0);' class="btn btn-blue">Learn more</a>
+							<!-- <a href='javascript:void(0);' class="btn btn-blue">Learn more</a> -->
 						</div>
 						<div class="float-right d-flex">
 							<button class="btn btn-grey mr-2" data-dismiss="modal">Cancel</button>

@@ -16,12 +16,21 @@ package com.collaborated.entity.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.collaborated.entity.service.commonWebsserviceAPIServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+
 /**
  * Provides the HTTP utility for the
- * {@link com.collaborated.entity.service.commonWebsserviceAPIServiceUtil} service utility. The
+ * {@link commonWebsserviceAPIServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * {@link com.liferay.portal.kernel.security.auth.HttpPrincipal} parameter.
+ * {@link HttpPrincipal} parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -40,10 +49,41 @@ import aQute.bnd.annotation.ProviderType;
  *
  * @author Brian Wing Shun Chan
  * @see commonWebsserviceAPIServiceSoap
- * @see com.liferay.portal.kernel.security.auth.HttpPrincipal
- * @see com.collaborated.entity.service.commonWebsserviceAPIServiceUtil
+ * @see HttpPrincipal
+ * @see commonWebsserviceAPIServiceUtil
  * @generated
  */
 @ProviderType
 public class commonWebsserviceAPIServiceHttp {
+	public static boolean logEntry(HttpPrincipal httpPrincipal,
+		com.liferay.portal.kernel.json.JSONObject jsonObject) {
+		try {
+			MethodKey methodKey = new MethodKey(commonWebsserviceAPIServiceUtil.class,
+					"logEntry", _logEntryParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					jsonObject);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return ((Boolean)returnObj).booleanValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(commonWebsserviceAPIServiceHttp.class);
+	private static final Class<?>[] _logEntryParameterTypes0 = new Class[] {
+			com.liferay.portal.kernel.json.JSONObject.class
+		};
 }

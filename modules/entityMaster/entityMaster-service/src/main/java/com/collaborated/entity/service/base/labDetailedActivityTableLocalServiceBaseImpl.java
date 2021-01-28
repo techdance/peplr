@@ -25,6 +25,7 @@ import com.collaborated.entity.service.persistence.Custom_WorkflowPersistence;
 import com.collaborated.entity.service.persistence.Custom_Workflow_CompletedPersistence;
 import com.collaborated.entity.service.persistence.Custom_Workflow_TaskPersistence;
 import com.collaborated.entity.service.persistence.Custom_Workflow_TransitionPersistence;
+import com.collaborated.entity.service.persistence.applicationLogPersistence;
 import com.collaborated.entity.service.persistence.commonWebsserviceAPIPersistence;
 import com.collaborated.entity.service.persistence.communicationPreferencesPersistence;
 import com.collaborated.entity.service.persistence.discussionMessageNotificationPersistence;
@@ -349,6 +350,44 @@ public abstract class labDetailedActivityTableLocalServiceBaseImpl
 	public labDetailedActivityTable updatelabDetailedActivityTable(
 		labDetailedActivityTable labDetailedActivityTable) {
 		return labDetailedActivityTablePersistence.update(labDetailedActivityTable);
+	}
+
+	/**
+	 * Returns the application log local service.
+	 *
+	 * @return the application log local service
+	 */
+	public com.collaborated.entity.service.applicationLogLocalService getapplicationLogLocalService() {
+		return applicationLogLocalService;
+	}
+
+	/**
+	 * Sets the application log local service.
+	 *
+	 * @param applicationLogLocalService the application log local service
+	 */
+	public void setapplicationLogLocalService(
+		com.collaborated.entity.service.applicationLogLocalService applicationLogLocalService) {
+		this.applicationLogLocalService = applicationLogLocalService;
+	}
+
+	/**
+	 * Returns the application log persistence.
+	 *
+	 * @return the application log persistence
+	 */
+	public applicationLogPersistence getapplicationLogPersistence() {
+		return applicationLogPersistence;
+	}
+
+	/**
+	 * Sets the application log persistence.
+	 *
+	 * @param applicationLogPersistence the application log persistence
+	 */
+	public void setapplicationLogPersistence(
+		applicationLogPersistence applicationLogPersistence) {
+		this.applicationLogPersistence = applicationLogPersistence;
 	}
 
 	/**
@@ -1732,6 +1771,10 @@ public abstract class labDetailedActivityTableLocalServiceBaseImpl
 		}
 	}
 
+	@BeanReference(type = com.collaborated.entity.service.applicationLogLocalService.class)
+	protected com.collaborated.entity.service.applicationLogLocalService applicationLogLocalService;
+	@BeanReference(type = applicationLogPersistence.class)
+	protected applicationLogPersistence applicationLogPersistence;
 	@BeanReference(type = com.collaborated.entity.service.commonWebsserviceAPILocalService.class)
 	protected com.collaborated.entity.service.commonWebsserviceAPILocalService commonWebsserviceAPILocalService;
 	@BeanReference(type = commonWebsserviceAPIPersistence.class)

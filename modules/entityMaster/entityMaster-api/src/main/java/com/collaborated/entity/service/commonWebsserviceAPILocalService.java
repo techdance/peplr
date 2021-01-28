@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -60,6 +61,7 @@ public interface commonWebsserviceAPILocalService extends BaseLocalService,
 	 *
 	 * Never modify or reference this interface directly. Always use {@link commonWebsserviceAPILocalServiceUtil} to access the common websservice a p i local service. Add custom service methods to {@link com.collaborated.entity.service.impl.commonWebsserviceAPILocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public boolean logEntry(JSONObject jsonObject);
 
 	/**
 	* Adds the common websservice a p i to the database. Also notifies the appropriate model listeners.

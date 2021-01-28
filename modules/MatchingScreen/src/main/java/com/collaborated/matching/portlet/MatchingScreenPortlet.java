@@ -106,12 +106,16 @@ public class MatchingScreenPortlet extends MVCPortlet {
 		List<profileAreaofinterest> listData = null;
 		profileAreaofinterest singleData = null;
 		long key = ParamUtil.getLong(resourceRequest, "key");
-		String educationLevel = "";
+		String educationLevel = "";String instituteNameCurrentUser = "";
 		PortletSession ps = resourceRequest.getPortletSession();
 		try{
 			out = resourceResponse.getWriter();
+			System.out.println("inside getall");
 			singleData = profileAreaofinterestLocalServiceUtil.getprofileAreaofinterest(key);
-			String instituteNameCurrentUser = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+			System.out.println("key==="+key);
+			System.out.println("singleData==="+singleData);
+			instituteNameCurrentUser = (String) themeDisplay.getUser().getExpandoBridge().getAttribute("instituteName");
+			System.out.println("instituteNameCurrentUser==="+instituteNameCurrentUser);
 			if(singleData!=null){
 				String query = "SELECT * FROM `collaborated_profileAreaofinterest` WHERE (projectType='"+singleData.getProjectType()+"' OR location1='"+singleData.getLocation1()+"' OR "
 						+ "discipline1='"+singleData.getDiscipline1()+"' OR language='"+singleData.getLanguage()+"' OR collaborationType='"+singleData.getCollaborationType()+"') AND userId!="+themeDisplay.getUserId();
@@ -122,7 +126,7 @@ public class MatchingScreenPortlet extends MVCPortlet {
 					query = query + " AND universityName='"+instituteNameCurrentUser+"'";
 				}
 				
-				System.out.println(query);
+				System.out.println("query==="+query);
 				jsonArray = GetData(query);
 				jsonArrayFinal = JSONFactoryUtil.createJSONArray();
 				for(int l=0;l<jsonArray.length();l++){
@@ -144,7 +148,8 @@ public class MatchingScreenPortlet extends MVCPortlet {
 						 educationLevel = "";
 						 educationLevel = creList.get(0).getMembership4();
 					 }
-					 
+					 System.out.println("query==="+query);
+					 System.out.println("educationLevel==="+educationLevel);
 					 /*String department="", cityState="",instituteName="",country="";
 					 institutionProfile = (JSONObject)ps.getAttribute("INSTITUTE_PROFILE",PortletSession.APPLICATION_SCOPE);					 
 					 if(institutionProfile!=null){

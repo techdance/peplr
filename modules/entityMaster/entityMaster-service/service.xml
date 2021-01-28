@@ -771,4 +771,25 @@
 		<column name="emailContent" type="String" />
 	</entity>
 	
+	<!-- Log capture -->
+
+	<entity local-service="true" name="applicationLog" remote-service="true" uuid="false" json-enabled="true">
+		<column name="PK_logId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+		
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="pageName" type="String" />
+		<column name="moduleName" type="String" />
+		<column name="buttonName" type="String" />
+		<column name="projectId" type="long" />
+		<column name="interestId" type="long" />
+		<column name="comments" type="String" />
+		
+	</entity>
+	
 </service-builder>

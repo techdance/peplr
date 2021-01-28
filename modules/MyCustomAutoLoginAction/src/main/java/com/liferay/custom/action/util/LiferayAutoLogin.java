@@ -1,6 +1,7 @@
 package com.liferay.custom.action.util;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,9 @@ import org.osgi.service.component.annotations.Component;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.collaborated.entity.model.applicationLog;
+import com.collaborated.entity.service.applicationLogLocalServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.model.ExpandoTable;
@@ -370,6 +374,19 @@ public class LiferayAutoLogin implements AutoLogin{
 				}catch(Exception e){
 					
 				}
+				
+				applicationLog applicationLog = null;
+				applicationLog = applicationLogLocalServiceUtil.createapplicationLog(CounterLocalServiceUtil.increment());
+				applicationLog.setCreateDate(new Date());
+				applicationLog.setUserId(user.getUserId());
+				applicationLog.setUserName(user.getFullName());
+				applicationLog.setPageName("Sign In");
+				applicationLog.setModuleName("");
+				applicationLog.setButtonName("Sign In");
+				applicationLog.setProjectId(0);
+				applicationLog.setInterestId(0);
+				applicationLog.setComments("");
+				applicationLogLocalServiceUtil.addapplicationLog(applicationLog);
 				
 				System.out.println("==>> Redirecting to Login page with success Loign!");
 				request.setAttribute(AUTO_LOGIN_REDIRECT_AND_CONTINUE, "/web/guest/home1?sso=true&user="+accessToken);

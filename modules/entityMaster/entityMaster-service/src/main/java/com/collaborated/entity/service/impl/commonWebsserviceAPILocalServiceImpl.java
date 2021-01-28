@@ -16,7 +16,13 @@ package com.collaborated.entity.service.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import java.util.Date;
+
+import com.collaborated.entity.model.applicationLog;
+import com.collaborated.entity.service.applicationLogLocalServiceUtil;
 import com.collaborated.entity.service.base.commonWebsserviceAPILocalServiceBaseImpl;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 
 /**
  * The implementation of the common websservice a p i local service.
@@ -40,4 +46,23 @@ public class commonWebsserviceAPILocalServiceImpl
 	 *
 	 * Never reference this class directly. Always use {@link com.collaborated.entity.service.commonWebsserviceAPILocalServiceUtil} to access the common websservice a p i local service.
 	 */
+	public boolean logEntry(JSONObject jsonObject){
+		applicationLog applicationLog = null;
+		boolean status = false;
+		if(jsonObject!=null){
+			applicationLog = applicationLogLocalServiceUtil.createapplicationLog(CounterLocalServiceUtil.increment());
+			applicationLog.setCreateDate(new Date());
+			applicationLog.setUserId(jsonObject.getLong("userId"));
+			applicationLog.setUserName(jsonObject.getString("userName"));
+			applicationLog.setPageName(jsonObject.getString("pageName"));
+			applicationLog.setModuleName(jsonObject.getString("moduleName"));
+			applicationLog.setButtonName(jsonObject.getString("buttonName"));
+			applicationLog.setProjectId(jsonObject.getLong("projectId"));
+			applicationLog.setInterestId(jsonObject.getLong("interestId"));
+			applicationLog.setComments(jsonObject.getString("comments"));
+			applicationLogLocalServiceUtil.addapplicationLog(applicationLog);
+			status = true;
+		}
+		return status;
+	}
 }

@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.collaborated.entity.model.applicationLog" />
 	<import class="com.collaborated.entity.model.commonWebsserviceAPI" />
 	<import class="com.collaborated.entity.model.communicationPreferences" />
 	<import class="com.collaborated.entity.model.Custom_Calendar" />
@@ -34,6 +35,20 @@
 	<import class="com.collaborated.entity.model.userInstitutionProfileSubDetails" />
 	<import class="com.collaborated.entity.model.userProfessionalBio" />
 	<import class="com.collaborated.entity.model.userProfileImage" />
+	<class name="com.collaborated.entity.model.impl.applicationLogImpl" table="collaborated_applicationLog">
+		<id name="PK_logId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="pageName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="moduleName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="buttonName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="projectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="interestId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="comments" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.collaborated.entity.model.impl.commonWebsserviceAPIImpl" table="collaborated_commonWebsserviceAPI">
 		<id name="commonAPIId" type="long">
 			<generator class="assigned" />

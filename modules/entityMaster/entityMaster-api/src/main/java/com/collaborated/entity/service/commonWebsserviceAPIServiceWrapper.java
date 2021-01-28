@@ -34,6 +34,12 @@ public class commonWebsserviceAPIServiceWrapper
 		_commonWebsserviceAPIService = commonWebsserviceAPIService;
 	}
 
+	@Override
+	public boolean logEntry(
+		com.liferay.portal.kernel.json.JSONObject jsonObject) {
+		return _commonWebsserviceAPIService.logEntry(jsonObject);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

@@ -534,7 +534,7 @@ if(bioList.size()>0){
 				<div class="col-md-12">
 					<div class="content-icon position-relative mb-4">
 						<div><span class="icon-regular icon-shield-check"></span> <strong>Discipline</strong></div>
-						<aui:select name="bioDiscipline" label="" cssClass="wrap-input input select" required="true" style="width: auto; margin-left: 25px;">
+						<aui:select name="bioDiscipline" label="" cssClass="wrap-input input select" style="width: auto; margin-left: 25px;">
 							<aui:option value="Anthropology"></aui:option>
 							<aui:option value="Archaeology">Archaeology</aui:option>
 							<aui:option value="Arts">Arts</aui:option>

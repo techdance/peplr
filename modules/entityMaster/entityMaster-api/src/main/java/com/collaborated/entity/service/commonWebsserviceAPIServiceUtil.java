@@ -41,6 +41,10 @@ public class commonWebsserviceAPIServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.collaborated.entity.service.impl.commonWebsserviceAPIServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static boolean logEntry(
+		com.liferay.portal.kernel.json.JSONObject jsonObject) {
+		return getService().logEntry(jsonObject);
+	}
 
 	/**
 	* Returns the OSGi service identifier.

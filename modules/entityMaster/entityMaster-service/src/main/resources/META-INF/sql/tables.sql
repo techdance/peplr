@@ -95,6 +95,19 @@ create table collaborated_Custom_Workflow_Transition (
 	createdDate DATE null
 );
 
+create table collaborated_applicationLog (
+	PK_logId LONG not null primary key,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	pageName VARCHAR(75) null,
+	moduleName VARCHAR(75) null,
+	buttonName VARCHAR(75) null,
+	projectId LONG,
+	interestId LONG,
+	comments VARCHAR(75) null
+);
+
 create table collaborated_commonWebsserviceAPI (
 	commonAPIId LONG not null primary key
 );

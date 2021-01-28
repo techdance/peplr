@@ -470,6 +470,8 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 		SimpleDateFormat sdfDestination = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
 		Date createdOn = new Date();
 		String userTimeZone = "";
+		labScreenProjectOverview labScreenProjectOverview = null;
+		String projectName = "";
 		try {
 			User sendUser = UserLocalServiceUtil.getUser(themeDisplay.getUserId());
 			userTimeZone = (String)sendUser.getExpandoBridge().getAttribute("instituteTimezone");
@@ -498,6 +500,11 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 				PK_interestId = new Long(sessionInterestID);
 			}
 			
+			labScreenProjectOverview = labScreenProjectOverviewLocalServiceUtil.getlabScreenProjectOverview(PK_projectId);
+			if(labScreenProjectOverview!=null){
+				projectName = labScreenProjectOverview.getProjectName();
+			}
+			
 			projectDiscussion projectDiscussion = projectDiscussionLocalServiceUtil.createprojectDiscussion(CounterLocalServiceUtil.increment());
 			projectDiscussion.setCreatedOn(createdOn);
 			projectDiscussion.setInterestId(PK_interestId);
@@ -508,6 +515,17 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 			
 			List<labScreenProjectPartners> partnersList = getPartnerList(resourceRequest);
 			if(partnersList.size()>0){
+				if(partnersList.get(0).getUserId()!=themeDisplay.getUserId()){
+					discussionMessageNotification discussionMessageNotification = discussionMessageNotificationLocalServiceUtil.creatediscussionMessageNotification(CounterLocalServiceUtil.increment());
+					discussionMessageNotification.setPK_projectDiscussionId(projectDiscussion.getPK_projectDiscussionId());
+					discussionMessageNotification.setMessageFrom(themeDisplay.getUserId());
+					discussionMessageNotification.setMessageTo(partnersList.get(0).getUserId());
+					discussionMessageNotification.setIsRead(1);
+					discussionMessageNotification.setIsRemoved(4);
+					discussionMessageNotification.setMessageContent(themeDisplay.getUser().getFullName()+" added to the Discussion in the "+ projectName +" project");
+					discussionMessageNotification.setCreateDate(new Date());						
+					discussionMessageNotificationLocalServiceUtil.adddiscussionMessageNotification(discussionMessageNotification);
+				}
 				for(labScreenProjectPartners singleData:partnersList){
 					if(singleData.getProjectPartnerId()!=themeDisplay.getUserId()){
 						discussionMessageNotification discussionMessageNotification = discussionMessageNotificationLocalServiceUtil.creatediscussionMessageNotification(CounterLocalServiceUtil.increment());
@@ -516,7 +534,7 @@ public class BradleyLab1ScreenDiscussionPortlet extends MVCPortlet {
 						discussionMessageNotification.setMessageTo(singleData.getProjectPartnerId());
 						discussionMessageNotification.setIsRead(1);
 						discussionMessageNotification.setIsRemoved(4);
-						discussionMessageNotification.setMessageContent(discussionMessage);
+						discussionMessageNotification.setMessageContent(themeDisplay.getUser().getFullName()+" added to the Discussion in the "+ projectName +" project");
 						discussionMessageNotification.setCreateDate(new Date());						
 						discussionMessageNotificationLocalServiceUtil.adddiscussionMessageNotification(discussionMessageNotification);
 					}

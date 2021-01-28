@@ -34,6 +34,12 @@ public class commonWebsserviceAPILocalServiceWrapper
 		_commonWebsserviceAPILocalService = commonWebsserviceAPILocalService;
 	}
 
+	@Override
+	public boolean logEntry(
+		com.liferay.portal.kernel.json.JSONObject jsonObject) {
+		return _commonWebsserviceAPILocalService.logEntry(jsonObject);
+	}
+
 	/**
 	* Adds the common websservice a p i to the database. Also notifies the appropriate model listeners.
 	*
