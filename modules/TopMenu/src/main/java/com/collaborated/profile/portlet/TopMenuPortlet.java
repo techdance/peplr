@@ -194,42 +194,6 @@ public class TopMenuPortlet extends MVCPortlet{
 				}
 			}
 			
-			if(trackNotificationCountDiscussion.size()>0){
-				for(discussionMessageNotification singleProjectInviteTracking:trackNotificationCountDiscussion){
-					int showChar = 140;
-					String message = "";String imgUrl = "";String name = "";String type = "message";
-					String dateString = dateFormat.format(singleProjectInviteTracking.getCreateDate()).toString();
-					long portraitId = UserLocalServiceUtil.getUser(singleProjectInviteTracking.getMessageFrom()).getPortraitId();
-					name =  UserLocalServiceUtil.getUser(singleProjectInviteTracking.getMessageFrom()).getFullName();
-					imgUrl = themeDisplay.getPathImage()+"/user_portrait?img_id="+portraitId;
-					message = singleProjectInviteTracking.getMessageContent();
-					if(message.length() > showChar) {
-						message = message.substring(0, showChar) + "...";
-					}
-				  
-					template1 = template1 + " <div id='toltip-item-1' class='toltip-item d-flex position-relative p-0 toltip-overlay border-radius-5'> "+
-							" <a href='#' class='close-times' data-id='1' onclick='closeActionMessageDiscussion("+singleProjectInviteTracking.getPK_discussionNotificationId()+")'><i class='fas fa-times-circle'></i></a> "+
-							" <div class='status-email'></div> "+
-							" <div class='toltip-text p-2 pl-4 w-100'> "+
-							" <div class='toltip-header'> "+
-							" <div class='toltip-header-left p0'> "+
-							" <p>"+name+"</p> "+
-							" </div> "+
-							" <div class='toltip-header-right text-right p0'> "+
-							" <p>"+dateString+" </p> "+
-							" </div> "+
-							" </div> "+
-							" <div class='toltip-subhead p0'> "+
-							" <p>"+singleProjectInviteTracking.getMessageTitle()+"</p> "+
-							" </div> "+
-							" <div class='toltip-content p0'> "+
-							" <p>"+message+"</p> "+
-							" </div> "+
-							" </div> "+
-							" </div> ";
-				}
-			}
-			
 			// under notifications design
 			if(trackNotificationCountRemoved.size()>0){
 				for(projectInviteTracking singleProjectInviteTracking:trackNotificationCountRemoved){
@@ -299,6 +263,37 @@ public class TopMenuPortlet extends MVCPortlet{
 								+ "</div>";
 						//System.out.println("trackNotificationCountTask === if === "+template2);
 					/*}*/
+				}
+			}
+			
+			if(trackNotificationCountDiscussion.size()>0){
+				for(discussionMessageNotification singleProjectInviteTracking:trackNotificationCountDiscussion){
+					String message = "";String imgUrl = "";String type = "notification";
+					String imageURL = "",imgSRC="";boolean isBase64 = false;
+					DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(userProfileImage.class,PortalClassLoaderUtil.getClassLoader());
+					dynamicQuery.add(PropertyFactoryUtil.forName("userId").eq(themeDisplay.getUser().getUserId()));
+					List<userProfileImage> values = userProfileImageLocalServiceUtil.dynamicQuery(dynamicQuery);
+					if(values.size()>0){
+						imageURL = values.get(0).getFileEntryUrl();					
+					    JSONObject jsonObject2 = CommonMethods.getProfileImageBlob(themeDisplay.getUser().getUserId());	               
+					    imageURL = jsonObject2.getString("byteArray");
+					    imgSRC = "data:image/png;base64,"+imageURL;
+					    isBase64 = true;
+					}else{
+						imageURL = "/o/ahea-theme/images/user.png";
+						imgSRC = imageURL;
+						isBase64 = false;
+					}
+					message = singleProjectInviteTracking.getMessageContent();
+					template2 = template2 + "<div id='toltip-item-1' class='toltip-item toltip-overlay d-flex position-relative'>"
+							+ "<a href='javascript:void(0)' class='close-times' data-id='1' onclick='closeActionNotification("+singleProjectInviteTracking.getPK_discussionNotificationId()+")'><i class='fa fa-times-circle'></i></a>"
+							+ "<div class='toltip-image'>"
+							+ "<img src='"+imgSRC+"' width='48'>"
+							+ "</div>"
+							+ "<div class='toltip-text'>"
+							+ "<p>"+message+"</p>"
+							+ "</div>"
+							+ "</div>";
 				}
 			}
 			
